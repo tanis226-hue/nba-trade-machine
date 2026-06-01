@@ -1,14 +1,17 @@
 import { nanoid } from 'nanoid';
 import { createSupabase } from './supabase';
 import type { DbTeam, DbSeasonCap, RosterEntry } from './types';
+import { hasSupabase, localSeasons, localTeams, localRoster, localSaveTrade, localGetTrade } from './local';
 
 export async function getSeasons(): Promise<string[]> {
+  if (!hasSupabase()) return localSeasons();
   const { data, error } = await createSupabase().from('season_cap').select('season').order('season');
   if (error) throw error;
   return data.map((r) => r.season);
 }
 
 export async function getTeams(): Promise<DbTeam[]> {
+  if (!hasSupabase()) return localTeams();
   const { data, error } = await createSupabase().from('teams').select('*').order('name');
   if (error) throw error;
   return data;
@@ -21,6 +24,7 @@ export async function getSeasonCap(season: string): Promise<DbSeasonCap> {
 }
 
 export async function getRoster(teamId: string, season: string): Promise<RosterEntry[]> {
+  if (!hasSupabase()) return localRoster(teamId, season);
   const { data, error } = await createSupabase()
     .from('players')
     .select('id, name, position, age, contracts(season, salary, option_type, guarantee_status, no_trade_clause)')
@@ -33,14 +37,7 @@ export async function getRoster(teamId: string, season: string): Promise<RosterE
       const contract = ((p.contracts ?? []) as any[]).sort((a, b) => a.season.localeCompare(b.season));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cur = contract.find((c: any) => c.season === season);
-      return {
-        playerId: p.id,
-        name: p.name,
-        position: p.position,
-        age: p.age,
-        salary: cur?.salary ?? 0,
-        contract,
-      };
+      return { playerId: p.id, name: p.name, position: p.position, age: p.age, salary: cur?.salary ?? 0, contract };
     })
     .filter((r) => r.salary > 0);
 }
@@ -54,12 +51,17 @@ export interface TradePayload {
 
 export async function saveTrade(payload: TradePayload): Promise<string> {
   const slug = nanoid(10);
+  if (!hasSupabase()) {
+    localSaveTrade(slug, payload);
+    return slug;
+  }
   const { error } = await createSupabase().from('trades').insert({ id: slug, slug, payload });
   if (error) throw error;
   return slug;
 }
 
 export async function getTrade(slug: string): Promise<TradePayload | null> {
+  if (!hasSupabase()) return localGetTrade(slug) as TradePayload | null;
   const { data, error } = await createSupabase().from('trades').select('payload').eq('slug', slug).maybeSingle();
   if (error) throw error;
   return data ? (data.payload as TradePayload) : null;
