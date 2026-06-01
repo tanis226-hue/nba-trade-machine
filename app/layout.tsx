@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Oswald, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { AdSlot } from "@/components/AdSlot";
 
@@ -70,7 +69,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             Salaries from public data, hand-verified. Not affiliated with the NBA.
           </p>
         </footer>
-        <Analytics />
+        {/* Traffic analytics handled by Netlify Analytics (server-side, dashboard-enabled);
+            no client script needed. Swap in Plausible here if event tracking is wanted. */}
       </body>
     </html>
   );
