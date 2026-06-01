@@ -19,27 +19,32 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
   const list = Object.values(assets);
 
   return (
-    <main className="mx-auto max-w-4xl space-y-4 p-4">
-      <h1 className="text-2xl font-bold">Proposed Trade · {payload.season}</h1>
-      <div className="grid gap-3 md:grid-cols-2">
+    <main className="rise space-y-5">
+      <div>
+        <div className="text-[11px] uppercase tracking-[0.18em] text-[var(--faint)]">Shared proposal · {payload.season}</div>
+        <h1 className="font-display text-4xl font-bold uppercase tracking-tight text-[var(--text)]">Proposed Trade</h1>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2">
         {teams.map((t) => {
           const receives = list.filter((a) => a.toTeam === t.abbr && a.fromTeam !== t.abbr);
           return (
-            <div key={t.abbr} className="rounded-lg border border-neutral-200 bg-white p-3 shadow-sm">
-              <div className="font-bold">{t.abbr}</div>
-              {receives.length === 0 && <div className="text-sm text-neutral-400">No incoming assets</div>}
-              {receives.map((a) => (
-                <div key={a.id} className="flex justify-between text-sm">
-                  <span>Receives: {a.label}</span>
-                  {a.salary > 0 && <span className="tabular-nums text-neutral-500">{m(a.salary)}</span>}
-                </div>
-              ))}
+            <div key={t.abbr} className="panel rounded-xl p-4">
+              <div className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">{t.abbr}</div>
+              {receives.length === 0 && <div className="mt-1 text-sm text-[var(--faint)]">No incoming assets</div>}
+              <div className="mt-2 space-y-1">
+                {receives.map((a) => (
+                  <div key={a.id} className="flex items-center justify-between text-sm text-[var(--text)]">
+                    <span className="text-[var(--legal)]">+ {a.label}</span>
+                    {a.salary > 0 && <span className="num text-xs text-[var(--muted)]">{m(a.salary)}</span>}
+                  </div>
+                ))}
+              </div>
             </div>
           );
         })}
       </div>
       <ValidationFeed validation={validation} />
-      <a href="/" className="inline-block text-sm text-sky-700 underline">
+      <a href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">
         Build your own trade →
       </a>
     </main>

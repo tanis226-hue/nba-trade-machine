@@ -23,16 +23,21 @@ export function TradeMatrix({
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-3 overflow-x-auto snap-x pb-2">
+      <div className="scroll-x flex gap-3 overflow-x-auto pb-2">
         {teams.map((t) => (
           <div key={t.abbr} className="snap-start">
             <TeamColumn abbr={t.abbr} meta={teamMeta[t.abbr]} result={byTeam[t.abbr]} contracts={contracts} />
           </div>
         ))}
       </div>
-      <ValidationFeed validation={validation} />
-      <ExecuteTradeButton valid={validation.valid && teams.length >= 2} onExecute={() => { /* Phase 5 interstitial */ }} />
-      <GenerateLinkButton />
+
+      <div className="grid gap-3 md:grid-cols-[1fr_280px] md:items-stretch">
+        <ValidationFeed validation={validation} />
+        <div className="space-y-2">
+          <ExecuteTradeButton valid={validation.valid && teams.length >= 2} onExecute={() => { /* Phase 5 interstitial */ }} />
+          <GenerateLinkButton />
+        </div>
+      </div>
     </div>
   );
 }

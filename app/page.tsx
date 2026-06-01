@@ -10,11 +10,19 @@ export default async function Home() {
     await Promise.all(teams.map(async (t) => [t.abbr, await getRoster(t.id, season)] as const)),
   );
   return (
-    <main className="mx-auto max-w-6xl p-4">
-      <header className="mb-4">
-        <h1 className="text-2xl font-bold">NBA Trade Machine</h1>
-        <p className="text-sm text-neutral-500">Fast, accurate multi-team trades with live {season} apron validation.</p>
-      </header>
+    <main className="rise">
+      <section className="mb-7">
+        <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)]/60 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[var(--muted)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--legal)]" /> Live {season} apron engine
+        </div>
+        <h1 className="font-display text-5xl font-bold uppercase leading-[0.95] tracking-tight text-[var(--text)] sm:text-6xl">
+          Build the <span className="text-[var(--accent)]">trade</span>.
+        </h1>
+        <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[var(--muted)]">
+          Mock up 2-4 team deals with real contracts and instant CBA validation: salary matching,
+          luxury tax, and first / second apron rules, calculated the moment you move a player.
+        </p>
+      </section>
       <TradeBoard teams={teams} rosters={rosters} seasons={seasons} />
     </main>
   );

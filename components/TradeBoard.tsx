@@ -35,30 +35,49 @@ export function TradeBoard({
 
   useEffect(() => () => useTradeStore.getState().reset(), []);
 
-  const available = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0 && !storeTeams.some((s) => s.abbr === t.abbr));
+  const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
+  const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
+  const atMax = storeTeams.length >= 4;
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-3">
+    <div className="space-y-5">
+      <div className="panel flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl p-3.5">
         <SeasonSelector seasons={seasons} />
-        <div className="flex flex-wrap gap-2">
-          {available.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => add(t)}
-              disabled={storeTeams.length >= 4}
-              className="rounded-lg border px-3 py-1 text-sm font-medium text-white disabled:opacity-40"
-              style={{ backgroundColor: t.primary_color ?? '#1f2937' }}
-            >
-              + {t.abbr}
-            </button>
-          ))}
+        <div className="h-5 w-px bg-[var(--border)]" />
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--faint)]">
+            Add teams {storeTeams.length}/4
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {available.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => add(t)}
+                disabled={atMax}
+                className="group relative overflow-hidden rounded-md px-2.5 py-1 font-display text-sm font-semibold tracking-wide text-white transition enabled:hover:-translate-y-0.5 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-30"
+                style={{ backgroundColor: t.primary_color ?? '#1f2937' }}
+              >
+                <span className="relative">+ {t.abbr}</span>
+              </button>
+            ))}
+            {available.length === 0 && !atMax && (
+              <span className="text-xs text-[var(--faint)]">No more seeded rosters available</span>
+            )}
+          </div>
         </div>
       </div>
+
       {storeTeams.length >= 2 ? (
         <TradeMatrix contracts={contracts} teamMeta={teamMeta} />
       ) : (
-        <p className="text-neutral-500">Add at least two teams to start building a trade.</p>
+        <div className="panel flex flex-col items-center justify-center rounded-xl px-6 py-16 text-center">
+          <div className="font-display text-2xl font-bold uppercase tracking-wide text-[var(--text)]">
+            Pick at least two teams
+          </div>
+          <p className="mt-2 max-w-sm text-sm text-[var(--muted)]">
+            Use the team buttons above to load rosters into the matrix, then route players and picks between them.
+          </p>
+        </div>
       )}
     </div>
   );

@@ -10,10 +10,10 @@ export function AdSlot({ size }: { size: keyof typeof SIZES }) {
   return (
     <div
       aria-label="advertisement"
-      style={{ minWidth: w, minHeight: h }}
-      className="flex items-center justify-center border border-dashed border-neutral-300 bg-neutral-100 text-xs text-neutral-400"
+      style={{ minWidth: w, minHeight: h, width: w, height: h }}
+      className="flex items-center justify-center rounded-lg border border-dashed border-[var(--border-soft)] bg-[var(--bg-elev)]/40 text-[10px] uppercase tracking-[0.2em] text-[var(--faint)]"
     >
-      Ad {w}×{h}
+      Advertisement
     </div>
   );
 }
