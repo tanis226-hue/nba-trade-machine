@@ -8,8 +8,11 @@ export function validateTrade(input: TradeInput): TradeValidation {
   const errors: TradeError[] = [];
 
   const perTeam: TeamResult[] = teams.map((team) => {
-    const out = assets.filter((a) => a.fromTeam === team.abbr);
-    const inc = assets.filter((a) => a.toTeam === team.abbr);
+    // Only assets that actually change teams count as a trade. The UI registers every
+    // roster player as an asset defaulting to Stay (fromTeam===toTeam); those must be ignored
+    // or an untouched roster would be read as outgoing+incoming and trip phantom apron flags.
+    const out = assets.filter((a) => a.fromTeam === team.abbr && a.toTeam !== team.abbr);
+    const inc = assets.filter((a) => a.toTeam === team.abbr && a.fromTeam !== team.abbr);
     const outgoing = out.reduce((s, a) => s + a.salary, 0);
     const incoming = inc.reduce((s, a) => s + a.salary, 0);
     const postSalary = team.preTradeSalary - outgoing + incoming;

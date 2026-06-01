@@ -75,6 +75,46 @@ describe('validateTrade', () => {
     expect(r.errors.some((e) => e.code === 'NO_AGGREGATION')).toBe(false);
   });
 
+  it('ignores stay assets (fromTeam===toTeam) so an untouched 2nd-apron roster is not flagged', () => {
+    // The UI registers every roster player as an asset defaulting to Stay (fromTeam===toTeam).
+    // With nothing actually moved, a 2nd-apron team must not get a phantom aggregation flag.
+    const r = validateTrade({
+      ...base,
+      teams: [
+        { abbr: 'AAA', preTradeSalary: 165 }, // 2nd apron
+        { abbr: 'BBB', preTradeSalary: 120 },
+      ],
+      assets: [
+        { id: 'a1', kind: 'player', salary: 30, fromTeam: 'AAA', toTeam: 'AAA', label: 'A1' },
+        { id: 'a2', kind: 'player', salary: 30, fromTeam: 'AAA', toTeam: 'AAA', label: 'A2' },
+        { id: 'b1', kind: 'player', salary: 20, fromTeam: 'BBB', toTeam: 'BBB', label: 'B1' },
+      ],
+    });
+    expect(r.valid).toBe(true);
+    expect(r.errors).toHaveLength(0);
+    const aaa = r.perTeam.find((t) => t.abbr === 'AAA')!;
+    expect(aaa.outgoing).toBe(0);
+    expect(aaa.incoming).toBe(0);
+  });
+
+  it('counts only moved players (not stay assets) toward aggregation', () => {
+    const r = validateTrade({
+      ...base,
+      teams: [
+        { abbr: 'AAA', preTradeSalary: 165 }, // 2nd apron
+        { abbr: 'BBB', preTradeSalary: 120 },
+      ],
+      assets: [
+        { id: 'a1', kind: 'player', salary: 30, fromTeam: 'AAA', toTeam: 'BBB', label: 'A1' }, // moved
+        { id: 'a2', kind: 'player', salary: 30, fromTeam: 'AAA', toTeam: 'AAA', label: 'A2' }, // stay
+        { id: 'b1', kind: 'player', salary: 30, fromTeam: 'BBB', toTeam: 'AAA', label: 'B1' }, // moved
+      ],
+    });
+    expect(r.errors.some((e) => e.code === 'NO_AGGREGATION')).toBe(false);
+    const aaa = r.perTeam.find((t) => t.abbr === 'AAA')!;
+    expect(aaa.playersOut).toBe(1);
+  });
+
   it('picks do not count toward aggregation or salary', () => {
     const r = validateTrade({
       ...base,
