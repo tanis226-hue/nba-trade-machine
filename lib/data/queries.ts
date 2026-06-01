@@ -1,42 +1,53 @@
 import { nanoid } from 'nanoid';
-import { createSupabase } from './supabase';
-import type { DbTeam, DbSeasonCap, RosterEntry } from './types';
-import { hasSupabase, localSeasons, localTeams, localRoster, localSaveTrade, localGetTrade } from './local';
+import { db, hasDb } from './db';
+import type { DbTeam, DbSeasonCap, RosterEntry, ContractYear } from './types';
+import { localSeasons, localTeams, localRoster, localSaveTrade, localGetTrade } from './local';
 
 export async function getSeasons(): Promise<string[]> {
-  if (!hasSupabase()) return localSeasons();
-  const { data, error } = await createSupabase().from('season_cap').select('season').order('season');
-  if (error) throw error;
-  return data.map((r) => r.season);
+  if (!hasDb()) return localSeasons();
+  const rows = await db()`SELECT season FROM season_cap ORDER BY season`;
+  return rows.map((r) => r.season as string);
 }
 
 export async function getTeams(): Promise<DbTeam[]> {
-  if (!hasSupabase()) return localTeams();
-  const { data, error } = await createSupabase().from('teams').select('*').order('name');
-  if (error) throw error;
-  return data;
+  if (!hasDb()) return localTeams();
+  const rows = await db()`
+    SELECT id, name, abbr, conference, logo_url, primary_color, secondary_color
+    FROM teams ORDER BY name`;
+  return rows as DbTeam[];
 }
 
 export async function getSeasonCap(season: string): Promise<DbSeasonCap> {
-  const { data, error } = await createSupabase().from('season_cap').select('*').eq('season', season).single();
-  if (error) throw error;
-  return data;
+  const rows = await db()`
+    SELECT season, salary_cap::int AS salary_cap, tax_line::int AS tax_line,
+      first_apron::int AS first_apron, second_apron::int AS second_apron,
+      min_team_salary::int AS min_team_salary
+    FROM season_cap WHERE season = ${season}`;
+  const cap = rows[0];
+  if (!cap) throw new Error(`no season_cap for ${season}`);
+  return cap as DbSeasonCap;
 }
 
 export async function getRoster(teamId: string, season: string): Promise<RosterEntry[]> {
-  if (!hasSupabase()) return localRoster(teamId, season);
-  const { data, error } = await createSupabase()
-    .from('players')
-    .select('id, name, position, age, contracts(season, salary, option_type, guarantee_status, no_trade_clause)')
-    .eq('team_id', teamId);
-  if (error) throw error;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (data as any[])
+  if (!hasDb()) return localRoster(teamId, season);
+  const rows = await db()`
+    SELECT p.id, p.name, p.position, p.age,
+      COALESCE(
+        json_agg(
+          json_build_object(
+            'season', c.season, 'salary', c.salary::int, 'option_type', c.option_type,
+            'guarantee_status', c.guarantee_status, 'no_trade_clause', c.no_trade_clause
+          ) ORDER BY c.season
+        ) FILTER (WHERE c.id IS NOT NULL), '[]'
+      ) AS contract
+    FROM players p
+    LEFT JOIN contracts c ON c.player_id = p.id
+    WHERE p.team_id = ${teamId}
+    GROUP BY p.id, p.name, p.position, p.age`;
+  return (rows as { id: string; name: string; position: string | null; age: number | null; contract: ContractYear[] }[])
     .map((p) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const contract = ((p.contracts ?? []) as any[]).sort((a, b) => a.season.localeCompare(b.season));
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cur = contract.find((c: any) => c.season === season);
+      const contract = p.contract ?? [];
+      const cur = contract.find((c) => c.season === season);
       return { playerId: p.id, name: p.name, position: p.position, age: p.age, salary: cur?.salary ?? 0, contract };
     })
     .filter((r) => r.salary > 0);
@@ -51,18 +62,16 @@ export interface TradePayload {
 
 export async function saveTrade(payload: TradePayload): Promise<string> {
   const slug = nanoid(10);
-  if (!hasSupabase()) {
+  if (!hasDb()) {
     localSaveTrade(slug, payload);
     return slug;
   }
-  const { error } = await createSupabase().from('trades').insert({ id: slug, slug, payload });
-  if (error) throw error;
+  await db()`INSERT INTO trades (id, slug, payload) VALUES (${slug}, ${slug}, ${JSON.stringify(payload)}::jsonb)`;
   return slug;
 }
 
 export async function getTrade(slug: string): Promise<TradePayload | null> {
-  if (!hasSupabase()) return localGetTrade(slug) as TradePayload | null;
-  const { data, error } = await createSupabase().from('trades').select('payload').eq('slug', slug).maybeSingle();
-  if (error) throw error;
-  return data ? (data.payload as TradePayload) : null;
+  if (!hasDb()) return localGetTrade(slug) as TradePayload | null;
+  const rows = await db()`SELECT payload FROM trades WHERE slug = ${slug}`;
+  return rows[0] ? (rows[0].payload as TradePayload) : null;
 }

@@ -1,6 +1,6 @@
-// Filesystem fallback data provider. Used when Supabase env vars are absent so the app
-// runs out-of-the-box for local dev/demos. Mirrors the merge precedence of scripts/import.ts
-// (seed < scraper out < override). Production uses Supabase via queries.ts.
+// Filesystem fallback data provider. Used when no database URL is set so the app runs
+// out-of-the-box for local dev/demos. Mirrors the merge precedence of scripts/import.ts
+// (seed < scraper out < override). Production uses Neon Postgres via queries.ts.
 import fs from 'node:fs';
 import path from 'node:path';
 import type { DbTeam, DbSeasonCap, RosterEntry, ContractYear } from './types';
@@ -20,10 +20,6 @@ function read<T>(file: string, key: (row: T) => string): T[] {
     for (const row of JSON.parse(fs.readFileSync(p, 'utf8')) as T[]) m.set(key(row), row);
   }
   return [...m.values()];
-}
-
-export function hasSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
 }
 
 export function localSeasons(): string[] {
