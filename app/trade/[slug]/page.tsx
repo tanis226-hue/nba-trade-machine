@@ -3,6 +3,7 @@ import { selectValidation } from '@/lib/store/selectValidation';
 import { ValidationFeed } from '@/components/ValidationFeed';
 import type { TradeAsset, TradeTeamInput } from '@/lib/cba/types';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -59,9 +60,9 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
         })}
       </div>
       <ValidationFeed validation={validation} />
-      <a href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">
+      <Link href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">
         Build your own trade →
-      </a>
+      </Link>
     </main>
   );
 }
