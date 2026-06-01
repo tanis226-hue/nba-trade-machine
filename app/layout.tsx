@@ -26,6 +26,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  // Ad slots stay reserved (CLS-safe) but render nothing until a real ad network is wired
+  // (monetization is the last milestone). Flip NEXT_PUBLIC_ADS_ENABLED=true to show them.
+  const adsEnabled = process.env.NEXT_PUBLIC_ADS_ENABLED === "true";
   return (
     <html lang="en" className={`${oswald.variable} ${hanken.variable} ${plexMono.variable} antialiased`}>
       <body>
@@ -45,26 +48,34 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </header>
 
         <div className="mx-auto flex max-w-[1500px] justify-center gap-6 px-4">
-          <aside className="hidden shrink-0 pt-6 2xl:block">
-            <div className="sticky top-20">
-              <AdSlot size="tower" />
-            </div>
-          </aside>
-          <div className="w-full min-w-0 max-w-5xl pb-24 pt-6">{children}</div>
-          <aside className="hidden shrink-0 pt-6 2xl:block">
-            <div className="sticky top-20">
-              <AdSlot size="tower" />
-            </div>
-          </aside>
+          {adsEnabled && (
+            <aside className="hidden shrink-0 pt-6 2xl:block">
+              <div className="sticky top-20">
+                <AdSlot size="tower" />
+              </div>
+            </aside>
+          )}
+          <div className={`w-full min-w-0 max-w-5xl pt-6 ${adsEnabled ? "pb-24" : "pb-12"}`}>{children}</div>
+          {adsEnabled && (
+            <aside className="hidden shrink-0 pt-6 2xl:block">
+              <div className="sticky top-20">
+                <AdSlot size="tower" />
+              </div>
+            </aside>
+          )}
         </div>
 
         <footer className="fixed inset-x-0 bottom-0 z-20 flex flex-col items-center gap-1 border-t border-[var(--border-soft)] bg-[var(--bg-elev)]/90 py-1.5 backdrop-blur">
-          <div className="md:hidden">
-            <AdSlot size="footer-mobile" />
-          </div>
-          <div className="hidden md:block">
-            <AdSlot size="footer-desktop" />
-          </div>
+          {adsEnabled && (
+            <>
+              <div className="md:hidden">
+                <AdSlot size="footer-mobile" />
+              </div>
+              <div className="hidden md:block">
+                <AdSlot size="footer-desktop" />
+              </div>
+            </>
+          )}
           <p className="px-4 text-center text-[11px] text-[var(--faint)]">
             Salaries from public data, hand-verified. Not affiliated with the NBA.
           </p>
