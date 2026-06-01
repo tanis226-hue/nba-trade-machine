@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Oswald, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { AdSlot } from "@/components/AdSlot";
 
@@ -8,8 +9,21 @@ const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken" })
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-mono" });
 
 export const metadata: Metadata = {
-  title: "NBA Trade Machine",
-  description: "A fast, accurate multi-team NBA trade simulator with live luxury-tax and apron validation.",
+  // TODO: set to the real deployed origin before launch.
+  metadataBase: new URL("https://nbatrademachine.app"),
+  title: "NBA Trade Machine - Accurate Multi-Team Trade Simulator",
+  description:
+    "Build 2-4 team NBA trades with real current contracts and exact 2023-CBA salary-matching, luxury-tax, and first/second-apron validation. Fast, correct, shareable.",
+  openGraph: {
+    title: "NBA Trade Machine",
+    description: "Accurate, current multi-team NBA trade simulator.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NBA Trade Machine",
+    description: "Accurate, current multi-team NBA trade simulator.",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -45,14 +59,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </aside>
         </div>
 
-        <footer className="fixed inset-x-0 bottom-0 z-20 flex justify-center border-t border-[var(--border-soft)] bg-[var(--bg-elev)]/90 py-1.5 backdrop-blur">
+        <footer className="fixed inset-x-0 bottom-0 z-20 flex flex-col items-center gap-1 border-t border-[var(--border-soft)] bg-[var(--bg-elev)]/90 py-1.5 backdrop-blur">
           <div className="md:hidden">
             <AdSlot size="footer-mobile" />
           </div>
           <div className="hidden md:block">
             <AdSlot size="footer-desktop" />
           </div>
+          <p className="px-4 text-center text-[11px] text-[var(--faint)]">
+            Salaries from public data, hand-verified. Not affiliated with the NBA.
+          </p>
         </footer>
+        <Analytics />
       </body>
     </html>
   );

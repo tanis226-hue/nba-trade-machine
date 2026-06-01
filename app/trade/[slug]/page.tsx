@@ -26,16 +26,31 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         {teams.map((t) => {
-          const receives = list.filter((a) => a.toTeam === t.abbr && a.fromTeam !== t.abbr);
+          const incoming = list.filter((a) => a.toTeam === t.abbr && a.fromTeam !== t.abbr);
+          const outgoing = list.filter((a) => a.fromTeam === t.abbr && a.toTeam !== t.abbr);
+          const net = incoming.reduce((s, a) => s + a.salary, 0) - outgoing.reduce((s, a) => s + a.salary, 0);
           return (
             <div key={t.abbr} className="panel rounded-xl p-4">
-              <div className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">{t.abbr}</div>
-              {receives.length === 0 && <div className="mt-1 text-sm text-[var(--faint)]">No incoming assets</div>}
+              <div className="flex items-center justify-between">
+                <div className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">{t.abbr}</div>
+                <div className={`num text-xs font-semibold ${net >= 0 ? 'text-[var(--legal)]' : 'text-[var(--illegal)]'}`}>
+                  Net {net >= 0 ? '+' : '−'}{m(Math.abs(net))}
+                </div>
+              </div>
+              {incoming.length === 0 && outgoing.length === 0 && (
+                <div className="mt-1 text-sm text-[var(--faint)]">No assets exchanged</div>
+              )}
               <div className="mt-2 space-y-1">
-                {receives.map((a) => (
-                  <div key={a.id} className="flex items-center justify-between text-sm text-[var(--text)]">
+                {incoming.map((a) => (
+                  <div key={a.id} className="flex items-center justify-between text-sm">
                     <span className="text-[var(--legal)]">+ {a.label}</span>
-                    {a.salary > 0 && <span className="num text-xs text-[var(--muted)]">{m(a.salary)}</span>}
+                    {a.kind === 'player' && <span className="num text-xs text-[var(--muted)]">{m(a.salary)}</span>}
+                  </div>
+                ))}
+                {outgoing.map((a) => (
+                  <div key={a.id} className="flex items-center justify-between text-sm">
+                    <span className="text-[var(--illegal)]">− {a.label}</span>
+                    {a.kind === 'player' && <span className="num text-xs text-[var(--muted)]">{m(a.salary)}</span>}
                   </div>
                 ))}
               </div>
