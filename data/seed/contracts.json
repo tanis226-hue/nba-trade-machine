@@ -1,0 +1,22 @@
+[
+  { "id": "c_shai_gilgeous_alexander_2025-26", "player_id": "p_shai_gilgeous_alexander", "season": "2025-26", "salary": 38333050, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_shai_gilgeous_alexander_2026-27", "player_id": "p_shai_gilgeous_alexander", "season": "2026-27", "salary": 40800000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_chet_holmgren_2025-26", "player_id": "p_chet_holmgren", "season": "2025-26", "salary": 13937160, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_jalen_williams_2025-26", "player_id": "p_jalen_williams", "season": "2025-26", "salary": 6587040, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_lu_dort_2025-26", "player_id": "p_lu_dort", "season": "2025-26", "salary": 17739130, "option_type": "player", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_isaiah_hartenstein_2025-26", "player_id": "p_isaiah_hartenstein", "season": "2025-26", "salary": 28500000, "option_type": "team", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_alex_caruso_2025-26", "player_id": "p_alex_caruso", "season": "2025-26", "salary": 9890000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_cason_wallace_2025-26", "player_id": "p_cason_wallace", "season": "2025-26", "salary": 4553280, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_aaron_wiggins_2025-26", "player_id": "p_aaron_wiggins", "season": "2025-26", "salary": 9000000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_ousmane_dieng_2025-26", "player_id": "p_ousmane_dieng", "season": "2025-26", "salary": 8736000, "option_type": "team", "guarantee_status": "non_guaranteed", "no_trade_clause": false, "source": "seed" },
+
+  { "id": "c_anthony_edwards_2025-26", "player_id": "p_anthony_edwards", "season": "2025-26", "salary": 42176400, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_anthony_edwards_2026-27", "player_id": "p_anthony_edwards", "season": "2026-27", "salary": 45550000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_rudy_gobert_2025-26", "player_id": "p_rudy_gobert", "season": "2025-26", "salary": 35000000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_julius_randle_2025-26", "player_id": "p_julius_randle", "season": "2025-26", "salary": 33000000, "option_type": "player", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_jaden_mcdaniels_2025-26", "player_id": "p_jaden_mcdaniels", "season": "2025-26", "salary": 23000000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_naz_reid_2025-26", "player_id": "p_naz_reid", "season": "2025-26", "salary": 14000000, "option_type": "player", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_mike_conley_2025-26", "player_id": "p_mike_conley", "season": "2025-26", "salary": 10000000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_donte_divincenzo_2025-26", "player_id": "p_donte_divincenzo", "season": "2025-26", "salary": 12000000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" },
+  { "id": "c_terrence_shannon_2025-26", "player_id": "p_terrence_shannon", "season": "2025-26", "salary": 4000000, "option_type": "guaranteed", "guarantee_status": "full", "no_trade_clause": false, "source": "seed" }
+]
