@@ -1,0 +1,6 @@
+# Netlify auto-detects Next.js and applies its Next.js runtime (SSR, API routes,
+# the dynamic OG image, and server components all work). We only pin the Node version,
+# since Next 16 requires Node >= 18.18. Set DATABASE_URL in the Netlify UI (Neon connection
+# string) so the app reads the database instead of the local filesystem fallback.
+[build.environment]
+  NODE_VERSION = "20"
