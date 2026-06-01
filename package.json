@@ -9,6 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
+    "migrate": "tsx scripts/migrate.ts",
     "seed": "tsx scripts/import.ts"
   },
   "dependencies": {
