@@ -1,0 +1,3557 @@
+[
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "NOP",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-4",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "CLE",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "NYK",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "HOU",
+    "year": 2031,
+    "round": 2,
+    "protection": "56-60",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ATL",
+    "original": "ATL",
+    "year": 2033,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "POR",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": true
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "HOU",
+    "year": 2031,
+    "round": 2,
+    "protection": "31-55",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BOS",
+    "original": "BOS",
+    "year": 2033,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "NYK",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "PHI",
+    "year": 2028,
+    "round": 1,
+    "protection": "top-8",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "NYK",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "NYK",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "DEN",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "LAL",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "LAL",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "LAL",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "DEN",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "MIA",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "TOR",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "BKN",
+    "original": "BKN",
+    "year": 2033,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "DAL",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-2",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "MIA",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-14",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "NOP",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "DEN",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "LAC",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "NYK",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "PHX",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "DEN",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "MIL",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "MIL",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHA",
+    "original": "CHA",
+    "year": 2033,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "DEN",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "NYK",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CHI",
+    "original": "CHI",
+    "year": 2033,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CLE",
+    "original": "CLE",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "CLE",
+    "original": "CLE",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CLE",
+    "original": "CLE",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CLE",
+    "original": "CLE",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CLE",
+    "original": "CLE",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CLE",
+    "original": "CLE",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "CLE",
+    "original": "CLE",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": true
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-2",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "LAL",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "GSW",
+    "year": 2030,
+    "round": 1,
+    "protection": "top-20",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DAL",
+    "original": "DAL",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DEN",
+    "original": "DEN",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DEN",
+    "original": "DEN",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DEN",
+    "original": "DEN",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DEN",
+    "original": "DEN",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DEN",
+    "original": "DEN",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "MIL",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "BKN",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "LAC",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "MIA",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "NYK",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "MIN",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DAL",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "DET",
+    "original": "DET",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2030,
+    "round": 1,
+    "protection": "top-20",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "GSW",
+    "original": "GSW",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "PHX",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "MEM",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "DAL",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "SAC",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2031,
+    "round": 2,
+    "protection": "56-60",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "HOU",
+    "original": "HOU",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "UTA",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "DAL",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "IND",
+    "original": "IND",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "LAC",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "IND",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "IND",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "LAC",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "LAC",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "LAC",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "LAC",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAC",
+    "original": "LAC",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAL",
+    "original": "LAL",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAL",
+    "original": "LAL",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAL",
+    "original": "LAL",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAL",
+    "original": "LAL",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "LAL",
+    "original": "LAL",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "LAL",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-4",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "UTA",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "ORL",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "POR",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "ORL",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "PHX",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "MEM",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MEM",
+    "original": "GSW",
+    "year": 2032,
+    "round": 2,
+    "protection": "31-50",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIA",
+    "original": "MIA",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": true
+  },
+  {
+    "owner": "MIA",
+    "original": "MIA",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": true
+  },
+  {
+    "owner": "MIA",
+    "original": "MIA",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIA",
+    "original": "MIA",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIA",
+    "original": "MIA",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIA",
+    "original": "MIA",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIA",
+    "original": "MIA",
+    "year": 2033,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIL",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIL",
+    "year": 2028,
+    "round": 1,
+    "protection": "15-30",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIL",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIL",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIL",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIL",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIA",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIA",
+    "year": 2033,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIA",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIL",
+    "original": "MIA",
+    "year": 2033,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "MIN",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "MIN",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "MIN",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "CLE",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "MIN",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "MEM",
+    "year": 2030,
+    "round": 2,
+    "protection": "31-50",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "MIN",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "MIN",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "MIN",
+    "original": "HOU",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "NOP",
+    "original": "NOP",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NYK",
+    "original": "NYK",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "NYK",
+    "original": "NYK",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NYK",
+    "original": "NYK",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NYK",
+    "original": "NYK",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NYK",
+    "original": "BOS",
+    "year": 2028,
+    "round": 2,
+    "protection": "31-45",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NYK",
+    "original": "IND",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "NYK",
+    "original": "NYK",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "DEN",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-5",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "SAS",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-16",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "LAC",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "DEN",
+    "year": 2029,
+    "round": 1,
+    "protection": "top-5",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "HOU",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "MIL",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "UTA",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "BOS",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "ATL",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "MIA",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "DEN",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "HOU",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "MIA",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "OKC",
+    "original": "OKC",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2029,
+    "round": 1,
+    "protection": "top-2",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "LAL",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "ORL",
+    "original": "ORL",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "LAC",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2029,
+    "round": 1,
+    "protection": "top-3",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "GSW",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "DET",
+    "year": 2028,
+    "round": 2,
+    "protection": "31-55",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "GSW",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHX",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "WAS",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHI",
+    "original": "PHI",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "UTA",
+    "year": 2027,
+    "round": 1,
+    "protection": "least favorable of CLE/MIN/UTA",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": true
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "PHX",
+    "original": "PHX",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "MIN",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "ORL",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "MIN",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "SAC",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "WAS",
+    "year": 2029,
+    "round": 2,
+    "protection": "less favorable of IND/WAS",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "POR",
+    "original": "POR",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "ATL",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "OKC/HOU/IND/MIA",
+    "year": 2027,
+    "round": 2,
+    "protection": "least favorable",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "BOS",
+    "year": 2028,
+    "round": 1,
+    "protection": "top-1 (swap, 2-30)",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "NOP",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "MIN",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "DEN",
+    "year": 2028,
+    "round": 2,
+    "protection": "31-33",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "LAC",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "NOP",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "DAL/MIN",
+    "year": 2030,
+    "round": 1,
+    "protection": "most favorable (swap)",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAC",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "CLE",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "MIN",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAC",
+    "year": 2031,
+    "round": 1,
+    "protection": "swap rights",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAC",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAS",
+    "original": "SAS",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAS",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-16 (else to OKC)",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "CHA",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "MIN",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2031,
+    "round": 1,
+    "protection": "SAS holds swap rights",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "SAC",
+    "original": "SAC",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2028,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "TOR",
+    "original": "TOR",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA/MIN/CLE",
+    "year": 2027,
+    "round": 1,
+    "protection": "2nd-most favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "LAL",
+    "year": 2027,
+    "round": 1,
+    "protection": "top-4",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "BOS/ORL",
+    "year": 2027,
+    "round": 2,
+    "protection": "most favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "DEN",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "LAC",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA",
+    "year": 2028,
+    "round": 1,
+    "protection": "swap with CLE",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "CLE",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "DET/CHA/LAC/MIA/NYK",
+    "year": 2028,
+    "round": 2,
+    "protection": "least favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA/MIN/CLE",
+    "year": 2029,
+    "round": 1,
+    "protection": "most favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA/MIN/CLE",
+    "year": 2029,
+    "round": 1,
+    "protection": "2nd-most favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA/LAC",
+    "year": 2030,
+    "round": 2,
+    "protection": "least favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "PHX",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "BOS/CLE",
+    "year": 2031,
+    "round": 2,
+    "protection": "most favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "UTA",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "UTA",
+    "original": "CLE",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2027,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "BKN/DAL",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "CHI",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "GSW",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "PHX",
+    "year": 2027,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2028,
+    "round": 1,
+    "protection": "swap with BKN/PHI/PHX",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "GSW",
+    "year": 2028,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2029,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "BOS/MIL/POR",
+    "year": 2029,
+    "round": 1,
+    "protection": "2nd-most favorable",
+    "swap": true,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "LAL",
+    "year": 2029,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2030,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "GSW",
+    "year": 2030,
+    "round": 1,
+    "protection": "top-20",
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "PHX",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "POR",
+    "year": 2030,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2031,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2031,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2032,
+    "round": 1,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  },
+  {
+    "owner": "WAS",
+    "original": "WAS",
+    "year": 2032,
+    "round": 2,
+    "protection": null,
+    "swap": false,
+    "frozen": false
+  }
+]

@@ -6,5 +6,13 @@
     "first_apron": 195945000,
     "second_apron": 207824000,
     "min_team_salary": 139182000
+  },
+  {
+    "season": "2026-27",
+    "salary_cap": 170100000,
+    "tax_line": 207800000,
+    "first_apron": 216600000,
+    "second_apron": 229800000,
+    "min_team_salary": 153090000
   }
 ]

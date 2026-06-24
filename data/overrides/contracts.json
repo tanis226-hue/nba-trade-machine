@@ -1,1 +1,302 @@
-[]
+[
+  {
+    "id": "c_darius_acuff_jr_2026-27",
+    "player_id": "p_darius_acuff_jr",
+    "season": "2026-27",
+    "salary": 7450000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_nate_ament_2026-27",
+    "player_id": "p_nate_ament",
+    "season": "2026-27",
+    "salary": 5150000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_christian_anderson_2026-27",
+    "player_id": "p_christian_anderson",
+    "season": "2026-27",
+    "salary": 4150000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_cameron_boozer_2026-27",
+    "player_id": "p_cameron_boozer",
+    "season": "2026-27",
+    "salary": 11100000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_mikel_brown_jr_2026-27",
+    "player_id": "p_mikel_brown_jr",
+    "season": "2026-27",
+    "salary": 8200000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_brayden_burries_2026-27",
+    "player_id": "p_brayden_burries",
+    "season": "2026-27",
+    "salary": 5900000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_cameron_carr_2026-27",
+    "player_id": "p_cameron_carr",
+    "season": "2026-27",
+    "salary": 3450000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_chris_cenac_jr_2026-27",
+    "player_id": "p_chris_cenac_jr",
+    "season": "2026-27",
+    "salary": 3240000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_sergio_de_larrea_2026-27",
+    "player_id": "p_sergio_de_larrea",
+    "season": "2026-27",
+    "salary": 3370000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_aj_dybantsa_2026-27",
+    "player_id": "p_aj_dybantsa",
+    "season": "2026-27",
+    "salary": 13800000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_zuby_ejiofor_2026-27",
+    "player_id": "p_zuby_ejiofor",
+    "season": "2026-27",
+    "salary": 3540000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_kingston_flemings_2026-27",
+    "player_id": "p_kingston_flemings",
+    "season": "2026-27",
+    "salary": 6800000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_allen_graves_2026-27",
+    "player_id": "p_allen_graves",
+    "season": "2026-27",
+    "salary": 4000000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_joshua_jefferson_2026-27",
+    "player_id": "p_joshua_jefferson",
+    "season": "2026-27",
+    "salary": 3190000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_morez_johnson_2026-27",
+    "player_id": "p_morez_johnson",
+    "season": "2026-27",
+    "salary": 6200000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_alex_karaban_2026-27",
+    "player_id": "p_alex_karaban",
+    "season": "2026-27",
+    "salary": 3150000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_yaxel_lendeborg_2026-27",
+    "player_id": "p_yaxel_lendeborg",
+    "season": "2026-27",
+    "salary": 5650000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_karim_lopez_2026-27",
+    "player_id": "p_karim_lopez",
+    "season": "2026-27",
+    "salary": 3750000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_aday_mara_2026-27",
+    "player_id": "p_aday_mara",
+    "season": "2026-27",
+    "salary": 5400000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_ebuka_okorie_2026-27",
+    "player_id": "p_ebuka_okorie",
+    "season": "2026-27",
+    "salary": 4300000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_koa_peat_2026-27",
+    "player_id": "p_koa_peat",
+    "season": "2026-27",
+    "salary": 3120000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_darryn_peterson_2026-27",
+    "player_id": "p_darryn_peterson",
+    "season": "2026-27",
+    "salary": 12350000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_labaron_philon_2026-27",
+    "player_id": "p_labaron_philon",
+    "season": "2026-27",
+    "salary": 3640000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_jayden_quaintance_2026-27",
+    "player_id": "p_jayden_quaintance",
+    "season": "2026-27",
+    "salary": 3870000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_tarris_reed_jr_2026-27",
+    "player_id": "p_tarris_reed_jr",
+    "season": "2026-27",
+    "salary": 3300000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_hannes_steinbach_2026-27",
+    "player_id": "p_hannes_steinbach",
+    "season": "2026-27",
+    "salary": 4900000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_bennett_stirtz_2026-27",
+    "player_id": "p_bennett_stirtz",
+    "season": "2026-27",
+    "salary": 4480000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_dailyn_swain_2026-27",
+    "player_id": "p_dailyn_swain",
+    "season": "2026-27",
+    "salary": 4680000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_keaton_wagler_2026-27",
+    "player_id": "p_keaton_wagler",
+    "season": "2026-27",
+    "salary": 9050000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  },
+  {
+    "id": "c_caleb_wilson_2026-27",
+    "player_id": "p_caleb_wilson",
+    "season": "2026-27",
+    "salary": 10000000,
+    "option_type": "guaranteed",
+    "guarantee_status": "full",
+    "no_trade_clause": false,
+    "source": "override"
+  }
+]

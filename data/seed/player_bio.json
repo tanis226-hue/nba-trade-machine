@@ -1,0 +1,5042 @@
+[
+  {
+    "player_id": "p_precious_achiuwa",
+    "nba_id": 1630173,
+    "position": "F",
+    "height": "6-8",
+    "weight": 243,
+    "jersey": "9",
+    "age": 26
+  },
+  {
+    "player_id": "p_darius_acuff_jr",
+    "nba_id": 1643411,
+    "position": "G",
+    "height": "6-2",
+    "weight": 190,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_steven_adams",
+    "nba_id": 203500,
+    "position": "C",
+    "height": "6-11",
+    "weight": 265,
+    "jersey": "12",
+    "age": 32
+  },
+  {
+    "player_id": "p_bam_adebayo",
+    "nba_id": 1628389,
+    "position": "C-F",
+    "height": "6-9",
+    "weight": 255,
+    "jersey": "13",
+    "age": 28
+  },
+  {
+    "player_id": "p_ochai_agbaji",
+    "nba_id": 1630534,
+    "position": "G",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "30",
+    "age": 26
+  },
+  {
+    "player_id": "p_santi_aldama",
+    "nba_id": 1630583,
+    "position": "F-C",
+    "height": "7-0",
+    "weight": 215,
+    "jersey": "7",
+    "age": 25
+  },
+  {
+    "player_id": "p_trey_alexander",
+    "nba_id": 1641725,
+    "position": "G",
+    "height": "6-5",
+    "weight": 185,
+    "jersey": "23",
+    "age": 23
+  },
+  {
+    "player_id": "p_nickeil_alexander_walker",
+    "nba_id": 1629638,
+    "position": "G",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "7",
+    "age": 27
+  },
+  {
+    "player_id": "p_grayson_allen",
+    "nba_id": 1628960,
+    "position": "G",
+    "height": "6-3",
+    "weight": 198,
+    "jersey": "8",
+    "age": 30
+  },
+  {
+    "player_id": "p_jarrett_allen",
+    "nba_id": 1628386,
+    "position": "C",
+    "height": "6-9",
+    "weight": 243,
+    "jersey": "31",
+    "age": 28
+  },
+  {
+    "player_id": "p_jose_alvarado",
+    "nba_id": 1630631,
+    "position": "G",
+    "height": "6-0",
+    "weight": 179,
+    "jersey": "5",
+    "age": 28
+  },
+  {
+    "player_id": "p_nate_ament",
+    "nba_id": 1643417,
+    "position": "F",
+    "height": "6-10",
+    "weight": 207,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_christian_anderson",
+    "nba_id": 1643515,
+    "position": "G",
+    "height": "6-0",
+    "weight": 165,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_kyle_anderson",
+    "nba_id": 203937,
+    "position": "F-G",
+    "height": "6-8",
+    "weight": 230,
+    "jersey": "12",
+    "age": 32
+  },
+  {
+    "player_id": "p_alex_antetokounmpo",
+    "nba_id": 1630828,
+    "position": "F",
+    "height": "6-8",
+    "weight": 214,
+    "jersey": "29",
+    "age": 24
+  },
+  {
+    "player_id": "p_giannis_antetokounmpo",
+    "nba_id": 203507,
+    "position": "F",
+    "height": "6-11",
+    "weight": 243,
+    "jersey": "34",
+    "age": 31
+  },
+  {
+    "player_id": "p_thanasis_antetokounmpo",
+    "nba_id": 203648,
+    "position": "F",
+    "height": "6-7",
+    "weight": 219,
+    "jersey": "43",
+    "age": 33
+  },
+  {
+    "player_id": "p_og_anunoby",
+    "nba_id": 1628384,
+    "position": "F-G",
+    "height": "6-7",
+    "weight": 240,
+    "jersey": "8",
+    "age": 28
+  },
+  {
+    "player_id": "p_deni_avdija",
+    "nba_id": 1630166,
+    "position": "F",
+    "height": "6-8",
+    "weight": 228,
+    "jersey": "8",
+    "age": 25
+  },
+  {
+    "player_id": "p_deandre_ayton",
+    "nba_id": 1629028,
+    "position": "C",
+    "height": "7-0",
+    "weight": 252,
+    "jersey": "5",
+    "age": 27
+  },
+  {
+    "player_id": "p_marvin_bagley_iii",
+    "nba_id": 1628963,
+    "position": "F",
+    "height": "6-10",
+    "weight": 235,
+    "jersey": "35",
+    "age": 27
+  },
+  {
+    "player_id": "p_ace_bailey",
+    "nba_id": 1642846,
+    "position": "F",
+    "height": "6-9",
+    "weight": 200,
+    "jersey": "19",
+    "age": 19
+  },
+  {
+    "player_id": "p_patrick_baldwin_jr",
+    "nba_id": 1631116,
+    "position": "F",
+    "height": "7-0",
+    "weight": 220,
+    "jersey": "23",
+    "age": 23
+  },
+  {
+    "player_id": "p_lamelo_ball",
+    "nba_id": 1630163,
+    "position": "G",
+    "height": "6-7",
+    "weight": 180,
+    "jersey": "1",
+    "age": 24
+  },
+  {
+    "player_id": "p_paolo_banchero",
+    "nba_id": 1631094,
+    "position": "F",
+    "height": "6-10",
+    "weight": 250,
+    "jersey": "5",
+    "age": 23
+  },
+  {
+    "player_id": "p_desmond_bane",
+    "nba_id": 1630217,
+    "position": "G",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "3",
+    "age": 27
+  },
+  {
+    "player_id": "p_dalano_banton",
+    "nba_id": 1630625,
+    "position": "F",
+    "height": "6-8",
+    "weight": 203,
+    "jersey": "45",
+    "age": 26
+  },
+  {
+    "player_id": "p_dominick_barlow",
+    "nba_id": 1631230,
+    "position": "F",
+    "height": "6-9",
+    "weight": 224,
+    "jersey": "25",
+    "age": 23
+  },
+  {
+    "player_id": "p_harrison_barnes",
+    "nba_id": 203084,
+    "position": "F",
+    "height": "6-7",
+    "weight": 225,
+    "jersey": "40",
+    "age": 34
+  },
+  {
+    "player_id": "p_scottie_barnes",
+    "nba_id": 1630567,
+    "position": "F-G",
+    "height": "6-8",
+    "weight": 237,
+    "jersey": "4",
+    "age": 24
+  },
+  {
+    "player_id": "p_brooks_barnhizer",
+    "nba_id": 1642964,
+    "position": "G",
+    "height": "6-5",
+    "weight": 230,
+    "jersey": "23",
+    "age": 24
+  },
+  {
+    "player_id": "p_rj_barrett",
+    "nba_id": 1629628,
+    "position": "F-G",
+    "height": "6-6",
+    "weight": 214,
+    "jersey": "9",
+    "age": 26
+  },
+  {
+    "player_id": "p_charles_bassey",
+    "nba_id": 1629646,
+    "position": "C-F",
+    "height": "6-10",
+    "weight": 230,
+    "jersey": "28",
+    "age": 25
+  },
+  {
+    "player_id": "p_jamison_battle",
+    "nba_id": 1642419,
+    "position": "F",
+    "height": "6-7",
+    "weight": 220,
+    "jersey": "77",
+    "age": 25
+  },
+  {
+    "player_id": "p_nicolas_batum",
+    "nba_id": 201587,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 230,
+    "jersey": "33",
+    "age": 37
+  },
+  {
+    "player_id": "p_bradley_beal",
+    "nba_id": 203078,
+    "position": "G",
+    "height": "6-4",
+    "weight": 207,
+    "jersey": "0",
+    "age": 32
+  },
+  {
+    "player_id": "p_marjon_beauchamp",
+    "nba_id": 1630699,
+    "position": "F",
+    "height": "6-7",
+    "weight": 199,
+    "jersey": "16",
+    "age": 25
+  },
+  {
+    "player_id": "p_joan_beringer",
+    "nba_id": 1642866,
+    "position": "F",
+    "height": "6-11",
+    "weight": 230,
+    "jersey": "19",
+    "age": 19
+  },
+  {
+    "player_id": "p_saddiq_bey",
+    "nba_id": 1630180,
+    "position": "G-F",
+    "height": "6-8",
+    "weight": 215,
+    "jersey": "41",
+    "age": 27
+  },
+  {
+    "player_id": "p_goga_bitadze",
+    "nba_id": 1629048,
+    "position": "C-F",
+    "height": "6-11",
+    "weight": 250,
+    "jersey": "35",
+    "age": 26
+  },
+  {
+    "player_id": "p_bismack_biyombo",
+    "nba_id": 202687,
+    "position": "C",
+    "height": "6-8",
+    "weight": 255,
+    "jersey": "18",
+    "age": 33
+  },
+  {
+    "player_id": "p_anthony_black",
+    "nba_id": 1641710,
+    "position": "G",
+    "height": "6-7",
+    "weight": 200,
+    "jersey": "0",
+    "age": 22
+  },
+  {
+    "player_id": "p_leaky_black",
+    "nba_id": 1641778,
+    "position": "F",
+    "height": "6-6",
+    "weight": 209,
+    "jersey": "12",
+    "age": 27
+  },
+  {
+    "player_id": "p_bogdan_bogdanovic",
+    "nba_id": 203992,
+    "position": "G",
+    "height": "6-5",
+    "weight": 225,
+    "jersey": "7",
+    "age": 33
+  },
+  {
+    "player_id": "p_adem_bona",
+    "nba_id": 1641737,
+    "position": "F",
+    "height": "6-10",
+    "weight": 235,
+    "jersey": "30",
+    "age": 23
+  },
+  {
+    "player_id": "p_devin_booker",
+    "nba_id": 1626164,
+    "position": "G",
+    "height": "6-5",
+    "weight": 206,
+    "jersey": "1",
+    "age": 29
+  },
+  {
+    "player_id": "p_cameron_boozer",
+    "nba_id": 1643409,
+    "position": "F",
+    "height": "6-10",
+    "weight": 250,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_jamaree_bouyea",
+    "nba_id": 1631123,
+    "position": "G",
+    "height": "6-2",
+    "weight": 180,
+    "jersey": "17",
+    "age": 26
+  },
+  {
+    "player_id": "p_tony_bradley",
+    "nba_id": 1628396,
+    "position": "C-F",
+    "height": "6-10",
+    "weight": 248,
+    "jersey": "13",
+    "age": 28
+  },
+  {
+    "player_id": "p_christian_braun",
+    "nba_id": 1631128,
+    "position": "G",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "0",
+    "age": 25
+  },
+  {
+    "player_id": "p_koby_brea",
+    "nba_id": 1642886,
+    "position": "G",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "14",
+    "age": 23
+  },
+  {
+    "player_id": "p_mikal_bridges",
+    "nba_id": 1628969,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 209,
+    "jersey": "25",
+    "age": 29
+  },
+  {
+    "player_id": "p_miles_bridges",
+    "nba_id": 1628970,
+    "position": "F",
+    "height": "6-7",
+    "weight": 225,
+    "jersey": "0",
+    "age": 28
+  },
+  {
+    "player_id": "p_dillon_brooks",
+    "nba_id": 1628415,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 225,
+    "jersey": "3",
+    "age": 30
+  },
+  {
+    "player_id": "p_johni_broome",
+    "nba_id": 1641780,
+    "position": "F",
+    "height": "6-9",
+    "weight": 244,
+    "jersey": "22",
+    "age": 23
+  },
+  {
+    "player_id": "p_bruce_brown",
+    "nba_id": 1628971,
+    "position": "G-F",
+    "height": "6-4",
+    "weight": 202,
+    "jersey": "11",
+    "age": 29
+  },
+  {
+    "player_id": "p_jaylen_brown",
+    "nba_id": 1627759,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 223,
+    "jersey": "7",
+    "age": 29
+  },
+  {
+    "player_id": "p_kobe_brown",
+    "nba_id": 1641738,
+    "position": "F",
+    "height": "6-7",
+    "weight": 250,
+    "jersey": "24",
+    "age": 26
+  },
+  {
+    "player_id": "p_mikel_brown_jr",
+    "nba_id": 1643414,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_jalen_brunson",
+    "nba_id": 1628973,
+    "position": "G",
+    "height": "6-2",
+    "weight": 190,
+    "jersey": "11",
+    "age": 29
+  },
+  {
+    "player_id": "p_carter_bryant",
+    "nba_id": 1642868,
+    "position": "F",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "11",
+    "age": 20
+  },
+  {
+    "player_id": "p_thomas_bryant",
+    "nba_id": 1628418,
+    "position": "C-F",
+    "height": "6-9",
+    "weight": 248,
+    "jersey": "3",
+    "age": 28
+  },
+  {
+    "player_id": "p_brayden_burries",
+    "nba_id": 1643415,
+    "position": "G",
+    "height": "6-4",
+    "weight": 205,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_jimmy_butler_iii",
+    "nba_id": 202710,
+    "position": "F",
+    "height": "6-6",
+    "weight": 230,
+    "jersey": "10",
+    "age": 36
+  },
+  {
+    "player_id": "p_matas_buzelis",
+    "nba_id": 1641824,
+    "position": "F",
+    "height": "6-8",
+    "weight": 196,
+    "jersey": "14",
+    "age": 21
+  },
+  {
+    "player_id": "p_jamal_cain",
+    "nba_id": 1631288,
+    "position": "F",
+    "height": "6-7",
+    "weight": 191,
+    "jersey": "8",
+    "age": 27
+  },
+  {
+    "player_id": "p_kentavious_caldwell_pope",
+    "nba_id": 203484,
+    "position": "G",
+    "height": "6-5",
+    "weight": 204,
+    "jersey": "3",
+    "age": 33
+  },
+  {
+    "player_id": "p_toumani_camara",
+    "nba_id": 1641739,
+    "position": "F",
+    "height": "6-7",
+    "weight": 230,
+    "jersey": "33",
+    "age": 26
+  },
+  {
+    "player_id": "p_clint_capela",
+    "nba_id": 203991,
+    "position": "C",
+    "height": "6-10",
+    "weight": 256,
+    "jersey": "30",
+    "age": 32
+  },
+  {
+    "player_id": "p_dylan_cardwell",
+    "nba_id": 1642928,
+    "position": "C",
+    "height": "6-10",
+    "weight": 255,
+    "jersey": "32",
+    "age": 24
+  },
+  {
+    "player_id": "p_branden_carlson",
+    "nba_id": 1642382,
+    "position": "C",
+    "height": "7-0",
+    "weight": 220,
+    "jersey": "15",
+    "age": 27
+  },
+  {
+    "player_id": "p_cameron_carr",
+    "nba_id": 1643418,
+    "position": "G",
+    "height": "6-5",
+    "weight": 175,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_bub_carrington",
+    "nba_id": 1642267,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": "7",
+    "age": 20
+  },
+  {
+    "player_id": "p_devin_carter",
+    "nba_id": 1642269,
+    "position": "G",
+    "height": "6-2",
+    "weight": 195,
+    "jersey": "22",
+    "age": 24
+  },
+  {
+    "player_id": "p_jevon_carter",
+    "nba_id": 1628975,
+    "position": "G",
+    "height": "6-0",
+    "weight": 190,
+    "jersey": "2",
+    "age": 30
+  },
+  {
+    "player_id": "p_wendell_carter_jr",
+    "nba_id": 1628976,
+    "position": "C-F",
+    "height": "6-10",
+    "weight": 270,
+    "jersey": "34",
+    "age": 27
+  },
+  {
+    "player_id": "p_alex_caruso",
+    "nba_id": 1627936,
+    "position": "G",
+    "height": "6-5",
+    "weight": 186,
+    "jersey": "9",
+    "age": 32
+  },
+  {
+    "player_id": "p_stephon_castle",
+    "nba_id": 1642264,
+    "position": "G",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "5",
+    "age": 21
+  },
+  {
+    "player_id": "p_colin_castleton",
+    "nba_id": 1630658,
+    "position": "C",
+    "height": "6-10",
+    "weight": 250,
+    "jersey": "14",
+    "age": 26
+  },
+  {
+    "player_id": "p_chris_cenac_jr",
+    "nba_id": 1643416,
+    "position": "F",
+    "height": "6-11",
+    "weight": 240,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_julian_champagnie",
+    "nba_id": 1630577,
+    "position": "F",
+    "height": "6-7",
+    "weight": 217,
+    "jersey": "30",
+    "age": 24
+  },
+  {
+    "player_id": "p_justin_champagnie",
+    "nba_id": 1630551,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 206,
+    "jersey": "9",
+    "age": 24
+  },
+  {
+    "player_id": "p_cam_christie",
+    "nba_id": 1642353,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": "12",
+    "age": 20
+  },
+  {
+    "player_id": "p_max_christie",
+    "nba_id": 1631108,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": "00",
+    "age": 23
+  },
+  {
+    "player_id": "p_moussa_cisse",
+    "nba_id": 1630619,
+    "position": "C",
+    "height": "6-11",
+    "weight": 220,
+    "jersey": "30",
+    "age": 23
+  },
+  {
+    "player_id": "p_sidy_cissoko",
+    "nba_id": 1631321,
+    "position": "G",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "91",
+    "age": 22
+  },
+  {
+    "player_id": "p_jaylen_clark",
+    "nba_id": 1641740,
+    "position": "G",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "22",
+    "age": 24
+  },
+  {
+    "player_id": "p_brandon_clarke",
+    "nba_id": 1629634,
+    "position": "F",
+    "height": "6-8",
+    "weight": 215,
+    "jersey": "15",
+    "age": 29
+  },
+  {
+    "player_id": "p_jordan_clarkson",
+    "nba_id": 203903,
+    "position": "G",
+    "height": "6-5",
+    "weight": 194,
+    "jersey": "00",
+    "age": 34
+  },
+  {
+    "player_id": "p_nic_claxton",
+    "nba_id": 1629651,
+    "position": "C",
+    "height": "6-11",
+    "weight": 215,
+    "jersey": "33",
+    "age": 27
+  },
+  {
+    "player_id": "p_walter_clayton_jr",
+    "nba_id": 1642383,
+    "position": "G",
+    "height": "6-4",
+    "weight": 195,
+    "jersey": "4",
+    "age": 23
+  },
+  {
+    "player_id": "p_nique_clifford",
+    "nba_id": 1642363,
+    "position": "G",
+    "height": "6-5",
+    "weight": 175,
+    "jersey": "5",
+    "age": 24
+  },
+  {
+    "player_id": "p_donovan_clingan",
+    "nba_id": 1642270,
+    "position": "C",
+    "height": "7-2",
+    "weight": 280,
+    "jersey": "23",
+    "age": 22
+  },
+  {
+    "player_id": "p_noah_clowney",
+    "nba_id": 1641730,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 210,
+    "jersey": "21",
+    "age": 21
+  },
+  {
+    "player_id": "p_amir_coffey",
+    "nba_id": 1629599,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 210,
+    "jersey": "2",
+    "age": 29
+  },
+  {
+    "player_id": "p_isaiah_collier",
+    "nba_id": 1642268,
+    "position": "G",
+    "height": "6-4",
+    "weight": 210,
+    "jersey": "8",
+    "age": 21
+  },
+  {
+    "player_id": "p_john_collins",
+    "nba_id": 1628381,
+    "position": "F-C",
+    "height": "6-9",
+    "weight": 226,
+    "jersey": "20",
+    "age": 28
+  },
+  {
+    "player_id": "p_zach_collins",
+    "nba_id": 1628380,
+    "position": "F-C",
+    "height": "6-9",
+    "weight": 240,
+    "jersey": "12",
+    "age": 28
+  },
+  {
+    "player_id": "p_mike_conley",
+    "nba_id": 201144,
+    "position": "G",
+    "height": "6-1",
+    "weight": 175,
+    "jersey": "10",
+    "age": 38
+  },
+  {
+    "player_id": "p_pat_connaughton",
+    "nba_id": 1626192,
+    "position": "G",
+    "height": "6-5",
+    "weight": 209,
+    "jersey": "21",
+    "age": 33
+  },
+  {
+    "player_id": "p_sharife_cooper",
+    "nba_id": 1630536,
+    "position": "G",
+    "height": "6-0",
+    "weight": 176,
+    "jersey": "13",
+    "age": 25
+  },
+  {
+    "player_id": "p_bilal_coulibaly",
+    "nba_id": 1641731,
+    "position": "G",
+    "height": "6-7",
+    "weight": 195,
+    "jersey": "0",
+    "age": 21
+  },
+  {
+    "player_id": "p_cedric_coward",
+    "nba_id": 1642907,
+    "position": "G",
+    "height": "6-5",
+    "weight": 206,
+    "jersey": "23",
+    "age": 22
+  },
+  {
+    "player_id": "p_isaiah_crawford",
+    "nba_id": 1642384,
+    "position": "F",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "27",
+    "age": 24
+  },
+  {
+    "player_id": "p_lj_cryer",
+    "nba_id": 1643018,
+    "position": "G",
+    "height": "6-0",
+    "weight": null,
+    "jersey": "18",
+    "age": 24
+  },
+  {
+    "player_id": "p_cade_cunningham",
+    "nba_id": 1630595,
+    "position": "G",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "2",
+    "age": 24
+  },
+  {
+    "player_id": "p_seth_curry",
+    "nba_id": 203552,
+    "position": "G",
+    "height": "6-1",
+    "weight": 185,
+    "jersey": "31",
+    "age": 35
+  },
+  {
+    "player_id": "p_stephen_curry",
+    "nba_id": 201939,
+    "position": "G",
+    "height": "6-2",
+    "weight": 185,
+    "jersey": "30",
+    "age": 38
+  },
+  {
+    "player_id": "p_pacome_dadiet",
+    "nba_id": 1642359,
+    "position": "F",
+    "height": "6-9",
+    "weight": 210,
+    "jersey": "4",
+    "age": 20
+  },
+  {
+    "player_id": "p_dyson_daniels",
+    "nba_id": 1630700,
+    "position": "G",
+    "height": "6-7",
+    "weight": 199,
+    "jersey": "5",
+    "age": 23
+  },
+  {
+    "player_id": "p_anthony_davis",
+    "nba_id": 203076,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 253,
+    "jersey": "23",
+    "age": 33
+  },
+  {
+    "player_id": "p_jd_davison",
+    "nba_id": 1631120,
+    "position": "G",
+    "height": "6-1",
+    "weight": 195,
+    "jersey": "4",
+    "age": 23
+  },
+  {
+    "player_id": "p_sergio_de_larrea",
+    "nba_id": 1643547,
+    "position": "G",
+    "height": "6-5",
+    "weight": 175,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_demar_derozan",
+    "nba_id": 201942,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "10",
+    "age": 36
+  },
+  {
+    "player_id": "p_rayj_dennis",
+    "nba_id": 1642484,
+    "position": "G",
+    "height": "6-1",
+    "weight": 180,
+    "jersey": "00",
+    "age": 25
+  },
+  {
+    "player_id": "p_donte_divincenzo",
+    "nba_id": 1628978,
+    "position": "G",
+    "height": "6-4",
+    "weight": 203,
+    "jersey": "0",
+    "age": 29
+  },
+  {
+    "player_id": "p_moussa_diabate",
+    "nba_id": 1631217,
+    "position": "F",
+    "height": "6-10",
+    "weight": 210,
+    "jersey": "14",
+    "age": 24
+  },
+  {
+    "player_id": "p_mohamed_diawara",
+    "nba_id": 1642885,
+    "position": "F",
+    "height": "6-9",
+    "weight": 225,
+    "jersey": "51",
+    "age": 21
+  },
+  {
+    "player_id": "p_gradey_dick",
+    "nba_id": 1641711,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 200,
+    "jersey": "1",
+    "age": 22
+  },
+  {
+    "player_id": "p_hunter_dickinson",
+    "nba_id": 1630621,
+    "position": "C",
+    "height": "7-1",
+    "weight": 255,
+    "jersey": "4",
+    "age": 25
+  },
+  {
+    "player_id": "p_ousmane_dieng",
+    "nba_id": 1631172,
+    "position": "F",
+    "height": "6-9",
+    "weight": 185,
+    "jersey": "21",
+    "age": 23
+  },
+  {
+    "player_id": "p_rob_dillingham",
+    "nba_id": 1642265,
+    "position": "G",
+    "height": "6-2",
+    "weight": 175,
+    "jersey": "7",
+    "age": 21
+  },
+  {
+    "player_id": "p_luka_doncic",
+    "nba_id": 1629029,
+    "position": "F-G",
+    "height": "6-8",
+    "weight": 230,
+    "jersey": "77",
+    "age": 27
+  },
+  {
+    "player_id": "p_luguentz_dort",
+    "nba_id": 1629652,
+    "position": "G",
+    "height": "6-4",
+    "weight": 220,
+    "jersey": "5",
+    "age": 27
+  },
+  {
+    "player_id": "p_ayo_dosunmu",
+    "nba_id": 1630245,
+    "position": "G",
+    "height": "6-4",
+    "weight": 201,
+    "jersey": "13",
+    "age": 26
+  },
+  {
+    "player_id": "p_andre_drummond",
+    "nba_id": 203083,
+    "position": "C",
+    "height": "6-11",
+    "weight": 279,
+    "jersey": "1",
+    "age": 32
+  },
+  {
+    "player_id": "p_kris_dunn",
+    "nba_id": 1627739,
+    "position": "G",
+    "height": "6-3",
+    "weight": 205,
+    "jersey": "8",
+    "age": 32
+  },
+  {
+    "player_id": "p_ryan_dunn",
+    "nba_id": 1642346,
+    "position": "F",
+    "height": "6-7",
+    "weight": 216,
+    "jersey": "0",
+    "age": 23
+  },
+  {
+    "player_id": "p_kevin_durant",
+    "nba_id": 201142,
+    "position": "F",
+    "height": "6-11",
+    "weight": 240,
+    "jersey": "7",
+    "age": 37
+  },
+  {
+    "player_id": "p_jalen_duren",
+    "nba_id": 1631105,
+    "position": "C",
+    "height": "6-10",
+    "weight": 250,
+    "jersey": "0",
+    "age": 22
+  },
+  {
+    "player_id": "p_aj_dybantsa",
+    "nba_id": 1643407,
+    "position": "F",
+    "height": "6-9",
+    "weight": 210,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_egor_demin",
+    "nba_id": 1642856,
+    "position": "G",
+    "height": "6-8",
+    "weight": 200,
+    "jersey": "8",
+    "age": 20
+  },
+  {
+    "player_id": "p_tari_eason",
+    "nba_id": 1631106,
+    "position": "F",
+    "height": "6-8",
+    "weight": 215,
+    "jersey": "17",
+    "age": 25
+  },
+  {
+    "player_id": "p_zach_edey",
+    "nba_id": 1641744,
+    "position": "C",
+    "height": "7-3",
+    "weight": 305,
+    "jersey": "14",
+    "age": 24
+  },
+  {
+    "player_id": "p_vj_edgecombe",
+    "nba_id": 1642845,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": "77",
+    "age": 20
+  },
+  {
+    "player_id": "p_anthony_edwards",
+    "nba_id": 1630162,
+    "position": "G",
+    "height": "6-4",
+    "weight": 225,
+    "jersey": "5",
+    "age": 24
+  },
+  {
+    "player_id": "p_justin_edwards",
+    "nba_id": 1642348,
+    "position": "F",
+    "height": "6-7",
+    "weight": 217,
+    "jersey": "11",
+    "age": 22
+  },
+  {
+    "player_id": "p_zuby_ejiofor",
+    "nba_id": 1643544,
+    "position": "F",
+    "height": "6-9",
+    "weight": 240,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_keon_ellis",
+    "nba_id": 1631165,
+    "position": "G",
+    "height": "6-4",
+    "weight": 175,
+    "jersey": "14",
+    "age": 26
+  },
+  {
+    "player_id": "p_joel_embiid",
+    "nba_id": 203954,
+    "position": "C-F",
+    "height": "7-0",
+    "weight": 270,
+    "jersey": "21",
+    "age": 32
+  },
+  {
+    "player_id": "p_tristan_enaruna",
+    "nba_id": 1642400,
+    "position": "F",
+    "height": "6-7",
+    "weight": 220,
+    "jersey": "21",
+    "age": 24
+  },
+  {
+    "player_id": "p_noa_essengue",
+    "nba_id": 1642855,
+    "position": "F",
+    "height": "6-8",
+    "weight": 194,
+    "jersey": "24",
+    "age": 19
+  },
+  {
+    "player_id": "p_tyson_etienne",
+    "nba_id": 1630623,
+    "position": "G",
+    "height": "6-0",
+    "weight": 200,
+    "jersey": "10",
+    "age": 26
+  },
+  {
+    "player_id": "p_drew_eubanks",
+    "nba_id": 1629234,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 245,
+    "jersey": "19",
+    "age": 29
+  },
+  {
+    "player_id": "p_tosan_evbuomwan",
+    "nba_id": 1641787,
+    "position": "F",
+    "height": "6-8",
+    "weight": 217,
+    "jersey": "20",
+    "age": 25
+  },
+  {
+    "player_id": "p_jeremiah_fears",
+    "nba_id": 1642847,
+    "position": "G",
+    "height": "6-3",
+    "weight": 190,
+    "jersey": "0",
+    "age": 19
+  },
+  {
+    "player_id": "p_kyle_filipowski",
+    "nba_id": 1642271,
+    "position": "C",
+    "height": "6-11",
+    "weight": 250,
+    "jersey": "22",
+    "age": 22
+  },
+  {
+    "player_id": "p_dorian_finney_smith",
+    "nba_id": 1627827,
+    "position": "F",
+    "height": "6-7",
+    "weight": 220,
+    "jersey": "2",
+    "age": 33
+  },
+  {
+    "player_id": "p_cooper_flagg",
+    "nba_id": 1642843,
+    "position": "F",
+    "height": "6-9",
+    "weight": 205,
+    "jersey": "32",
+    "age": 19
+  },
+  {
+    "player_id": "p_rasheer_fleming",
+    "nba_id": 1642853,
+    "position": "F",
+    "height": "6-9",
+    "weight": 240,
+    "jersey": "20",
+    "age": 21
+  },
+  {
+    "player_id": "p_kingston_flemings",
+    "nba_id": 1643412,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_simone_fontecchio",
+    "nba_id": 1631323,
+    "position": "F",
+    "height": "6-7",
+    "weight": 209,
+    "jersey": "0",
+    "age": 30
+  },
+  {
+    "player_id": "p_de_aaron_fox",
+    "nba_id": 1628368,
+    "position": "G",
+    "height": "6-3",
+    "weight": 185,
+    "jersey": "4",
+    "age": 28
+  },
+  {
+    "player_id": "p_enrique_freeman",
+    "nba_id": 1642402,
+    "position": "F",
+    "height": "6-9",
+    "weight": 220,
+    "jersey": "25",
+    "age": 25
+  },
+  {
+    "player_id": "p_johnny_furphy",
+    "nba_id": 1642277,
+    "position": "G",
+    "height": "6-8",
+    "weight": 200,
+    "jersey": "12",
+    "age": 21
+  },
+  {
+    "player_id": "p_daniel_gafford",
+    "nba_id": 1629655,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 265,
+    "jersey": "21",
+    "age": 27
+  },
+  {
+    "player_id": "p_myron_gardner",
+    "nba_id": 1642066,
+    "position": "F",
+    "height": "6-5",
+    "weight": 220,
+    "jersey": "15",
+    "age": 25
+  },
+  {
+    "player_id": "p_darius_garland",
+    "nba_id": 1629636,
+    "position": "G",
+    "height": "6-1",
+    "weight": 192,
+    "jersey": "10",
+    "age": 26
+  },
+  {
+    "player_id": "p_luka_garza",
+    "nba_id": 1630568,
+    "position": "C",
+    "height": "6-10",
+    "weight": 243,
+    "jersey": "52",
+    "age": 27
+  },
+  {
+    "player_id": "p_keyonte_george",
+    "nba_id": 1641718,
+    "position": "G",
+    "height": "6-4",
+    "weight": 185,
+    "jersey": "3",
+    "age": 22
+  },
+  {
+    "player_id": "p_kyshawn_george",
+    "nba_id": 1642273,
+    "position": "F",
+    "height": "6-8",
+    "weight": 200,
+    "jersey": "18",
+    "age": 22
+  },
+  {
+    "player_id": "p_paul_george",
+    "nba_id": 202331,
+    "position": "F",
+    "height": "6-8",
+    "weight": 230,
+    "jersey": "8",
+    "age": 36
+  },
+  {
+    "player_id": "p_taj_gibson",
+    "nba_id": 201959,
+    "position": "F",
+    "height": "6-9",
+    "weight": 232,
+    "jersey": "67",
+    "age": 41
+  },
+  {
+    "player_id": "p_josh_giddey",
+    "nba_id": 1630581,
+    "position": "G",
+    "height": "6-7",
+    "weight": 214,
+    "jersey": "3",
+    "age": 23
+  },
+  {
+    "player_id": "p_keshon_gilbert",
+    "nba_id": 1642933,
+    "position": "G",
+    "height": "6-4",
+    "weight": 200,
+    "jersey": null,
+    "age": 22
+  },
+  {
+    "player_id": "p_shai_gilgeous_alexander",
+    "nba_id": 1628983,
+    "position": "G",
+    "height": "6-6",
+    "weight": 195,
+    "jersey": "2",
+    "age": 27
+  },
+  {
+    "player_id": "p_anthony_gill",
+    "nba_id": 1630264,
+    "position": "F",
+    "height": "6-7",
+    "weight": 230,
+    "jersey": "16",
+    "age": 33
+  },
+  {
+    "player_id": "p_collin_gillespie",
+    "nba_id": 1631221,
+    "position": "G",
+    "height": "6-1",
+    "weight": 195,
+    "jersey": "12",
+    "age": 26
+  },
+  {
+    "player_id": "p_rudy_gobert",
+    "nba_id": 203497,
+    "position": "C",
+    "height": "7-1",
+    "weight": 258,
+    "jersey": "27",
+    "age": 33
+  },
+  {
+    "player_id": "p_vladislav_goldin",
+    "nba_id": 1642884,
+    "position": "C",
+    "height": "7-0",
+    "weight": 250,
+    "jersey": "50",
+    "age": 25
+  },
+  {
+    "player_id": "p_hugo_gonzalez",
+    "nba_id": 1642864,
+    "position": "G",
+    "height": "6-6",
+    "weight": 200,
+    "jersey": "28",
+    "age": 20
+  },
+  {
+    "player_id": "p_jordan_goodwin",
+    "nba_id": 1630692,
+    "position": "G",
+    "height": "6-3",
+    "weight": 215,
+    "jersey": "23",
+    "age": 27
+  },
+  {
+    "player_id": "p_aaron_gordon",
+    "nba_id": 203932,
+    "position": "F",
+    "height": "6-8",
+    "weight": 235,
+    "jersey": "32",
+    "age": 30
+  },
+  {
+    "player_id": "p_jerami_grant",
+    "nba_id": 203924,
+    "position": "F",
+    "height": "6-7",
+    "weight": 213,
+    "jersey": "9",
+    "age": 32
+  },
+  {
+    "player_id": "p_allen_graves",
+    "nba_id": 1643512,
+    "position": "F",
+    "height": "6-9",
+    "weight": 225,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_hayden_gray",
+    "nba_id": 1643060,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": null,
+    "age": 23
+  },
+  {
+    "player_id": "p_aj_green",
+    "nba_id": 1631260,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": "20",
+    "age": 26
+  },
+  {
+    "player_id": "p_draymond_green",
+    "nba_id": 203110,
+    "position": "F",
+    "height": "6-6",
+    "weight": 230,
+    "jersey": "23",
+    "age": 36
+  },
+  {
+    "player_id": "p_jalen_green",
+    "nba_id": 1630224,
+    "position": "G",
+    "height": "6-4",
+    "weight": 186,
+    "jersey": "4",
+    "age": 24
+  },
+  {
+    "player_id": "p_javonte_green",
+    "nba_id": 1629750,
+    "position": "G",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "31",
+    "age": 32
+  },
+  {
+    "player_id": "p_jeff_green",
+    "nba_id": 201145,
+    "position": "F",
+    "height": "6-8",
+    "weight": 235,
+    "jersey": "32",
+    "age": 39
+  },
+  {
+    "player_id": "p_josh_green",
+    "nba_id": 1630182,
+    "position": "G",
+    "height": "6-6",
+    "weight": 200,
+    "jersey": "10",
+    "age": 25
+  },
+  {
+    "player_id": "p_quentin_grimes",
+    "nba_id": 1629656,
+    "position": "G",
+    "height": "6-5",
+    "weight": 207,
+    "jersey": "5",
+    "age": 26
+  },
+  {
+    "player_id": "p_mouhamadou_gueye",
+    "nba_id": 1631338,
+    "position": "F",
+    "height": "6-9",
+    "weight": 210,
+    "jersey": "16",
+    "age": 27
+  },
+  {
+    "player_id": "p_mouhamed_gueye",
+    "nba_id": 1631243,
+    "position": "F",
+    "height": "6-11",
+    "weight": 210,
+    "jersey": "18",
+    "age": 23
+  },
+  {
+    "player_id": "p_rui_hachimura",
+    "nba_id": 1629060,
+    "position": "F",
+    "height": "6-8",
+    "weight": 230,
+    "jersey": "28",
+    "age": 28
+  },
+  {
+    "player_id": "p_tyrese_haliburton",
+    "nba_id": 1630169,
+    "position": "G",
+    "height": "6-5",
+    "weight": 185,
+    "jersey": "0",
+    "age": null
+  },
+  {
+    "player_id": "p_pj_hall",
+    "nba_id": 1641790,
+    "position": "C",
+    "height": "6-8",
+    "weight": 245,
+    "jersey": "16",
+    "age": 24
+  },
+  {
+    "player_id": "p_tim_hardaway_jr",
+    "nba_id": 203501,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "10",
+    "age": 34
+  },
+  {
+    "player_id": "p_james_harden",
+    "nba_id": 201935,
+    "position": "G",
+    "height": "6-5",
+    "weight": 220,
+    "jersey": "1",
+    "age": 36
+  },
+  {
+    "player_id": "p_jaden_hardy",
+    "nba_id": 1630702,
+    "position": "G",
+    "height": "6-3",
+    "weight": 198,
+    "jersey": "8",
+    "age": 23
+  },
+  {
+    "player_id": "p_elijah_harkless",
+    "nba_id": 1641989,
+    "position": "G",
+    "height": "6-3",
+    "weight": 195,
+    "jersey": "16",
+    "age": 26
+  },
+  {
+    "player_id": "p_dylan_harper",
+    "nba_id": 1642844,
+    "position": "G",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "2",
+    "age": 20
+  },
+  {
+    "player_id": "p_ron_harper_jr",
+    "nba_id": 1631199,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 233,
+    "jersey": "13",
+    "age": 26
+  },
+  {
+    "player_id": "p_gary_harris",
+    "nba_id": 203914,
+    "position": "G",
+    "height": "6-4",
+    "weight": 210,
+    "jersey": "11",
+    "age": 31
+  },
+  {
+    "player_id": "p_tobias_harris",
+    "nba_id": 202699,
+    "position": "F",
+    "height": "6-8",
+    "weight": 226,
+    "jersey": "12",
+    "age": 33
+  },
+  {
+    "player_id": "p_josh_hart",
+    "nba_id": 1628404,
+    "position": "G",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "3",
+    "age": 31
+  },
+  {
+    "player_id": "p_isaiah_hartenstein",
+    "nba_id": 1628392,
+    "position": "C-F",
+    "height": "7-0",
+    "weight": 250,
+    "jersey": "55",
+    "age": 28
+  },
+  {
+    "player_id": "p_sam_hauser",
+    "nba_id": 1630573,
+    "position": "F",
+    "height": "6-7",
+    "weight": 217,
+    "jersey": "30",
+    "age": 28
+  },
+  {
+    "player_id": "p_jordan_hawkins",
+    "nba_id": 1641722,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": "24",
+    "age": 24
+  },
+  {
+    "player_id": "p_jaxson_hayes",
+    "nba_id": 1629637,
+    "position": "C-F",
+    "height": "7-0",
+    "weight": 220,
+    "jersey": "11",
+    "age": 26
+  },
+  {
+    "player_id": "p_killian_hayes",
+    "nba_id": 1630165,
+    "position": "G",
+    "height": "6-4",
+    "weight": 195,
+    "jersey": "7",
+    "age": 24
+  },
+  {
+    "player_id": "p_scoot_henderson",
+    "nba_id": 1630703,
+    "position": "G",
+    "height": "6-3",
+    "weight": 207,
+    "jersey": "00",
+    "age": 22
+  },
+  {
+    "player_id": "p_taylor_hendricks",
+    "nba_id": 1641707,
+    "position": "F",
+    "height": "6-9",
+    "weight": 215,
+    "jersey": "22",
+    "age": 22
+  },
+  {
+    "player_id": "p_chucky_hepburn",
+    "nba_id": 1642935,
+    "position": "G",
+    "height": "6-0",
+    "weight": 190,
+    "jersey": "24",
+    "age": 23
+  },
+  {
+    "player_id": "p_tyler_herro",
+    "nba_id": 1629639,
+    "position": "G",
+    "height": "6-5",
+    "weight": 195,
+    "jersey": "14",
+    "age": 26
+  },
+  {
+    "player_id": "p_buddy_hield",
+    "nba_id": 1627741,
+    "position": "G",
+    "height": "6-4",
+    "weight": 220,
+    "jersey": "8",
+    "age": 33
+  },
+  {
+    "player_id": "p_haywood_highsmith",
+    "nba_id": 1629312,
+    "position": "F",
+    "height": "6-5",
+    "weight": 220,
+    "jersey": "7",
+    "age": 29
+  },
+  {
+    "player_id": "p_blake_hinson",
+    "nba_id": 1642396,
+    "position": "F",
+    "height": "6-8",
+    "weight": 230,
+    "jersey": "2",
+    "age": 26
+  },
+  {
+    "player_id": "p_aaron_holiday",
+    "nba_id": 1628988,
+    "position": "G",
+    "height": "6-0",
+    "weight": 185,
+    "jersey": "0",
+    "age": 29
+  },
+  {
+    "player_id": "p_jrue_holiday",
+    "nba_id": 201950,
+    "position": "G",
+    "height": "6-4",
+    "weight": 220,
+    "jersey": "5",
+    "age": 36
+  },
+  {
+    "player_id": "p_ronald_holland_ii",
+    "nba_id": 1641842,
+    "position": "F",
+    "height": "6-8",
+    "weight": 206,
+    "jersey": "5",
+    "age": 20
+  },
+  {
+    "player_id": "p_daron_holmes_ii",
+    "nba_id": 1641747,
+    "position": "F",
+    "height": "6-9",
+    "weight": 225,
+    "jersey": "14",
+    "age": 23
+  },
+  {
+    "player_id": "p_chet_holmgren",
+    "nba_id": 1631096,
+    "position": "C-F",
+    "height": "7-1",
+    "weight": 208,
+    "jersey": "7",
+    "age": 24
+  },
+  {
+    "player_id": "p_al_horford",
+    "nba_id": 201143,
+    "position": "C-F",
+    "height": "6-8",
+    "weight": 240,
+    "jersey": "20",
+    "age": 40
+  },
+  {
+    "player_id": "p_jett_howard",
+    "nba_id": 1641724,
+    "position": "G",
+    "height": "6-8",
+    "weight": 215,
+    "jersey": "13",
+    "age": 22
+  },
+  {
+    "player_id": "p_kevin_huerter",
+    "nba_id": 1628989,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 190,
+    "jersey": "27",
+    "age": 27
+  },
+  {
+    "player_id": "p_jay_huff",
+    "nba_id": 1630643,
+    "position": "C",
+    "height": "7-1",
+    "weight": 240,
+    "jersey": "32",
+    "age": 28
+  },
+  {
+    "player_id": "p_ariel_hukporti",
+    "nba_id": 1630574,
+    "position": "C",
+    "height": "7-0",
+    "weight": 246,
+    "jersey": "55",
+    "age": 24
+  },
+  {
+    "player_id": "p_de_andre_hunter",
+    "nba_id": 1629631,
+    "position": "F-G",
+    "height": "6-7",
+    "weight": 221,
+    "jersey": "15",
+    "age": 28
+  },
+  {
+    "player_id": "p_cj_huntley",
+    "nba_id": 1643047,
+    "position": "F",
+    "height": "6-11",
+    "weight": 230,
+    "jersey": "22",
+    "age": 24
+  },
+  {
+    "player_id": "p_bones_hyland",
+    "nba_id": 1630538,
+    "position": "G",
+    "height": "6-2",
+    "weight": 169,
+    "jersey": "8",
+    "age": 25
+  },
+  {
+    "player_id": "p_oso_ighodaro",
+    "nba_id": 1642345,
+    "position": "F",
+    "height": "6-11",
+    "weight": 235,
+    "jersey": "11",
+    "age": 23
+  },
+  {
+    "player_id": "p_joe_ingles",
+    "nba_id": 204060,
+    "position": "F-G",
+    "height": "6-8",
+    "weight": 220,
+    "jersey": "7",
+    "age": 38
+  },
+  {
+    "player_id": "p_brandon_ingram",
+    "nba_id": 1627742,
+    "position": "F",
+    "height": "6-8",
+    "weight": 190,
+    "jersey": "3",
+    "age": 28
+  },
+  {
+    "player_id": "p_harrison_ingram",
+    "nba_id": 1631127,
+    "position": "F",
+    "height": "6-5",
+    "weight": 230,
+    "jersey": "55",
+    "age": 23
+  },
+  {
+    "player_id": "p_kyrie_irving",
+    "nba_id": 202681,
+    "position": "G",
+    "height": "6-2",
+    "weight": 195,
+    "jersey": "11",
+    "age": null
+  },
+  {
+    "player_id": "p_jonathan_isaac",
+    "nba_id": 1628371,
+    "position": "F",
+    "height": "6-10",
+    "weight": 230,
+    "jersey": "1",
+    "age": 28
+  },
+  {
+    "player_id": "p_gg_jackson",
+    "nba_id": 1641713,
+    "position": "F",
+    "height": "6-9",
+    "weight": 210,
+    "jersey": "45",
+    "age": 21
+  },
+  {
+    "player_id": "p_isaiah_jackson",
+    "nba_id": 1630543,
+    "position": "F",
+    "height": "6-8",
+    "weight": 205,
+    "jersey": "23",
+    "age": 24
+  },
+  {
+    "player_id": "p_quenton_jackson",
+    "nba_id": 1631245,
+    "position": "G",
+    "height": "6-4",
+    "weight": 173,
+    "jersey": "29",
+    "age": 27
+  },
+  {
+    "player_id": "p_andre_jackson_jr",
+    "nba_id": 1641748,
+    "position": "G",
+    "height": "6-6",
+    "weight": 209,
+    "jersey": "44",
+    "age": 24
+  },
+  {
+    "player_id": "p_jaren_jackson_jr",
+    "nba_id": 1628991,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 242,
+    "jersey": "20",
+    "age": 26
+  },
+  {
+    "player_id": "p_trayce_jackson_davis",
+    "nba_id": 1631218,
+    "position": "F",
+    "height": "6-9",
+    "weight": 245,
+    "jersey": "32",
+    "age": 26
+  },
+  {
+    "player_id": "p_kasparas_jakucionis",
+    "nba_id": 1642857,
+    "position": "G",
+    "height": "6-5",
+    "weight": 200,
+    "jersey": "25",
+    "age": 20
+  },
+  {
+    "player_id": "p_bronny_james",
+    "nba_id": 1642355,
+    "position": "G",
+    "height": "6-2",
+    "weight": 210,
+    "jersey": "9",
+    "age": 21
+  },
+  {
+    "player_id": "p_lebron_james",
+    "nba_id": 2544,
+    "position": "F",
+    "height": "6-9",
+    "weight": 250,
+    "jersey": "23",
+    "age": 41
+  },
+  {
+    "player_id": "p_sion_james",
+    "nba_id": 1642883,
+    "position": "G",
+    "height": "6-5",
+    "weight": 220,
+    "jersey": "4",
+    "age": 23
+  },
+  {
+    "player_id": "p_jaime_jaquez_jr",
+    "nba_id": 1631170,
+    "position": "G",
+    "height": "6-6",
+    "weight": 225,
+    "jersey": "11",
+    "age": 25
+  },
+  {
+    "player_id": "p_joshua_jefferson",
+    "nba_id": 1643538,
+    "position": "F",
+    "height": "6-9",
+    "weight": 240,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_trey_jemison_iii",
+    "nba_id": 1641998,
+    "position": "C",
+    "height": "6-10",
+    "weight": 270,
+    "jersey": "50",
+    "age": 26
+  },
+  {
+    "player_id": "p_daniss_jenkins",
+    "nba_id": 1642450,
+    "position": "G",
+    "height": "6-4",
+    "weight": 165,
+    "jersey": "24",
+    "age": 24
+  },
+  {
+    "player_id": "p_ty_jerome",
+    "nba_id": 1629660,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 195,
+    "jersey": "2",
+    "age": 28
+  },
+  {
+    "player_id": "p_isaiah_joe",
+    "nba_id": 1630198,
+    "position": "G",
+    "height": "6-4",
+    "weight": 165,
+    "jersey": "11",
+    "age": 26
+  },
+  {
+    "player_id": "p_aj_johnson",
+    "nba_id": 1642358,
+    "position": "G",
+    "height": "6-5",
+    "weight": 160,
+    "jersey": "8",
+    "age": 21
+  },
+  {
+    "player_id": "p_cameron_johnson",
+    "nba_id": 1629661,
+    "position": "F",
+    "height": "6-8",
+    "weight": 210,
+    "jersey": "23",
+    "age": 30
+  },
+  {
+    "player_id": "p_chaney_johnson",
+    "nba_id": 1643052,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 220,
+    "jersey": "31",
+    "age": 24
+  },
+  {
+    "player_id": "p_jalen_johnson",
+    "nba_id": 1630552,
+    "position": "F",
+    "height": "6-8",
+    "weight": 219,
+    "jersey": "1",
+    "age": 24
+  },
+  {
+    "player_id": "p_keldon_johnson",
+    "nba_id": 1629640,
+    "position": "F-G",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "3",
+    "age": 26
+  },
+  {
+    "player_id": "p_keshad_johnson",
+    "nba_id": 1642352,
+    "position": "F",
+    "height": "6-6",
+    "weight": 225,
+    "jersey": "16",
+    "age": 25
+  },
+  {
+    "player_id": "p_morez_johnson",
+    "nba_id": 1643516,
+    "position": "F",
+    "height": "6-9",
+    "weight": 250,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_tre_johnson",
+    "nba_id": 1642848,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": "12",
+    "age": 20
+  },
+  {
+    "player_id": "p_nikola_jokic",
+    "nba_id": 203999,
+    "position": "C",
+    "height": "6-11",
+    "weight": 284,
+    "jersey": "15",
+    "age": 31
+  },
+  {
+    "player_id": "p_curtis_jones",
+    "nba_id": 1642938,
+    "position": "G",
+    "height": "6-3",
+    "weight": 195,
+    "jersey": "1",
+    "age": 24
+  },
+  {
+    "player_id": "p_dillon_jones",
+    "nba_id": 1641794,
+    "position": "F",
+    "height": "6-5",
+    "weight": 235,
+    "jersey": null,
+    "age": 24
+  },
+  {
+    "player_id": "p_herbert_jones",
+    "nba_id": 1630529,
+    "position": "F",
+    "height": "6-7",
+    "weight": 206,
+    "jersey": "2",
+    "age": 27
+  },
+  {
+    "player_id": "p_isaac_jones",
+    "nba_id": 1642403,
+    "position": "F",
+    "height": "6-8",
+    "weight": 245,
+    "jersey": "3",
+    "age": 25
+  },
+  {
+    "player_id": "p_kam_jones",
+    "nba_id": 1642880,
+    "position": "G",
+    "height": "6-4",
+    "weight": 200,
+    "jersey": "7",
+    "age": 24
+  },
+  {
+    "player_id": "p_spencer_jones",
+    "nba_id": 1642461,
+    "position": "F",
+    "height": "6-7",
+    "weight": 225,
+    "jersey": "21",
+    "age": 25
+  },
+  {
+    "player_id": "p_tre_jones",
+    "nba_id": 1630200,
+    "position": "G",
+    "height": "6-1",
+    "weight": 190,
+    "jersey": "30",
+    "age": 26
+  },
+  {
+    "player_id": "p_tyus_jones",
+    "nba_id": 1626145,
+    "position": "G",
+    "height": "6-0",
+    "weight": 196,
+    "jersey": "5",
+    "age": 30
+  },
+  {
+    "player_id": "p_david_jones_garcia",
+    "nba_id": 1642357,
+    "position": "G",
+    "height": "6-4",
+    "weight": 210,
+    "jersey": "25",
+    "age": 24
+  },
+  {
+    "player_id": "p_derrick_jones_jr",
+    "nba_id": 1627884,
+    "position": "F",
+    "height": "6-6",
+    "weight": 210,
+    "jersey": "5",
+    "age": 29
+  },
+  {
+    "player_id": "p_deandre_jordan",
+    "nba_id": 201599,
+    "position": "C",
+    "height": "6-11",
+    "weight": 265,
+    "jersey": "9",
+    "age": 37
+  },
+  {
+    "player_id": "p_nikola_jovic",
+    "nba_id": 1631107,
+    "position": "F",
+    "height": "6-10",
+    "weight": 205,
+    "jersey": "5",
+    "age": 23
+  },
+  {
+    "player_id": "p_ryan_kalkbrenner",
+    "nba_id": 1641750,
+    "position": "C",
+    "height": "7-1",
+    "weight": 256,
+    "jersey": "11",
+    "age": 24
+  },
+  {
+    "player_id": "p_alex_karaban",
+    "nba_id": 1642284,
+    "position": "F",
+    "height": "6-8",
+    "weight": 220,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_yuki_kawamura",
+    "nba_id": 1642530,
+    "position": "G",
+    "height": "5-7",
+    "weight": 159,
+    "jersey": "8",
+    "age": 25
+  },
+  {
+    "player_id": "p_trevor_keels",
+    "nba_id": 1631211,
+    "position": "G",
+    "height": "6-3",
+    "weight": 215,
+    "jersey": "3",
+    "age": 22
+  },
+  {
+    "player_id": "p_luke_kennard",
+    "nba_id": 1628379,
+    "position": "G",
+    "height": "6-5",
+    "weight": 206,
+    "jersey": "10",
+    "age": 29
+  },
+  {
+    "player_id": "p_jayson_kent",
+    "nba_id": 1643257,
+    "position": "F",
+    "height": "6-8",
+    "weight": 215,
+    "jersey": null,
+    "age": 24
+  },
+  {
+    "player_id": "p_walker_kessler",
+    "nba_id": 1631117,
+    "position": "C",
+    "height": "7-2",
+    "weight": 245,
+    "jersey": "24",
+    "age": 24
+  },
+  {
+    "player_id": "p_corey_kispert",
+    "nba_id": 1630557,
+    "position": "F",
+    "height": "6-6",
+    "weight": 224,
+    "jersey": "24",
+    "age": 27
+  },
+  {
+    "player_id": "p_maxi_kleber",
+    "nba_id": 1628467,
+    "position": "F",
+    "height": "6-10",
+    "weight": 240,
+    "jersey": "14",
+    "age": 34
+  },
+  {
+    "player_id": "p_dalton_knecht",
+    "nba_id": 1642261,
+    "position": "F",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "4",
+    "age": 25
+  },
+  {
+    "player_id": "p_kon_knueppel",
+    "nba_id": 1642851,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "7",
+    "age": 20
+  },
+  {
+    "player_id": "p_tyler_kolek",
+    "nba_id": 1642278,
+    "position": "G",
+    "height": "6-2",
+    "weight": 195,
+    "jersey": "13",
+    "age": 25
+  },
+  {
+    "player_id": "p_christian_koloko",
+    "nba_id": 1631132,
+    "position": "C",
+    "height": "6-11",
+    "weight": 225,
+    "jersey": "10",
+    "age": 26
+  },
+  {
+    "player_id": "p_john_konchar",
+    "nba_id": 1629723,
+    "position": "G",
+    "height": "6-5",
+    "weight": 210,
+    "jersey": "55",
+    "age": 30
+  },
+  {
+    "player_id": "p_luke_kornet",
+    "nba_id": 1628436,
+    "position": "C-F",
+    "height": "7-1",
+    "weight": 250,
+    "jersey": "7",
+    "age": 30
+  },
+  {
+    "player_id": "p_vit_krejci",
+    "nba_id": 1630249,
+    "position": "G",
+    "height": "6-8",
+    "weight": 195,
+    "jersey": "27",
+    "age": 26
+  },
+  {
+    "player_id": "p_jonathan_kuminga",
+    "nba_id": 1630228,
+    "position": "F",
+    "height": "6-7",
+    "weight": 225,
+    "jersey": "0",
+    "age": 23
+  },
+  {
+    "player_id": "p_kyle_kuzma",
+    "nba_id": 1628398,
+    "position": "F",
+    "height": "6-8",
+    "weight": 221,
+    "jersey": "18",
+    "age": 30
+  },
+  {
+    "player_id": "p_jake_laravia",
+    "nba_id": 1631222,
+    "position": "F",
+    "height": "6-7",
+    "weight": 235,
+    "jersey": "12",
+    "age": 24
+  },
+  {
+    "player_id": "p_zach_lavine",
+    "nba_id": 203897,
+    "position": "G",
+    "height": "6-5",
+    "weight": 200,
+    "jersey": "8",
+    "age": 31
+  },
+  {
+    "player_id": "p_jock_landale",
+    "nba_id": 1629111,
+    "position": "C",
+    "height": "6-11",
+    "weight": 255,
+    "jersey": "31",
+    "age": 30
+  },
+  {
+    "player_id": "p_chaz_lanier",
+    "nba_id": 1642404,
+    "position": "G",
+    "height": "6-3",
+    "weight": 206,
+    "jersey": "20",
+    "age": 24
+  },
+  {
+    "player_id": "p_pelle_larsson",
+    "nba_id": 1641796,
+    "position": "G",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "9",
+    "age": 25
+  },
+  {
+    "player_id": "p_a_j_lawson",
+    "nba_id": 1630639,
+    "position": "G",
+    "height": "6-6",
+    "weight": 179,
+    "jersey": "0",
+    "age": 25
+  },
+  {
+    "player_id": "p_caris_levert",
+    "nba_id": 1627747,
+    "position": "G",
+    "height": "6-7",
+    "weight": 205,
+    "jersey": "8",
+    "age": 31
+  },
+  {
+    "player_id": "p_yaxel_lendeborg",
+    "nba_id": 1642865,
+    "position": "F",
+    "height": "6-9",
+    "weight": 250,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_kawhi_leonard",
+    "nba_id": 202695,
+    "position": "F",
+    "height": "6-6",
+    "weight": 225,
+    "jersey": "2",
+    "age": 34
+  },
+  {
+    "player_id": "p_malevy_leons",
+    "nba_id": 1642502,
+    "position": "F",
+    "height": "6-9",
+    "weight": 210,
+    "jersey": "33",
+    "age": 26
+  },
+  {
+    "player_id": "p_e_j_liddell",
+    "nba_id": 1630604,
+    "position": "F",
+    "height": "6-6",
+    "weight": 240,
+    "jersey": "9",
+    "age": 25
+  },
+  {
+    "player_id": "p_damian_lillard",
+    "nba_id": 203081,
+    "position": "G",
+    "height": "6-2",
+    "weight": 200,
+    "jersey": "0",
+    "age": null
+  },
+  {
+    "player_id": "p_dereck_lively_ii",
+    "nba_id": 1641726,
+    "position": "C",
+    "height": "7-1",
+    "weight": 230,
+    "jersey": "2",
+    "age": 22
+  },
+  {
+    "player_id": "p_isaiah_livers",
+    "nba_id": 1630587,
+    "position": "F",
+    "height": "6-6",
+    "weight": 232,
+    "jersey": "18",
+    "age": 27
+  },
+  {
+    "player_id": "p_kevon_looney",
+    "nba_id": 1626172,
+    "position": "F",
+    "height": "6-9",
+    "weight": 222,
+    "jersey": "55",
+    "age": 30
+  },
+  {
+    "player_id": "p_brook_lopez",
+    "nba_id": 201572,
+    "position": "C",
+    "height": "7-1",
+    "weight": 282,
+    "jersey": "11",
+    "age": 38
+  },
+  {
+    "player_id": "p_karim_lopez",
+    "nba_id": 1643510,
+    "position": "F",
+    "height": "6-8",
+    "weight": 210,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_caleb_love",
+    "nba_id": 1631126,
+    "position": "G",
+    "height": "6-3",
+    "weight": 212,
+    "jersey": "2",
+    "age": 24
+  },
+  {
+    "player_id": "p_kevin_love",
+    "nba_id": 201567,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 251,
+    "jersey": "42",
+    "age": 37
+  },
+  {
+    "player_id": "p_kyle_lowry",
+    "nba_id": 200768,
+    "position": "G",
+    "height": "6-0",
+    "weight": 196,
+    "jersey": "7",
+    "age": 40
+  },
+  {
+    "player_id": "p_khaman_maluach",
+    "nba_id": 1642863,
+    "position": "C",
+    "height": "7-1",
+    "weight": 250,
+    "jersey": "10",
+    "age": 19
+  },
+  {
+    "player_id": "p_sandro_mamukelashvili",
+    "nba_id": 1630572,
+    "position": "F-C",
+    "height": "6-9",
+    "weight": 240,
+    "jersey": "54",
+    "age": 27
+  },
+  {
+    "player_id": "p_terance_mann",
+    "nba_id": 1629611,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "14",
+    "age": 29
+  },
+  {
+    "player_id": "p_tre_mann",
+    "nba_id": 1630544,
+    "position": "G",
+    "height": "6-4",
+    "weight": 178,
+    "jersey": "23",
+    "age": 25
+  },
+  {
+    "player_id": "p_aday_mara",
+    "nba_id": 1643530,
+    "position": "C",
+    "height": "7-2",
+    "weight": 255,
+    "jersey": "15",
+    "age": null
+  },
+  {
+    "player_id": "p_lauri_markkanen",
+    "nba_id": 1628374,
+    "position": "F-C",
+    "height": "7-1",
+    "weight": 240,
+    "jersey": "23",
+    "age": 29
+  },
+  {
+    "player_id": "p_naji_marshall",
+    "nba_id": 1630230,
+    "position": "F",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "13",
+    "age": 28
+  },
+  {
+    "player_id": "p_alijah_martin",
+    "nba_id": 1642918,
+    "position": "G",
+    "height": "6-2",
+    "weight": 210,
+    "jersey": "55",
+    "age": 24
+  },
+  {
+    "player_id": "p_caleb_martin",
+    "nba_id": 1628997,
+    "position": "F",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "16",
+    "age": 30
+  },
+  {
+    "player_id": "p_tyrese_martin",
+    "nba_id": 1631213,
+    "position": "F",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "23",
+    "age": 27
+  },
+  {
+    "player_id": "p_jahmai_mashack",
+    "nba_id": 1642942,
+    "position": "G",
+    "height": "6-4",
+    "weight": 203,
+    "jersey": null,
+    "age": 23
+  },
+  {
+    "player_id": "p_bennedict_mathurin",
+    "nba_id": 1631097,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 210,
+    "jersey": "9",
+    "age": 24
+  },
+  {
+    "player_id": "p_karlo_matkovic",
+    "nba_id": 1631255,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 231,
+    "jersey": "17",
+    "age": 25
+  },
+  {
+    "player_id": "p_tyrese_maxey",
+    "nba_id": 1630178,
+    "position": "G",
+    "height": "6-2",
+    "weight": 200,
+    "jersey": "0",
+    "age": 25
+  },
+  {
+    "player_id": "p_chris_manon",
+    "nba_id": 1643024,
+    "position": "G",
+    "height": "6-4",
+    "weight": 209,
+    "jersey": "30",
+    "age": 24
+  },
+  {
+    "player_id": "p_bez_mbeng",
+    "nba_id": 1643016,
+    "position": "G",
+    "height": "6-4",
+    "weight": 185,
+    "jersey": "21",
+    "age": 23
+  },
+  {
+    "player_id": "p_miles_mcbride",
+    "nba_id": 1630540,
+    "position": "G",
+    "height": "6-2",
+    "weight": 195,
+    "jersey": "2",
+    "age": 25
+  },
+  {
+    "player_id": "p_jared_mccain",
+    "nba_id": 1642272,
+    "position": "G",
+    "height": "6-3",
+    "weight": 195,
+    "jersey": "3",
+    "age": 22
+  },
+  {
+    "player_id": "p_mac_mcclung",
+    "nba_id": 1630644,
+    "position": "G",
+    "height": "6-2",
+    "weight": 185,
+    "jersey": "5",
+    "age": 27
+  },
+  {
+    "player_id": "p_cj_mccollum",
+    "nba_id": 203468,
+    "position": "G",
+    "height": "6-3",
+    "weight": 190,
+    "jersey": "3",
+    "age": 34
+  },
+  {
+    "player_id": "p_t_j_mcconnell",
+    "nba_id": 204456,
+    "position": "G",
+    "height": "6-1",
+    "weight": 190,
+    "jersey": "9",
+    "age": 34
+  },
+  {
+    "player_id": "p_kevin_mccullar_jr",
+    "nba_id": 1641755,
+    "position": "G",
+    "height": "6-6",
+    "weight": 210,
+    "jersey": "9",
+    "age": 25
+  },
+  {
+    "player_id": "p_jaden_mcdaniels",
+    "nba_id": 1630183,
+    "position": "F",
+    "height": "6-9",
+    "weight": 185,
+    "jersey": "3",
+    "age": 25
+  },
+  {
+    "player_id": "p_doug_mcdermott",
+    "nba_id": 203926,
+    "position": "F",
+    "height": "6-7",
+    "weight": 225,
+    "jersey": "7",
+    "age": 34
+  },
+  {
+    "player_id": "p_bryce_mcgowens",
+    "nba_id": 1631121,
+    "position": "G",
+    "height": "6-6",
+    "weight": 190,
+    "jersey": "11",
+    "age": 23
+  },
+  {
+    "player_id": "p_jordan_mclaughlin",
+    "nba_id": 1629162,
+    "position": "G",
+    "height": "5-11",
+    "weight": 185,
+    "jersey": "0",
+    "age": 30
+  },
+  {
+    "player_id": "p_liam_mcneeley",
+    "nba_id": 1642862,
+    "position": "F",
+    "height": "6-7",
+    "weight": 210,
+    "jersey": "33",
+    "age": 20
+  },
+  {
+    "player_id": "p_de_anthony_melton",
+    "nba_id": 1629001,
+    "position": "G",
+    "height": "6-2",
+    "weight": 200,
+    "jersey": "8",
+    "age": 28
+  },
+  {
+    "player_id": "p_sam_merrill",
+    "nba_id": 1630241,
+    "position": "G",
+    "height": "6-4",
+    "weight": 205,
+    "jersey": "5",
+    "age": 30
+  },
+  {
+    "player_id": "p_khris_middleton",
+    "nba_id": 203114,
+    "position": "F",
+    "height": "6-7",
+    "weight": 222,
+    "jersey": "20",
+    "age": 34
+  },
+  {
+    "player_id": "p_brandon_miller",
+    "nba_id": 1641706,
+    "position": "F",
+    "height": "6-7",
+    "weight": 200,
+    "jersey": "24",
+    "age": 23
+  },
+  {
+    "player_id": "p_emanuel_miller",
+    "nba_id": 1641801,
+    "position": "F",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "14",
+    "age": 26
+  },
+  {
+    "player_id": "p_jordan_miller",
+    "nba_id": 1641757,
+    "position": "G",
+    "height": "6-5",
+    "weight": 194,
+    "jersey": "22",
+    "age": 26
+  },
+  {
+    "player_id": "p_leonard_miller",
+    "nba_id": 1631159,
+    "position": "F",
+    "height": "6-10",
+    "weight": 220,
+    "jersey": "11",
+    "age": 22
+  },
+  {
+    "player_id": "p_riley_minix",
+    "nba_id": 1642434,
+    "position": "F",
+    "height": "6-7",
+    "weight": 230,
+    "jersey": "12",
+    "age": 25
+  },
+  {
+    "player_id": "p_josh_minott",
+    "nba_id": 1631169,
+    "position": "F",
+    "height": "6-8",
+    "weight": 205,
+    "jersey": "00",
+    "age": 23
+  },
+  {
+    "player_id": "p_yves_missi",
+    "nba_id": 1642274,
+    "position": "C",
+    "height": "6-11",
+    "weight": 235,
+    "jersey": "21",
+    "age": 22
+  },
+  {
+    "player_id": "p_ajay_mitchell",
+    "nba_id": 1642349,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": "25",
+    "age": 23
+  },
+  {
+    "player_id": "p_davion_mitchell",
+    "nba_id": 1630558,
+    "position": "G",
+    "height": "6-0",
+    "weight": 202,
+    "jersey": "45",
+    "age": 27
+  },
+  {
+    "player_id": "p_donovan_mitchell",
+    "nba_id": 1628378,
+    "position": "G",
+    "height": "6-2",
+    "weight": 215,
+    "jersey": "45",
+    "age": 29
+  },
+  {
+    "player_id": "p_evan_mobley",
+    "nba_id": 1630596,
+    "position": "C",
+    "height": "6-11",
+    "weight": 215,
+    "jersey": "4",
+    "age": 25
+  },
+  {
+    "player_id": "p_jonathan_mogbo",
+    "nba_id": 1642367,
+    "position": "F",
+    "height": "6-9",
+    "weight": 225,
+    "jersey": "2",
+    "age": 24
+  },
+  {
+    "player_id": "p_malik_monk",
+    "nba_id": 1628370,
+    "position": "G",
+    "height": "6-3",
+    "weight": 200,
+    "jersey": "0",
+    "age": 28
+  },
+  {
+    "player_id": "p_moses_moody",
+    "nba_id": 1630541,
+    "position": "G",
+    "height": "6-5",
+    "weight": 211,
+    "jersey": "4",
+    "age": 24
+  },
+  {
+    "player_id": "p_wendell_moore_jr",
+    "nba_id": 1631111,
+    "position": "G",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "14",
+    "age": 24
+  },
+  {
+    "player_id": "p_alex_morales",
+    "nba_id": 1631457,
+    "position": "G",
+    "height": "6-6",
+    "weight": 210,
+    "jersey": null,
+    "age": 28
+  },
+  {
+    "player_id": "p_ja_morant",
+    "nba_id": 1629630,
+    "position": "G",
+    "height": "6-2",
+    "weight": 174,
+    "jersey": "12",
+    "age": 26
+  },
+  {
+    "player_id": "p_trey_murphy_iii",
+    "nba_id": 1630530,
+    "position": "F",
+    "height": "6-8",
+    "weight": 206,
+    "jersey": "25",
+    "age": 26
+  },
+  {
+    "player_id": "p_dejounte_murray",
+    "nba_id": 1627749,
+    "position": "G",
+    "height": "6-4",
+    "weight": 180,
+    "jersey": "5",
+    "age": 29
+  },
+  {
+    "player_id": "p_jamal_murray",
+    "nba_id": 1627750,
+    "position": "G",
+    "height": "6-4",
+    "weight": 215,
+    "jersey": "27",
+    "age": 29
+  },
+  {
+    "player_id": "p_keegan_murray",
+    "nba_id": 1631099,
+    "position": "F",
+    "height": "6-8",
+    "weight": 225,
+    "jersey": "13",
+    "age": 25
+  },
+  {
+    "player_id": "p_kris_murray",
+    "nba_id": 1631200,
+    "position": "F",
+    "height": "6-8",
+    "weight": 218,
+    "jersey": "24",
+    "age": 25
+  },
+  {
+    "player_id": "p_collin_murray_boyles",
+    "nba_id": 1642867,
+    "position": "F",
+    "height": "6-7",
+    "weight": 245,
+    "jersey": "12",
+    "age": 21
+  },
+  {
+    "player_id": "p_svi_mykhailiuk",
+    "nba_id": 1629004,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 205,
+    "jersey": "10",
+    "age": 29
+  },
+  {
+    "player_id": "p_pete_nance",
+    "nba_id": 1631250,
+    "position": "F",
+    "height": "6-9",
+    "weight": 225,
+    "jersey": "35",
+    "age": 26
+  },
+  {
+    "player_id": "p_larry_nance_jr",
+    "nba_id": 1626204,
+    "position": "F-C",
+    "height": "6-6",
+    "weight": 245,
+    "jersey": "22",
+    "age": 33
+  },
+  {
+    "player_id": "p_andrew_nembhard",
+    "nba_id": 1629614,
+    "position": "G-F",
+    "height": "6-4",
+    "weight": 191,
+    "jersey": "2",
+    "age": 26
+  },
+  {
+    "player_id": "p_ryan_nembhard",
+    "nba_id": 1642948,
+    "position": "G",
+    "height": "5-11",
+    "weight": 180,
+    "jersey": "9",
+    "age": 23
+  },
+  {
+    "player_id": "p_aaron_nesmith",
+    "nba_id": 1630174,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "23",
+    "age": 26
+  },
+  {
+    "player_id": "p_asa_newell",
+    "nba_id": 1642854,
+    "position": "F",
+    "height": "6-10",
+    "weight": 220,
+    "jersey": "14",
+    "age": 20
+  },
+  {
+    "player_id": "p_tristen_newton",
+    "nba_id": 1641803,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": "13",
+    "age": 25
+  },
+  {
+    "player_id": "p_yanic_konan_niederhauser",
+    "nba_id": 1642949,
+    "position": "C",
+    "height": "6-11",
+    "weight": 242,
+    "jersey": "14",
+    "age": 23
+  },
+  {
+    "player_id": "p_zeke_nnaji",
+    "nba_id": 1630192,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 240,
+    "jersey": "22",
+    "age": 25
+  },
+  {
+    "player_id": "p_jusuf_nurkic",
+    "nba_id": 203994,
+    "position": "C",
+    "height": "6-11",
+    "weight": 290,
+    "jersey": "30",
+    "age": 31
+  },
+  {
+    "player_id": "p_royce_o_neale",
+    "nba_id": 1626220,
+    "position": "F",
+    "height": "6-6",
+    "weight": 226,
+    "jersey": "00",
+    "age": 33
+  },
+  {
+    "player_id": "p_josh_oduro",
+    "nba_id": 1642490,
+    "position": "C",
+    "height": "6-9",
+    "weight": 240,
+    "jersey": null,
+    "age": 25
+  },
+  {
+    "player_id": "p_josh_okogie",
+    "nba_id": 1629006,
+    "position": "G",
+    "height": "6-4",
+    "weight": 213,
+    "jersey": "20",
+    "age": 27
+  },
+  {
+    "player_id": "p_onyeka_okongwu",
+    "nba_id": 1630168,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 240,
+    "jersey": "17",
+    "age": 25
+  },
+  {
+    "player_id": "p_ebuka_okorie",
+    "nba_id": 1643536,
+    "position": "G",
+    "height": "6-2",
+    "weight": 185,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_isaac_okoro",
+    "nba_id": 1630171,
+    "position": "F-G",
+    "height": "6-4",
+    "weight": 225,
+    "jersey": "35",
+    "age": 25
+  },
+  {
+    "player_id": "p_lachlan_olbrich",
+    "nba_id": 1642950,
+    "position": "C",
+    "height": "6-8",
+    "weight": 236,
+    "jersey": "47",
+    "age": 22
+  },
+  {
+    "player_id": "p_kelly_olynyk",
+    "nba_id": 203482,
+    "position": "F-C",
+    "height": "7-0",
+    "weight": 240,
+    "jersey": "8",
+    "age": 35
+  },
+  {
+    "player_id": "p_norchad_omier",
+    "nba_id": 1641807,
+    "position": "F",
+    "height": "6-7",
+    "weight": 248,
+    "jersey": null,
+    "age": 24
+  },
+  {
+    "player_id": "p_kelly_oubre_jr",
+    "nba_id": 1626162,
+    "position": "F-G",
+    "height": "6-8",
+    "weight": 210,
+    "jersey": "9",
+    "age": 30
+  },
+  {
+    "player_id": "p_gary_payton_ii",
+    "nba_id": 1627780,
+    "position": "G",
+    "height": "6-2",
+    "weight": 195,
+    "jersey": "0",
+    "age": 33
+  },
+  {
+    "player_id": "p_koa_peat",
+    "nba_id": 1643520,
+    "position": "F",
+    "height": "6-8",
+    "weight": 235,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_micah_peavy",
+    "nba_id": 1642877,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 215,
+    "jersey": "14",
+    "age": 24
+  },
+  {
+    "player_id": "p_sean_pedulla",
+    "nba_id": 1642951,
+    "position": "G",
+    "height": "6-1",
+    "weight": 195,
+    "jersey": null,
+    "age": 23
+  },
+  {
+    "player_id": "p_noah_penda",
+    "nba_id": 1642869,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 215,
+    "jersey": "93",
+    "age": 21
+  },
+  {
+    "player_id": "p_taelon_peter",
+    "nba_id": 1643007,
+    "position": "G",
+    "height": "6-3",
+    "weight": 185,
+    "jersey": "4",
+    "age": 24
+  },
+  {
+    "player_id": "p_darryn_peterson",
+    "nba_id": 1643408,
+    "position": "G",
+    "height": "6-6",
+    "weight": 205,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_julian_phillips",
+    "nba_id": 1641763,
+    "position": "F",
+    "height": "6-6",
+    "weight": 201,
+    "jersey": "4",
+    "age": 22
+  },
+  {
+    "player_id": "p_labaron_philon",
+    "nba_id": 1642889,
+    "position": "G",
+    "height": "6-4",
+    "weight": 177,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_jalen_pickett",
+    "nba_id": 1629618,
+    "position": "G",
+    "height": "6-2",
+    "weight": 202,
+    "jersey": "24",
+    "age": 26
+  },
+  {
+    "player_id": "p_scotty_pippen_jr",
+    "nba_id": 1630590,
+    "position": "G",
+    "height": "6-2",
+    "weight": 170,
+    "jersey": "1",
+    "age": 25
+  },
+  {
+    "player_id": "p_daeqwon_plowden",
+    "nba_id": 1631342,
+    "position": "G-F",
+    "height": "6-4",
+    "weight": 216,
+    "jersey": "29",
+    "age": 27
+  },
+  {
+    "player_id": "p_mason_plumlee",
+    "nba_id": 203486,
+    "position": "F-C",
+    "height": "7-0",
+    "weight": 254,
+    "jersey": "45",
+    "age": 36
+  },
+  {
+    "player_id": "p_brandin_podziemski",
+    "nba_id": 1641764,
+    "position": "G",
+    "height": "6-4",
+    "weight": 205,
+    "jersey": "2",
+    "age": 23
+  },
+  {
+    "player_id": "p_jakob_poeltl",
+    "nba_id": 1627751,
+    "position": "C",
+    "height": "7-0",
+    "weight": 253,
+    "jersey": "19",
+    "age": 30
+  },
+  {
+    "player_id": "p_jordan_poole",
+    "nba_id": 1629673,
+    "position": "G",
+    "height": "6-4",
+    "weight": 194,
+    "jersey": "3",
+    "age": 27
+  },
+  {
+    "player_id": "p_craig_porter_jr",
+    "nba_id": 1641854,
+    "position": "G",
+    "height": "6-1",
+    "weight": 180,
+    "jersey": "9",
+    "age": 26
+  },
+  {
+    "player_id": "p_kevin_porter_jr",
+    "nba_id": 1629645,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 203,
+    "jersey": "7",
+    "age": 26
+  },
+  {
+    "player_id": "p_michael_porter_jr",
+    "nba_id": 1629008,
+    "position": "F",
+    "height": "6-10",
+    "weight": 218,
+    "jersey": "17",
+    "age": 27
+  },
+  {
+    "player_id": "p_bobby_portis",
+    "nba_id": 1626171,
+    "position": "F",
+    "height": "6-9",
+    "weight": 250,
+    "jersey": "9",
+    "age": 31
+  },
+  {
+    "player_id": "p_kristaps_porzingis",
+    "nba_id": 204001,
+    "position": "F-C",
+    "height": "7-2",
+    "weight": 240,
+    "jersey": "7",
+    "age": 30
+  },
+  {
+    "player_id": "p_quinten_post",
+    "nba_id": 1642366,
+    "position": "C",
+    "height": "7-0",
+    "weight": 238,
+    "jersey": "21",
+    "age": 26
+  },
+  {
+    "player_id": "p_micah_potter",
+    "nba_id": 1630695,
+    "position": "C",
+    "height": "6-9",
+    "weight": 248,
+    "jersey": "11",
+    "age": 28
+  },
+  {
+    "player_id": "p_john_poulakidas",
+    "nba_id": 1642967,
+    "position": "G",
+    "height": "6-6",
+    "weight": 205,
+    "jersey": null,
+    "age": 23
+  },
+  {
+    "player_id": "p_drake_powell",
+    "nba_id": 1642962,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 195,
+    "jersey": "4",
+    "age": 20
+  },
+  {
+    "player_id": "p_dwight_powell",
+    "nba_id": 203939,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 240,
+    "jersey": "7",
+    "age": 34
+  },
+  {
+    "player_id": "p_norman_powell",
+    "nba_id": 1626181,
+    "position": "G",
+    "height": "6-3",
+    "weight": 215,
+    "jersey": "24",
+    "age": 33
+  },
+  {
+    "player_id": "p_taurean_prince",
+    "nba_id": 1627752,
+    "position": "F",
+    "height": "6-6",
+    "weight": 218,
+    "jersey": "12",
+    "age": 32
+  },
+  {
+    "player_id": "p_payton_pritchard",
+    "nba_id": 1630202,
+    "position": "G",
+    "height": "6-1",
+    "weight": 195,
+    "jersey": "11",
+    "age": 28
+  },
+  {
+    "player_id": "p_tyrese_proctor",
+    "nba_id": 1642878,
+    "position": "G",
+    "height": "6-4",
+    "weight": 185,
+    "jersey": "24",
+    "age": 22
+  },
+  {
+    "player_id": "p_olivier_maxence_prosper",
+    "nba_id": 1641765,
+    "position": "F",
+    "height": "6-7",
+    "weight": 230,
+    "jersey": "18",
+    "age": 23
+  },
+  {
+    "player_id": "p_zyon_pullin",
+    "nba_id": 1642389,
+    "position": "G",
+    "height": "6-4",
+    "weight": 206,
+    "jersey": "15",
+    "age": 25
+  },
+  {
+    "player_id": "p_jayden_quaintance",
+    "nba_id": 1643519,
+    "position": "F",
+    "height": "6-10",
+    "weight": 255,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_derik_queen",
+    "nba_id": 1642852,
+    "position": "C",
+    "height": "6-9",
+    "weight": 250,
+    "jersey": "22",
+    "age": 21
+  },
+  {
+    "player_id": "p_neemias_queta",
+    "nba_id": 1629674,
+    "position": "C",
+    "height": "7-0",
+    "weight": 248,
+    "jersey": "88",
+    "age": 26
+  },
+  {
+    "player_id": "p_immanuel_quickley",
+    "nba_id": 1630193,
+    "position": "G",
+    "height": "6-2",
+    "weight": 190,
+    "jersey": "5",
+    "age": 27
+  },
+  {
+    "player_id": "p_julius_randle",
+    "nba_id": 203944,
+    "position": "F-C",
+    "height": "6-9",
+    "weight": 250,
+    "jersey": "30",
+    "age": 31
+  },
+  {
+    "player_id": "p_maxime_raynaud",
+    "nba_id": 1642875,
+    "position": "C",
+    "height": "7-1",
+    "weight": 250,
+    "jersey": "42",
+    "age": 23
+  },
+  {
+    "player_id": "p_austin_reaves",
+    "nba_id": 1630559,
+    "position": "G",
+    "height": "6-5",
+    "weight": 197,
+    "jersey": "15",
+    "age": 28
+  },
+  {
+    "player_id": "p_paul_reed",
+    "nba_id": 1630194,
+    "position": "F",
+    "height": "6-9",
+    "weight": 210,
+    "jersey": "7",
+    "age": 27
+  },
+  {
+    "player_id": "p_tarris_reed_jr",
+    "nba_id": 1643542,
+    "position": "C",
+    "height": "6-11",
+    "weight": 265,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_julian_reese",
+    "nba_id": 1642882,
+    "position": "F",
+    "height": "6-9",
+    "weight": 230,
+    "jersey": null,
+    "age": 22
+  },
+  {
+    "player_id": "p_antonio_reeves",
+    "nba_id": 1641810,
+    "position": "G",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "12",
+    "age": 25
+  },
+  {
+    "player_id": "p_naz_reid",
+    "nba_id": 1629675,
+    "position": "C-F",
+    "height": "6-9",
+    "weight": 264,
+    "jersey": "11",
+    "age": 26
+  },
+  {
+    "player_id": "p_will_richard",
+    "nba_id": 1642954,
+    "position": "G",
+    "height": "6-3",
+    "weight": 206,
+    "jersey": "3",
+    "age": 23
+  },
+  {
+    "player_id": "p_nick_richards",
+    "nba_id": 1630208,
+    "position": "C",
+    "height": "6-11",
+    "weight": 245,
+    "jersey": "13",
+    "age": 28
+  },
+  {
+    "player_id": "p_jase_richardson",
+    "nba_id": 1642859,
+    "position": "G",
+    "height": "6-1",
+    "weight": 180,
+    "jersey": "11",
+    "age": 20
+  },
+  {
+    "player_id": "p_will_riley",
+    "nba_id": 1642860,
+    "position": "F",
+    "height": "6-9",
+    "weight": 180,
+    "jersey": "27",
+    "age": 20
+  },
+  {
+    "player_id": "p_zaccharie_risacher",
+    "nba_id": 1642258,
+    "position": "F",
+    "height": "6-8",
+    "weight": 200,
+    "jersey": "10",
+    "age": 21
+  },
+  {
+    "player_id": "p_duncan_robinson",
+    "nba_id": 1629130,
+    "position": "F",
+    "height": "6-7",
+    "weight": 215,
+    "jersey": "55",
+    "age": 32
+  },
+  {
+    "player_id": "p_mitchell_robinson",
+    "nba_id": 1629011,
+    "position": "C-F",
+    "height": "7-0",
+    "weight": 240,
+    "jersey": "23",
+    "age": 28
+  },
+  {
+    "player_id": "p_david_roddy",
+    "nba_id": 1631223,
+    "position": "F",
+    "height": "6-5",
+    "weight": 255,
+    "jersey": "45",
+    "age": 25
+  },
+  {
+    "player_id": "p_ryan_rollins",
+    "nba_id": 1631157,
+    "position": "G",
+    "height": "6-3",
+    "weight": 180,
+    "jersey": "13",
+    "age": 23
+  },
+  {
+    "player_id": "p_rayan_rupert",
+    "nba_id": 1641712,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 205,
+    "jersey": "21",
+    "age": 22
+  },
+  {
+    "player_id": "p_d_angelo_russell",
+    "nba_id": 1626156,
+    "position": "G",
+    "height": "6-3",
+    "weight": 193,
+    "jersey": "5",
+    "age": 30
+  },
+  {
+    "player_id": "p_cormac_ryan",
+    "nba_id": 1642504,
+    "position": "G",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "30",
+    "age": 27
+  },
+  {
+    "player_id": "p_domantas_sabonis",
+    "nba_id": 1627734,
+    "position": "F-C",
+    "height": "6-10",
+    "weight": 240,
+    "jersey": "11",
+    "age": 30
+  },
+  {
+    "player_id": "p_tidjane_salaun",
+    "nba_id": 1642275,
+    "position": "F",
+    "height": "6-10",
+    "weight": 207,
+    "jersey": "31",
+    "age": 20
+  },
+  {
+    "player_id": "p_kobe_sanders",
+    "nba_id": 1642920,
+    "position": "G",
+    "height": "6-8",
+    "weight": 207,
+    "jersey": "4",
+    "age": 24
+  },
+  {
+    "player_id": "p_payton_sandfort",
+    "nba_id": 1642362,
+    "position": "F",
+    "height": "6-7",
+    "weight": 215,
+    "jersey": "14",
+    "age": 23
+  },
+  {
+    "player_id": "p_gui_santos",
+    "nba_id": 1630611,
+    "position": "F",
+    "height": "6-7",
+    "weight": 185,
+    "jersey": "15",
+    "age": 24
+  },
+  {
+    "player_id": "p_ben_saraf",
+    "nba_id": 1642879,
+    "position": "G",
+    "height": "6-6",
+    "weight": 200,
+    "jersey": "77",
+    "age": 20
+  },
+  {
+    "player_id": "p_alex_sarr",
+    "nba_id": 1642259,
+    "position": "C",
+    "height": "7-0",
+    "weight": 205,
+    "jersey": "20",
+    "age": 21
+  },
+  {
+    "player_id": "p_olivier_sarr",
+    "nba_id": 1630846,
+    "position": "C",
+    "height": "6-10",
+    "weight": 240,
+    "jersey": "33",
+    "age": 27
+  },
+  {
+    "player_id": "p_marcus_sasser",
+    "nba_id": 1631204,
+    "position": "G",
+    "height": "6-1",
+    "weight": 195,
+    "jersey": "25",
+    "age": 25
+  },
+  {
+    "player_id": "p_baylor_scheierman",
+    "nba_id": 1631248,
+    "position": "G",
+    "height": "6-6",
+    "weight": 205,
+    "jersey": "55",
+    "age": 25
+  },
+  {
+    "player_id": "p_dennis_schroder",
+    "nba_id": 203471,
+    "position": "G",
+    "height": "6-1",
+    "weight": 175,
+    "jersey": "8",
+    "age": 32
+  },
+  {
+    "player_id": "p_alperen_sengun",
+    "nba_id": 1630578,
+    "position": "C",
+    "height": "6-11",
+    "weight": 243,
+    "jersey": "28",
+    "age": 23
+  },
+  {
+    "player_id": "p_brice_sensabaugh",
+    "nba_id": 1641729,
+    "position": "F",
+    "height": "6-6",
+    "weight": 235,
+    "jersey": "28",
+    "age": 22
+  },
+  {
+    "player_id": "p_collin_sexton",
+    "nba_id": 1629012,
+    "position": "G",
+    "height": "6-3",
+    "weight": 190,
+    "jersey": "2",
+    "age": 27
+  },
+  {
+    "player_id": "p_landry_shamet",
+    "nba_id": 1629013,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": "44",
+    "age": 29
+  },
+  {
+    "player_id": "p_terrence_shannon_jr",
+    "nba_id": 1630545,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "1",
+    "age": 25
+  },
+  {
+    "player_id": "p_day_ron_sharpe",
+    "nba_id": 1630549,
+    "position": "C",
+    "height": "6-10",
+    "weight": 265,
+    "jersey": "20",
+    "age": 24
+  },
+  {
+    "player_id": "p_shaedon_sharpe",
+    "nba_id": 1631101,
+    "position": "G",
+    "height": "6-5",
+    "weight": 210,
+    "jersey": "17",
+    "age": 23
+  },
+  {
+    "player_id": "p_jamal_shead",
+    "nba_id": 1642347,
+    "position": "G",
+    "height": "6-1",
+    "weight": 200,
+    "jersey": "23",
+    "age": 23
+  },
+  {
+    "player_id": "p_ben_sheppard",
+    "nba_id": 1641767,
+    "position": "G",
+    "height": "6-6",
+    "weight": 190,
+    "jersey": "26",
+    "age": 24
+  },
+  {
+    "player_id": "p_reed_sheppard",
+    "nba_id": 1642263,
+    "position": "G",
+    "height": "6-2",
+    "weight": 185,
+    "jersey": "15",
+    "age": 21
+  },
+  {
+    "player_id": "p_max_shulga",
+    "nba_id": 1642917,
+    "position": "G",
+    "height": "6-4",
+    "weight": 210,
+    "jersey": "44",
+    "age": 23
+  },
+  {
+    "player_id": "p_pascal_siakam",
+    "nba_id": 1627783,
+    "position": "F",
+    "height": "6-8",
+    "weight": 245,
+    "jersey": "43",
+    "age": 32
+  },
+  {
+    "player_id": "p_anfernee_simons",
+    "nba_id": 1629014,
+    "position": "G",
+    "height": "6-3",
+    "weight": 200,
+    "jersey": "22",
+    "age": 27
+  },
+  {
+    "player_id": "p_kj_simpson",
+    "nba_id": 1642354,
+    "position": "G",
+    "height": "6-2",
+    "weight": 189,
+    "jersey": "25",
+    "age": 23
+  },
+  {
+    "player_id": "p_jericho_sims",
+    "nba_id": 1630579,
+    "position": "C",
+    "height": "6-10",
+    "weight": 250,
+    "jersey": "00",
+    "age": 27
+  },
+  {
+    "player_id": "p_jalen_slawson",
+    "nba_id": 1641771,
+    "position": "F",
+    "height": "6-7",
+    "weight": 215,
+    "jersey": "18",
+    "age": 26
+  },
+  {
+    "player_id": "p_javon_small",
+    "nba_id": 1642914,
+    "position": "G",
+    "height": "6-1",
+    "weight": 190,
+    "jersey": "10",
+    "age": 23
+  },
+  {
+    "player_id": "p_marcus_smart",
+    "nba_id": 203935,
+    "position": "G",
+    "height": "6-3",
+    "weight": 220,
+    "jersey": "36",
+    "age": 32
+  },
+  {
+    "player_id": "p_dru_smith",
+    "nba_id": 1630696,
+    "position": "G",
+    "height": "6-2",
+    "weight": 203,
+    "jersey": "12",
+    "age": 28
+  },
+  {
+    "player_id": "p_jalen_smith",
+    "nba_id": 1630188,
+    "position": "F-C",
+    "height": "6-8",
+    "weight": 244,
+    "jersey": "25",
+    "age": 26
+  },
+  {
+    "player_id": "p_malachi_smith",
+    "nba_id": 1641869,
+    "position": "G",
+    "height": "6-4",
+    "weight": 205,
+    "jersey": "18",
+    "age": 26
+  },
+  {
+    "player_id": "p_tolu_smith",
+    "nba_id": 1642449,
+    "position": "F",
+    "height": "6-11",
+    "weight": null,
+    "jersey": "35",
+    "age": 25
+  },
+  {
+    "player_id": "p_tyler_smith",
+    "nba_id": 1641890,
+    "position": "F",
+    "height": "6-9",
+    "weight": 224,
+    "jersey": "21",
+    "age": 21
+  },
+  {
+    "player_id": "p_jabari_smith_jr",
+    "nba_id": 1631095,
+    "position": "F",
+    "height": "6-11",
+    "weight": 220,
+    "jersey": "10",
+    "age": 23
+  },
+  {
+    "player_id": "p_nick_smith_jr",
+    "nba_id": 1641733,
+    "position": "G",
+    "height": "6-2",
+    "weight": 185,
+    "jersey": "20",
+    "age": 22
+  },
+  {
+    "player_id": "p_jeremy_sochan",
+    "nba_id": 1631110,
+    "position": "F",
+    "height": "6-8",
+    "weight": 230,
+    "jersey": "20",
+    "age": 23
+  },
+  {
+    "player_id": "p_thomas_sorber",
+    "nba_id": 1642850,
+    "position": "C",
+    "height": "6-9",
+    "weight": 250,
+    "jersey": "12",
+    "age": null
+  },
+  {
+    "player_id": "p_cam_spencer",
+    "nba_id": 1642285,
+    "position": "G",
+    "height": "6-3",
+    "weight": 205,
+    "jersey": "24",
+    "age": 26
+  },
+  {
+    "player_id": "p_pat_spencer",
+    "nba_id": 1630311,
+    "position": "G",
+    "height": "6-2",
+    "weight": 205,
+    "jersey": "61",
+    "age": 29
+  },
+  {
+    "player_id": "p_hannes_steinbach",
+    "nba_id": 1643419,
+    "position": "F",
+    "height": "6-11",
+    "weight": null,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_isaiah_stevens",
+    "nba_id": 1641815,
+    "position": "G",
+    "height": "5-11",
+    "weight": 185,
+    "jersey": "24",
+    "age": 25
+  },
+  {
+    "player_id": "p_isaiah_stewart",
+    "nba_id": 1630191,
+    "position": "F-C",
+    "height": "6-8",
+    "weight": 250,
+    "jersey": "28",
+    "age": 25
+  },
+  {
+    "player_id": "p_bennett_stirtz",
+    "nba_id": 1642892,
+    "position": "G",
+    "height": "6-4",
+    "weight": 180,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_julian_strawther",
+    "nba_id": 1631124,
+    "position": "G",
+    "height": "6-6",
+    "weight": 205,
+    "jersey": "3",
+    "age": 24
+  },
+  {
+    "player_id": "p_max_strus",
+    "nba_id": 1629622,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 215,
+    "jersey": "2",
+    "age": 30
+  },
+  {
+    "player_id": "p_jalen_suggs",
+    "nba_id": 1630591,
+    "position": "G",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "4",
+    "age": 25
+  },
+  {
+    "player_id": "p_dailyn_swain",
+    "nba_id": 1643517,
+    "position": "F",
+    "height": "6-7",
+    "weight": 220,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_jae_sean_tate",
+    "nba_id": 1630256,
+    "position": "F",
+    "height": "6-4",
+    "weight": 230,
+    "jersey": "8",
+    "age": 30
+  },
+  {
+    "player_id": "p_jayson_tatum",
+    "nba_id": 1628369,
+    "position": "F-G",
+    "height": "6-8",
+    "weight": 210,
+    "jersey": "0",
+    "age": 28
+  },
+  {
+    "player_id": "p_garrett_temple",
+    "nba_id": 202066,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 195,
+    "jersey": "17",
+    "age": 40
+  },
+  {
+    "player_id": "p_dalen_terry",
+    "nba_id": 1631207,
+    "position": "F",
+    "height": "6-6",
+    "weight": 210,
+    "jersey": "14",
+    "age": 23
+  },
+  {
+    "player_id": "p_adou_thiero",
+    "nba_id": 1642876,
+    "position": "G",
+    "height": "6-7",
+    "weight": 220,
+    "jersey": "1",
+    "age": 22
+  },
+  {
+    "player_id": "p_amen_thompson",
+    "nba_id": 1641708,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 200,
+    "jersey": "1",
+    "age": 23
+  },
+  {
+    "player_id": "p_ausar_thompson",
+    "nba_id": 1641709,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 205,
+    "jersey": "9",
+    "age": 23
+  },
+  {
+    "player_id": "p_ethan_thompson",
+    "nba_id": 1630679,
+    "position": "G",
+    "height": "6-4",
+    "weight": 195,
+    "jersey": "55",
+    "age": 27
+  },
+  {
+    "player_id": "p_klay_thompson",
+    "nba_id": 202691,
+    "position": "G",
+    "height": "6-5",
+    "weight": 220,
+    "jersey": "31",
+    "age": 36
+  },
+  {
+    "player_id": "p_matisse_thybulle",
+    "nba_id": 1629680,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 202,
+    "jersey": "4",
+    "age": 29
+  },
+  {
+    "player_id": "p_xavier_tillman",
+    "nba_id": 1630214,
+    "position": "F",
+    "height": "6-8",
+    "weight": 245,
+    "jersey": "26",
+    "age": 27
+  },
+  {
+    "player_id": "p_drew_timme",
+    "nba_id": 1631166,
+    "position": "F",
+    "height": "6-9",
+    "weight": 235,
+    "jersey": "17",
+    "age": 25
+  },
+  {
+    "player_id": "p_nae_qwan_tomlin",
+    "nba_id": 1641772,
+    "position": "F",
+    "height": "6-8",
+    "weight": 210,
+    "jersey": "35",
+    "age": 25
+  },
+  {
+    "player_id": "p_john_tonje",
+    "nba_id": 1642910,
+    "position": "G",
+    "height": "6-4",
+    "weight": 218,
+    "jersey": "8",
+    "age": 25
+  },
+  {
+    "player_id": "p_nikola_topic",
+    "nba_id": 1642260,
+    "position": "G",
+    "height": "6-6",
+    "weight": 200,
+    "jersey": "44",
+    "age": 20
+  },
+  {
+    "player_id": "p_obi_toppin",
+    "nba_id": 1630167,
+    "position": "F",
+    "height": "6-9",
+    "weight": 220,
+    "jersey": "1",
+    "age": 28
+  },
+  {
+    "player_id": "p_karl_anthony_towns",
+    "nba_id": 1626157,
+    "position": "C-F",
+    "height": "7-0",
+    "weight": 248,
+    "jersey": "32",
+    "age": 30
+  },
+  {
+    "player_id": "p_nolan_traore",
+    "nba_id": 1642849,
+    "position": "G",
+    "height": "6-3",
+    "weight": 185,
+    "jersey": "88",
+    "age": 20
+  },
+  {
+    "player_id": "p_gary_trent_jr",
+    "nba_id": 1629018,
+    "position": "G",
+    "height": "6-5",
+    "weight": 204,
+    "jersey": "5",
+    "age": 27
+  },
+  {
+    "player_id": "p_oscar_tshiebwe",
+    "nba_id": 1631131,
+    "position": "F-C",
+    "height": "6-8",
+    "weight": 255,
+    "jersey": "34",
+    "age": 26
+  },
+  {
+    "player_id": "p_myles_turner",
+    "nba_id": 1626167,
+    "position": "C-F",
+    "height": "6-11",
+    "weight": 250,
+    "jersey": "3",
+    "age": 30
+  },
+  {
+    "player_id": "p_jaylon_tyson",
+    "nba_id": 1642281,
+    "position": "G-F",
+    "height": "6-6",
+    "weight": 215,
+    "jersey": "20",
+    "age": 23
+  },
+  {
+    "player_id": "p_jonas_valanciunas",
+    "nba_id": 202685,
+    "position": "C",
+    "height": "6-11",
+    "weight": 265,
+    "jersey": "17",
+    "age": 34
+  },
+  {
+    "player_id": "p_fred_vanvleet",
+    "nba_id": 1627832,
+    "position": "G",
+    "height": "6-0",
+    "weight": 197,
+    "jersey": "5",
+    "age": null
+  },
+  {
+    "player_id": "p_jarred_vanderbilt",
+    "nba_id": 1629020,
+    "position": "F",
+    "height": "6-8",
+    "weight": 214,
+    "jersey": "2",
+    "age": 27
+  },
+  {
+    "player_id": "p_devin_vassell",
+    "nba_id": 1630170,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 200,
+    "jersey": "24",
+    "age": 25
+  },
+  {
+    "player_id": "p_gabe_vincent",
+    "nba_id": 1629216,
+    "position": "G",
+    "height": "6-2",
+    "weight": 200,
+    "jersey": "4",
+    "age": 30
+  },
+  {
+    "player_id": "p_tristan_vukcevic",
+    "nba_id": 1641774,
+    "position": "F",
+    "height": "7-0",
+    "weight": 220,
+    "jersey": "00",
+    "age": 23
+  },
+  {
+    "player_id": "p_nikola_vucevic",
+    "nba_id": 202696,
+    "position": "C",
+    "height": "6-9",
+    "weight": 265,
+    "jersey": "4",
+    "age": 35
+  },
+  {
+    "player_id": "p_dean_wade",
+    "nba_id": 1629731,
+    "position": "F-C",
+    "height": "6-9",
+    "weight": 228,
+    "jersey": "32",
+    "age": 29
+  },
+  {
+    "player_id": "p_keaton_wagler",
+    "nba_id": 1643413,
+    "position": "G",
+    "height": "6-6",
+    "weight": 175,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_franz_wagner",
+    "nba_id": 1630532,
+    "position": "F",
+    "height": "6-10",
+    "weight": 220,
+    "jersey": "22",
+    "age": 24
+  },
+  {
+    "player_id": "p_moritz_wagner",
+    "nba_id": 1629021,
+    "position": "F-C",
+    "height": "6-11",
+    "weight": 245,
+    "jersey": "21",
+    "age": 29
+  },
+  {
+    "player_id": "p_jabari_walker",
+    "nba_id": 1631133,
+    "position": "F",
+    "height": "6-7",
+    "weight": 237,
+    "jersey": "33",
+    "age": 23
+  },
+  {
+    "player_id": "p_jarace_walker",
+    "nba_id": 1641716,
+    "position": "F",
+    "height": "6-7",
+    "weight": 235,
+    "jersey": "5",
+    "age": 22
+  },
+  {
+    "player_id": "p_cason_wallace",
+    "nba_id": 1641717,
+    "position": "G",
+    "height": "6-3",
+    "weight": 195,
+    "jersey": "22",
+    "age": 22
+  },
+  {
+    "player_id": "p_keaton_wallace",
+    "nba_id": 1630811,
+    "position": "G",
+    "height": "6-3",
+    "weight": 185,
+    "jersey": "2",
+    "age": 27
+  },
+  {
+    "player_id": "p_jordan_walsh",
+    "nba_id": 1641775,
+    "position": "G",
+    "height": "6-6",
+    "weight": 205,
+    "jersey": "27",
+    "age": 22
+  },
+  {
+    "player_id": "p_ja_kobe_walter",
+    "nba_id": 1642266,
+    "position": "G",
+    "height": "6-4",
+    "weight": 180,
+    "jersey": "14",
+    "age": 21
+  },
+  {
+    "player_id": "p_kel_el_ware",
+    "nba_id": 1642276,
+    "position": "C",
+    "height": "7-0",
+    "weight": 230,
+    "jersey": "7",
+    "age": 22
+  },
+  {
+    "player_id": "p_p_j_washington",
+    "nba_id": 1629023,
+    "position": "F",
+    "height": "6-7",
+    "weight": 230,
+    "jersey": "25",
+    "age": 27
+  },
+  {
+    "player_id": "p_tyty_washington_jr",
+    "nba_id": 1631102,
+    "position": "G",
+    "height": "6-3",
+    "weight": 195,
+    "jersey": "14",
+    "age": 24
+  },
+  {
+    "player_id": "p_lindy_waters_iii",
+    "nba_id": 1630322,
+    "position": "F",
+    "height": "6-5",
+    "weight": 210,
+    "jersey": "43",
+    "age": 28
+  },
+  {
+    "player_id": "p_trendon_watford",
+    "nba_id": 1630570,
+    "position": "G-F",
+    "height": "6-8",
+    "weight": 245,
+    "jersey": "12",
+    "age": 25
+  },
+  {
+    "player_id": "p_jamir_watkins",
+    "nba_id": 1642364,
+    "position": "F",
+    "height": "6-6",
+    "weight": 210,
+    "jersey": "5",
+    "age": 24
+  },
+  {
+    "player_id": "p_peyton_watson",
+    "nba_id": 1631212,
+    "position": "G",
+    "height": "6-8",
+    "weight": 200,
+    "jersey": "8",
+    "age": 23
+  },
+  {
+    "player_id": "p_jaylen_wells",
+    "nba_id": 1642377,
+    "position": "F",
+    "height": "6-7",
+    "weight": null,
+    "jersey": "0",
+    "age": 22
+  },
+  {
+    "player_id": "p_victor_wembanyama",
+    "nba_id": 1641705,
+    "position": "F-C",
+    "height": "7-4",
+    "weight": 235,
+    "jersey": "1",
+    "age": 22
+  },
+  {
+    "player_id": "p_blake_wesley",
+    "nba_id": 1631104,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": "1",
+    "age": 23
+  },
+  {
+    "player_id": "p_russell_westbrook",
+    "nba_id": 201566,
+    "position": "G",
+    "height": "6-4",
+    "weight": 200,
+    "jersey": "18",
+    "age": 37
+  },
+  {
+    "player_id": "p_coby_white",
+    "nba_id": 1629632,
+    "position": "G",
+    "height": "6-4",
+    "weight": 210,
+    "jersey": "3",
+    "age": 26
+  },
+  {
+    "player_id": "p_derrick_white",
+    "nba_id": 1628401,
+    "position": "G",
+    "height": "6-4",
+    "weight": 190,
+    "jersey": "9",
+    "age": 31
+  },
+  {
+    "player_id": "p_cam_whitmore",
+    "nba_id": 1641715,
+    "position": "F",
+    "height": "6-6",
+    "weight": 230,
+    "jersey": "1",
+    "age": 21
+  },
+  {
+    "player_id": "p_aaron_wiggins",
+    "nba_id": 1630598,
+    "position": "G",
+    "height": "6-5",
+    "weight": 190,
+    "jersey": "21",
+    "age": 27
+  },
+  {
+    "player_id": "p_andrew_wiggins",
+    "nba_id": 203952,
+    "position": "F",
+    "height": "6-6",
+    "weight": 197,
+    "jersey": "22",
+    "age": 31
+  },
+  {
+    "player_id": "p_amari_williams",
+    "nba_id": 1642873,
+    "position": "F-C",
+    "height": "6-11",
+    "weight": 250,
+    "jersey": "77",
+    "age": 24
+  },
+  {
+    "player_id": "p_brandon_williams",
+    "nba_id": 1630314,
+    "position": "G",
+    "height": "6-1",
+    "weight": 190,
+    "jersey": "10",
+    "age": 26
+  },
+  {
+    "player_id": "p_cody_williams",
+    "nba_id": 1642262,
+    "position": "F",
+    "height": "6-8",
+    "weight": 190,
+    "jersey": "5",
+    "age": 21
+  },
+  {
+    "player_id": "p_grant_williams",
+    "nba_id": 1629684,
+    "position": "F",
+    "height": "6-7",
+    "weight": 236,
+    "jersey": "2",
+    "age": 27
+  },
+  {
+    "player_id": "p_jalen_williams",
+    "nba_id": 1631114,
+    "position": "G-F",
+    "height": "6-5",
+    "weight": 211,
+    "jersey": "8",
+    "age": 25
+  },
+  {
+    "player_id": "p_jaylin_williams",
+    "nba_id": 1631119,
+    "position": "F",
+    "height": "6-9",
+    "weight": 240,
+    "jersey": "6",
+    "age": 23
+  },
+  {
+    "player_id": "p_kenrich_williams",
+    "nba_id": 1629026,
+    "position": "G-F",
+    "height": "6-7",
+    "weight": 210,
+    "jersey": "34",
+    "age": 31
+  },
+  {
+    "player_id": "p_mark_williams",
+    "nba_id": 1631109,
+    "position": "C",
+    "height": "7-1",
+    "weight": 240,
+    "jersey": "15",
+    "age": 24
+  },
+  {
+    "player_id": "p_nate_williams",
+    "nba_id": 1631466,
+    "position": "G",
+    "height": "6-5",
+    "weight": 205,
+    "jersey": "19",
+    "age": 27
+  },
+  {
+    "player_id": "p_patrick_williams",
+    "nba_id": 1630172,
+    "position": "F",
+    "height": "6-6",
+    "weight": 235,
+    "jersey": "44",
+    "age": 24
+  },
+  {
+    "player_id": "p_ziaire_williams",
+    "nba_id": 1630533,
+    "position": "F",
+    "height": "6-9",
+    "weight": 185,
+    "jersey": "1",
+    "age": 24
+  },
+  {
+    "player_id": "p_robert_williams_iii",
+    "nba_id": 1629057,
+    "position": "C-F",
+    "height": "6-9",
+    "weight": 249,
+    "jersey": "35",
+    "age": 28
+  },
+  {
+    "player_id": "p_zion_williamson",
+    "nba_id": 1629627,
+    "position": "F",
+    "height": "6-6",
+    "weight": 284,
+    "jersey": "1",
+    "age": 25
+  },
+  {
+    "player_id": "p_caleb_wilson",
+    "nba_id": 1643410,
+    "position": "F",
+    "height": "6-10",
+    "weight": 215,
+    "jersey": null,
+    "age": null
+  },
+  {
+    "player_id": "p_jalen_wilson",
+    "nba_id": 1630592,
+    "position": "F",
+    "height": "6-6",
+    "weight": 220,
+    "jersey": "22",
+    "age": 25
+  },
+  {
+    "player_id": "p_danny_wolf",
+    "nba_id": 1642874,
+    "position": "F",
+    "height": "6-11",
+    "weight": 250,
+    "jersey": "2",
+    "age": 22
+  },
+  {
+    "player_id": "p_guerschon_yabusele",
+    "nba_id": 1627824,
+    "position": "F",
+    "height": "6-7",
+    "weight": 265,
+    "jersey": "28",
+    "age": 30
+  },
+  {
+    "player_id": "p_yang_hansen",
+    "nba_id": 1642905,
+    "position": "C",
+    "height": "7-1",
+    "weight": 270,
+    "jersey": "16",
+    "age": 20
+  },
+  {
+    "player_id": "p_jahmir_young",
+    "nba_id": 1642443,
+    "position": "G",
+    "height": "6-0",
+    "weight": 185,
+    "jersey": "17",
+    "age": 25
+  },
+  {
+    "player_id": "p_trae_young",
+    "nba_id": 1629027,
+    "position": "G",
+    "height": "6-2",
+    "weight": 164,
+    "jersey": "3",
+    "age": 27
+  },
+  {
+    "player_id": "p_chris_youngblood",
+    "nba_id": 1642959,
+    "position": "G",
+    "height": "6-4",
+    "weight": null,
+    "jersey": "3",
+    "age": 24
+  },
+  {
+    "player_id": "p_rocco_zikarsky",
+    "nba_id": 1642911,
+    "position": "C",
+    "height": "7-3",
+    "weight": 227,
+    "jersey": "44",
+    "age": 19
+  },
+  {
+    "player_id": "p_ivica_zubac",
+    "nba_id": 1627826,
+    "position": "C",
+    "height": "7-0",
+    "weight": 240,
+    "jersey": "40",
+    "age": 29
+  },
+  {
+    "player_id": "p_tristan_da_silva",
+    "nba_id": 1641783,
+    "position": "F",
+    "height": "6-8",
+    "weight": 217,
+    "jersey": "23",
+    "age": 25
+  }
+]

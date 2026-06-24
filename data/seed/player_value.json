@@ -1,0 +1,4556 @@
+[
+  {
+    "player_id": "p_a_j_lawson",
+    "season": "2025-26",
+    "gp": 24,
+    "pts": 4.2,
+    "reb": 1.8,
+    "ast": 0.3,
+    "value": 3.2
+  },
+  {
+    "player_id": "p_aj_green",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 10.4,
+    "reb": 2.7,
+    "ast": 1.9,
+    "value": 7.2
+  },
+  {
+    "player_id": "p_aj_johnson",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 3.3,
+    "reb": 1.1,
+    "ast": 1,
+    "value": 1.8
+  },
+  {
+    "player_id": "p_aaron_gordon",
+    "season": "2025-26",
+    "gp": 36,
+    "pts": 16.2,
+    "reb": 5.8,
+    "ast": 2.7,
+    "value": 13.5
+  },
+  {
+    "player_id": "p_aaron_holiday",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 5.5,
+    "reb": 1,
+    "ast": 1.1,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_aaron_nesmith",
+    "season": "2025-26",
+    "gp": 45,
+    "pts": 13.8,
+    "reb": 4.2,
+    "ast": 1.9,
+    "value": 9
+  },
+  {
+    "player_id": "p_aaron_wiggins",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 9.4,
+    "reb": 3.1,
+    "ast": 1.7,
+    "value": 6.8
+  },
+  {
+    "player_id": "p_ace_bailey",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 13.8,
+    "reb": 4.2,
+    "ast": 1.8,
+    "value": 9
+  },
+  {
+    "player_id": "p_adem_bona",
+    "season": "2025-26",
+    "gp": 71,
+    "pts": 4.8,
+    "reb": 4.3,
+    "ast": 0.5,
+    "value": 5.1
+  },
+  {
+    "player_id": "p_adou_thiero",
+    "season": "2025-26",
+    "gp": 25,
+    "pts": 1.9,
+    "reb": 1.1,
+    "ast": 0.4,
+    "value": 1.6
+  },
+  {
+    "player_id": "p_ajay_mitchell",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 13.6,
+    "reb": 3.3,
+    "ast": 3.6,
+    "value": 11.2
+  },
+  {
+    "player_id": "p_al_horford",
+    "season": "2025-26",
+    "gp": 45,
+    "pts": 8.3,
+    "reb": 4.9,
+    "ast": 2.6,
+    "value": 8.3
+  },
+  {
+    "player_id": "p_alex_caruso",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 6.2,
+    "reb": 2.8,
+    "ast": 2,
+    "value": 5.8
+  },
+  {
+    "player_id": "p_alex_sarr",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 16.3,
+    "reb": 7.4,
+    "ast": 2.7,
+    "value": 13.6
+  },
+  {
+    "player_id": "p_alijah_martin",
+    "season": "2025-26",
+    "gp": 23,
+    "pts": 2.2,
+    "reb": 0.9,
+    "ast": 0.5,
+    "value": 1.6
+  },
+  {
+    "player_id": "p_alperen_sengun",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 20.4,
+    "reb": 8.9,
+    "ast": 6.2,
+    "value": 17.7
+  },
+  {
+    "player_id": "p_amari_williams",
+    "season": "2025-26",
+    "gp": 22,
+    "pts": 1.4,
+    "reb": 1.8,
+    "ast": 0.5,
+    "value": 1.6
+  },
+  {
+    "player_id": "p_amen_thompson",
+    "season": "2025-26",
+    "gp": 79,
+    "pts": 18.3,
+    "reb": 7.8,
+    "ast": 5.3,
+    "value": 17.4
+  },
+  {
+    "player_id": "p_amir_coffey",
+    "season": "2025-26",
+    "gp": 46,
+    "pts": 3.2,
+    "reb": 1.2,
+    "ast": 0.6,
+    "value": 2.6
+  },
+  {
+    "player_id": "p_andre_drummond",
+    "season": "2025-26",
+    "gp": 63,
+    "pts": 6.4,
+    "reb": 8.4,
+    "ast": 1.3,
+    "value": 7.6
+  },
+  {
+    "player_id": "p_andre_jackson_jr",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 2.4,
+    "reb": 1.5,
+    "ast": 0.9,
+    "value": 1.6
+  },
+  {
+    "player_id": "p_andrew_nembhard",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 16.9,
+    "reb": 2.8,
+    "ast": 7.7,
+    "value": 13.8
+  },
+  {
+    "player_id": "p_andrew_wiggins",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 15.4,
+    "reb": 4.8,
+    "ast": 2.7,
+    "value": 12.4
+  },
+  {
+    "player_id": "p_anfernee_simons",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 14.3,
+    "reb": 2.5,
+    "ast": 2.4,
+    "value": 9.4
+  },
+  {
+    "player_id": "p_anthony_black",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 15,
+    "reb": 3.8,
+    "ast": 3.7,
+    "value": 11
+  },
+  {
+    "player_id": "p_anthony_davis",
+    "season": "2025-26",
+    "gp": 20,
+    "pts": 20.4,
+    "reb": 11.1,
+    "ast": 2.8,
+    "value": 17.6
+  },
+  {
+    "player_id": "p_anthony_edwards",
+    "season": "2025-26",
+    "gp": 61,
+    "pts": 28.8,
+    "reb": 5,
+    "ast": 3.7,
+    "value": 20.6
+  },
+  {
+    "player_id": "p_anthony_gill",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 5.8,
+    "reb": 2.9,
+    "ast": 1.3,
+    "value": 5.7
+  },
+  {
+    "player_id": "p_antonio_reeves",
+    "season": "2025-26",
+    "gp": 10,
+    "pts": 2.7,
+    "reb": 0.8,
+    "ast": 0.3,
+    "value": 2.1
+  },
+  {
+    "player_id": "p_ariel_hukporti",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 2.2,
+    "reb": 2.9,
+    "ast": 0.5,
+    "value": 2.5
+  },
+  {
+    "player_id": "p_asa_newell",
+    "season": "2025-26",
+    "gp": 44,
+    "pts": 5.2,
+    "reb": 2.2,
+    "ast": 0.6,
+    "value": 4.3
+  },
+  {
+    "player_id": "p_ausar_thompson",
+    "season": "2025-26",
+    "gp": 73,
+    "pts": 9.9,
+    "reb": 5.7,
+    "ast": 3.1,
+    "value": 10.4
+  },
+  {
+    "player_id": "p_austin_reaves",
+    "season": "2025-26",
+    "gp": 51,
+    "pts": 23.3,
+    "reb": 4.7,
+    "ast": 5.5,
+    "value": 18.4
+  },
+  {
+    "player_id": "p_ayo_dosunmu",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 14.8,
+    "reb": 3.4,
+    "ast": 3.6,
+    "value": 12.1
+  },
+  {
+    "player_id": "p_bam_adebayo",
+    "season": "2025-26",
+    "gp": 73,
+    "pts": 20.1,
+    "reb": 10,
+    "ast": 3.2,
+    "value": 16.8
+  },
+  {
+    "player_id": "p_baylor_scheierman",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 5.5,
+    "reb": 3.5,
+    "ast": 1.5,
+    "value": 5.1
+  },
+  {
+    "player_id": "p_ben_saraf",
+    "season": "2025-26",
+    "gp": 44,
+    "pts": 7.5,
+    "reb": 2.1,
+    "ast": 3.3,
+    "value": 4.8
+  },
+  {
+    "player_id": "p_ben_sheppard",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 7.1,
+    "reb": 3,
+    "ast": 1.8,
+    "value": 5.7
+  },
+  {
+    "player_id": "p_bennedict_mathurin",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 17.6,
+    "reb": 5.4,
+    "ast": 2.4,
+    "value": 12.1
+  },
+  {
+    "player_id": "p_bez_mbeng",
+    "season": "2025-26",
+    "gp": 15,
+    "pts": 8.1,
+    "reb": 3.8,
+    "ast": 4.1,
+    "value": 8.8
+  },
+  {
+    "player_id": "p_bilal_coulibaly",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 11.7,
+    "reb": 4.3,
+    "ast": 2.6,
+    "value": 9.4
+  },
+  {
+    "player_id": "p_bismack_biyombo",
+    "season": "2025-26",
+    "gp": 25,
+    "pts": 0.9,
+    "reb": 1,
+    "ast": 0.2,
+    "value": 0.7
+  },
+  {
+    "player_id": "p_blake_hinson",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 11.9,
+    "reb": 2.4,
+    "ast": 1.1,
+    "value": 9
+  },
+  {
+    "player_id": "p_blake_wesley",
+    "season": "2025-26",
+    "gp": 31,
+    "pts": 4.8,
+    "reb": 1.3,
+    "ast": 2,
+    "value": 3.5
+  },
+  {
+    "player_id": "p_bobby_portis",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 13.7,
+    "reb": 6.4,
+    "ast": 1.6,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_bobi_klintman",
+    "season": "2025-26",
+    "gp": 12,
+    "pts": 1.8,
+    "reb": 1.6,
+    "ast": 0.5,
+    "value": 0.8
+  },
+  {
+    "player_id": "p_bogdan_bogdanovic",
+    "season": "2025-26",
+    "gp": 23,
+    "pts": 7.4,
+    "reb": 2.6,
+    "ast": 2.2,
+    "value": 4.7
+  },
+  {
+    "player_id": "p_bones_hyland",
+    "season": "2025-26",
+    "gp": 71,
+    "pts": 8.5,
+    "reb": 1.8,
+    "ast": 2.6,
+    "value": 6.5
+  },
+  {
+    "player_id": "p_branden_carlson",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 5.8,
+    "reb": 3,
+    "ast": 0.7,
+    "value": 5.1
+  },
+  {
+    "player_id": "p_brandin_podziemski",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 13.8,
+    "reb": 5.1,
+    "ast": 3.7,
+    "value": 11.5
+  },
+  {
+    "player_id": "p_brandon_ingram",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 21.5,
+    "reb": 5.6,
+    "ast": 3.7,
+    "value": 15.4
+  },
+  {
+    "player_id": "p_brandon_miller",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 20.2,
+    "reb": 4.9,
+    "ast": 3.3,
+    "value": 13.7
+  },
+  {
+    "player_id": "p_brandon_williams",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 13,
+    "reb": 2.9,
+    "ast": 3.9,
+    "value": 10.3
+  },
+  {
+    "player_id": "p_brice_sensabaugh",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 14.9,
+    "reb": 3.1,
+    "ast": 1.9,
+    "value": 9.7
+  },
+  {
+    "player_id": "p_bronny_james",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 2.9,
+    "reb": 0.5,
+    "ast": 1.2,
+    "value": 2.1
+  },
+  {
+    "player_id": "p_brook_lopez",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 8.5,
+    "reb": 3.6,
+    "ast": 1.3,
+    "value": 6.6
+  },
+  {
+    "player_id": "p_brooks_barnhizer",
+    "season": "2025-26",
+    "gp": 40,
+    "pts": 1.7,
+    "reb": 2,
+    "ast": 0.6,
+    "value": 1.7
+  },
+  {
+    "player_id": "p_bruce_brown",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 7.9,
+    "reb": 3.9,
+    "ast": 2.1,
+    "value": 6.6
+  },
+  {
+    "player_id": "p_bryce_mcgowens",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 8.1,
+    "reb": 2.1,
+    "ast": 1.5,
+    "value": 6.4
+  },
+  {
+    "player_id": "p_bub_carrington",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 10.7,
+    "reb": 3.4,
+    "ast": 4.6,
+    "value": 7.7
+  },
+  {
+    "player_id": "p_buddy_hield",
+    "season": "2025-26",
+    "gp": 51,
+    "pts": 7.6,
+    "reb": 2.3,
+    "ast": 1.4,
+    "value": 5.6
+  },
+  {
+    "player_id": "p_cj_mccollum",
+    "season": "2025-26",
+    "gp": 76,
+    "pts": 18.7,
+    "reb": 3.3,
+    "ast": 3.9,
+    "value": 13.2
+  },
+  {
+    "player_id": "p_cade_cunningham",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 23.9,
+    "reb": 5.5,
+    "ast": 9.9,
+    "value": 19.8
+  },
+  {
+    "player_id": "p_caleb_houstan",
+    "season": "2025-26",
+    "gp": 18,
+    "pts": 2.3,
+    "reb": 0.6,
+    "ast": 0.2,
+    "value": 1.8
+  },
+  {
+    "player_id": "p_caleb_love",
+    "season": "2025-26",
+    "gp": 49,
+    "pts": 10.4,
+    "reb": 2.3,
+    "ast": 2.5,
+    "value": 6.5
+  },
+  {
+    "player_id": "p_caleb_martin",
+    "season": "2025-26",
+    "gp": 58,
+    "pts": 3.9,
+    "reb": 2.5,
+    "ast": 1.4,
+    "value": 3.5
+  },
+  {
+    "player_id": "p_cam_christie",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 2.8,
+    "reb": 1.4,
+    "ast": 0.6,
+    "value": 2.2
+  },
+  {
+    "player_id": "p_cam_spencer",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 11.1,
+    "reb": 2.5,
+    "ast": 5.6,
+    "value": 11.1
+  },
+  {
+    "player_id": "p_cam_thomas",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 13.5,
+    "reb": 1.7,
+    "ast": 2.6,
+    "value": 7.8
+  },
+  {
+    "player_id": "p_cam_whitmore",
+    "season": "2025-26",
+    "gp": 21,
+    "pts": 9.2,
+    "reb": 2.8,
+    "ast": 0.7,
+    "value": 6.2
+  },
+  {
+    "player_id": "p_cameron_johnson",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 12.2,
+    "reb": 3.8,
+    "ast": 2.4,
+    "value": 9.9
+  },
+  {
+    "player_id": "p_cameron_payne",
+    "season": "2025-26",
+    "gp": 22,
+    "pts": 7.4,
+    "reb": 2,
+    "ast": 2.6,
+    "value": 6.3
+  },
+  {
+    "player_id": "p_caris_levert",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 7.4,
+    "reb": 2,
+    "ast": 2.7,
+    "value": 5.8
+  },
+  {
+    "player_id": "p_carter_bryant",
+    "season": "2025-26",
+    "gp": 71,
+    "pts": 4.2,
+    "reb": 2.5,
+    "ast": 0.7,
+    "value": 3
+  },
+  {
+    "player_id": "p_cason_wallace",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 8.6,
+    "reb": 3.1,
+    "ast": 2.6,
+    "value": 8.1
+  },
+  {
+    "player_id": "p_cedric_coward",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 13.6,
+    "reb": 5.9,
+    "ast": 2.8,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_chaney_johnson",
+    "season": "2025-26",
+    "gp": 17,
+    "pts": 8.2,
+    "reb": 4.6,
+    "ast": 2.1,
+    "value": 7.8
+  },
+  {
+    "player_id": "p_charles_bassey",
+    "season": "2025-26",
+    "gp": 13,
+    "pts": 5.8,
+    "reb": 4.4,
+    "ast": 0.5,
+    "value": 6.2
+  },
+  {
+    "player_id": "p_chaz_lanier",
+    "season": "2025-26",
+    "gp": 34,
+    "pts": 2.4,
+    "reb": 0.7,
+    "ast": 0.5,
+    "value": 1.4
+  },
+  {
+    "player_id": "p_chet_holmgren",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 17.1,
+    "reb": 8.9,
+    "ast": 1.7,
+    "value": 15.4
+  },
+  {
+    "player_id": "p_chris_paul",
+    "season": "2025-26",
+    "gp": 16,
+    "pts": 2.9,
+    "reb": 1.8,
+    "ast": 3.3,
+    "value": 3
+  },
+  {
+    "player_id": "p_chris_youngblood",
+    "season": "2025-26",
+    "gp": 34,
+    "pts": 2.1,
+    "reb": 0.8,
+    "ast": 0.4,
+    "value": 1.4
+  },
+  {
+    "player_id": "p_christian_braun",
+    "season": "2025-26",
+    "gp": 44,
+    "pts": 12,
+    "reb": 4.8,
+    "ast": 2.7,
+    "value": 10.4
+  },
+  {
+    "player_id": "p_christian_koloko",
+    "season": "2025-26",
+    "gp": 27,
+    "pts": 2.7,
+    "reb": 3,
+    "ast": 0.7,
+    "value": 2.8
+  },
+  {
+    "player_id": "p_clint_capela",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 3.8,
+    "reb": 4.6,
+    "ast": 0.7,
+    "value": 5
+  },
+  {
+    "player_id": "p_coby_white",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 17.4,
+    "reb": 3.4,
+    "ast": 4,
+    "value": 11.6
+  },
+  {
+    "player_id": "p_cody_williams",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 8.8,
+    "reb": 3,
+    "ast": 2,
+    "value": 6.6
+  },
+  {
+    "player_id": "p_cole_anthony",
+    "season": "2025-26",
+    "gp": 35,
+    "pts": 6.7,
+    "reb": 2.5,
+    "ast": 3.5,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_collin_gillespie",
+    "season": "2025-26",
+    "gp": 80,
+    "pts": 12.7,
+    "reb": 4.1,
+    "ast": 4.6,
+    "value": 11.1
+  },
+  {
+    "player_id": "p_collin_murray_boyles",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 8.5,
+    "reb": 5,
+    "ast": 1.9,
+    "value": 8.7
+  },
+  {
+    "player_id": "p_collin_sexton",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 15.4,
+    "reb": 2.3,
+    "ast": 3.3,
+    "value": 11.1
+  },
+  {
+    "player_id": "p_cooper_flagg",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 21,
+    "reb": 6.7,
+    "ast": 4.5,
+    "value": 16.2
+  },
+  {
+    "player_id": "p_corey_kispert",
+    "season": "2025-26",
+    "gp": 58,
+    "pts": 9.2,
+    "reb": 2.3,
+    "ast": 1.6,
+    "value": 6.8
+  },
+  {
+    "player_id": "p_cormac_ryan",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 14.3,
+    "reb": 2.5,
+    "ast": 1.7,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_craig_porter_jr",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 4.5,
+    "reb": 3.4,
+    "ast": 3.2,
+    "value": 6.1
+  },
+  {
+    "player_id": "p_curtis_jones",
+    "season": "2025-26",
+    "gp": 10,
+    "pts": 2.9,
+    "reb": 1.1,
+    "ast": 1,
+    "value": 2.5
+  },
+  {
+    "player_id": "p_d_angelo_russell",
+    "season": "2025-26",
+    "gp": 26,
+    "pts": 10.2,
+    "reb": 2.3,
+    "ast": 4,
+    "value": 7
+  },
+  {
+    "player_id": "p_daron_holmes_ii",
+    "season": "2025-26",
+    "gp": 25,
+    "pts": 3.7,
+    "reb": 1.4,
+    "ast": 0.6,
+    "value": 2.7
+  },
+  {
+    "player_id": "p_daeqwon_plowden",
+    "season": "2025-26",
+    "gp": 32,
+    "pts": 10.8,
+    "reb": 3,
+    "ast": 1.3,
+    "value": 7.4
+  },
+  {
+    "player_id": "p_dalen_terry",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 3.7,
+    "reb": 1.8,
+    "ast": 1.4,
+    "value": 3.5
+  },
+  {
+    "player_id": "p_dalton_knecht",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 4.2,
+    "reb": 1.4,
+    "ast": 0.4,
+    "value": 2.8
+  },
+  {
+    "player_id": "p_daniel_gafford",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 9.5,
+    "reb": 6.9,
+    "ast": 1.1,
+    "value": 10.1
+  },
+  {
+    "player_id": "p_daniss_jenkins",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 9.3,
+    "reb": 2.3,
+    "ast": 3.9,
+    "value": 7.5
+  },
+  {
+    "player_id": "p_danny_wolf",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 8.9,
+    "reb": 4.9,
+    "ast": 2.2,
+    "value": 6.7
+  },
+  {
+    "player_id": "p_darius_garland",
+    "season": "2025-26",
+    "gp": 45,
+    "pts": 18.8,
+    "reb": 2.4,
+    "ast": 6.7,
+    "value": 14
+  },
+  {
+    "player_id": "p_david_jones_garcia",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 2.9,
+    "reb": 1.2,
+    "ast": 1.6,
+    "value": 3.2
+  },
+  {
+    "player_id": "p_davion_mitchell",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 9.3,
+    "reb": 2.7,
+    "ast": 6.5,
+    "value": 9.5
+  },
+  {
+    "player_id": "p_day_ron_sharpe",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 8.7,
+    "reb": 6.7,
+    "ast": 2.3,
+    "value": 9.2
+  },
+  {
+    "player_id": "p_de_aaron_fox",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 18.6,
+    "reb": 3.8,
+    "ast": 6.2,
+    "value": 14.9
+  },
+  {
+    "player_id": "p_de_andre_hunter",
+    "season": "2025-26",
+    "gp": 45,
+    "pts": 13.7,
+    "reb": 4.1,
+    "ast": 2,
+    "value": 8.6
+  },
+  {
+    "player_id": "p_de_anthony_melton",
+    "season": "2025-26",
+    "gp": 49,
+    "pts": 12.3,
+    "reb": 3.2,
+    "ast": 2.6,
+    "value": 8.6
+  },
+  {
+    "player_id": "p_deandre_jordan",
+    "season": "2025-26",
+    "gp": 12,
+    "pts": 4.4,
+    "reb": 6.3,
+    "ast": 0.9,
+    "value": 6
+  },
+  {
+    "player_id": "p_dejon_jarreau",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 8,
+    "reb": 4.6,
+    "ast": 3.3,
+    "value": 5.9
+  },
+  {
+    "player_id": "p_demar_derozan",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 18.4,
+    "reb": 2.9,
+    "ast": 4.1,
+    "value": 14.8
+  },
+  {
+    "player_id": "p_dean_wade",
+    "season": "2025-26",
+    "gp": 59,
+    "pts": 5.8,
+    "reb": 4.2,
+    "ast": 1.5,
+    "value": 6.1
+  },
+  {
+    "player_id": "p_deandre_ayton",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 12.5,
+    "reb": 8,
+    "ast": 0.8,
+    "value": 11.9
+  },
+  {
+    "player_id": "p_dejounte_murray",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 16.7,
+    "reb": 5.4,
+    "ast": 6.4,
+    "value": 13.6
+  },
+  {
+    "player_id": "p_deni_avdija",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 24.2,
+    "reb": 6.9,
+    "ast": 6.7,
+    "value": 18.8
+  },
+  {
+    "player_id": "p_dennis_schroder",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 10.8,
+    "reb": 2.7,
+    "ast": 4.9,
+    "value": 8.7
+  },
+  {
+    "player_id": "p_derik_queen",
+    "season": "2025-26",
+    "gp": 81,
+    "pts": 11.7,
+    "reb": 7.1,
+    "ast": 3.7,
+    "value": 10.4
+  },
+  {
+    "player_id": "p_derrick_jones_jr",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 10.1,
+    "reb": 3.5,
+    "ast": 1.4,
+    "value": 8.5
+  },
+  {
+    "player_id": "p_derrick_white",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 16.5,
+    "reb": 4.4,
+    "ast": 5.4,
+    "value": 13.9
+  },
+  {
+    "player_id": "p_desmond_bane",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 20.1,
+    "reb": 4.1,
+    "ast": 4.1,
+    "value": 15.2
+  },
+  {
+    "player_id": "p_devin_booker",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 26.1,
+    "reb": 3.9,
+    "ast": 6,
+    "value": 18.6
+  },
+  {
+    "player_id": "p_devin_carter",
+    "season": "2025-26",
+    "gp": 38,
+    "pts": 8.9,
+    "reb": 3.3,
+    "ast": 2.7,
+    "value": 6.8
+  },
+  {
+    "player_id": "p_devin_vassell",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 13.9,
+    "reb": 4,
+    "ast": 2.5,
+    "value": 10.7
+  },
+  {
+    "player_id": "p_dillon_brooks",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 20.2,
+    "reb": 3.6,
+    "ast": 1.8,
+    "value": 11.7
+  },
+  {
+    "player_id": "p_domantas_sabonis",
+    "season": "2025-26",
+    "gp": 19,
+    "pts": 15.8,
+    "reb": 11.4,
+    "ast": 4.1,
+    "value": 14.3
+  },
+  {
+    "player_id": "p_dominick_barlow",
+    "season": "2025-26",
+    "gp": 71,
+    "pts": 7.7,
+    "reb": 4.8,
+    "ast": 1.2,
+    "value": 7.6
+  },
+  {
+    "player_id": "p_donovan_clingan",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 12.1,
+    "reb": 11.6,
+    "ast": 2.1,
+    "value": 13.8
+  },
+  {
+    "player_id": "p_donovan_mitchell",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 27.9,
+    "reb": 4.5,
+    "ast": 5.7,
+    "value": 21.1
+  },
+  {
+    "player_id": "p_donte_divincenzo",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 12.2,
+    "reb": 4.1,
+    "ast": 3.8,
+    "value": 10
+  },
+  {
+    "player_id": "p_dorian_finney_smith",
+    "season": "2025-26",
+    "gp": 37,
+    "pts": 3.3,
+    "reb": 2.5,
+    "ast": 1,
+    "value": 2.4
+  },
+  {
+    "player_id": "p_doug_mcdermott",
+    "season": "2025-26",
+    "gp": 29,
+    "pts": 5.7,
+    "reb": 1.3,
+    "ast": 0.8,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_drake_powell",
+    "season": "2025-26",
+    "gp": 63,
+    "pts": 6.5,
+    "reb": 1.8,
+    "ast": 1.4,
+    "value": 4.2
+  },
+  {
+    "player_id": "p_draymond_green",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 8.4,
+    "reb": 5.5,
+    "ast": 5.5,
+    "value": 7.7
+  },
+  {
+    "player_id": "p_drew_eubanks",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 5.2,
+    "reb": 3,
+    "ast": 0.5,
+    "value": 4.4
+  },
+  {
+    "player_id": "p_drew_timme",
+    "season": "2025-26",
+    "gp": 27,
+    "pts": 3.4,
+    "reb": 1.2,
+    "ast": 0.9,
+    "value": 2.8
+  },
+  {
+    "player_id": "p_dru_smith",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 5.6,
+    "reb": 2.5,
+    "ast": 2.6,
+    "value": 6.1
+  },
+  {
+    "player_id": "p_duncan_robinson",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 12.2,
+    "reb": 2.7,
+    "ast": 2.1,
+    "value": 9
+  },
+  {
+    "player_id": "p_duop_reath",
+    "season": "2025-26",
+    "gp": 32,
+    "pts": 2.9,
+    "reb": 1.2,
+    "ast": 0.3,
+    "value": 2.2
+  },
+  {
+    "player_id": "p_dwight_powell",
+    "season": "2025-26",
+    "gp": 63,
+    "pts": 3.3,
+    "reb": 4.1,
+    "ast": 1.1,
+    "value": 4.1
+  },
+  {
+    "player_id": "p_dylan_cardwell",
+    "season": "2025-26",
+    "gp": 44,
+    "pts": 5.4,
+    "reb": 7.5,
+    "ast": 1.4,
+    "value": 7.2
+  },
+  {
+    "player_id": "p_dylan_harper",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 11.8,
+    "reb": 3.4,
+    "ast": 3.9,
+    "value": 9.8
+  },
+  {
+    "player_id": "p_dyson_daniels",
+    "season": "2025-26",
+    "gp": 76,
+    "pts": 11.9,
+    "reb": 6.8,
+    "ast": 5.9,
+    "value": 13.4
+  },
+  {
+    "player_id": "p_e_j_liddell",
+    "season": "2025-26",
+    "gp": 26,
+    "pts": 5.7,
+    "reb": 2.7,
+    "ast": 0.9,
+    "value": 4.3
+  },
+  {
+    "player_id": "p_egor_demin",
+    "season": "2025-26",
+    "gp": 52,
+    "pts": 10.3,
+    "reb": 3.2,
+    "ast": 3.3,
+    "value": 7.5
+  },
+  {
+    "player_id": "p_elijah_harkless",
+    "season": "2025-26",
+    "gp": 26,
+    "pts": 6.8,
+    "reb": 2,
+    "ast": 2.9,
+    "value": 5.4
+  },
+  {
+    "player_id": "p_ethan_thompson",
+    "season": "2025-26",
+    "gp": 32,
+    "pts": 7,
+    "reb": 2.2,
+    "ast": 1.8,
+    "value": 4.8
+  },
+  {
+    "player_id": "p_evan_mobley",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 18.2,
+    "reb": 9,
+    "ast": 3.6,
+    "value": 16.3
+  },
+  {
+    "player_id": "p_franz_wagner",
+    "season": "2025-26",
+    "gp": 34,
+    "pts": 20.6,
+    "reb": 5.2,
+    "ast": 3.3,
+    "value": 15.6
+  },
+  {
+    "player_id": "p_gg_jackson",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 12.5,
+    "reb": 4.3,
+    "ast": 1.5,
+    "value": 9.3
+  },
+  {
+    "player_id": "p_gabe_vincent",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 4.4,
+    "reb": 1,
+    "ast": 1.4,
+    "value": 3
+  },
+  {
+    "player_id": "p_garrett_temple",
+    "season": "2025-26",
+    "gp": 22,
+    "pts": 0.8,
+    "reb": 0.4,
+    "ast": 0.4,
+    "value": 0.6
+  },
+  {
+    "player_id": "p_garrison_mathews",
+    "season": "2025-26",
+    "gp": 15,
+    "pts": 5.2,
+    "reb": 1.1,
+    "ast": 0.7,
+    "value": 3.9
+  },
+  {
+    "player_id": "p_gary_harris",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 2.7,
+    "reb": 1.3,
+    "ast": 1.1,
+    "value": 2.7
+  },
+  {
+    "player_id": "p_gary_payton_ii",
+    "season": "2025-26",
+    "gp": 73,
+    "pts": 7.5,
+    "reb": 3.6,
+    "ast": 1.7,
+    "value": 7.2
+  },
+  {
+    "player_id": "p_gary_trent_jr",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 8.1,
+    "reb": 1,
+    "ast": 1.2,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_giannis_antetokounmpo",
+    "season": "2025-26",
+    "gp": 36,
+    "pts": 27.6,
+    "reb": 9.8,
+    "ast": 5.4,
+    "value": 23.8
+  },
+  {
+    "player_id": "p_goga_bitadze",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 5.9,
+    "reb": 5,
+    "ast": 1.3,
+    "value": 7.3
+  },
+  {
+    "player_id": "p_gradey_dick",
+    "season": "2025-26",
+    "gp": 76,
+    "pts": 6,
+    "reb": 1.9,
+    "ast": 0.7,
+    "value": 4.1
+  },
+  {
+    "player_id": "p_grant_williams",
+    "season": "2025-26",
+    "gp": 36,
+    "pts": 7,
+    "reb": 3.9,
+    "ast": 1.6,
+    "value": 6.3
+  },
+  {
+    "player_id": "p_grayson_allen",
+    "season": "2025-26",
+    "gp": 51,
+    "pts": 16.5,
+    "reb": 3,
+    "ast": 3.8,
+    "value": 12.2
+  },
+  {
+    "player_id": "p_guerschon_yabusele",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 5.6,
+    "reb": 3.5,
+    "ast": 0.9,
+    "value": 4.4
+  },
+  {
+    "player_id": "p_gui_santos",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 9.2,
+    "reb": 3.9,
+    "ast": 2.3,
+    "value": 7.6
+  },
+  {
+    "player_id": "p_harrison_barnes",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 9.9,
+    "reb": 2.8,
+    "ast": 1.9,
+    "value": 7.9
+  },
+  {
+    "player_id": "p_herbert_jones",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 8.9,
+    "reb": 3.4,
+    "ast": 2.8,
+    "value": 6.9
+  },
+  {
+    "player_id": "p_hugo_gonzalez",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 3.9,
+    "reb": 3.3,
+    "ast": 0.5,
+    "value": 3.4
+  },
+  {
+    "player_id": "p_hunter_tyson",
+    "season": "2025-26",
+    "gp": 21,
+    "pts": 2.2,
+    "reb": 1.7,
+    "ast": 0.8,
+    "value": 1.5
+  },
+  {
+    "player_id": "p_immanuel_quickley",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 16.4,
+    "reb": 4,
+    "ast": 5.9,
+    "value": 14
+  },
+  {
+    "player_id": "p_isaac_okoro",
+    "season": "2025-26",
+    "gp": 63,
+    "pts": 9.3,
+    "reb": 2.7,
+    "ast": 1.6,
+    "value": 7.1
+  },
+  {
+    "player_id": "p_isaiah_collier",
+    "season": "2025-26",
+    "gp": 59,
+    "pts": 11.7,
+    "reb": 2.5,
+    "ast": 7.2,
+    "value": 10.8
+  },
+  {
+    "player_id": "p_isaiah_crawford",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 2,
+    "reb": 1.1,
+    "ast": 0.4,
+    "value": 1.6
+  },
+  {
+    "player_id": "p_isaiah_hartenstein",
+    "season": "2025-26",
+    "gp": 47,
+    "pts": 9.2,
+    "reb": 9.4,
+    "ast": 3.5,
+    "value": 11.5
+  },
+  {
+    "player_id": "p_isaiah_jackson",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 6.7,
+    "reb": 5.3,
+    "ast": 0.9,
+    "value": 6.7
+  },
+  {
+    "player_id": "p_isaiah_joe",
+    "season": "2025-26",
+    "gp": 71,
+    "pts": 11.1,
+    "reb": 2.5,
+    "ast": 1.3,
+    "value": 8.6
+  },
+  {
+    "player_id": "p_isaiah_livers",
+    "season": "2025-26",
+    "gp": 36,
+    "pts": 1.8,
+    "reb": 1.7,
+    "ast": 0.6,
+    "value": 1.8
+  },
+  {
+    "player_id": "p_isaiah_stewart",
+    "season": "2025-26",
+    "gp": 58,
+    "pts": 10,
+    "reb": 5,
+    "ast": 1.1,
+    "value": 8.5
+  },
+  {
+    "player_id": "p_ivica_zubac",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 14.1,
+    "reb": 10.6,
+    "ast": 2.2,
+    "value": 13.5
+  },
+  {
+    "player_id": "p_jd_davison",
+    "season": "2025-26",
+    "gp": 28,
+    "pts": 2.5,
+    "reb": 1.2,
+    "ast": 1.3,
+    "value": 2.3
+  },
+  {
+    "player_id": "p_ja_morant",
+    "season": "2025-26",
+    "gp": 20,
+    "pts": 19.5,
+    "reb": 3.3,
+    "ast": 8.1,
+    "value": 14.3
+  },
+  {
+    "player_id": "p_ja_kobe_walter",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 7.5,
+    "reb": 2.6,
+    "ast": 1.2,
+    "value": 6.1
+  },
+  {
+    "player_id": "p_jabari_smith_jr",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 15.8,
+    "reb": 6.9,
+    "ast": 1.9,
+    "value": 11.8
+  },
+  {
+    "player_id": "p_jabari_walker",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 4.3,
+    "reb": 3,
+    "ast": 0.5,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_jaden_hardy",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 9.2,
+    "reb": 1.5,
+    "ast": 1,
+    "value": 5
+  },
+  {
+    "player_id": "p_jaden_ivey",
+    "season": "2025-26",
+    "gp": 37,
+    "pts": 8.5,
+    "reb": 2.5,
+    "ast": 1.8,
+    "value": 6.2
+  },
+  {
+    "player_id": "p_jaden_mcdaniels",
+    "season": "2025-26",
+    "gp": 73,
+    "pts": 14.8,
+    "reb": 4.2,
+    "ast": 2.7,
+    "value": 11.4
+  },
+  {
+    "player_id": "p_jae_sean_tate",
+    "season": "2025-26",
+    "gp": 46,
+    "pts": 2.8,
+    "reb": 1.6,
+    "ast": 0.5,
+    "value": 2.3
+  },
+  {
+    "player_id": "p_jahmai_mashack",
+    "season": "2025-26",
+    "gp": 31,
+    "pts": 6.2,
+    "reb": 2.6,
+    "ast": 2.2,
+    "value": 4.3
+  },
+  {
+    "player_id": "p_jahmir_young",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 1.8,
+    "reb": 0.3,
+    "ast": 0.6,
+    "value": 1
+  },
+  {
+    "player_id": "p_jaime_jaquez_jr",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 15.4,
+    "reb": 5,
+    "ast": 4.7,
+    "value": 12.6
+  },
+  {
+    "player_id": "p_jake_laravia",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 8.2,
+    "reb": 4,
+    "ast": 1.8,
+    "value": 7.3
+  },
+  {
+    "player_id": "p_jakob_poeltl",
+    "season": "2025-26",
+    "gp": 46,
+    "pts": 10.7,
+    "reb": 7,
+    "ast": 2,
+    "value": 11
+  },
+  {
+    "player_id": "p_jalen_brunson",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 26,
+    "reb": 3.3,
+    "ast": 6.8,
+    "value": 18.9
+  },
+  {
+    "player_id": "p_jalen_duren",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 19.5,
+    "reb": 10.5,
+    "ast": 2,
+    "value": 18.3
+  },
+  {
+    "player_id": "p_jalen_green",
+    "season": "2025-26",
+    "gp": 32,
+    "pts": 17.8,
+    "reb": 3.6,
+    "ast": 2.8,
+    "value": 10.8
+  },
+  {
+    "player_id": "p_jalen_johnson",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 22.5,
+    "reb": 10.3,
+    "ast": 7.9,
+    "value": 19.8
+  },
+  {
+    "player_id": "p_jalen_pickett",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 5.2,
+    "reb": 2.3,
+    "ast": 2.3,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_jalen_slawson",
+    "season": "2025-26",
+    "gp": 13,
+    "pts": 7.3,
+    "reb": 4.4,
+    "ast": 2.8,
+    "value": 7.6
+  },
+  {
+    "player_id": "p_jalen_smith",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 10.2,
+    "reb": 6.7,
+    "ast": 1.2,
+    "value": 8.9
+  },
+  {
+    "player_id": "p_jalen_suggs",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 13.8,
+    "reb": 3.9,
+    "ast": 5.5,
+    "value": 11.5
+  },
+  {
+    "player_id": "p_jalen_williams",
+    "season": "2025-26",
+    "gp": 33,
+    "pts": 17.1,
+    "reb": 4.6,
+    "ast": 5.5,
+    "value": 14.3
+  },
+  {
+    "player_id": "p_jalen_wilson",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 6.4,
+    "reb": 2.1,
+    "ast": 0.9,
+    "value": 3.9
+  },
+  {
+    "player_id": "p_jamal_cain",
+    "season": "2025-26",
+    "gp": 40,
+    "pts": 5.4,
+    "reb": 2,
+    "ast": 0.7,
+    "value": 4.1
+  },
+  {
+    "player_id": "p_jamal_murray",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 25.4,
+    "reb": 4.4,
+    "ast": 7.1,
+    "value": 20.7
+  },
+  {
+    "player_id": "p_jamal_shead",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 6.6,
+    "reb": 1.7,
+    "ast": 5.4,
+    "value": 6.4
+  },
+  {
+    "player_id": "p_jamaree_bouyea",
+    "season": "2025-26",
+    "gp": 46,
+    "pts": 5.7,
+    "reb": 1.8,
+    "ast": 1.8,
+    "value": 4.7
+  },
+  {
+    "player_id": "p_james_harden",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 23.6,
+    "reb": 4.8,
+    "ast": 8,
+    "value": 19.2
+  },
+  {
+    "player_id": "p_jamir_watkins",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 7.4,
+    "reb": 3.9,
+    "ast": 1.3,
+    "value": 6.2
+  },
+  {
+    "player_id": "p_jamison_battle",
+    "season": "2025-26",
+    "gp": 61,
+    "pts": 3.1,
+    "reb": 1.5,
+    "ast": 0.4,
+    "value": 2.2
+  },
+  {
+    "player_id": "p_jarace_walker",
+    "season": "2025-26",
+    "gp": 76,
+    "pts": 11.6,
+    "reb": 5.1,
+    "ast": 2.5,
+    "value": 8.3
+  },
+  {
+    "player_id": "p_jared_mccain",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 8.3,
+    "reb": 2,
+    "ast": 1.3,
+    "value": 5.3
+  },
+  {
+    "player_id": "p_jaren_jackson_jr",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 19.4,
+    "reb": 5.7,
+    "ast": 2,
+    "value": 13.3
+  },
+  {
+    "player_id": "p_jarred_vanderbilt",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 4.4,
+    "reb": 4.5,
+    "ast": 1.3,
+    "value": 4.5
+  },
+  {
+    "player_id": "p_jarrett_allen",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 15.4,
+    "reb": 8.5,
+    "ast": 1.8,
+    "value": 15.1
+  },
+  {
+    "player_id": "p_jase_richardson",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 4.4,
+    "reb": 1.2,
+    "ast": 1.1,
+    "value": 3.3
+  },
+  {
+    "player_id": "p_javon_small",
+    "season": "2025-26",
+    "gp": 41,
+    "pts": 9.7,
+    "reb": 3.1,
+    "ast": 3.7,
+    "value": 8.8
+  },
+  {
+    "player_id": "p_javonte_cooke",
+    "season": "2025-26",
+    "gp": 19,
+    "pts": 1.2,
+    "reb": 1,
+    "ast": 0.4,
+    "value": 0.2
+  },
+  {
+    "player_id": "p_javonte_green",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 6.9,
+    "reb": 2.8,
+    "ast": 0.7,
+    "value": 6.3
+  },
+  {
+    "player_id": "p_jaxson_hayes",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 7.5,
+    "reb": 4.1,
+    "ast": 0.9,
+    "value": 7.7
+  },
+  {
+    "player_id": "p_jay_huff",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 9.5,
+    "reb": 4,
+    "ast": 1.5,
+    "value": 8.2
+  },
+  {
+    "player_id": "p_jaylen_brown",
+    "season": "2025-26",
+    "gp": 71,
+    "pts": 28.7,
+    "reb": 6.9,
+    "ast": 5.1,
+    "value": 19.8
+  },
+  {
+    "player_id": "p_jaylen_clark",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 4,
+    "reb": 1.8,
+    "ast": 0.6,
+    "value": 3.3
+  },
+  {
+    "player_id": "p_jaylen_wells",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 12.5,
+    "reb": 3.2,
+    "ast": 1.6,
+    "value": 8.4
+  },
+  {
+    "player_id": "p_jaylin_williams",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 7.2,
+    "reb": 5.5,
+    "ast": 2.4,
+    "value": 6.9
+  },
+  {
+    "player_id": "p_jaylon_tyson",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 13.2,
+    "reb": 5.1,
+    "ast": 2.2,
+    "value": 10.3
+  },
+  {
+    "player_id": "p_jayson_tatum",
+    "season": "2025-26",
+    "gp": 16,
+    "pts": 21.8,
+    "reb": 10,
+    "ast": 5.3,
+    "value": 17.3
+  },
+  {
+    "player_id": "p_jeff_green",
+    "season": "2025-26",
+    "gp": 30,
+    "pts": 2.2,
+    "reb": 0.8,
+    "ast": 0.3,
+    "value": 1.4
+  },
+  {
+    "player_id": "p_jerami_grant",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 18.6,
+    "reb": 3.5,
+    "ast": 2.1,
+    "value": 12.5
+  },
+  {
+    "player_id": "p_jeremiah_fears",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 14.3,
+    "reb": 3.7,
+    "ast": 3.4,
+    "value": 9.9
+  },
+  {
+    "player_id": "p_jeremiah_robinson_earl",
+    "season": "2025-26",
+    "gp": 22,
+    "pts": 4.6,
+    "reb": 4.7,
+    "ast": 0.7,
+    "value": 4.1
+  },
+  {
+    "player_id": "p_jeremy_sochan",
+    "season": "2025-26",
+    "gp": 44,
+    "pts": 3.6,
+    "reb": 2.4,
+    "ast": 0.9,
+    "value": 3.2
+  },
+  {
+    "player_id": "p_jericho_sims",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 5,
+    "reb": 5.5,
+    "ast": 1.6,
+    "value": 5.9
+  },
+  {
+    "player_id": "p_jett_howard",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 5.5,
+    "reb": 1.6,
+    "ast": 0.8,
+    "value": 3.8
+  },
+  {
+    "player_id": "p_jevon_carter",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 6.4,
+    "reb": 1.7,
+    "ast": 1.6,
+    "value": 4.8
+  },
+  {
+    "player_id": "p_jimmy_butler_iii",
+    "season": "2025-26",
+    "gp": 38,
+    "pts": 20,
+    "reb": 5.6,
+    "ast": 4.9,
+    "value": 19
+  },
+  {
+    "player_id": "p_joan_beringer",
+    "season": "2025-26",
+    "gp": 40,
+    "pts": 3.9,
+    "reb": 2.3,
+    "ast": 0.3,
+    "value": 4
+  },
+  {
+    "player_id": "p_jock_landale",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 10.6,
+    "reb": 5.7,
+    "ast": 1.7,
+    "value": 9.3
+  },
+  {
+    "player_id": "p_joe_ingles",
+    "season": "2025-26",
+    "gp": 27,
+    "pts": 1.5,
+    "reb": 0.7,
+    "ast": 1.3,
+    "value": 1.9
+  },
+  {
+    "player_id": "p_joel_embiid",
+    "season": "2025-26",
+    "gp": 38,
+    "pts": 26.9,
+    "reb": 7.7,
+    "ast": 3.9,
+    "value": 20.7
+  },
+  {
+    "player_id": "p_john_collins",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 13.6,
+    "reb": 5.3,
+    "ast": 1,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_john_konchar",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 4.4,
+    "reb": 4.3,
+    "ast": 2.1,
+    "value": 6.6
+  },
+  {
+    "player_id": "p_john_poulakidas",
+    "season": "2025-26",
+    "gp": 13,
+    "pts": 8.8,
+    "reb": 2.3,
+    "ast": 0.8,
+    "value": 6
+  },
+  {
+    "player_id": "p_johni_broome",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 0.9,
+    "reb": 1.5,
+    "ast": 0.4,
+    "value": 0.2
+  },
+  {
+    "player_id": "p_johnny_furphy",
+    "season": "2025-26",
+    "gp": 35,
+    "pts": 5.1,
+    "reb": 4.4,
+    "ast": 1.2,
+    "value": 4.4
+  },
+  {
+    "player_id": "p_johnny_juzang",
+    "season": "2025-26",
+    "gp": 21,
+    "pts": 2,
+    "reb": 0.8,
+    "ast": 0.3,
+    "value": 1.4
+  },
+  {
+    "player_id": "p_jonas_valanciunas",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 8.7,
+    "reb": 5.1,
+    "ast": 1.2,
+    "value": 7.4
+  },
+  {
+    "player_id": "p_jonathan_isaac",
+    "season": "2025-26",
+    "gp": 52,
+    "pts": 2.6,
+    "reb": 2.5,
+    "ast": 0.4,
+    "value": 2.9
+  },
+  {
+    "player_id": "p_jonathan_kuminga",
+    "season": "2025-26",
+    "gp": 36,
+    "pts": 12.2,
+    "reb": 5.6,
+    "ast": 2.3,
+    "value": 9.2
+  },
+  {
+    "player_id": "p_jonathan_mogbo",
+    "season": "2025-26",
+    "gp": 40,
+    "pts": 1.5,
+    "reb": 1.7,
+    "ast": 0.6,
+    "value": 1.8
+  },
+  {
+    "player_id": "p_jordan_clarkson",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 8.6,
+    "reb": 1.8,
+    "ast": 1.3,
+    "value": 5.4
+  },
+  {
+    "player_id": "p_jordan_goodwin",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 8.7,
+    "reb": 4.9,
+    "ast": 2.2,
+    "value": 8.1
+  },
+  {
+    "player_id": "p_jordan_hawkins",
+    "season": "2025-26",
+    "gp": 51,
+    "pts": 5.1,
+    "reb": 1.7,
+    "ast": 0.8,
+    "value": 3
+  },
+  {
+    "player_id": "p_jordan_mclaughlin",
+    "season": "2025-26",
+    "gp": 44,
+    "pts": 2,
+    "reb": 0.7,
+    "ast": 0.9,
+    "value": 2.1
+  },
+  {
+    "player_id": "p_jordan_miller",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 10,
+    "reb": 3,
+    "ast": 2.3,
+    "value": 8.7
+  },
+  {
+    "player_id": "p_jordan_poole",
+    "season": "2025-26",
+    "gp": 39,
+    "pts": 13.4,
+    "reb": 2,
+    "ast": 3.1,
+    "value": 7.9
+  },
+  {
+    "player_id": "p_jordan_walsh",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 5.4,
+    "reb": 4,
+    "ast": 0.8,
+    "value": 5.4
+  },
+  {
+    "player_id": "p_jose_alvarado",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 7.4,
+    "reb": 2.5,
+    "ast": 3.4,
+    "value": 6.4
+  },
+  {
+    "player_id": "p_josh_giddey",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 17,
+    "reb": 8.3,
+    "ast": 9.1,
+    "value": 16.1
+  },
+  {
+    "player_id": "p_josh_green",
+    "season": "2025-26",
+    "gp": 58,
+    "pts": 4.3,
+    "reb": 1.8,
+    "ast": 0.8,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_josh_hart",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 12,
+    "reb": 7.4,
+    "ast": 4.8,
+    "value": 11.9
+  },
+  {
+    "player_id": "p_josh_minott",
+    "season": "2025-26",
+    "gp": 49,
+    "pts": 7.4,
+    "reb": 3.2,
+    "ast": 0.9,
+    "value": 6.5
+  },
+  {
+    "player_id": "p_josh_okogie",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 4.5,
+    "reb": 2.6,
+    "ast": 0.9,
+    "value": 4
+  },
+  {
+    "player_id": "p_jrue_holiday",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 16.3,
+    "reb": 4.6,
+    "ast": 6.1,
+    "value": 13
+  },
+  {
+    "player_id": "p_julian_champagnie",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 11.1,
+    "reb": 5.8,
+    "ast": 1.5,
+    "value": 9.5
+  },
+  {
+    "player_id": "p_julian_phillips",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 2.9,
+    "reb": 1,
+    "ast": 0.2,
+    "value": 2.2
+  },
+  {
+    "player_id": "p_julian_reese",
+    "season": "2025-26",
+    "gp": 13,
+    "pts": 11.8,
+    "reb": 10.5,
+    "ast": 1.8,
+    "value": 10.9
+  },
+  {
+    "player_id": "p_julian_strawther",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 7.2,
+    "reb": 2,
+    "ast": 1.1,
+    "value": 5
+  },
+  {
+    "player_id": "p_julius_randle",
+    "season": "2025-26",
+    "gp": 79,
+    "pts": 21.1,
+    "reb": 6.7,
+    "ast": 5,
+    "value": 16.4
+  },
+  {
+    "player_id": "p_justin_champagnie",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 8.7,
+    "reb": 5.6,
+    "ast": 1.2,
+    "value": 8.5
+  },
+  {
+    "player_id": "p_justin_edwards",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 6,
+    "reb": 1.5,
+    "ast": 1.3,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_jusuf_nurkic",
+    "season": "2025-26",
+    "gp": 41,
+    "pts": 10.9,
+    "reb": 10.4,
+    "ast": 4.8,
+    "value": 11.4
+  },
+  {
+    "player_id": "p_kj_simpson",
+    "season": "2025-26",
+    "gp": 20,
+    "pts": 4.6,
+    "reb": 1.9,
+    "ast": 2.2,
+    "value": 3.1
+  },
+  {
+    "player_id": "p_kam_jones",
+    "season": "2025-26",
+    "gp": 37,
+    "pts": 4.4,
+    "reb": 1.6,
+    "ast": 3.2,
+    "value": 3.8
+  },
+  {
+    "player_id": "p_karl_anthony_towns",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 20.1,
+    "reb": 11.9,
+    "ast": 3,
+    "value": 17.2
+  },
+  {
+    "player_id": "p_karlo_matkovic",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 5.7,
+    "reb": 3.7,
+    "ast": 0.8,
+    "value": 5.9
+  },
+  {
+    "player_id": "p_kasparas_jakucionis",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 6.2,
+    "reb": 2.6,
+    "ast": 2.6,
+    "value": 5.7
+  },
+  {
+    "player_id": "p_kawhi_leonard",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 27.9,
+    "reb": 6.4,
+    "ast": 3.6,
+    "value": 22.5
+  },
+  {
+    "player_id": "p_keaton_wallace",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 3.5,
+    "reb": 1.1,
+    "ast": 1.8,
+    "value": 3.1
+  },
+  {
+    "player_id": "p_keegan_murray",
+    "season": "2025-26",
+    "gp": 23,
+    "pts": 14,
+    "reb": 5.7,
+    "ast": 1.7,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_kel_el_ware",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 11.1,
+    "reb": 9,
+    "ast": 0.7,
+    "value": 11.4
+  },
+  {
+    "player_id": "p_keldon_johnson",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 13.2,
+    "reb": 5.4,
+    "ast": 1.4,
+    "value": 10.5
+  },
+  {
+    "player_id": "p_kelly_olynyk",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 3.2,
+    "reb": 1.8,
+    "ast": 1.2,
+    "value": 3
+  },
+  {
+    "player_id": "p_kelly_oubre_jr",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 14.1,
+    "reb": 5,
+    "ast": 1.6,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_kennedy_chandler",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 15,
+    "reb": 3.4,
+    "ast": 6.7,
+    "value": 12
+  },
+  {
+    "player_id": "p_kenrich_williams",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 6.5,
+    "reb": 3.3,
+    "ast": 1.4,
+    "value": 5.5
+  },
+  {
+    "player_id": "p_kentavious_caldwell_pope",
+    "season": "2025-26",
+    "gp": 51,
+    "pts": 8.4,
+    "reb": 2.5,
+    "ast": 2.7,
+    "value": 6.5
+  },
+  {
+    "player_id": "p_keon_ellis",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 6.7,
+    "reb": 1.9,
+    "ast": 1,
+    "value": 5.5
+  },
+  {
+    "player_id": "p_keshad_johnson",
+    "season": "2025-26",
+    "gp": 32,
+    "pts": 4.3,
+    "reb": 1.9,
+    "ast": 0.3,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_kevin_durant",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 26,
+    "reb": 5.5,
+    "ast": 4.8,
+    "value": 19.7
+  },
+  {
+    "player_id": "p_kevin_huerter",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 10,
+    "reb": 3.5,
+    "ast": 2.6,
+    "value": 8.1
+  },
+  {
+    "player_id": "p_kevin_love",
+    "season": "2025-26",
+    "gp": 37,
+    "pts": 6.7,
+    "reb": 5.8,
+    "ast": 1.8,
+    "value": 6.4
+  },
+  {
+    "player_id": "p_kevin_mccullar_jr",
+    "season": "2025-26",
+    "gp": 21,
+    "pts": 2.4,
+    "reb": 1.3,
+    "ast": 1,
+    "value": 1.9
+  },
+  {
+    "player_id": "p_kevin_porter_jr",
+    "season": "2025-26",
+    "gp": 38,
+    "pts": 17.4,
+    "reb": 5.2,
+    "ast": 7.4,
+    "value": 16.1
+  },
+  {
+    "player_id": "p_kevon_looney",
+    "season": "2025-26",
+    "gp": 21,
+    "pts": 2.8,
+    "reb": 5.6,
+    "ast": 1.6,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_keyonte_george",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 23.6,
+    "reb": 3.7,
+    "ast": 6.1,
+    "value": 17.7
+  },
+  {
+    "player_id": "p_khaman_maluach",
+    "season": "2025-26",
+    "gp": 46,
+    "pts": 3,
+    "reb": 2.9,
+    "ast": 0.1,
+    "value": 2.9
+  },
+  {
+    "player_id": "p_khris_middleton",
+    "season": "2025-26",
+    "gp": 63,
+    "pts": 10.2,
+    "reb": 3.7,
+    "ast": 2.8,
+    "value": 7
+  },
+  {
+    "player_id": "p_killian_hayes",
+    "season": "2025-26",
+    "gp": 23,
+    "pts": 5.5,
+    "reb": 2.3,
+    "ast": 3.5,
+    "value": 4.4
+  },
+  {
+    "player_id": "p_klay_thompson",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 11.7,
+    "reb": 2.1,
+    "ast": 1.4,
+    "value": 7
+  },
+  {
+    "player_id": "p_kobe_brown",
+    "season": "2025-26",
+    "gp": 61,
+    "pts": 5.8,
+    "reb": 3,
+    "ast": 1.3,
+    "value": 4.9
+  },
+  {
+    "player_id": "p_kobe_bufkin",
+    "season": "2025-26",
+    "gp": 16,
+    "pts": 2.9,
+    "reb": 0.8,
+    "ast": 0.6,
+    "value": 1.5
+  },
+  {
+    "player_id": "p_kobe_sanders",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 7.3,
+    "reb": 2.3,
+    "ast": 1.6,
+    "value": 5
+  },
+  {
+    "player_id": "p_koby_brea",
+    "season": "2025-26",
+    "gp": 12,
+    "pts": 3.8,
+    "reb": 0.7,
+    "ast": 0.8,
+    "value": 2.6
+  },
+  {
+    "player_id": "p_kon_knueppel",
+    "season": "2025-26",
+    "gp": 81,
+    "pts": 18.5,
+    "reb": 5.3,
+    "ast": 3.4,
+    "value": 14
+  },
+  {
+    "player_id": "p_kris_dunn",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 7.3,
+    "reb": 3.3,
+    "ast": 3.6,
+    "value": 7.5
+  },
+  {
+    "player_id": "p_kris_murray",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 5.8,
+    "reb": 3.6,
+    "ast": 1.4,
+    "value": 5.7
+  },
+  {
+    "player_id": "p_kristaps_porzingis",
+    "season": "2025-26",
+    "gp": 32,
+    "pts": 16.7,
+    "reb": 5.2,
+    "ast": 2.5,
+    "value": 13
+  },
+  {
+    "player_id": "p_kyle_anderson",
+    "season": "2025-26",
+    "gp": 43,
+    "pts": 6.2,
+    "reb": 3.5,
+    "ast": 2.9,
+    "value": 6.8
+  },
+  {
+    "player_id": "p_kyle_filipowski",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 11.4,
+    "reb": 7.2,
+    "ast": 2.6,
+    "value": 10
+  },
+  {
+    "player_id": "p_kyle_kuzma",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 13,
+    "reb": 4.5,
+    "ast": 2.7,
+    "value": 9.8
+  },
+  {
+    "player_id": "p_kyle_lowry",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 1.2,
+    "reb": 0.6,
+    "ast": 0.8,
+    "value": 0.4
+  },
+  {
+    "player_id": "p_kyshawn_george",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 14.8,
+    "reb": 5.1,
+    "ast": 4.5,
+    "value": 11
+  },
+  {
+    "player_id": "p_lj_cryer",
+    "season": "2025-26",
+    "gp": 18,
+    "pts": 8.2,
+    "reb": 1.6,
+    "ast": 1,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_lamelo_ball",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 20.1,
+    "reb": 4.8,
+    "ast": 7.1,
+    "value": 15
+  },
+  {
+    "player_id": "p_lachlan_olbrich",
+    "season": "2025-26",
+    "gp": 37,
+    "pts": 2.4,
+    "reb": 3,
+    "ast": 1.1,
+    "value": 2.7
+  },
+  {
+    "player_id": "p_landry_shamet",
+    "season": "2025-26",
+    "gp": 51,
+    "pts": 9.3,
+    "reb": 1.8,
+    "ast": 1.4,
+    "value": 6.7
+  },
+  {
+    "player_id": "p_larry_nance_jr",
+    "season": "2025-26",
+    "gp": 35,
+    "pts": 3.7,
+    "reb": 2.7,
+    "ast": 1,
+    "value": 3.1
+  },
+  {
+    "player_id": "p_lauri_markkanen",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 26.7,
+    "reb": 6.9,
+    "ast": 2.1,
+    "value": 20.1
+  },
+  {
+    "player_id": "p_lebron_james",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 20.9,
+    "reb": 6.1,
+    "ast": 7.2,
+    "value": 18
+  },
+  {
+    "player_id": "p_leaky_black",
+    "season": "2025-26",
+    "gp": 15,
+    "pts": 7.1,
+    "reb": 5,
+    "ast": 1.5,
+    "value": 5.9
+  },
+  {
+    "player_id": "p_leonard_miller",
+    "season": "2025-26",
+    "gp": 46,
+    "pts": 7.8,
+    "reb": 3.9,
+    "ast": 0.9,
+    "value": 6.5
+  },
+  {
+    "player_id": "p_liam_mcneeley",
+    "season": "2025-26",
+    "gp": 31,
+    "pts": 4.3,
+    "reb": 2.4,
+    "ast": 0.8,
+    "value": 3.3
+  },
+  {
+    "player_id": "p_lindy_waters_iii",
+    "season": "2025-26",
+    "gp": 40,
+    "pts": 2.4,
+    "reb": 0.7,
+    "ast": 0.5,
+    "value": 1.6
+  },
+  {
+    "player_id": "p_lonzo_ball",
+    "season": "2025-26",
+    "gp": 35,
+    "pts": 4.6,
+    "reb": 4,
+    "ast": 3.9,
+    "value": 5.3
+  },
+  {
+    "player_id": "p_luguentz_dort",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 8.3,
+    "reb": 3.6,
+    "ast": 1.2,
+    "value": 5.6
+  },
+  {
+    "player_id": "p_luka_doncic",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 33.5,
+    "reb": 7.7,
+    "ast": 8.3,
+    "value": 26.3
+  },
+  {
+    "player_id": "p_luka_garza",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 8.1,
+    "reb": 4.1,
+    "ast": 1,
+    "value": 7.4
+  },
+  {
+    "player_id": "p_luke_kennard",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 8.4,
+    "reb": 2.3,
+    "ast": 2.2,
+    "value": 7.4
+  },
+  {
+    "player_id": "p_luke_kornet",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 6.5,
+    "reb": 6.1,
+    "ast": 1.9,
+    "value": 8.9
+  },
+  {
+    "player_id": "p_luke_travers",
+    "season": "2025-26",
+    "gp": 12,
+    "pts": 2.3,
+    "reb": 2,
+    "ast": 0.8,
+    "value": 2.3
+  },
+  {
+    "player_id": "p_mac_mcclung",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 6.1,
+    "reb": 0.9,
+    "ast": 0.9,
+    "value": 3.8
+  },
+  {
+    "player_id": "p_malachi_smith",
+    "season": "2025-26",
+    "gp": 15,
+    "pts": 8.3,
+    "reb": 3.4,
+    "ast": 3.3,
+    "value": 8.4
+  },
+  {
+    "player_id": "p_malaki_branham",
+    "season": "2025-26",
+    "gp": 28,
+    "pts": 4.6,
+    "reb": 1.6,
+    "ast": 0.8,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_malevy_leons",
+    "season": "2025-26",
+    "gp": 25,
+    "pts": 3.3,
+    "reb": 2.1,
+    "ast": 0.9,
+    "value": 3.4
+  },
+  {
+    "player_id": "p_malik_monk",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 12.5,
+    "reb": 1.9,
+    "ast": 3,
+    "value": 8.5
+  },
+  {
+    "player_id": "p_marjon_beauchamp",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 6.8,
+    "reb": 2.3,
+    "ast": 1.1,
+    "value": 5
+  },
+  {
+    "player_id": "p_marcus_sasser",
+    "season": "2025-26",
+    "gp": 38,
+    "pts": 5.2,
+    "reb": 1,
+    "ast": 2,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_marcus_smart",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 9.3,
+    "reb": 2.8,
+    "ast": 3,
+    "value": 7.3
+  },
+  {
+    "player_id": "p_mark_williams",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 11.7,
+    "reb": 8,
+    "ast": 1,
+    "value": 12.1
+  },
+  {
+    "player_id": "p_marvin_bagley_iii",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 10.5,
+    "reb": 6.1,
+    "ast": 1.4,
+    "value": 10
+  },
+  {
+    "player_id": "p_mason_plumlee",
+    "season": "2025-26",
+    "gp": 20,
+    "pts": 1.6,
+    "reb": 2.7,
+    "ast": 1,
+    "value": 2.7
+  },
+  {
+    "player_id": "p_matas_buzelis",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 16.3,
+    "reb": 5.8,
+    "ast": 2.1,
+    "value": 11.9
+  },
+  {
+    "player_id": "p_matisse_thybulle",
+    "season": "2025-26",
+    "gp": 30,
+    "pts": 5.8,
+    "reb": 2,
+    "ast": 0.9,
+    "value": 5.7
+  },
+  {
+    "player_id": "p_max_christie",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 12.3,
+    "reb": 3.2,
+    "ast": 2,
+    "value": 8.9
+  },
+  {
+    "player_id": "p_max_shulga",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 0.6,
+    "reb": 0.5,
+    "ast": 0.2,
+    "value": 0.1
+  },
+  {
+    "player_id": "p_max_strus",
+    "season": "2025-26",
+    "gp": 12,
+    "pts": 11.2,
+    "reb": 5.4,
+    "ast": 2,
+    "value": 8.3
+  },
+  {
+    "player_id": "p_maxi_kleber",
+    "season": "2025-26",
+    "gp": 43,
+    "pts": 2,
+    "reb": 2,
+    "ast": 0.6,
+    "value": 2
+  },
+  {
+    "player_id": "p_maxime_raynaud",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 12.5,
+    "reb": 7.5,
+    "ast": 1.4,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_micah_peavy",
+    "season": "2025-26",
+    "gp": 61,
+    "pts": 4.3,
+    "reb": 1.9,
+    "ast": 1,
+    "value": 3.2
+  },
+  {
+    "player_id": "p_micah_potter",
+    "season": "2025-26",
+    "gp": 47,
+    "pts": 9.7,
+    "reb": 5,
+    "ast": 1.5,
+    "value": 8.6
+  },
+  {
+    "player_id": "p_michael_porter_jr",
+    "season": "2025-26",
+    "gp": 52,
+    "pts": 24.2,
+    "reb": 7.1,
+    "ast": 3,
+    "value": 17.3
+  },
+  {
+    "player_id": "p_mikal_bridges",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 14.4,
+    "reb": 3.8,
+    "ast": 3.7,
+    "value": 12.6
+  },
+  {
+    "player_id": "p_mike_conley",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 4.5,
+    "reb": 1.7,
+    "ast": 2.9,
+    "value": 4.4
+  },
+  {
+    "player_id": "p_miles_bridges",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 17.1,
+    "reb": 5.8,
+    "ast": 3.2,
+    "value": 13.1
+  },
+  {
+    "player_id": "p_miles_kelly",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 3.1,
+    "reb": 1.7,
+    "ast": 0.9,
+    "value": 2.3
+  },
+  {
+    "player_id": "p_miles_mcbride",
+    "season": "2025-26",
+    "gp": 41,
+    "pts": 12,
+    "reb": 2.4,
+    "ast": 2.6,
+    "value": 9
+  },
+  {
+    "player_id": "p_mitchell_robinson",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 5.7,
+    "reb": 8.8,
+    "ast": 0.9,
+    "value": 9.1
+  },
+  {
+    "player_id": "p_mohamed_diawara",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 3.6,
+    "reb": 1.4,
+    "ast": 0.8,
+    "value": 2.6
+  },
+  {
+    "player_id": "p_moritz_wagner",
+    "season": "2025-26",
+    "gp": 36,
+    "pts": 6.9,
+    "reb": 3.2,
+    "ast": 0.8,
+    "value": 5.1
+  },
+  {
+    "player_id": "p_moses_moody",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 12.1,
+    "reb": 3.3,
+    "ast": 1.6,
+    "value": 9.2
+  },
+  {
+    "player_id": "p_mouhamed_gueye",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 4.4,
+    "reb": 3.6,
+    "ast": 0.9,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_moussa_cisse",
+    "season": "2025-26",
+    "gp": 38,
+    "pts": 4.5,
+    "reb": 5.7,
+    "ast": 0.2,
+    "value": 5.2
+  },
+  {
+    "player_id": "p_moussa_diabate",
+    "season": "2025-26",
+    "gp": 73,
+    "pts": 7.9,
+    "reb": 8.7,
+    "ast": 1.9,
+    "value": 10.3
+  },
+  {
+    "player_id": "p_myles_turner",
+    "season": "2025-26",
+    "gp": 71,
+    "pts": 11.9,
+    "reb": 5.3,
+    "ast": 1.5,
+    "value": 9.5
+  },
+  {
+    "player_id": "p_myron_gardner",
+    "season": "2025-26",
+    "gp": 45,
+    "pts": 3.6,
+    "reb": 2.7,
+    "ast": 1,
+    "value": 3.5
+  },
+  {
+    "player_id": "p_nae_qwan_tomlin",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 5.8,
+    "reb": 2.9,
+    "ast": 0.8,
+    "value": 4.8
+  },
+  {
+    "player_id": "p_naji_marshall",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 15.2,
+    "reb": 4.7,
+    "ast": 3.3,
+    "value": 12.2
+  },
+  {
+    "player_id": "p_nate_williams",
+    "season": "2025-26",
+    "gp": 14,
+    "pts": 8,
+    "reb": 2.1,
+    "ast": 1,
+    "value": 5.2
+  },
+  {
+    "player_id": "p_naz_reid",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 13.6,
+    "reb": 6.2,
+    "ast": 2.2,
+    "value": 10.6
+  },
+  {
+    "player_id": "p_neemias_queta",
+    "season": "2025-26",
+    "gp": 76,
+    "pts": 10.2,
+    "reb": 8.4,
+    "ast": 1.7,
+    "value": 11.5
+  },
+  {
+    "player_id": "p_nic_claxton",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 11.7,
+    "reb": 6.9,
+    "ast": 3.7,
+    "value": 12
+  },
+  {
+    "player_id": "p_nick_richards",
+    "season": "2025-26",
+    "gp": 48,
+    "pts": 5.8,
+    "reb": 5.1,
+    "ast": 0.3,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_nick_smith_jr",
+    "season": "2025-26",
+    "gp": 30,
+    "pts": 6.2,
+    "reb": 0.8,
+    "ast": 1,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_nickeil_alexander_walker",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 20.8,
+    "reb": 3.4,
+    "ast": 3.7,
+    "value": 15.4
+  },
+  {
+    "player_id": "p_nicolas_batum",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 4,
+    "reb": 2.5,
+    "ast": 0.9,
+    "value": 3.5
+  },
+  {
+    "player_id": "p_nigel_hayes_davis",
+    "season": "2025-26",
+    "gp": 27,
+    "pts": 1.3,
+    "reb": 1.2,
+    "ast": 0.3,
+    "value": 0.9
+  },
+  {
+    "player_id": "p_nikola_jokic",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 27.7,
+    "reb": 12.9,
+    "ast": 10.7,
+    "value": 28.7
+  },
+  {
+    "player_id": "p_nikola_jovic",
+    "season": "2025-26",
+    "gp": 47,
+    "pts": 7.3,
+    "reb": 3.3,
+    "ast": 2.2,
+    "value": 5
+  },
+  {
+    "player_id": "p_nikola_topic",
+    "season": "2025-26",
+    "gp": 10,
+    "pts": 5.2,
+    "reb": 1.9,
+    "ast": 4.4,
+    "value": 3.8
+  },
+  {
+    "player_id": "p_nikola_vucevic",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 15.1,
+    "reb": 8.4,
+    "ast": 3.3,
+    "value": 13.3
+  },
+  {
+    "player_id": "p_nique_clifford",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 8.6,
+    "reb": 3.8,
+    "ast": 2.4,
+    "value": 6.2
+  },
+  {
+    "player_id": "p_noah_clowney",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 12.3,
+    "reb": 4.1,
+    "ast": 1.6,
+    "value": 8.3
+  },
+  {
+    "player_id": "p_noah_penda",
+    "season": "2025-26",
+    "gp": 59,
+    "pts": 3.8,
+    "reb": 3.2,
+    "ast": 1.2,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_nolan_traore",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 8.9,
+    "reb": 1.8,
+    "ast": 3.8,
+    "value": 5.3
+  },
+  {
+    "player_id": "p_norman_powell",
+    "season": "2025-26",
+    "gp": 58,
+    "pts": 21.7,
+    "reb": 3.5,
+    "ast": 2.5,
+    "value": 14.9
+  },
+  {
+    "player_id": "p_og_anunoby",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 16.7,
+    "reb": 5.2,
+    "ast": 2.2,
+    "value": 13.4
+  },
+  {
+    "player_id": "p_obi_toppin",
+    "season": "2025-26",
+    "gp": 24,
+    "pts": 11.6,
+    "reb": 4.4,
+    "ast": 2.3,
+    "value": 9.4
+  },
+  {
+    "player_id": "p_ochai_agbaji",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 5.1,
+    "reb": 2.3,
+    "ast": 0.8,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_olivier_maxence_prosper",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 10,
+    "reb": 3.5,
+    "ast": 1,
+    "value": 8.2
+  },
+  {
+    "player_id": "p_onyeka_okongwu",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 15.2,
+    "reb": 7.6,
+    "ast": 3.1,
+    "value": 13.1
+  },
+  {
+    "player_id": "p_oscar_tshiebwe",
+    "season": "2025-26",
+    "gp": 27,
+    "pts": 7.8,
+    "reb": 6.6,
+    "ast": 1.2,
+    "value": 8.5
+  },
+  {
+    "player_id": "p_oso_ighodaro",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 6.5,
+    "reb": 5.1,
+    "ast": 2.3,
+    "value": 7.1
+  },
+  {
+    "player_id": "p_ousmane_dieng",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 7.6,
+    "reb": 3.2,
+    "ast": 2.4,
+    "value": 5.3
+  },
+  {
+    "player_id": "p_p_j_washington",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 14.2,
+    "reb": 7,
+    "ast": 1.8,
+    "value": 10.8
+  },
+  {
+    "player_id": "p_pj_hall",
+    "season": "2025-26",
+    "gp": 19,
+    "pts": 4.5,
+    "reb": 3.9,
+    "ast": 0.5,
+    "value": 4.3
+  },
+  {
+    "player_id": "p_pacome_dadiet",
+    "season": "2025-26",
+    "gp": 29,
+    "pts": 1.7,
+    "reb": 0.9,
+    "ast": 0.4,
+    "value": 1.2
+  },
+  {
+    "player_id": "p_paolo_banchero",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 22.2,
+    "reb": 8.4,
+    "ast": 5.2,
+    "value": 17
+  },
+  {
+    "player_id": "p_pascal_siakam",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 24,
+    "reb": 6.6,
+    "ast": 3.8,
+    "value": 17.2
+  },
+  {
+    "player_id": "p_pat_connaughton",
+    "season": "2025-26",
+    "gp": 42,
+    "pts": 2.6,
+    "reb": 1.5,
+    "ast": 0.4,
+    "value": 2.3
+  },
+  {
+    "player_id": "p_pat_spencer",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 7.2,
+    "reb": 2.4,
+    "ast": 3.5,
+    "value": 6.1
+  },
+  {
+    "player_id": "p_patrick_williams",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 7,
+    "reb": 3,
+    "ast": 1.5,
+    "value": 5
+  },
+  {
+    "player_id": "p_paul_george",
+    "season": "2025-26",
+    "gp": 37,
+    "pts": 17.3,
+    "reb": 5.3,
+    "ast": 3.6,
+    "value": 13.5
+  },
+  {
+    "player_id": "p_paul_reed",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 7.8,
+    "reb": 4.5,
+    "ast": 1.2,
+    "value": 8.1
+  },
+  {
+    "player_id": "p_payton_pritchard",
+    "season": "2025-26",
+    "gp": 79,
+    "pts": 17,
+    "reb": 3.9,
+    "ast": 5.2,
+    "value": 13.8
+  },
+  {
+    "player_id": "p_pelle_larsson",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 11.4,
+    "reb": 3.5,
+    "ast": 3.4,
+    "value": 9.5
+  },
+  {
+    "player_id": "p_pete_nance",
+    "season": "2025-26",
+    "gp": 47,
+    "pts": 5.4,
+    "reb": 2.7,
+    "ast": 1,
+    "value": 4.5
+  },
+  {
+    "player_id": "p_peyton_watson",
+    "season": "2025-26",
+    "gp": 54,
+    "pts": 14.6,
+    "reb": 4.9,
+    "ast": 2.1,
+    "value": 11.1
+  },
+  {
+    "player_id": "p_precious_achiuwa",
+    "season": "2025-26",
+    "gp": 73,
+    "pts": 10.1,
+    "reb": 6.7,
+    "ast": 1.4,
+    "value": 9.5
+  },
+  {
+    "player_id": "p_quentin_grimes",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 13.4,
+    "reb": 3.6,
+    "ast": 3.3,
+    "value": 10.1
+  },
+  {
+    "player_id": "p_quenton_jackson",
+    "season": "2025-26",
+    "gp": 49,
+    "pts": 9.1,
+    "reb": 2.3,
+    "ast": 2.9,
+    "value": 7.2
+  },
+  {
+    "player_id": "p_quinten_post",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 7.7,
+    "reb": 4,
+    "ast": 1.4,
+    "value": 6
+  },
+  {
+    "player_id": "p_rj_barrett",
+    "season": "2025-26",
+    "gp": 57,
+    "pts": 19.3,
+    "reb": 5.3,
+    "ast": 3.3,
+    "value": 14
+  },
+  {
+    "player_id": "p_rasheer_fleming",
+    "season": "2025-26",
+    "gp": 55,
+    "pts": 4.3,
+    "reb": 2.3,
+    "ast": 0.3,
+    "value": 3.1
+  },
+  {
+    "player_id": "p_rayj_dennis",
+    "season": "2025-26",
+    "gp": 17,
+    "pts": 4.4,
+    "reb": 1.5,
+    "ast": 1.9,
+    "value": 2.4
+  },
+  {
+    "player_id": "p_rayan_rupert",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 5.2,
+    "reb": 2.9,
+    "ast": 1.1,
+    "value": 3.8
+  },
+  {
+    "player_id": "p_reed_sheppard",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 13.5,
+    "reb": 2.9,
+    "ast": 3.4,
+    "value": 10.4
+  },
+  {
+    "player_id": "p_rob_dillingham",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 6.3,
+    "reb": 2,
+    "ast": 2.2,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_robert_williams_iii",
+    "season": "2025-26",
+    "gp": 59,
+    "pts": 6.7,
+    "reb": 7,
+    "ast": 1,
+    "value": 8.9
+  },
+  {
+    "player_id": "p_ron_harper_jr",
+    "season": "2025-26",
+    "gp": 29,
+    "pts": 4.2,
+    "reb": 1.7,
+    "ast": 0.8,
+    "value": 3.4
+  },
+  {
+    "player_id": "p_ronald_holland_ii",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 8.2,
+    "reb": 4,
+    "ast": 1.2,
+    "value": 6.1
+  },
+  {
+    "player_id": "p_royce_o_neale",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 9.8,
+    "reb": 4.8,
+    "ast": 2.7,
+    "value": 8.3
+  },
+  {
+    "player_id": "p_rudy_gobert",
+    "season": "2025-26",
+    "gp": 76,
+    "pts": 10.9,
+    "reb": 11.5,
+    "ast": 1.7,
+    "value": 13
+  },
+  {
+    "player_id": "p_rui_hachimura",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 11.5,
+    "reb": 3.3,
+    "ast": 0.8,
+    "value": 8.3
+  },
+  {
+    "player_id": "p_russell_westbrook",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 15.2,
+    "reb": 5.4,
+    "ast": 6.7,
+    "value": 12
+  },
+  {
+    "player_id": "p_ryan_dunn",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 5.8,
+    "reb": 4.2,
+    "ast": 1.5,
+    "value": 5.4
+  },
+  {
+    "player_id": "p_ryan_kalkbrenner",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 7.6,
+    "reb": 5.5,
+    "ast": 0.8,
+    "value": 8.9
+  },
+  {
+    "player_id": "p_ryan_nembhard",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 6.6,
+    "reb": 2.2,
+    "ast": 5.3,
+    "value": 6
+  },
+  {
+    "player_id": "p_ryan_rollins",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 17.3,
+    "reb": 4.6,
+    "ast": 5.6,
+    "value": 13.6
+  },
+  {
+    "player_id": "p_saddiq_bey",
+    "season": "2025-26",
+    "gp": 72,
+    "pts": 17.7,
+    "reb": 5.6,
+    "ast": 2.5,
+    "value": 14.1
+  },
+  {
+    "player_id": "p_sam_hauser",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 9.2,
+    "reb": 3.8,
+    "ast": 1.5,
+    "value": 7.3
+  },
+  {
+    "player_id": "p_sam_merrill",
+    "season": "2025-26",
+    "gp": 52,
+    "pts": 12.8,
+    "reb": 2.6,
+    "ast": 2.4,
+    "value": 9.5
+  },
+  {
+    "player_id": "p_sandro_mamukelashvili",
+    "season": "2025-26",
+    "gp": 80,
+    "pts": 11.2,
+    "reb": 4.9,
+    "ast": 1.9,
+    "value": 10.1
+  },
+  {
+    "player_id": "p_santi_aldama",
+    "season": "2025-26",
+    "gp": 43,
+    "pts": 14,
+    "reb": 6.7,
+    "ast": 2.9,
+    "value": 12.1
+  },
+  {
+    "player_id": "p_scoot_henderson",
+    "season": "2025-26",
+    "gp": 30,
+    "pts": 14.2,
+    "reb": 2.7,
+    "ast": 3.7,
+    "value": 9.2
+  },
+  {
+    "player_id": "p_scottie_barnes",
+    "season": "2025-26",
+    "gp": 80,
+    "pts": 18.1,
+    "reb": 7.5,
+    "ast": 5.9,
+    "value": 16.8
+  },
+  {
+    "player_id": "p_scotty_pippen_jr",
+    "season": "2025-26",
+    "gp": 10,
+    "pts": 11.4,
+    "reb": 2.2,
+    "ast": 4.7,
+    "value": 8.7
+  },
+  {
+    "player_id": "p_seth_curry",
+    "season": "2025-26",
+    "gp": 10,
+    "pts": 7.1,
+    "reb": 1.2,
+    "ast": 1,
+    "value": 5.6
+  },
+  {
+    "player_id": "p_shaedon_sharpe",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 20.8,
+    "reb": 4.3,
+    "ast": 2.6,
+    "value": 12.7
+  },
+  {
+    "player_id": "p_shai_gilgeous_alexander",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 31.1,
+    "reb": 4.3,
+    "ast": 6.6,
+    "value": 26.5
+  },
+  {
+    "player_id": "p_sharife_cooper",
+    "season": "2025-26",
+    "gp": 41,
+    "pts": 8.1,
+    "reb": 2.1,
+    "ast": 3,
+    "value": 6.3
+  },
+  {
+    "player_id": "p_sidy_cissoko",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 5.1,
+    "reb": 2.2,
+    "ast": 1.5,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_simone_fontecchio",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 8.5,
+    "reb": 3,
+    "ast": 1.4,
+    "value": 6.3
+  },
+  {
+    "player_id": "p_sion_james",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 5.4,
+    "reb": 3.5,
+    "ast": 2,
+    "value": 4.8
+  },
+  {
+    "player_id": "p_spencer_jones",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 5.5,
+    "reb": 3.3,
+    "ast": 0.8,
+    "value": 4.9
+  },
+  {
+    "player_id": "p_stephen_curry",
+    "season": "2025-26",
+    "gp": 43,
+    "pts": 26.6,
+    "reb": 3.6,
+    "ast": 4.7,
+    "value": 19.3
+  },
+  {
+    "player_id": "p_stephon_castle",
+    "season": "2025-26",
+    "gp": 68,
+    "pts": 16.7,
+    "reb": 5.3,
+    "ast": 7.4,
+    "value": 14.1
+  },
+  {
+    "player_id": "p_steven_adams",
+    "season": "2025-26",
+    "gp": 32,
+    "pts": 5.8,
+    "reb": 8.6,
+    "ast": 1.5,
+    "value": 8
+  },
+  {
+    "player_id": "p_svi_mykhailiuk",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 9.4,
+    "reb": 2.5,
+    "ast": 1.9,
+    "value": 7.3
+  },
+  {
+    "player_id": "p_t_j_mcconnell",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 9.4,
+    "reb": 2.2,
+    "ast": 5.1,
+    "value": 9.5
+  },
+  {
+    "player_id": "p_taelon_peter",
+    "season": "2025-26",
+    "gp": 38,
+    "pts": 4.5,
+    "reb": 1.6,
+    "ast": 1.1,
+    "value": 3.2
+  },
+  {
+    "player_id": "p_taj_gibson",
+    "season": "2025-26",
+    "gp": 10,
+    "pts": 3.4,
+    "reb": 2.7,
+    "ast": 0.6,
+    "value": 3.3
+  },
+  {
+    "player_id": "p_tari_eason",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 10.5,
+    "reb": 6.3,
+    "ast": 1.5,
+    "value": 8.2
+  },
+  {
+    "player_id": "p_taurean_prince",
+    "season": "2025-26",
+    "gp": 26,
+    "pts": 9.2,
+    "reb": 3.1,
+    "ast": 1.8,
+    "value": 6.5
+  },
+  {
+    "player_id": "p_taylor_hendricks",
+    "season": "2025-26",
+    "gp": 59,
+    "pts": 7.4,
+    "reb": 3.7,
+    "ast": 0.9,
+    "value": 6
+  },
+  {
+    "player_id": "p_terance_mann",
+    "season": "2025-26",
+    "gp": 63,
+    "pts": 7.2,
+    "reb": 3.2,
+    "ast": 3,
+    "value": 6.3
+  },
+  {
+    "player_id": "p_terrence_shannon_jr",
+    "season": "2025-26",
+    "gp": 43,
+    "pts": 5.6,
+    "reb": 1.1,
+    "ast": 0.9,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_thanasis_antetokounmpo",
+    "season": "2025-26",
+    "gp": 34,
+    "pts": 1.4,
+    "reb": 0.9,
+    "ast": 0.4,
+    "value": 1.5
+  },
+  {
+    "player_id": "p_thomas_bryant",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 6.2,
+    "reb": 3.4,
+    "ast": 0.6,
+    "value": 5.3
+  },
+  {
+    "player_id": "p_tidjane_salaun",
+    "season": "2025-26",
+    "gp": 37,
+    "pts": 6,
+    "reb": 4,
+    "ast": 0.7,
+    "value": 4.9
+  },
+  {
+    "player_id": "p_tim_hardaway_jr",
+    "season": "2025-26",
+    "gp": 80,
+    "pts": 13.5,
+    "reb": 2.6,
+    "ast": 1.4,
+    "value": 9.7
+  },
+  {
+    "player_id": "p_tobias_harris",
+    "season": "2025-26",
+    "gp": 63,
+    "pts": 13.3,
+    "reb": 5.1,
+    "ast": 2.5,
+    "value": 11
+  },
+  {
+    "player_id": "p_tolu_smith",
+    "season": "2025-26",
+    "gp": 15,
+    "pts": 3.7,
+    "reb": 3.3,
+    "ast": 0.9,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_tony_bradley",
+    "season": "2025-26",
+    "gp": 41,
+    "pts": 4,
+    "reb": 2.8,
+    "ast": 0.5,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_toumani_camara",
+    "season": "2025-26",
+    "gp": 82,
+    "pts": 13.4,
+    "reb": 5.1,
+    "ast": 2.5,
+    "value": 9.9
+  },
+  {
+    "player_id": "p_trae_young",
+    "season": "2025-26",
+    "gp": 15,
+    "pts": 17.9,
+    "reb": 2,
+    "ast": 8,
+    "value": 15.1
+  },
+  {
+    "player_id": "p_trayce_jackson_davis",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 3.4,
+    "reb": 2.7,
+    "ast": 0.7,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_tre_johnson",
+    "season": "2025-26",
+    "gp": 60,
+    "pts": 12.2,
+    "reb": 2.8,
+    "ast": 2,
+    "value": 7.2
+  },
+  {
+    "player_id": "p_tre_jones",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 14.1,
+    "reb": 3.1,
+    "ast": 5.4,
+    "value": 13.7
+  },
+  {
+    "player_id": "p_tre_mann",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 5.5,
+    "reb": 1.7,
+    "ast": 1.6,
+    "value": 3.2
+  },
+  {
+    "player_id": "p_trendon_watford",
+    "season": "2025-26",
+    "gp": 53,
+    "pts": 6.5,
+    "reb": 3.3,
+    "ast": 2.5,
+    "value": 5.4
+  },
+  {
+    "player_id": "p_trey_jemison_iii",
+    "season": "2025-26",
+    "gp": 13,
+    "pts": 1,
+    "reb": 1.4,
+    "ast": 0.4,
+    "value": 0.7
+  },
+  {
+    "player_id": "p_trey_murphy_iii",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 21.5,
+    "reb": 5.7,
+    "ast": 3.8,
+    "value": 17.2
+  },
+  {
+    "player_id": "p_tristan_vukcevic",
+    "season": "2025-26",
+    "gp": 49,
+    "pts": 9,
+    "reb": 3,
+    "ast": 1.1,
+    "value": 6.5
+  },
+  {
+    "player_id": "p_tristan_da_silva",
+    "season": "2025-26",
+    "gp": 77,
+    "pts": 9.9,
+    "reb": 3.7,
+    "ast": 1.6,
+    "value": 7.8
+  },
+  {
+    "player_id": "p_ty_jerome",
+    "season": "2025-26",
+    "gp": 15,
+    "pts": 19.7,
+    "reb": 2.8,
+    "ast": 5.7,
+    "value": 16
+  },
+  {
+    "player_id": "p_tyty_washington_jr",
+    "season": "2025-26",
+    "gp": 16,
+    "pts": 1.3,
+    "reb": 0.4,
+    "ast": 1.1,
+    "value": 1.8
+  },
+  {
+    "player_id": "p_tyler_burton",
+    "season": "2025-26",
+    "gp": 12,
+    "pts": 10.8,
+    "reb": 4.2,
+    "ast": 1,
+    "value": 6.9
+  },
+  {
+    "player_id": "p_tyler_herro",
+    "season": "2025-26",
+    "gp": 33,
+    "pts": 20.5,
+    "reb": 4.8,
+    "ast": 4.1,
+    "value": 15.2
+  },
+  {
+    "player_id": "p_tyler_kolek",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 4.4,
+    "reb": 1.6,
+    "ast": 2.7,
+    "value": 3.9
+  },
+  {
+    "player_id": "p_tyler_smith",
+    "season": "2025-26",
+    "gp": 12,
+    "pts": 4.7,
+    "reb": 2.8,
+    "ast": 0.4,
+    "value": 3.5
+  },
+  {
+    "player_id": "p_tyrese_martin",
+    "season": "2025-26",
+    "gp": 46,
+    "pts": 6.3,
+    "reb": 2.5,
+    "ast": 1.7,
+    "value": 4.6
+  },
+  {
+    "player_id": "p_tyrese_maxey",
+    "season": "2025-26",
+    "gp": 70,
+    "pts": 28.3,
+    "reb": 4.1,
+    "ast": 6.6,
+    "value": 22.2
+  },
+  {
+    "player_id": "p_tyrese_proctor",
+    "season": "2025-26",
+    "gp": 50,
+    "pts": 5.4,
+    "reb": 1.3,
+    "ast": 1.5,
+    "value": 3.7
+  },
+  {
+    "player_id": "p_tyson_etienne",
+    "season": "2025-26",
+    "gp": 24,
+    "pts": 7.9,
+    "reb": 1.1,
+    "ast": 1.7,
+    "value": 5.2
+  },
+  {
+    "player_id": "p_tyus_jones",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 3,
+    "reb": 1.1,
+    "ast": 2.4,
+    "value": 3.3
+  },
+  {
+    "player_id": "p_vj_edgecombe",
+    "season": "2025-26",
+    "gp": 75,
+    "pts": 16,
+    "reb": 5.6,
+    "ast": 4.2,
+    "value": 12.7
+  },
+  {
+    "player_id": "p_victor_wembanyama",
+    "season": "2025-26",
+    "gp": 64,
+    "pts": 25,
+    "reb": 11.5,
+    "ast": 3.1,
+    "value": 22.4
+  },
+  {
+    "player_id": "p_vince_williams_jr",
+    "season": "2025-26",
+    "gp": 40,
+    "pts": 7.5,
+    "reb": 3.9,
+    "ast": 4.2,
+    "value": 6.2
+  },
+  {
+    "player_id": "p_vit_krejci",
+    "season": "2025-26",
+    "gp": 65,
+    "pts": 8.5,
+    "reb": 2.3,
+    "ast": 1.5,
+    "value": 6.4
+  },
+  {
+    "player_id": "p_walter_clayton_jr",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 7.8,
+    "reb": 2,
+    "ast": 4,
+    "value": 6.1
+  },
+  {
+    "player_id": "p_wendell_carter_jr",
+    "season": "2025-26",
+    "gp": 78,
+    "pts": 11.8,
+    "reb": 7.4,
+    "ast": 2,
+    "value": 10.5
+  },
+  {
+    "player_id": "p_will_richard",
+    "season": "2025-26",
+    "gp": 69,
+    "pts": 6.4,
+    "reb": 2.5,
+    "ast": 1.3,
+    "value": 5.6
+  },
+  {
+    "player_id": "p_will_riley",
+    "season": "2025-26",
+    "gp": 74,
+    "pts": 10.3,
+    "reb": 2.9,
+    "ast": 2,
+    "value": 7.3
+  },
+  {
+    "player_id": "p_xavier_tillman",
+    "season": "2025-26",
+    "gp": 30,
+    "pts": 1.5,
+    "reb": 1.4,
+    "ast": 0.4,
+    "value": 1.6
+  },
+  {
+    "player_id": "p_yang_hansen",
+    "season": "2025-26",
+    "gp": 43,
+    "pts": 2.2,
+    "reb": 1.5,
+    "ast": 0.5,
+    "value": 1
+  },
+  {
+    "player_id": "p_yanic_konan_niederhauser",
+    "season": "2025-26",
+    "gp": 41,
+    "pts": 4.3,
+    "reb": 2.9,
+    "ast": 0.3,
+    "value": 3.9
+  },
+  {
+    "player_id": "p_yuki_kawamura",
+    "season": "2025-26",
+    "gp": 18,
+    "pts": 3.4,
+    "reb": 1.8,
+    "ast": 2.6,
+    "value": 3.6
+  },
+  {
+    "player_id": "p_yves_missi",
+    "season": "2025-26",
+    "gp": 66,
+    "pts": 5.7,
+    "reb": 5.8,
+    "ast": 1.3,
+    "value": 6.9
+  },
+  {
+    "player_id": "p_zaccharie_risacher",
+    "season": "2025-26",
+    "gp": 67,
+    "pts": 9.6,
+    "reb": 3.8,
+    "ast": 1.1,
+    "value": 7.1
+  },
+  {
+    "player_id": "p_zach_collins",
+    "season": "2025-26",
+    "gp": 10,
+    "pts": 9.7,
+    "reb": 5.6,
+    "ast": 1.5,
+    "value": 8.6
+  },
+  {
+    "player_id": "p_zach_edey",
+    "season": "2025-26",
+    "gp": 11,
+    "pts": 13.6,
+    "reb": 11.1,
+    "ast": 1.1,
+    "value": 13.2
+  },
+  {
+    "player_id": "p_zach_lavine",
+    "season": "2025-26",
+    "gp": 39,
+    "pts": 19.2,
+    "reb": 2.8,
+    "ast": 2.3,
+    "value": 12.6
+  },
+  {
+    "player_id": "p_zeke_nnaji",
+    "season": "2025-26",
+    "gp": 52,
+    "pts": 3.7,
+    "reb": 2.6,
+    "ast": 0.6,
+    "value": 3.2
+  },
+  {
+    "player_id": "p_ziaire_williams",
+    "season": "2025-26",
+    "gp": 56,
+    "pts": 10.2,
+    "reb": 2.4,
+    "ast": 1.1,
+    "value": 7.4
+  },
+  {
+    "player_id": "p_zion_williamson",
+    "season": "2025-26",
+    "gp": 62,
+    "pts": 21,
+    "reb": 5.7,
+    "ast": 3.2,
+    "value": 17.4
+  }
+]

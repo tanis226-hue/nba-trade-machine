@@ -1,0 +1,52 @@
+name: refresh-data
+
+# Calendar-driven cadence (NOT 24/7). Daily baseline, escalating to every 6h during the two
+# high-activity windows — February (trade deadline) and late June/July (draft + free agency).
+# Manual dispatch covers same-day breaking moves (e.g. a Shams report) between scheduled runs.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'            # daily 09:00 UTC — quiet-season baseline
+    - cron: '0 */6 1-29 2 *'       # every 6h in February — trade deadline window
+    - cron: '0 */6 20-30 6 *'      # every 6h late June — NBA draft window
+    - cron: '0 */6 1-15 7 *'       # every 6h early July — free-agency moratorium/open
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install scraper deps
+        run: pip install -r scripts/scraper/requirements.txt
+
+      - name: Scrape contracts (Basketball-Reference, throttled)
+        run: python scripts/scraper/normalize.py
+
+      - name: Install app deps
+        run: npm ci
+
+      - name: Apply migrations (idempotent)
+        run: npx tsx scripts/migrate.ts
+
+      - name: Import merged data (seed < scrape < override)
+        run: npm run seed
+
+      - name: Accuracy + sanity audit
+        run: npx tsx scripts/audit.ts
+
+      # Note: RealGM/Hoops Rumors scrapers (picks, kickers, NTC, TPE) and the Shams news_links
+      # curation are added as steps here once their fetchers clear the source anti-bot checks.

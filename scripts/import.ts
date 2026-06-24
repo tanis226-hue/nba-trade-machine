@@ -121,6 +121,92 @@ async function main() {
     'id',
     merged('contracts.json', 'id'),
   );
+
+  // New tables (present after migration 0002). Tolerate a pre-0002 DB so the core import still succeeds.
+  try {
+    // draft_picks is a full-replace dataset (researched ownership), so clear stale rows before reloading.
+    await sql`DELETE FROM draft_picks`;
+    await upsert(
+      sql,
+      'draft_picks',
+      [
+        { name: 'id', type: 'text' },
+        { name: 'owning_team_id', type: 'text' },
+        { name: 'original_team_id', type: 'text' },
+        { name: 'season', type: 'text' },
+        { name: 'round', type: 'int' },
+        { name: 'is_swap', type: 'boolean' },
+        { name: 'is_frozen', type: 'boolean' },
+        { name: 'conveyed', type: 'boolean' },
+      ],
+      'id',
+      merged('draft_picks.json', 'id'),
+    );
+  } catch (e) {
+    console.warn('skip draft_picks (run migrate first to create the 0002 columns):', (e as Error).message);
+  }
+
+  // team_exceptions: curated TPE/MLE/BAE/room inventory (full-replace).
+  try {
+    await sql`DELETE FROM team_exceptions`;
+    await upsert(
+      sql,
+      'team_exceptions',
+      [
+        { name: 'id', type: 'text' },
+        { name: 'team_id', type: 'text' },
+        { name: 'season', type: 'text' },
+        { name: 'kind', type: 'text' },
+        { name: 'amount', type: 'bigint' },
+        { name: 'expires_date', type: 'date' },
+        { name: 'source_player', type: 'text' },
+      ],
+      'id',
+      merged('team_exceptions.json', 'id'),
+    );
+  } catch (e) {
+    console.warn('skip team_exceptions (run migrate first for 0008):', (e as Error).message);
+  }
+
+  try {
+    await upsert(
+      sql,
+      'player_value',
+      [
+        { name: 'player_id', type: 'text' },
+        { name: 'season', type: 'text' },
+        { name: 'gp', type: 'int' },
+        { name: 'pts', type: 'numeric' },
+        { name: 'reb', type: 'numeric' },
+        { name: 'ast', type: 'numeric' },
+        { name: 'value', type: 'numeric' },
+      ],
+      'player_id',
+      merged('player_value.json', 'player_id'),
+    );
+  } catch (e) {
+    console.warn('skip player_value (run migrate first to create 0004):', (e as Error).message);
+  }
+
+  try {
+    await upsert(
+      sql,
+      'player_bio',
+      [
+        { name: 'player_id', type: 'text' },
+        { name: 'nba_id', type: 'int' },
+        { name: 'position', type: 'text' },
+        { name: 'height', type: 'text' },
+        { name: 'weight', type: 'int' },
+        { name: 'jersey', type: 'text' },
+        { name: 'age', type: 'int' },
+      ],
+      'player_id',
+      merged('player_bio.json', 'player_id'),
+    );
+  } catch (e) {
+    console.warn('skip player_bio (run migrate first to create 0005):', (e as Error).message);
+  }
 }
 
 main()
