@@ -32,7 +32,21 @@ export function TradeBoard({
   const storeTeams = useTradeStore((s) => s.teams);
   const addTeam = useTradeStore((s) => s.addTeam);
   const addAsset = useTradeStore((s) => s.addAsset);
-  const [contracts, setContracts] = useState<Record<string, ContractYear[]>>({});
+  const [hydrated, setHydrated] = useState(false);
+
+  // Per-player contract years for cap-sheet display, derived purely from the teams in the store and
+  // the server rosters. Deriving (not storing) means a board restored from localStorage rebuilds its
+  // contracts for free - no effect, no setState, no stale map after a refresh. Keyed by the player's
+  // origin id (`${team.abbr}-${playerId}`) so lookups hold even after the asset is routed elsewhere.
+  const contracts = useMemo<Record<string, ContractYear[]>>(() => {
+    const map: Record<string, ContractYear[]> = {};
+    for (const t of storeTeams) {
+      for (const r of rosters[t.abbr] ?? []) {
+        map[`${t.abbr}-${r.playerId}`] = r.contract;
+      }
+    }
+    return map;
+  }, [storeTeams, rosters]);
 
   // Enrich the free-agent pool with value/bio/headshot so the sign panel and resulting cards match rosters.
   const enrichedFreeAgents = useMemo<FreeAgent[]>(
@@ -82,7 +96,6 @@ export function TradeBoard({
     const sortedRoster = [...roster].sort((a, b) =>
       cmp({ salary: a.salary, position: posOf(a) }, { salary: b.salary, position: posOf(b) }),
     );
-    const cmap: Record<string, ContractYear[]> = {};
     sortedRoster.forEach((r) => {
       const id = `${team.abbr}-${r.playerId}`;
       const cur = r.contract.find((c) => c.season === ACTIVE_SEASON.season) ?? r.contract[0];
@@ -117,16 +130,37 @@ export function TradeBoard({
         jersey: v?.jersey ?? undefined,
         headshot: v?.headshot,
       });
-      cmap[id] = r.contract;
     });
-    setContracts((c) => ({ ...c, ...cmap }));
   }
 
-  useEffect(() => () => useTradeStore.getState().reset(), []);
+  // Restore a board persisted in localStorage so a refresh or client navigation never wipes work
+  // in progress. The store skips auto-hydration to avoid an SSR mismatch; we rehydrate after mount.
+  // `contracts` is derived, so the restored teams rebuild their cap sheets with no extra wiring.
+  // Gate the first render on `hydrated` so a restored board never flashes the empty "add a team"
+  // state for a frame before localStorage loads. The skeleton matches SSR (both pre-hydration), so
+  // there is no React hydration mismatch.
+  useEffect(() => {
+    const finish = () => setHydrated(true);
+    const unsub = useTradeStore.persist.onFinishHydration(finish);
+    void useTradeStore.persist.rehydrate();
+    if (useTradeStore.persist.hasHydrated()) finish();
+    return unsub;
+  }, []);
 
   const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
   const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
   const atMax = storeTeams.length >= MAX_TRADE_TEAMS;
+
+  // Until localStorage rehydrates, render a neutral skeleton (matches the server-rendered output)
+  // so a restored trade doesn't flicker through the empty state.
+  if (!hydrated) {
+    return (
+      <div className="space-y-5">
+        <div className="panel h-[58px] animate-pulse rounded-xl" />
+        <div className="panel ticked h-64 animate-pulse rounded-xl" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">
@@ -154,6 +188,22 @@ export function TradeBoard({
             )}
           </div>
         </div>
+        {storeTeams.length > 0 && (
+          <div className="ml-auto flex items-center gap-2">
+            <span className="hidden items-center gap-1 text-[10px] uppercase tracking-[0.16em] text-[var(--faint)] sm:flex">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--legal)]" /> Auto-saved
+            </span>
+            <button
+              onClick={() => {
+                if (confirm('Clear this trade and start a new one? This cannot be undone.'))
+                  useTradeStore.getState().reset();
+              }}
+              className="rounded-md border border-[var(--border)] px-2.5 py-1 font-display text-xs font-semibold uppercase tracking-[0.1em] text-[var(--muted)] transition hover:border-[var(--illegal)]/60 hover:text-[var(--illegal)]"
+            >
+              New trade
+            </button>
+          </div>
+        )}
       </div>
 
       {storeTeams.length >= 1 ? (

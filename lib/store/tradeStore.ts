@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware';
 import type { TradeAsset, TradeTeamInput, TradeMethod } from '@/lib/cba/types';
 
 const MAX_TEAMS = 7; // up to 7-team trades (beats Fanspo's 5)
@@ -80,7 +81,37 @@ function bumpTeamSalary(teams: TradeTeamInput[], abbr: string, delta: number): T
   );
 }
 
-export const useTradeStore = create<TradeState>((set) => ({
+// localStorage snapshot of the working board so a refresh (or client navigation) never wipes a
+// trade in progress. Bump the version suffix when the persisted shape changes incompatibly.
+export const PERSIST_KEY = 'trade-machine:board:v1';
+
+// Only the meaningful working state is persisted. Actions are never serialized, and `compareIds`
+// (the transient player-comparison tray) is intentionally dropped so a reload starts it empty.
+export type PersistedTradeState = Pick<
+  TradeState,
+  'season' | 'teams' | 'assets' | 'simulatedDate' | 'tradeMethod' | 'playerSort'
+>;
+
+export function partializeTradeState(s: TradeState): PersistedTradeState {
+  return {
+    season: s.season,
+    teams: s.teams,
+    assets: s.assets,
+    simulatedDate: s.simulatedDate,
+    tradeMethod: s.tradeMethod,
+    playerSort: s.playerSort,
+  };
+}
+
+// On the server there is no localStorage; hand persist a no-op so module load never throws.
+const noopStorage: StateStorage = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
+const boardStorage = createJSONStorage<PersistedTradeState>(() =>
+  typeof window !== 'undefined' ? window.localStorage : noopStorage,
+);
+
+export const useTradeStore = create<TradeState>()(
+  persist(
+    (set) => ({
   season: '2026-27',
   teams: [],
   assets: {},
@@ -220,7 +251,18 @@ export const useTradeStore = create<TradeState>((set) => ({
   setTradeMethod: (tradeMethod) => set({ tradeMethod }),
   reset: () =>
     set({ season: '2026-27', teams: [], assets: {}, simulatedDate: undefined, tradeMethod: 'simultaneous', compareIds: [], playerSort: 'salary_desc' }),
-}));
+    }),
+    {
+      name: PERSIST_KEY,
+      version: 1,
+      storage: boardStorage,
+      partialize: partializeTradeState,
+      // Skip auto-hydration so the server-rendered empty store can't cause a React hydration
+      // mismatch; TradeBoard calls persist.rehydrate() on mount and gates render on hasHydrated.
+      skipHydration: true,
+    },
+  ),
+);
 
 export const MAX_TRADE_TEAMS = MAX_TEAMS;
 export const MAX_COMPARE_PLAYERS = MAX_COMPARE;
