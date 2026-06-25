@@ -8,6 +8,64 @@ export interface FixSuggestion {
   text: string;
 }
 
+/** A concrete mutation the one-click fixer applies: route `assetId` to `toTeam` (Stay = its origin). */
+export interface FixAction {
+  assetId: string;
+  toTeam: string;
+  label: string; // human description, e.g. "remove B. Adebayo from the deal"
+}
+
+/**
+ * Compute a minimal set of routing changes that make the trade legal, by greedily simplifying the
+ * deal: drop a too-much-takeback team's smallest incoming player (OVER_MATCH / hard cap), and
+ * un-aggregate a second-apron team down to one outgoing player (NO_AGGREGATION). Returns the actions
+ * (empty if already legal or not auto-fixable). Pure — the caller applies them to the store.
+ */
+export function planAutoFix(input: TradeInput): FixAction[] {
+  let assets = input.assets.map((a) => ({ ...a }));
+  const actions: FixAction[] = [];
+  const sendBack = (id: string, fromTeam: string, label: string) => {
+    assets = assets.map((a) => (a.id === id ? { ...a, toTeam: a.fromTeam } : a));
+    actions.push({ assetId: id, toTeam: fromTeam, label });
+  };
+
+  for (let iter = 0; iter < 60; iter++) {
+    const res = evaluate({ ...input, assets });
+    if (res.valid) break;
+    const ctx = buildContext({ ...input, assets });
+    const find = (code: string) => res.errors.find((e) => e.code === code);
+
+    const overMatch = find('OVER_MATCH') || find('HARD_CAP_EXCEEDED') || find('HARD_CAP_ST');
+    if (overMatch?.teamAbbr) {
+      const t = ctx.teams.find((x) => x.abbr === overMatch.teamAbbr);
+      const smallest = t?.incomingAssets
+        .filter((a) => a.kind === 'player')
+        .sort((a, b) => a.salary - b.salary)[0];
+      if (smallest) {
+        sendBack(smallest.id, smallest.fromTeam, `Keep ${smallest.label} on ${smallest.fromTeam} (drop from the deal)`);
+        continue;
+      }
+    }
+
+    const noAgg = find('NO_AGGREGATION');
+    if (noAgg?.teamAbbr) {
+      const t = ctx.teams.find((x) => x.abbr === noAgg.teamAbbr);
+      const out = (t?.outgoingAssets ?? [])
+        .filter((a) => a.kind === 'player')
+        .sort((a, b) => b.salary - a.salary); // keep the largest, drop the rest
+      let removed = false;
+      for (const a of out.slice(1)) {
+        sendBack(a.id, a.fromTeam, `Keep ${a.label} on ${a.fromTeam} (second-apron team can't aggregate)`);
+        removed = true;
+      }
+      if (removed) continue;
+    }
+
+    break; // remaining blocks aren't auto-fixable by simplification
+  }
+  return actions;
+}
+
 /**
  * "Make this trade legal" — turn the blocking findings into concrete, quantified remedies.
  * No competitor offers this. Pure: runs the engine, then for each block computes the exact

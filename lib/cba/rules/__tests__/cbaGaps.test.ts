@@ -7,6 +7,7 @@ import { picksRule } from '../picks';
 import { matchingRule } from '../matching';
 import { picksRule as _picks } from '../picks';
 import { buildContext, evaluate } from '../../engine';
+import { planAutoFix } from '../../autofix';
 import { waiveAndStretch, setOff } from '../../stretch';
 import { SEASON_2026_27, MATCHING_2026_27, APRON_2026_27, SEASON_RULES_2026_27 } from '../../constants';
 import type { PerTeamContext, RuleContext, TradeAsset, TradeInput } from '../../types';
@@ -148,6 +149,26 @@ describe('repeater derivation', () => {
       assets: [],
     };
     expect(buildContext(input).teams[0]!.isRepeaterTaxpayer).toBe(true);
+  });
+});
+
+describe('one-click auto-fix', () => {
+  it('returns actions that make an over-match trade legal', () => {
+    const input: TradeInput = {
+      season: SEASON_2026_27, matching: MATCHING_2026_27, apron: APRON_2026_27, rules: SEASON_RULES_2026_27,
+      teams: [{ abbr: 'AAA', preTradeSalary: 200_000_000 }, { abbr: 'BBB', preTradeSalary: 200_000_000 }],
+      assets: [
+        { id: 'out', kind: 'player', salary: 5_000_000, fromTeam: 'AAA', toTeam: 'BBB', label: 'Out' },
+        { id: 'in1', kind: 'player', salary: 20_000_000, fromTeam: 'BBB', toTeam: 'AAA', label: 'In1' },
+        { id: 'in2', kind: 'player', salary: 3_000_000, fromTeam: 'BBB', toTeam: 'AAA', label: 'In2' },
+      ],
+    };
+    expect(evaluate(input).valid).toBe(false); // AAA sends $5M, takes back $23M → OVER_MATCH
+    const actions = planAutoFix(input);
+    expect(actions.length).toBeGreaterThan(0);
+    let assets = input.assets.map((a) => ({ ...a }));
+    for (const act of actions) assets = assets.map((a) => (a.id === act.assetId ? { ...a, toTeam: a.fromTeam } : a));
+    expect(evaluate({ ...input, assets }).valid).toBe(true);
   });
 });
 

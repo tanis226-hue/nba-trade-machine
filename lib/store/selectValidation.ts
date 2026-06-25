@@ -1,5 +1,5 @@
 import { validateTrade } from '@/lib/cba/validateTrade';
-import { suggestFixes, type FixSuggestion } from '@/lib/cba/autofix';
+import { suggestFixes, planAutoFix, type FixSuggestion, type FixAction } from '@/lib/cba/autofix';
 import {
   SEASON_2025_26,
   MATCHING_2025_26,
@@ -63,4 +63,8 @@ export function selectValidation(state: TradeState): TradeValidation {
 
 export function selectFixes(state: TradeState): FixSuggestion[] {
   return suggestFixes(toInput(state));
+}
+
+export function selectAutoFix(state: TradeState): FixAction[] {
+  return planAutoFix(toInput(state));
 }

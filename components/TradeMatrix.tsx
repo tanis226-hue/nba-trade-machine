@@ -15,7 +15,7 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import type { FreeAgent } from '@/lib/store/tradeStore';
-import { selectValidation, selectFixes } from '@/lib/store/selectValidation';
+import { selectValidation, selectFixes, selectAutoFix } from '@/lib/store/selectValidation';
 import { TeamColumn } from './TeamColumn';
 import { ValidationFeed } from './ValidationFeed';
 import { CapSheet } from './CapSheet';
@@ -68,6 +68,11 @@ export function TradeMatrix({
     () => (validation.valid ? [] : selectFixes({ season, teams, assets, simulatedDate, tradeMethod })),
     [validation.valid, season, teams, assets, simulatedDate, tradeMethod],
   );
+  const autoFix = useMemo(
+    () => (validation.valid ? [] : selectAutoFix({ season, teams, assets, simulatedDate, tradeMethod })),
+    [validation.valid, season, teams, assets, simulatedDate, tradeMethod],
+  );
+  const applyAutoFix = () => autoFix.forEach((a) => routeAsset(a.assetId, a.toTeam));
   const byTeam = useMemo(() => Object.fromEntries(validation.perTeam.map((t) => [t.abbr, t])), [validation]);
   const isTrade = teams.length >= 2;
 
@@ -201,7 +206,7 @@ export function TradeMatrix({
 
       {isTrade ? (
         <div className="grid gap-3 md:grid-cols-[1fr_280px] md:items-stretch">
-          <ValidationFeed validation={validation} fixes={fixes} />
+          <ValidationFeed validation={validation} fixes={fixes} onAutoFix={autoFix.length ? applyAutoFix : undefined} autoFixCount={autoFix.length} />
           <div className="space-y-2">
             <ExecuteTradeButton valid={validation.valid} onExecute={() => { /* Phase 6 interstitial */ }} />
             <GenerateLinkButton />

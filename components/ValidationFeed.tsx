@@ -36,7 +36,17 @@ function Finding({ f }: { f: TradeFinding }) {
   );
 }
 
-export function ValidationFeed({ validation, fixes = [] }: { validation: TradeValidation; fixes?: FixSuggestion[] }) {
+export function ValidationFeed({
+  validation,
+  fixes = [],
+  onAutoFix,
+  autoFixCount = 0,
+}: {
+  validation: TradeValidation;
+  fixes?: FixSuggestion[];
+  onAutoFix?: () => void;
+  autoFixCount?: number;
+}) {
   const findings = validation.findings ?? validation.errors;
   const blocks = findings.filter((f) => f.severity === 'block');
   const notes = findings.filter((f) => f.severity !== 'block');
@@ -86,8 +96,19 @@ export function ValidationFeed({ validation, fixes = [] }: { validation: TradeVa
 
       {fixes.length > 0 && (
         <div className="mt-2 border-t border-[var(--border)] pt-2">
-          <div className="mb-1 font-display text-[11px] font-semibold uppercase tracking-wide text-[var(--accent)]">
-            Make this trade legal
+          <div className="mb-1 flex items-center justify-between gap-2">
+            <span className="font-display text-[11px] font-semibold uppercase tracking-wide text-[var(--accent)]">
+              Make this trade legal
+            </span>
+            {onAutoFix && autoFixCount > 0 && (
+              <button
+                onClick={onAutoFix}
+                title="Apply the minimal change to make the trade legal"
+                className="rounded-md bg-[var(--accent)] px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--ink)] transition hover:brightness-110"
+              >
+                ✨ Fix it for me
+              </button>
+            )}
           </div>
           <ul className="space-y-1">
             {fixes.map((f, i) => (
