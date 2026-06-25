@@ -13,6 +13,11 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Test fixtures build partial RuleContext/SeasonRules shapes by design; `any` keeps them terse.
+  {
+    files: ["**/__tests__/**", "**/*.test.ts", "**/*.test.tsx"],
+    rules: { "@typescript-eslint/no-explicit-any": "off" },
+  },
 ]);
 
 export default eslintConfig;

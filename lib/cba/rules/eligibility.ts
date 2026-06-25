@@ -1,4 +1,4 @@
-import type { Rule, TradeFinding, TradeAsset } from '../types';
+import type { Rule, TradeFinding } from '../types';
 
 /**
  * Date-aware trade eligibility windows (2023 CBA Art. VII).

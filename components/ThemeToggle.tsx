@@ -1,20 +1,31 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+// The active theme lives on <html class="dark">, set before paint by the inline script in layout.
+// Read it as an external store so there's no setState-in-effect and the icon stays correct even if
+// the class is toggled elsewhere. Server snapshot is light (matches the no-flash default).
+function subscribe(onChange: () => void) {
+  const obs = new MutationObserver(onChange);
+  obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  return () => obs.disconnect();
+}
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-  useEffect(() => setDark(document.documentElement.classList.contains('dark')), []);
+  const dark = useSyncExternalStore(
+    subscribe,
+    () => document.documentElement.classList.contains('dark'),
+    () => false,
+  );
 
   function toggle() {
     const el = document.documentElement;
     const next = !el.classList.contains('dark');
-    el.classList.toggle('dark', next);
+    el.classList.toggle('dark', next); // MutationObserver above re-renders this button
     try {
       localStorage.setItem('theme', next ? 'dark' : 'light');
     } catch {
       /* private mode */
     }
-    setDark(next);
   }
 
   return (

@@ -18,19 +18,28 @@ export function TradeComments({ slug }: { slug: string }) {
   const [author, setAuthor] = useState('');
   const [posting, setPosting] = useState(false);
   const [voting, setVoting] = useState(false);
-  const [voter, setVoter] = useState('');
   const [myVote, setMyVote] = useState<0 | 1 | -1>(0);
 
-  // Stable per-browser voter id so a person's vote counts once (re-voting flips it).
-  useEffect(() => {
+  // Stable per-browser voter id so a person's vote counts once (re-voting flips it). Created lazily
+  // on the client; '' on the server. It's never rendered, so this can't cause a hydration mismatch.
+  const [voter] = useState(() => {
+    if (typeof window === 'undefined') return '';
     let id = localStorage.getItem('tv_voter');
     if (!id) {
       id = crypto.randomUUID();
       localStorage.setItem('tv_voter', id);
     }
-    setVoter(id);
+    return id;
+  });
+
+  // Restore this browser's prior vote after mount. localStorage is client-only, so this can't be a
+  // render-time initializer without risking a hydration mismatch on the button styling.
+  useEffect(() => {
     const mv = Number(localStorage.getItem(`tv_vote_${slug}`));
-    if (mv === 1 || mv === -1) setMyVote(mv);
+    if (mv === 1 || mv === -1) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional post-mount restore
+      setMyVote(mv);
+    }
   }, [slug]);
 
   useEffect(() => {

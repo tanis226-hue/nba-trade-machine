@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Big_Shoulders, Bricolage_Grotesque, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AdSlot } from "@/components/AdSlot";
@@ -43,7 +44,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <header className="sticky top-0 z-30 border-b border-[var(--border-soft)] bg-[var(--bg)]/80 backdrop-blur-md">
           <div className="accent-rule" />
           <div className="mx-auto flex h-16 max-w-[1500px] items-center gap-3 px-4 sm:px-6">
-            <a href="/" className="group flex items-center gap-3">
+            <Link href="/" className="group flex items-center gap-3">
               <span className="relative flex h-9 w-9 items-center justify-center rounded-[4px] bg-[var(--accent)] shadow-[0_6px_20px_-6px_var(--accent)]">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="var(--ink)" strokeWidth="1.6">
                   <circle cx="12" cy="12" r="9" />
@@ -58,7 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   NBA · Cap & CBA Engine
                 </span>
               </span>
-            </a>
+            </Link>
             <div className="ml-auto flex items-center gap-3">
               <span className="hidden font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--faint)] lg:block">
                 2026-27 · 2023 CBA
