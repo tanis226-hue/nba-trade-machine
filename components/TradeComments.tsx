@@ -18,6 +18,20 @@ export function TradeComments({ slug }: { slug: string }) {
   const [author, setAuthor] = useState('');
   const [posting, setPosting] = useState(false);
   const [voting, setVoting] = useState(false);
+  const [voter, setVoter] = useState('');
+  const [myVote, setMyVote] = useState<0 | 1 | -1>(0);
+
+  // Stable per-browser voter id so a person's vote counts once (re-voting flips it).
+  useEffect(() => {
+    let id = localStorage.getItem('tv_voter');
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem('tv_voter', id);
+    }
+    setVoter(id);
+    const mv = Number(localStorage.getItem(`tv_vote_${slug}`));
+    if (mv === 1 || mv === -1) setMyVote(mv);
+  }, [slug]);
 
   useEffect(() => {
     let alive = true;
@@ -43,10 +57,12 @@ export function TradeComments({ slug }: { slug: string }) {
       const res = await fetch(`/api/trade/${slug}/vote`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ vote: value }),
+        body: JSON.stringify({ vote: value, voter }),
       });
       const v = await res.json();
       setTally({ up: v.up ?? 0, down: v.down ?? 0 });
+      setMyVote(value);
+      localStorage.setItem(`tv_vote_${slug}`, String(value));
     } catch {
       // no-op
     } finally {
@@ -92,7 +108,7 @@ export function TradeComments({ slug }: { slug: string }) {
           type="button"
           onClick={() => vote(1)}
           disabled={voting}
-          className="rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1.5 text-sm font-semibold text-[var(--legal)] hover:brightness-110 disabled:opacity-50"
+          className={`rounded-lg border px-3 py-1.5 text-sm font-semibold text-[var(--legal)] hover:brightness-110 disabled:opacity-50 ${myVote === 1 ? 'border-[var(--legal)] bg-[var(--legal)]/15' : 'border-[var(--border)] bg-[var(--surface-2)]'}`}
         >
           ▲ Approve <span className="num">{tally.up}</span>
         </button>
@@ -100,7 +116,7 @@ export function TradeComments({ slug }: { slug: string }) {
           type="button"
           onClick={() => vote(-1)}
           disabled={voting}
-          className="rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1.5 text-sm font-semibold text-[var(--illegal)] hover:brightness-110 disabled:opacity-50"
+          className={`rounded-lg border px-3 py-1.5 text-sm font-semibold text-[var(--illegal)] hover:brightness-110 disabled:opacity-50 ${myVote === -1 ? 'border-[var(--illegal)] bg-[var(--illegal)]/15' : 'border-[var(--border)] bg-[var(--surface-2)]'}`}
         >
           ▼ Reject <span className="num">{tally.down}</span>
         </button>

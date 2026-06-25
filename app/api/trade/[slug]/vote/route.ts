@@ -21,12 +21,19 @@ export async function POST(
   const { slug } = await params;
   if (!hasDb()) return NextResponse.json({ up: 0, down: 0 } satisfies Tally);
 
-  const { vote } = (await req.json().catch(() => ({}))) as { vote?: number };
+  const { vote, voter } = (await req.json().catch(() => ({}))) as { vote?: number; voter?: string };
   const v = vote && vote < 0 ? -1 : 1;
+  const voterId = typeof voter === 'string' && voter ? voter.slice(0, 64) : crypto.randomUUID();
 
-  await db()`
-    INSERT INTO trade_votes (id, slug, vote)
-    VALUES (${crypto.randomUUID()}, ${slug}, ${v})`;
+  // One vote per voter per trade; re-voting flips the existing row (requires the 0009 unique index).
+  try {
+    await db()`
+      INSERT INTO trade_votes (id, slug, vote, voter)
+      VALUES (${crypto.randomUUID()}, ${slug}, ${v}, ${voterId})
+      ON CONFLICT (slug, voter) DO UPDATE SET vote = ${v}`;
+  } catch {
+    await db()`INSERT INTO trade_votes (id, slug, vote) VALUES (${crypto.randomUUID()}, ${slug}, ${v})`;
+  }
 
   return NextResponse.json(await tally(slug));
 }

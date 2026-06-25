@@ -19,6 +19,9 @@ interface TeamSummary {
 export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExecute: () => void }) {
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>('review');
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const season = useTradeStore((s) => s.season);
   const teams = useTradeStore((s) => s.teams);
   const assets = useTradeStore((s) => s.assets);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -44,20 +47,39 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
     if (timer.current) clearTimeout(timer.current);
     setOpen(false);
     setPhase('review');
+    setShareUrl(null);
   }, []);
 
   const start = useCallback(() => {
     setPhase('review');
+    setShareUrl(null);
     setOpen(true);
   }, []);
 
-  const confirm = useCallback(() => {
+  // Finalizing persists the trade to a shareable slug (same endpoint as Generate Link).
+  const confirm = useCallback(async () => {
     setPhase('processing');
-    timer.current = setTimeout(() => {
-      onExecute();
-      setPhase('done');
-    }, 1200);
-  }, [onExecute]);
+    try {
+      const res = await fetch('/api/trade', { method: 'POST', body: JSON.stringify({ season, teams, assets }) });
+      const { slug } = await res.json();
+      if (slug) setShareUrl(`${location.origin}/trade/${slug}`);
+    } catch {
+      /* offline / save failed — still show the finalized state */
+    }
+    onExecute();
+    setPhase('done');
+  }, [onExecute, season, teams, assets]);
+
+  const copyLink = useCallback(async () => {
+    if (!shareUrl) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard blocked */
+    }
+  }, [shareUrl]);
 
   useEffect(() => {
     if (!open) return;
@@ -178,14 +200,24 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
                   Trade Finalized
                 </h2>
                 <p className="max-w-xs text-[13px] text-[var(--muted)]">
-                  Your deal is locked in. Share it to get reactions and run it past the league.
+                  {shareUrl ? 'Saved. Share the link to get reactions and run it past the league.' : 'Your deal is locked in.'}
                 </p>
-                <button
-                  onClick={close}
-                  className="mt-2 rounded-lg bg-[var(--accent)] px-6 py-2.5 text-sm font-bold uppercase tracking-[0.1em] text-[var(--ink)] transition hover:brightness-110"
-                >
-                  Share This Trade
-                </button>
+                {shareUrl && (
+                  <div className="mt-1 w-full max-w-sm space-y-2">
+                    <input
+                      readOnly
+                      value={shareUrl}
+                      onFocus={(e) => e.currentTarget.select()}
+                      className="num w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-2.5 py-2 text-center text-xs text-[var(--muted)] outline-none"
+                    />
+                    <button
+                      onClick={copyLink}
+                      className="w-full rounded-lg bg-[var(--accent)] px-6 py-2.5 text-sm font-bold uppercase tracking-[0.1em] text-[var(--ink)] transition hover:brightness-110"
+                    >
+                      {copied ? 'Link copied ✓' : 'Copy share link'}
+                    </button>
+                  </div>
+                )}
                 <button
                   onClick={close}
                   className="text-[12px] text-[var(--faint)] transition hover:text-[var(--muted)]"
