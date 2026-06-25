@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
-import { useTradeStore } from '@/lib/store/tradeStore';
+import { useTradeStore, MAX_TRADE_TEAMS } from '@/lib/store/tradeStore';
 import { TradeMatrix } from './TradeMatrix';
 import { SeasonSelector } from './SeasonSelector';
 import { computeTeamSalary } from '@/lib/cba/teamSalary';
@@ -87,6 +87,9 @@ export function TradeBoard({
       const cur = r.contract.find((c) => c.season === ACTIVE_SEASON.season) ?? r.contract[0];
       const v = values[r.playerId] ?? values[normalizePlayerId(r.playerId)];
       const restr = restrictionFor(r.playerId);
+      // Over-38 rule: a 4+ year contract whose final year the player turns 38+ has its cap hit reallocated.
+      const pAge = v?.age ?? r.age ?? null;
+      const over38 = pAge != null && r.contract.length >= 4 && pAge + r.contract.length - 1 >= 38;
       addAsset({
         id,
         kind: 'player',
@@ -96,6 +99,7 @@ export function TradeBoard({
         toTeam: team.abbr,
         label: r.name,
         noTradeClause: cur?.no_trade_clause,
+        isOver38: over38 || undefined,
         acquiredDate: restr?.acquiredDate,
         acquiredFrom: restr?.acquiredFrom,
         signedDate: restr?.signedDate,
@@ -121,7 +125,7 @@ export function TradeBoard({
 
   const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
   const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
-  const atMax = storeTeams.length >= 5;
+  const atMax = storeTeams.length >= MAX_TRADE_TEAMS;
 
   return (
     <div className="space-y-5">
@@ -130,7 +134,7 @@ export function TradeBoard({
         <div className="h-5 w-px bg-[var(--border)]" />
         <div className="flex items-center gap-2">
           <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--faint)]">
-            Add teams {storeTeams.length}/5
+            Add teams {storeTeams.length}/{MAX_TRADE_TEAMS}
           </span>
           <div className="flex flex-wrap gap-1.5">
             {available.map((t) => (

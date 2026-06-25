@@ -89,3 +89,32 @@ Ordered by blast radius (how common the affected trade is x how wrong the verdic
 7. **TPE inventory wiring** (P1) — the *consumption* path in `matching.ts` (single incoming ≤ TPE amount) already exists and is dead only because the inventory is never populated; populating it from import + setting `generatedTpe` activates a whole domain without writing new matching logic.
 
 Recommended first sprint: quick wins 1-5 (correctness false-positive/negative cleanup + the hard-cap keystone), then P0 #2 (BYC) and P0 #5 (Stepien possibility tree) as the two genuinely new computation paths.
+---
+
+## Implemented this session (engine build-out)
+
+**Quick wins / P0 correctness (all firing):**
+- Second-apron cash is now SEND-only (was wrongly blocking receive). `secondApronExtras.ts`.
+- S&T contract length: added the 4-year MAX (`ST_LONG_TERM`); 3-yr min already existed. `signAndTrade.ts`.
+- Two-way ≤3 roster cap (`TWO_WAY_OVER`) + `twoWayCount` input. `roster.ts`.
+- Trade-deadline freeze (`TRADE_DEADLINE`), conservative in-season window so offseason deals never trip it. `eligibility.ts`.
+- Hard-cap derivation (`deriveHardCap` in `engine.ts`): an over-the-cap team that takes back MORE than it sends (expanded traded-player exception) is hard-capped at the first apron - this FIRES from trade data via the existing `HARD_CAP_EXCEEDED` rule. Also derives first/second-apron hard caps from `toolsUsed`.
+- Apron tool blocks (`TOOL_BLOCKED`, new `tools.ts`): consumes the previously-declarative `blockedTools` arrays + a `toolsUsed` team input.
+- Stepien swap crediting (`picks.ts`): trading a SWAP no longer counts as losing your first; holding a swap counts as a held selection.
+- Base-Year Compensation (`engine.ts` + `matching.ts`): a `isBaseYearComp` player's OUTGOING match value = max(50% new, prior) while incoming stays full; `outgoingMatch` separated from cap-basis `outgoing`.
+- TPE inventory wired end-to-end: `team_exceptions` query + override + import + migration 0008, attached to teams, auto-consumed by `matchingRule`, displayed per team. Curated OKC's $9.2M Wiggins TPE.
+
+**Still roadmapped (P1/P2, mostly dormant pending data or edge cases):** poison-pill dual-value, kicker applied to apron/tax, designated-vet 1-yr & matched-RFA locks, room-TPE cushion, frozen-pick derivation from apron history, full pick-protection possibility tree, over-38, min-contract stacking, moratorium gate, repeater derivation, waive-and-stretch. Engine logic for `toolsUsed`/BYC/two-way is in place and fires once the UI/data supplies those inputs.
+
+## Round 2 (remaining P1/P2 now implemented)
+
+- **Poison-pill dual-value** (`matching.ts`): an acquired rookie-scale-extension player matches at the AVERAGE annual value of the new deal (current + extension years); the sending team still matches at the current cap hit.
+- **Trade kicker → apron** (`hardCap.ts`): the kicker now adds to the acquiring team's apron salary (incoming only), not just the matching value.
+- **Designated-veteran 1-year no-trade** + **matched-RFA 1-year (consent) restriction** + **over-38 note** (`eligibility.ts`).
+- **July moratorium gate** (`eligibility.ts`): conditional "agreed now, official on <date>" during the late-June/early-July window.
+- **Frozen-pick derivation** (`picks.ts`): a recent second-apron team (`priorSecondApronSeasons`) trading its first 7 drafts out is blocked, even without an explicit `isFrozen` flag.
+- **Repeater-tax derivation** (`engine.ts`): repeater status derived from `priorTaxpayerSeasons >= 3` (taxpayer in 3 of the prior 4).
+- **TPE expiry + one-player-per-TPE** (`matching.ts`): an expired TPE (vs the trade date) can't absorb; each TPE takes one player.
+- **Waive-and-stretch + set-off** (`stretch.ts`): 2x(years)+1 spread, 15%-of-cap stretch limit, half-above-minimum set-off.
+
+**Genuinely remaining (edge / data-blocked / unverified):** bracket-2 add-on dollar constant (needs the official 2026-27 figure), room-exception $250K cushion, min-contract 3+ stacking carve-out, the full pick-protection possibility tree (current Stepien is swap-aware + worst-case), and the Disabled Player Exception. Test coverage: 137 passing across 25 files.

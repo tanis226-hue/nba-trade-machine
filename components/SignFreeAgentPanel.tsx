@@ -3,8 +3,25 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import type { FreeAgent } from '@/lib/store/tradeStore';
 
+import type { ToolUsage } from '@/lib/cba/types';
+
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 const MIN_SALARY = 2_300_000; // approx 2026-27 vet minimum, used when no prior salary
+
+const USING_OPTIONS: [string, string][] = [
+  ['cap_room', 'Cap room'],
+  ['minimum', 'Minimum'],
+  ['bird', 'Bird rights'],
+  ['non_taxpayer_mle', 'Non-taxpayer MLE'],
+  ['taxpayer_mle', 'Taxpayer MLE'],
+  ['bae', 'Bi-annual (BAE)'],
+];
+// Exceptions that hard-cap the team for the season (the rest don't).
+const TOOL_FOR: Record<string, ToolUsage | undefined> = {
+  non_taxpayer_mle: 'non_taxpayer_mle',
+  taxpayer_mle: 'taxpayer_mle',
+  bae: 'bae',
+};
 
 export function SignFreeAgentPanel({
   abbr,
@@ -16,10 +33,12 @@ export function SignFreeAgentPanel({
   onClose: () => void;
 }) {
   const signFreeAgent = useTradeStore((s) => s.signFreeAgent);
+  const setTeamFlags = useTradeStore((s) => s.setTeamFlags);
   const [q, setQ] = useState('');
   const [selected, setSelected] = useState<FreeAgent | null>(null);
   const [salaryM, setSalaryM] = useState('');
   const [restricted, setRestricted] = useState(false);
+  const [using, setUsing] = useState('cap_room');
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -43,6 +62,12 @@ export function SignFreeAgentPanel({
     if (!selected) return;
     const salary = Math.max(0, Math.round((parseFloat(salaryM) || 0) * 1_000_000));
     signFreeAgent(abbr, { ...selected, restricted }, salary || MIN_SALARY);
+    // Record a hard-cap-triggering exception so the engine derives the team's hard cap / tool blocks.
+    const tool = TOOL_FOR[using];
+    if (tool) {
+      const existing = useTradeStore.getState().teams.find((t) => t.abbr === abbr)?.toolsUsed ?? [];
+      if (!existing.includes(tool)) setTeamFlags(abbr, { toolsUsed: [...existing, tool] });
+    }
     onClose();
   }
 
@@ -124,6 +149,16 @@ export function SignFreeAgentPanel({
                 className="num w-24 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1 text-[var(--text)] outline-none focus:border-[var(--accent)]"
               />
               <span className="num text-[var(--muted)]">M / yr</span>
+              <select
+                value={using}
+                onChange={(e) => setUsing(e.target.value)}
+                title="Exception used to sign. NTMLE / Taxpayer-MLE / BAE hard-cap the team for the season."
+                className="rounded border border-[var(--border)] bg-[var(--surface)] px-1.5 py-1 text-[11px] text-[var(--text)] outline-none"
+              >
+                {USING_OPTIONS.map(([v, label]) => (
+                  <option key={v} value={v}>{label}</option>
+                ))}
+              </select>
               <div className="ml-2 flex overflow-hidden rounded border border-[var(--border)] text-[11px] font-semibold">
                 {([['UFA', false], ['RFA', true]] as const).map(([label, val]) => (
                   <button

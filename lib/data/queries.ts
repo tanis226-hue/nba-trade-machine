@@ -150,7 +150,7 @@ export async function getTeamExceptions(season: string): Promise<Record<string, 
     ? localTeamExceptions(season)
     : await (async () => {
         try {
-          return (await db()`SELECT id, team_id, season, kind, amount::int AS amount, expires_date, source_player
+          return (await db()`SELECT id, team_id, season, kind, amount::int AS amount, expires_date::text AS expires_date, source_player
             FROM team_exceptions WHERE season = ${season}`) as unknown as DbTeamException[];
         } catch {
           return localTeamExceptions(season);

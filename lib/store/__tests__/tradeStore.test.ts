@@ -4,7 +4,7 @@ import { useTradeStore, comparePlayers } from '@/lib/store/tradeStore';
 describe('tradeStore', () => {
   beforeEach(() => useTradeStore.getState().reset());
 
-  it('adds teams, caps at 5, routes and removes assets', () => {
+  it('adds teams, caps at 7, routes and removes assets', () => {
     const s = useTradeStore.getState();
     s.addTeam({ abbr: 'AAA', preTradeSalary: 120 });
     s.addTeam({ abbr: 'BBB', preTradeSalary: 120 });
@@ -13,8 +13,8 @@ describe('tradeStore', () => {
     expect(useTradeStore.getState().assets['a1'].toTeam).toBe('BBB');
     s.removeAsset('a1');
     expect(useTradeStore.getState().assets['a1']).toBeUndefined();
-    ['C', 'D', 'E', 'F'].forEach((x) => s.addTeam({ abbr: x, preTradeSalary: 100 }));
-    expect(useTradeStore.getState().teams.length).toBe(5);
+    ['C', 'D', 'E', 'F', 'G', 'H', 'I'].forEach((x) => s.addTeam({ abbr: x, preTradeSalary: 100 }));
+    expect(useTradeStore.getState().teams.length).toBe(7);
   });
 
   it('setSeason updates season', () => {

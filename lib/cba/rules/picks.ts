@@ -42,14 +42,21 @@ export const picksRule: Rule = (ctx) => {
         }
       }
 
-      // (2) Frozen pick.
-      if (pick.isFrozen === true) {
+      // (2) Frozen pick: explicitly flagged, OR derived — a (recent) second-apron team's first-round
+      // pick seven drafts out is frozen and cannot be traded.
+      const frozenYear = startYear != null ? startYear + 7 : null;
+      const derivedFrozen =
+        !!team.priorSecondApronSeasons &&
+        team.priorSecondApronSeasons > 0 &&
+        pick.round === 1 &&
+        pick.pickYear === frozenYear;
+      if (pick.isFrozen === true || derivedFrozen) {
         out.push({
           code: 'PICK_FROZEN',
           severity: 'block',
           teamAbbr: team.abbr,
           message: `${team.abbr} cannot trade ${pick.label}: this first-round pick is frozen under the second-apron rules.`,
-          citation: '2023 CBA Art. VII — second-apron frozen first-round pick may not be traded.',
+          citation: '2023 CBA Art. VII — a second-apron team’s first-round pick seven drafts out is frozen and may not be traded.',
           fix: `Trade a different, unfrozen pick, or drop below the second apron to unfreeze it.`,
         });
       }

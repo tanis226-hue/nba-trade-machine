@@ -40,10 +40,16 @@ interface TradeState {
 
 function toInput(state: TradeState): TradeInput {
   const cfg = BY_SEASON[state.season as keyof typeof BY_SEASON] ?? BY_SEASON[DEFAULT_SEASON];
+  const assets = Object.values(state.assets);
+  // Derive each team's current two-way count from players flagged two-way, so the ≤3 roster rule fires.
+  const teams = state.teams.map((t) => ({
+    ...t,
+    twoWayCount: assets.filter((a) => a.fromTeam === t.abbr && a.kind === 'player' && a.isTwoWay).length,
+  }));
   return {
     ...cfg,
-    teams: state.teams,
-    assets: Object.values(state.assets),
+    teams,
+    assets,
     // Default to the data's as-of date so timing windows (recently-signed, aggregation lock,
     // no-trade-back, extension freeze) are evaluated by default; the trade-date picker overrides it.
     simulatedDate: state.simulatedDate ?? DATA_AS_OF,

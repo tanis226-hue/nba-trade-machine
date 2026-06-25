@@ -64,6 +64,8 @@ const RECENTLY_SIGNED_MONTHS = 3;
 const AGG_LOCK_MONTHS = 2;
 const EXT_FREEZE_MONTHS = 6;
 const NO_TRADE_BACK_MONTHS = 12;
+const DESIGNATED_VET_MONTHS = 12;
+const MATCHED_RFA_MONTHS = 12;
 
 export const eligibilityRule: Rule = (ctx) => {
   const out: TradeFinding[] = [];
@@ -88,6 +90,24 @@ export const eligibilityRule: Rule = (ctx) => {
         message: `Trades are frozen after the ${deadline} trade deadline until the season ends; ${sim} is inside that window.`,
         citation: '2023 CBA Art. VII — no trades may be made between the trade deadline and the end of the season.',
         fix: `Set the trade date before ${deadline}, or wait for the offseason.`,
+      });
+    }
+  }
+
+  // July moratorium: during the free-agent moratorium a deal can be AGREED but not officially
+  // processed until it ends (~July 6). Surface as conditional rather than a hard block.
+  const moratoriumEnd = ctx.rules?.calendar?.moratoriumEnd;
+  if (moratoriumEnd) {
+    const moratoriumStart = `${moratoriumEnd.slice(0, 4)}-06-30`;
+    const startDay = isoToEpochDay(moratoriumStart);
+    const endDay = isoToEpochDay(moratoriumEnd);
+    if (startDay != null && endDay != null && simDay >= startDay && simDay < endDay) {
+      out.push({
+        code: 'MORATORIUM',
+        severity: 'conditional',
+        message: `${sim} is during the July moratorium; trades can be agreed now but are not official until ${moratoriumEnd}.`,
+        citation: '2023 CBA Art. XXXIX — the moratorium period; transactions finalize when it ends.',
+        legalOnDate: moratoriumEnd,
       });
     }
   }
@@ -168,6 +188,53 @@ export const eligibilityRule: Rule = (ctx) => {
             legalOnDate: unfreeze,
           });
         }
+      }
+
+      // (5) Designated-veteran (supermax) extension: cannot be traded for 1 year after signing.
+      const dvDay = isoToEpochDay(p.designatedVetDate);
+      if (p.designatedVetDate && dvDay != null) {
+        const unlock = addMonthsIso(p.designatedVetDate, DESIGNATED_VET_MONTHS);
+        const unlockDay = isoToEpochDay(unlock);
+        if (unlockDay != null && simDay < unlockDay) {
+          out.push({
+            code: 'DESIGNATED_VET',
+            severity: 'block',
+            teamAbbr: t.abbr,
+            message: `${p.label} signed a designated-veteran (supermax) extension on ${p.designatedVetDate} and cannot be traded until ${unlock}.`,
+            citation: '2023 CBA Art. II — a designated-veteran player may not be traded for one year after signing the extension.',
+            fix: `Wait until ${unlock} to trade ${p.label}.`,
+            legalOnDate: unlock,
+          });
+        }
+      }
+
+      // (6) Matched RFA offer sheet: cannot be traded for 1 year without consent.
+      const mrDay = isoToEpochDay(p.matchedOfferDate);
+      if (p.matchedOfferDate && mrDay != null) {
+        const unlock = addMonthsIso(p.matchedOfferDate, MATCHED_RFA_MONTHS);
+        const unlockDay = isoToEpochDay(unlock);
+        if (unlockDay != null && simDay < unlockDay) {
+          out.push({
+            code: 'MATCHED_RFA',
+            severity: 'conditional',
+            teamAbbr: t.abbr,
+            message: `${p.label}'s matched offer sheet (${p.matchedOfferDate}) bars a trade without his consent until ${unlock}.`,
+            citation: '2023 CBA Art. XI — a player whose offer sheet was matched cannot be traded for one year without consent.',
+            fix: `Obtain ${p.label}'s consent, or wait until ${unlock}.`,
+            legalOnDate: unlock,
+          });
+        }
+      }
+
+      // (7) Over-38 rule: informational — the contract's cap hit is reallocated to earlier seasons.
+      if (p.isOver38) {
+        out.push({
+          code: 'OVER_38',
+          severity: 'info',
+          teamAbbr: t.abbr,
+          message: `${p.label}'s contract is subject to the over-38 rule; its cap hit is reallocated across earlier seasons, so cap hit may not equal paid salary.`,
+          citation: '2023 CBA Art. VII — over-38 rule (salary in over-38 seasons is reallocated to earlier years).',
+        });
       }
     }
   }

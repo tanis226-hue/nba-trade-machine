@@ -85,12 +85,17 @@ export interface TradeAsset {
   isTwoWay?: boolean;
   isMinimum?: boolean;
   isRookieScaleExtension?: boolean; // poison-pill detection
+  isBaseYearComp?: boolean; // S&T re-sign (Bird, over-cap, >20% raise): outgoing matches at max(50% new, prior)
+  bycPriorSalary?: number; // prior-season salary, the floor of the BYC outgoing match value
   signed?: boolean; // a free agent signed in-app (adds real payroll to its team)
   restrictedFa?: boolean; // signed as an RFA (offer-sheet / match framing)
   signedDate?: string; // ISO; recently-signed eligibility
   acquiredDate?: string; // ISO; 2-month aggregation lock + 1-year no-trade-back
   acquiredFrom?: string; // team code the player was traded from (for the no-trade-back rule)
   extendedDate?: string; // ISO; 6-month extension freeze
+  designatedVetDate?: string; // ISO; designated-veteran (supermax) extension → 1-year no-trade
+  matchedOfferDate?: string; // ISO; matched RFA offer sheet → 1-year no-trade without consent
+  isOver38?: boolean; // contract subject to the over-38 rule (cap hit reallocated)
   guaranteedThrough?: string; // ISO; partial-guarantee date
   age?: number;
   maxSalary?: number; // player's max (for kicker-at-max voiding)
@@ -142,6 +147,7 @@ export interface TradeTeamInput {
   toolsUsed?: ToolUsage[]; // hard-cap-triggering tools this team uses in/around the deal
   priorSecondApronSeasons?: number; // for frozen-pick derivation
   isRepeaterTaxpayer?: boolean;
+  priorTaxpayerSeasons?: number; // taxpayer count in the prior 4 seasons (>=3 → repeater)
   ownedFirstRoundPicks?: { year: number; conveyed?: boolean; isSwap?: boolean }[]; // for Stepien
 }
 
@@ -198,6 +204,7 @@ export type TradeMethod = 'simultaneous' | 'non_simultaneous';
 export interface PerTeamContext extends TeamResult {
   preTradeSalary: number;
   apronSalary: number;
+  outgoingMatch?: number; // outgoing salary for MATCHING purposes (base-year comp reduces it); = outgoing otherwise
   capSpace?: number;
   hardCapLine?: number | null;
   exceptions: TeamException[];

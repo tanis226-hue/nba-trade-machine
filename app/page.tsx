@@ -37,7 +37,7 @@ export default async function Home() {
           <span className="text-[var(--accent-2)]">.</span>
         </h1>
         <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[var(--muted)]">
-          Mock up 2-5 team deals with real {season} contracts and picks, plus instant 2023-CBA validation:
+          Mock up 2-7 team deals with real {season} contracts and picks, plus instant 2023-CBA validation:
           salary matching, luxury tax, first / second apron, hard caps, and trade exceptions, recalculated the
           moment you move a player or a pick.
         </p>

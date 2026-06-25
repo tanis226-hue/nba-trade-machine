@@ -36,8 +36,10 @@ export const matchingRule: Rule = (ctx) => {
         minExempt += a.salary;
         continue;
       }
-      // TPE absorption: a single contract ≤ an available (non-aggregable) TPE
-      const tpe = available.find((e) => e.kind === 'tpe' && !e.used && e.amount >= matchValue(a));
+      // TPE absorption: a single contract ≤ an available, unexpired, non-aggregable TPE (one player per TPE).
+      const tpe = available.find(
+        (e) => e.kind === 'tpe' && !e.used && e.amount >= matchValue(a) && !tpeExpired(e.expires, ctx.simulatedDate),
+      );
       if (tpe) {
         tpe.used = true;
         tpeAbsorbed += matchValue(a);
@@ -49,14 +51,16 @@ export const matchingRule: Rule = (ctx) => {
     const incMatched = matchedIncoming.reduce((s, a) => s + matchValue(a), 0);
 
     // 2) Determine the legal take-back limit for the still-matched portion.
+    // Matching uses the outgoing MATCH value (base-year comp reduces a re-signed player's outgoing).
+    const outMatch = t.outgoingMatch ?? t.outgoing;
     let limit: number;
     if (nonSim) {
       // non-simultaneous: no 200%/125% expansion; outgoing + $250k, and unused room becomes a TPE
-      limit = t.outgoing + 250_000;
+      limit = outMatch + 250_000;
     } else {
-      limit = maxIncomingSalary(t.outgoing, t.preTier, ctx.matching);
+      limit = maxIncomingSalary(outMatch, t.preTier, ctx.matching);
       // cap-room team: it may also absorb up to its cap space on top of the outgoing it sends
-      if (t.capSpace && t.capSpace > 0) limit = Math.max(limit, t.outgoing + t.capSpace);
+      if (t.capSpace && t.capSpace > 0) limit = Math.max(limit, outMatch + t.capSpace);
     }
 
     if (incMatched > limit + 1e-6) {
@@ -92,12 +96,27 @@ export const matchingRule: Rule = (ctx) => {
   return out;
 };
 
-/** Salary that counts for matching: base cap hit + an unearned trade kicker, capped at the player max. */
+/** A TPE is unusable if it has expired by the (simulated) trade date. */
+function tpeExpired(expires: string | undefined, simDate: string | undefined): boolean {
+  if (!expires || !simDate) return false;
+  return expires < simDate; // ISO YYYY-MM-DD strings compare lexicographically
+}
+
+/**
+ * Salary that counts for matching (the receiving side):
+ *  - base cap hit, OR for a poison-pill (rookie-scale-extension) player the AVERAGE annual value of
+ *    the new deal (current + extension years), which is what the ACQUIRING team matches against;
+ *  - plus an unearned trade kicker, capped at the player max.
+ */
 function matchValue(a: TradeAsset): number {
   let v = a.salary;
+  if (a.isRookieScaleExtension && a.futureSalaries && a.futureSalaries.length > 0) {
+    const years = [a.salary, ...a.futureSalaries.map((f) => f.salary)];
+    v = years.reduce((s, n) => s + n, 0) / years.length;
+  }
   if (a.tradeBonusPct && !a.tradeBonusEarned) {
-    const bonus = a.salary * a.tradeBonusPct;
-    const capped = a.maxSalary ? Math.min(a.salary + bonus, a.maxSalary) - a.salary : bonus;
+    const bonus = v * a.tradeBonusPct;
+    const capped = a.maxSalary ? Math.min(v + bonus, a.maxSalary) - v : bonus;
     v += Math.max(0, capped);
   }
   return v;

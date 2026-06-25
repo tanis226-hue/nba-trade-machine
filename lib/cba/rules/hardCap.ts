@@ -15,10 +15,19 @@ import { fmt } from '../format';
  * is hard-capped at the first apron for the remainder of that Salary Cap Year.
  */
 function postApronSalary(team: PerTeamContext): number {
-  // Prefer an explicit apron-basis hit per asset when present, else the cap hit.
-  const apronHit = (a: TradeAsset) => (a.apronSalary != null ? a.apronSalary : a.salary);
-  const incoming = team.incomingAssets.reduce((s, a) => s + apronHit(a), 0);
-  const outgoing = team.outgoingAssets.reduce((s, a) => s + apronHit(a), 0);
+  // Prefer an explicit apron-basis hit per asset when present, else the cap hit. The trade kicker
+  // travels with the player to the acquiring team, so it adds to the INCOMING apron hit only.
+  const base = (a: TradeAsset) => (a.apronSalary != null ? a.apronSalary : a.salary);
+  const withKicker = (a: TradeAsset) => {
+    let v = base(a);
+    if (a.tradeBonusPct && !a.tradeBonusEarned) {
+      const bonus = v * a.tradeBonusPct;
+      v += a.maxSalary ? Math.max(0, Math.min(v + bonus, a.maxSalary) - v) : bonus;
+    }
+    return v;
+  };
+  const incoming = team.incomingAssets.reduce((s, a) => s + withKicker(a), 0);
+  const outgoing = team.outgoingAssets.reduce((s, a) => s + base(a), 0);
   return team.apronSalary - outgoing + incoming;
 }
 

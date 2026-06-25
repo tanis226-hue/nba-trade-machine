@@ -183,7 +183,7 @@ export function TeamColumn({
             {teamExceptions.map((e, i) => (
               <span key={i} className="num inline-flex items-center gap-1 rounded border border-[var(--accent-2)]/40 bg-[var(--accent-2)]/10 px-1.5 py-0.5 text-[10px] text-[var(--text)]">
                 {e.kind === 'tpe' ? 'TPE' : e.kind.toUpperCase()} ${(e.amount / 1_000_000).toFixed(1)}M
-                {e.expires && <span className="text-[var(--faint)]">· exp {e.expires.slice(0, 7)}</span>}
+                {typeof e.expires === 'string' && <span className="text-[var(--faint)]">· exp {e.expires.slice(0, 7)}</span>}
               </span>
             ))}
           </div>

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useTradeStore } from '@/lib/store/tradeStore';
+import { DATA_AS_OF } from '@/lib/data/freshness';
 import type { TradeAsset } from '@/lib/cba/types';
 import type { ContractYear } from '@/lib/data/types';
 
@@ -17,6 +18,7 @@ export function PlayerContractModal({
   onClose: () => void;
 }) {
   const setAssetSalary = useTradeStore((s) => s.setAssetSalary);
+  const setAssetFlags = useTradeStore((s) => s.setAssetFlags);
   const [val, setVal] = useState((asset.salary / 1_000_000).toFixed(1));
   const edited = asset.origSalary != null && asset.salary !== asset.origSalary;
 
@@ -142,9 +144,44 @@ export function PlayerContractModal({
               Changing the salary re-runs CBA matching and the cap meters instantly. {edited && <span className="text-[var(--accent)]">Edited from {m(asset.origSalary!)}.</span>}
             </p>
           </div>
+
+          <div className="mt-3 rounded-lg border border-[var(--border)] bg-[var(--surface-2)]/40 p-3">
+            <div className="eyebrow mb-2">CBA attributes</div>
+            <div className="flex flex-wrap gap-1.5">
+              <Flag label="Two-way" on={!!asset.isTwoWay} hint="Two-way contract: counts toward the 3-per-team limit." onToggle={() => setAssetFlags(asset.id, { isTwoWay: !asset.isTwoWay })} />
+              <Flag label="Base-year comp" on={!!asset.isBaseYearComp} hint="Re-signed via S&T: outgoing matches at max(50% new, prior salary)." onToggle={() => setAssetFlags(asset.id, { isBaseYearComp: !asset.isBaseYearComp, bycPriorSalary: asset.bycPriorSalary ?? asset.origSalary })} />
+              <Flag label="Poison pill" on={!!asset.isRookieScaleExtension} hint="Rookie-scale extension: the acquiring team matches at the contract's average annual value." onToggle={() => setAssetFlags(asset.id, { isRookieScaleExtension: !asset.isRookieScaleExtension })} />
+              <Flag label="Over-38" on={!!asset.isOver38} hint="Over-38 rule: cap hit is reallocated to earlier seasons." onToggle={() => setAssetFlags(asset.id, { isOver38: !asset.isOver38 })} />
+              <Flag label="S&T" on={asset.signedVia === 'sign_and_trade'} hint="Acquired via sign-and-trade (hard-caps the acquirer at the first apron; 3-4 yr term)." onToggle={() => setAssetFlags(asset.id, { signedVia: asset.signedVia === 'sign_and_trade' ? undefined : 'sign_and_trade' })} />
+              <Flag label="Designated vet" on={!!asset.designatedVetDate} hint="Supermax extension: cannot be traded for 1 year after signing." onToggle={() => setAssetFlags(asset.id, { designatedVetDate: asset.designatedVetDate ? undefined : DATA_AS_OF })} />
+              <Flag label="Matched RFA" on={!!asset.matchedOfferDate} hint="Matched offer sheet: 1-year no-trade without consent." onToggle={() => setAssetFlags(asset.id, { matchedOfferDate: asset.matchedOfferDate ? undefined : DATA_AS_OF })} />
+            </div>
+            <div className="mt-2 flex items-center gap-2">
+              <span className="text-[11px] text-[var(--muted)]">Trade kicker</span>
+              <input
+                type="number" min="0" max="15" step="1"
+                value={asset.tradeBonusPct ? Math.round(asset.tradeBonusPct * 100) : ''}
+                onChange={(e) => setAssetFlags(asset.id, { tradeBonusPct: e.target.value ? Math.min(15, Math.max(0, Number(e.target.value))) / 100 : undefined })}
+                className="num w-14 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1 text-[var(--text)] outline-none focus:border-[var(--accent)]"
+              />
+              <span className="text-[11px] text-[var(--muted)]">% of salary, added to the acquiring team&rsquo;s incoming match.</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function Flag({ label, on, hint, onToggle }: { label: string; on: boolean; hint: string; onToggle: () => void }) {
+  return (
+    <button
+      onClick={onToggle}
+      title={hint}
+      className={`rounded px-2 py-1 text-[11px] font-semibold transition ${on ? 'bg-[var(--accent)] text-[var(--ink)]' : 'bg-[var(--surface-2)] text-[var(--muted)] hover:text-[var(--text)]'}`}
+    >
+      {label}
+    </button>
   );
 }
 

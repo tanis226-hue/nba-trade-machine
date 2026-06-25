@@ -44,6 +44,11 @@ export function buildContext(input: TradeInput): RuleContext {
     const outgoingAssets = input.assets.filter((a) => a.fromTeam === team.abbr && a.toTeam !== team.abbr);
     const incomingAssets = input.assets.filter((a) => a.toTeam === team.abbr && a.fromTeam !== team.abbr);
     const outgoing = outgoingAssets.reduce((s, a) => s + a.salary, 0);
+    // Outgoing value for MATCHING: a base-year-comp player counts as max(50% of new salary, prior salary).
+    const outgoingMatch = outgoingAssets.reduce(
+      (s, a) => s + (a.isBaseYearComp ? Math.max(0.5 * a.salary, a.bycPriorSalary ?? 0) : a.salary),
+      0,
+    );
     const incoming = incomingAssets.reduce((s, a) => s + a.salary, 0);
     const postSalary = team.preTradeSalary - outgoing + incoming;
     const preTier = tierFor(team.preTradeSalary, input.season);
@@ -57,6 +62,7 @@ export function buildContext(input: TradeInput): RuleContext {
       playersOut: outgoingAssets.filter((a) => a.kind === 'player').length,
       preTradeSalary: team.preTradeSalary,
       apronSalary: team.apronSalary ?? team.preTradeSalary,
+      outgoingMatch,
       capSpace: team.capSpace,
       hardCapLine: deriveHardCap(team, preTier, incoming, outgoing, input.season),
       exceptions: team.exceptions ?? [],
@@ -65,7 +71,8 @@ export function buildContext(input: TradeInput): RuleContext {
       twoWayCount: team.twoWayCount,
       toolsUsed: team.toolsUsed,
       priorSecondApronSeasons: team.priorSecondApronSeasons,
-      isRepeaterTaxpayer: team.isRepeaterTaxpayer,
+      // Repeater = explicitly flagged, or a taxpayer in 3+ of the prior 4 seasons.
+      isRepeaterTaxpayer: team.isRepeaterTaxpayer ?? (team.priorTaxpayerSeasons != null && team.priorTaxpayerSeasons >= 3),
       ownedFirstRoundPicks: team.ownedFirstRoundPicks,
       outgoingAssets,
       incomingAssets,

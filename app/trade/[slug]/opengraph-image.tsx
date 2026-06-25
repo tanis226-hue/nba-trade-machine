@@ -25,7 +25,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               <div style={{ fontSize: 40, fontWeight: 700 }}>{t.abbr}</div>
               {assets
                 .filter((a) => a.toTeam === t.abbr && a.fromTeam !== t.abbr)
-                .slice(0, 6)
+                .slice(0, 7)
                 .map((a) => (
                   <div key={a.id} style={{ fontSize: 22, marginTop: 6 }}>
                     {`+ ${a.label}`}

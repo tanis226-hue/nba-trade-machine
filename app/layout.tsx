@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nbatrademachine.app"),
   title: "NBA Trade Machine - Accurate Multi-Team Trade Simulator",
   description:
-    "Build 2-5 team NBA trades with real current contracts and exact 2023-CBA salary-matching, luxury-tax, and first/second-apron validation. Fast, correct, shareable.",
+    "Build 2-7 team NBA trades with real current contracts and exact 2023-CBA salary-matching, luxury-tax, and first/second-apron validation. Fast, correct, shareable.",
   openGraph: {
     title: "NBA Trade Machine",
     description: "Accurate, current multi-team NBA trade simulator.",

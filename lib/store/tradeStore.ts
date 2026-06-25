@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { TradeAsset, TradeTeamInput, TradeMethod } from '@/lib/cba/types';
 
-const MAX_TEAMS = 5; // Fanspo parity
+const MAX_TEAMS = 7; // up to 7-team trades (beats Fanspo's 5)
 
 export type PlayerSort = 'salary_desc' | 'salary_asc' | 'position';
 
@@ -57,6 +57,8 @@ interface TradeState {
   reorderAsset: (draggedId: string, targetId: string) => void;
   setAssetAmount: (id: string, amount: number) => void;
   setAssetSalary: (id: string, salary: number) => void;
+  setAssetFlags: (id: string, flags: Partial<TradeAsset>) => void;
+  setTeamFlags: (abbr: string, flags: Partial<TradeTeamInput>) => void;
   signFreeAgent: (teamAbbr: string, fa: FreeAgent, salary: number) => void;
   toggleCompare: (id: string) => void;
   clearCompare: () => void;
@@ -166,6 +168,12 @@ export const useTradeStore = create<TradeState>((set) => ({
       const teams = asset.signed ? bumpTeamSalary(s.teams, asset.fromTeam, salary - asset.salary) : s.teams;
       return { assets: { ...s.assets, [id]: { ...asset, salary } }, teams };
     }),
+  // Set CBA attribute flags on an asset (two-way, base-year comp, poison-pill, over-38, kicker, etc.).
+  setAssetFlags: (id, flags) =>
+    set((s) => (s.assets[id] ? { assets: { ...s.assets, [id]: { ...s.assets[id], ...flags } } } : s)),
+  // Set per-team CBA inputs (tools used this deal, prior-apron/taxpayer history) that drive hard-cap/repeater rules.
+  setTeamFlags: (abbr, flags) =>
+    set((s) => ({ teams: s.teams.map((t) => (t.abbr === abbr ? { ...t, ...flags } : t)) })),
   signFreeAgent: (teamAbbr, fa, salary) =>
     set((s) => {
       const id = `${teamAbbr}-${fa.playerId}-fa`;
