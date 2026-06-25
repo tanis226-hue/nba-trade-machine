@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { useTradeStore, comparePlayers } from '@/lib/store/tradeStore';
+import { useTradeStore, comparePlayers, partializeTradeState, PERSIST_KEY } from '@/lib/store/tradeStore';
 
 describe('tradeStore', () => {
   beforeEach(() => useTradeStore.getState().reset());
@@ -94,5 +94,40 @@ describe('tradeStore', () => {
     const before = useTradeStore.getState().assets['a1'].order;
     useTradeStore.getState().reorderAsset('a1', 'b1'); // different group → no-op
     expect(useTradeStore.getState().assets['a1'].order).toBe(before);
+  });
+});
+
+describe('tradeStore persistence', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    useTradeStore.getState().reset();
+  });
+
+  it('partialize persists only working state - no actions, no ephemeral selection', () => {
+    const persisted = partializeTradeState(useTradeStore.getState());
+    expect(Object.keys(persisted).sort()).toEqual(
+      ['assets', 'playerSort', 'season', 'simulatedDate', 'teams', 'tradeMethod'].sort(),
+    );
+    // never serialize functions or the transient compare tray
+    expect(Object.values(persisted).some((v) => typeof v === 'function')).toBe(false);
+    expect('compareIds' in persisted).toBe(false);
+  });
+
+  it('rehydrate restores teams and assets from a localStorage snapshot', async () => {
+    const snapshot = {
+      state: {
+        season: '2026-27',
+        teams: [{ abbr: 'AAA', preTradeSalary: 100 }],
+        assets: { a1: { id: 'a1', kind: 'player', salary: 10, fromTeam: 'AAA', toTeam: 'AAA', label: 'A1' } },
+        simulatedDate: undefined,
+        tradeMethod: 'simultaneous',
+        playerSort: 'salary_desc',
+      },
+      version: 1,
+    };
+    localStorage.setItem(PERSIST_KEY, JSON.stringify(snapshot));
+    await useTradeStore.persist.rehydrate();
+    expect(useTradeStore.getState().teams.map((t) => t.abbr)).toContain('AAA');
+    expect(useTradeStore.getState().assets['a1']?.label).toBe('A1');
   });
 });

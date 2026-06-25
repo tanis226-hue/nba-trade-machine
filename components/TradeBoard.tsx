@@ -42,6 +42,7 @@ export function TradeBoard({
         return {
           playerId: fa.playerId,
           name: fa.name,
+          priorTeamId: fa.priorTeamId,
           priorSalary: fa.priorSalary,
           restricted: fa.restricted,
           value: v?.value,

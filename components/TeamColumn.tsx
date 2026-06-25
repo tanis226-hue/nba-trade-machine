@@ -53,11 +53,20 @@ export function TeamColumn({
   const removeTeam = useTradeStore((s) => s.removeTeam);
   const addAsset = useTradeStore((s) => s.addAsset);
   const [signing, setSigning] = useState(false);
+  const [chOpen, setChOpen] = useState(false);
 
   // The whole column is a droppable so a card dropped anywhere on it routes here.
   const { setNodeRef, isOver } = useDroppable({ id: `col:${abbr}` });
 
   const teamExceptions = teams.find((t) => t.abbr === abbr)?.exceptions ?? [];
+
+  // Free-agent cap holds this team carries (its own FAs), ~120% of prior salary until renounced.
+  const capHolds = freeAgents
+    .filter((fa) => (fa.priorTeamId ?? '').toLowerCase() === abbr.toLowerCase())
+    .map((fa) => ({ name: fa.name, hold: Math.round((fa.priorSalary || 0) * 1.2), restricted: fa.restricted }))
+    .sort((a, b) => b.hold - a.hold);
+  const capHoldTotal = capHolds.reduce((s, c) => s + c.hold, 0);
+  const mny = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 
   // A card lives in its destination column (toTeam): kept players + players acquired from others, in
   // one reorderable list ordered by `order` (which is maintained per display column). Players this team
@@ -187,6 +196,33 @@ export function TeamColumn({
               </span>
             ))}
           </div>
+        </div>
+      )}
+
+      {capHolds.length > 0 && (
+        <div className="border-t border-[var(--border-soft)] px-3 py-2.5">
+          <button onClick={() => setChOpen((o) => !o)} className="flex w-full items-center justify-between">
+            <span
+              className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--faint)]"
+              title="Free-agent cap holds count against this team's cap until renounced. Amounts are approximate (~120% of prior salary)."
+            >
+              Cap holds {capHolds.length}
+            </span>
+            <span className="num text-[10px] text-[var(--muted)]">~{mny(capHoldTotal)} {chOpen ? '▾' : '▸'}</span>
+          </button>
+          {chOpen && (
+            <div className="mt-1.5 space-y-0.5">
+              {capHolds.map((c, i) => (
+                <div key={i} className="flex items-center justify-between gap-2 text-[11px]">
+                  <span className="flex min-w-0 items-center gap-1 truncate text-[var(--muted)]">
+                    {c.name}
+                    {c.restricted && <span className="rounded bg-[var(--accent-2)]/20 px-1 text-[8px] font-bold uppercase text-[var(--accent-2)]">RFA</span>}
+                  </span>
+                  <span className="num shrink-0 text-[var(--faint)]">~{mny(c.hold)}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

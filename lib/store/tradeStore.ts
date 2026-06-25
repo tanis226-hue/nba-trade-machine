@@ -25,6 +25,7 @@ export function comparePlayers(mode: PlayerSort) {
 export interface FreeAgent {
   playerId: string;
   name: string;
+  priorTeamId?: string | null; // the team that holds this player's cap hold until renounced
   priorSalary: number; // last (2025-26) cap hit, used as the default signing number
   restricted: boolean; // RFA (qualifying-offer / match rights) vs UFA
   value?: number;
