@@ -24,6 +24,8 @@ import { PlayerCompare } from './PlayerCompare';
 import { TradeRulesButton } from './TradeRules';
 import { ExecuteTradeButton } from './ExecuteTradeButton';
 import { GenerateLinkButton } from './GenerateLinkButton';
+import { SaveTradeButton } from './SaveTradeButton';
+import { authEnabled } from '@/lib/auth';
 import type { ContractYear, DbTeam, DbDraftPick } from '@/lib/data/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
@@ -33,11 +35,13 @@ export function TradeMatrix({
   teamMeta,
   picks,
   freeAgents = [],
+  projectedRecords = {},
 }: {
   contracts: Record<string, ContractYear[]>;
   teamMeta: Record<string, DbTeam>;
   picks: Record<string, DbDraftPick[]>;
   freeAgents?: FreeAgent[];
+  projectedRecords?: Record<string, import('@/lib/data/queries').ProjectedRecord>;
 }) {
   const season = useTradeStore((s) => s.season);
   const teams = useTradeStore((s) => s.teams);
@@ -183,6 +187,7 @@ export function TradeMatrix({
                 contracts={contracts}
                 picks={picks[t.abbr] ?? []}
                 freeAgents={freeAgents}
+                projectedRecords={projectedRecords}
               />
             </div>
           ))}
@@ -210,6 +215,7 @@ export function TradeMatrix({
           <div className="space-y-2">
             <ExecuteTradeButton valid={validation.valid} onExecute={() => { /* Phase 6 interstitial */ }} />
             <GenerateLinkButton />
+            {authEnabled && <SaveTradeButton />}
           </div>
         </div>
       ) : (

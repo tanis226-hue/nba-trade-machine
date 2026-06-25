@@ -1,4 +1,4 @@
-import { getTeams, getRoster, getSeasons, getDraftPicks, getPlayerValues, getFreeAgents, getTeamExceptions } from '@/lib/data/queries';
+import { getTeams, getRoster, getSeasons, getDraftPicks, getPlayerValues, getFreeAgents, getTeamExceptions, getProjectedRecords } from '@/lib/data/queries';
 import { TradeBoard } from '@/components/TradeBoard';
 import { DataFreshness } from '@/components/DataFreshness';
 
@@ -19,10 +19,11 @@ export default async function Home() {
   const picks = Object.fromEntries(
     await Promise.all(teams.map(async (t) => [t.abbr, await getDraftPicks(t.id)] as const)),
   );
-  const [values, freeAgents, exceptions] = await Promise.all([
+  const [values, freeAgents, exceptions, projectedRecords] = await Promise.all([
     getPlayerValues(),
     getFreeAgents(season, priorSeasonOf(season)),
     getTeamExceptions(season),
+    getProjectedRecords(season),
   ]);
   return (
     <main>
@@ -59,7 +60,7 @@ export default async function Home() {
           </span>
         </div>
       </section>
-      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} />
+      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
       <div className="mt-5">
         <DataFreshness />
       </div>

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Big_Shoulders, Bricolage_Grotesque, Geist_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { AdSlot } from "@/components/AdSlot";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AuthControls } from "@/components/AuthControls";
+import { authEnabled } from "@/lib/auth";
 
 // Apply the saved theme before paint (no flash). Light is the default; dark only when chosen.
 const themeScript = `try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}`;
@@ -34,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   // Ad slots stay reserved (CLS-safe) but render nothing until a real ad network is wired
   // (monetization is the last milestone). Flip NEXT_PUBLIC_ADS_ENABLED=true to show them.
   const adsEnabled = process.env.NEXT_PUBLIC_ADS_ENABLED === "true";
-  return (
+  const tree = (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
@@ -72,6 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 Apron-aware
               </span>
               <ThemeToggle />
+              {authEnabled && <AuthControls />}
             </div>
           </div>
         </header>
@@ -114,4 +118,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </body>
     </html>
   );
+
+  // Only mount ClerkProvider when auth is configured, so the app runs unchanged (local-only) when
+  // no Clerk keys are present.
+  return authEnabled ? <ClerkProvider>{tree}</ClerkProvider> : tree;
 }

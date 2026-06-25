@@ -9,8 +9,10 @@ import { AssetRow } from './AssetRow';
 import { TeamCapPanel } from './TeamCapPanel';
 import { SignFreeAgentPanel } from './SignFreeAgentPanel';
 import { TradeSummary } from './TradeSummary';
-import type { TeamResult, PickProtection } from '@/lib/cba/types';
+import type { TeamResult } from '@/lib/cba/types';
 import type { ContractYear, DbTeam, DbDraftPick } from '@/lib/data/types';
+import { parseProtection } from '@/lib/cba/protections';
+import { resolveConveyance } from '@/lib/cba/conveyance';
 
 // ESPN logo abbreviations differ from ours for a handful of teams.
 const ESPN_ABBR: Record<string, string> = { GSW: 'gs', NOP: 'no', NYK: 'ny', SAS: 'sa', UTA: 'utah', WAS: 'wsh' };
@@ -40,6 +42,7 @@ export function TeamColumn({
   contracts,
   picks = [],
   freeAgents = [],
+  projectedRecords = {},
 }: {
   abbr: string;
   meta?: DbTeam;
@@ -47,6 +50,7 @@ export function TeamColumn({
   contracts: Record<string, ContractYear[]>;
   picks?: DbDraftPick[];
   freeAgents?: FreeAgent[];
+  projectedRecords?: Record<string, import('@/lib/data/queries').ProjectedRecord>;
 }) {
   const assetsMap = useTradeStore((s) => s.assets);
   const teams = useTradeStore((s) => s.teams);
@@ -100,7 +104,7 @@ export function TeamColumn({
       isFrozen: next.is_frozen,
       isSwap: next.is_swap,
       originalTeam: next.original_team_id,
-      protections: (next.protections as PickProtection | null) ?? null,
+      protections: parseProtection(next.protections),
     });
   }
   function addCash() {
@@ -155,11 +159,20 @@ export function TeamColumn({
                 p.protections && typeof p.protections === 'object' && 'note' in p.protections
                   ? String((p.protections as { note?: unknown }).note ?? '')
                   : '';
+              // Resolve conveyance against the ORIGINAL team's projected draft slot (its pick, its record).
+              const rec = projectedRecords[p.original_team_id];
+              const structured = parseProtection(p.protections);
+              const conveyance =
+                rec && p.round === 1 && structured && (structured.type === 'top' || structured.type === 'range')
+                  ? resolveConveyance(structured, rec.projectedSlot)
+                  : null;
               const title = [
                 `Add ${p.season} ${p.round === 1 ? '1st' : '2nd'} to the deal`,
                 p.is_swap ? 'Swap rights' : '',
                 p.is_frozen ? 'Frozen (2nd-apron 7-yr-out)' : '',
                 note ? `Protected: ${note}` : '',
+                rec ? `Projected #${rec.projectedSlot} (${rec.wins}-${rec.losses})` : '',
+                conveyance ? conveyance.reason : '',
               ].filter(Boolean).join(' — ');
               return (
                 <button
@@ -172,6 +185,14 @@ export function TeamColumn({
                   {p.is_swap && <span className="text-[var(--accent-2)]" title="Swap">⇄</span>}
                   {p.is_frozen && <span className="text-[var(--illegal)]" title="Frozen (2nd-apron)">❄</span>}
                   {note && <span className="text-[var(--faint)]" title={`Protected: ${note}`}>*</span>}
+                  {conveyance && (
+                    <span
+                      title={conveyance.reason}
+                      style={{ color: conveyance.conveys ? 'var(--legal)' : 'var(--warn)' }}
+                    >
+                      {conveyance.conveys ? '▲' : '▼'}
+                    </span>
+                  )}
                 </button>
               );
             })}

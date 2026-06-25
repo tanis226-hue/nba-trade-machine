@@ -62,7 +62,8 @@ export type SignedVia =
 export interface PickProtection {
   type?: 'top' | 'range' | 'unprotected';
   through?: number; // e.g. top-4
-  years?: [number, number];
+  years?: [number, number]; // protection-year window, e.g. protected 2027-2029
+  range?: [number, number]; // pick-slot range for a 'range' protection, e.g. 31-55 (a 2nd-rounder)
   rolloverToSecond?: boolean;
   note?: string; // freeform protection prose as researched (e.g. "top-4", "top-10 then 2nds")
 }

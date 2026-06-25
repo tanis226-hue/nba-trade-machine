@@ -6,7 +6,7 @@ import { SeasonSelector } from './SeasonSelector';
 import { computeTeamSalary } from '@/lib/cba/teamSalary';
 import { SEASON_2026_27 as ACTIVE_SEASON } from '@/lib/cba/constants';
 import type { DbTeam, RosterEntry, ContractYear, DbDraftPick } from '@/lib/data/types';
-import type { PlayerValueMap, FreeAgentRow, TeamExceptionView } from '@/lib/data/queries';
+import type { PlayerValueMap, FreeAgentRow, TeamExceptionView, ProjectedRecord } from '@/lib/data/queries';
 import type { FreeAgent } from '@/lib/store/tradeStore';
 import { normalizePlayerId } from '@/lib/slug';
 import { restrictionFor } from '@/lib/data/tradeRestrictions';
@@ -20,6 +20,7 @@ export function TradeBoard({
   values,
   freeAgents = [],
   exceptions = {},
+  projectedRecords = {},
 }: {
   teams: DbTeam[];
   rosters: Record<string, RosterEntry[]>;
@@ -28,6 +29,7 @@ export function TradeBoard({
   values: PlayerValueMap;
   freeAgents?: FreeAgentRow[];
   exceptions?: Record<string, TeamExceptionView[]>;
+  projectedRecords?: Record<string, ProjectedRecord>;
 }) {
   const storeTeams = useTradeStore((s) => s.teams);
   const addTeam = useTradeStore((s) => s.addTeam);
@@ -85,7 +87,7 @@ export function TradeBoard({
       preTradeSalary: sal.capSalary,
       apronSalary: sal.apronSalary,
       capSpace: sal.capSpace > 0 ? sal.capSpace : undefined, // cap-room matching path only when truly below cap
-      ownedFirstRoundPicks: teamPicks.filter((p) => p.round === 1).map((p) => ({ year: Number(p.season), isSwap: p.is_swap })),
+      ownedFirstRoundPicks: teamPicks.filter((p) => p.round === 1).map((p) => ({ year: Number(p.season), isSwap: p.is_swap, conveyed: p.conveyed })),
       exceptions: exceptions[team.id],
       // rosterCount intentionally omitted until Phase 1 dedupes scraped rosters to true active counts;
       // the raw scrape includes waived/expired rows, which would trip a spurious ROSTER_OVER block.
@@ -113,6 +115,8 @@ export function TradeBoard({
         toTeam: team.abbr,
         label: r.name,
         noTradeClause: cur?.no_trade_clause,
+        tradeBonusPct: cur?.trade_bonus_pct ?? undefined,
+        tradeBonusEarned: cur?.trade_bonus_earned ?? undefined,
         isOver38: over38 || undefined,
         acquiredDate: restr?.acquiredDate,
         acquiredFrom: restr?.acquiredFrom,
@@ -207,7 +211,7 @@ export function TradeBoard({
       </div>
 
       {storeTeams.length >= 1 ? (
-        <TradeMatrix contracts={contracts} teamMeta={teamMeta} picks={picks} freeAgents={enrichedFreeAgents} />
+        <TradeMatrix contracts={contracts} teamMeta={teamMeta} picks={picks} freeAgents={enrichedFreeAgents} projectedRecords={projectedRecords} />
       ) : (
         <div className="panel ticked flex flex-col items-center justify-center rounded-xl px-6 py-16 text-center">
           <div className="eyebrow mb-2">Roster · cap · draft capital</div>

@@ -25,7 +25,8 @@ export async function POST(
   const v = vote && vote < 0 ? -1 : 1;
   const voterId = typeof voter === 'string' && voter ? voter.slice(0, 64) : crypto.randomUUID();
 
-  // One vote per voter per trade; re-voting flips the existing row (requires the 0009 unique index).
+  // One vote per voter per trade; re-voting flips the existing row (requires the trade_votes
+  // (slug, voter) unique index trade_votes_slug_voter_uq from migration 0009_vote_dedupe).
   try {
     await db()`
       INSERT INTO trade_votes (id, slug, vote, voter)

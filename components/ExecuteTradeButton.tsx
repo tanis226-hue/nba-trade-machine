@@ -24,6 +24,8 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
   const season = useTradeStore((s) => s.season);
   const teams = useTradeStore((s) => s.teams);
   const assets = useTradeStore((s) => s.assets);
+  const simulatedDate = useTradeStore((s) => s.simulatedDate);
+  const tradeMethod = useTradeStore((s) => s.tradeMethod);
   const dialogRef = useRef<HTMLDivElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -60,7 +62,10 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
   const confirm = useCallback(async () => {
     setPhase('processing');
     try {
-      const res = await fetch('/api/trade', { method: 'POST', body: JSON.stringify({ season, teams, assets }) });
+      const res = await fetch('/api/trade', {
+        method: 'POST',
+        body: JSON.stringify({ season, teams, assets, simulatedDate, tradeMethod }),
+      });
       const { slug } = await res.json();
       if (slug) setShareUrl(`${location.origin}/trade/${slug}`);
     } catch {
@@ -68,7 +73,7 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
     }
     onExecute();
     setPhase('done');
-  }, [onExecute, season, teams, assets]);
+  }, [onExecute, season, teams, assets, simulatedDate, tradeMethod]);
 
   const copyLink = useCallback(async () => {
     if (!shareUrl) return;

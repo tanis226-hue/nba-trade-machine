@@ -51,7 +51,13 @@ async function upsert(
   const query = `INSERT INTO ${table} (${names.join(', ')})
     SELECT * FROM unnest(${selects})
     ON CONFLICT (${conflict}) DO UPDATE SET ${updates}`;
-  const params = cols.map((c) => rows.map((r) => r[c.name] ?? null));
+  const params = cols.map((c) =>
+    rows.map((r) => {
+      const v = r[c.name] ?? null;
+      // jsonb array params must be JSON text so Postgres parses each element through ::jsonb[].
+      return c.type === 'jsonb' && v != null ? JSON.stringify(v) : v;
+    }),
+  );
   await sql.query(query, params);
   console.log(`upserted ${rows.length} into ${table}`);
 }
@@ -105,6 +111,22 @@ async function main() {
     'id',
     merged('players.json', 'id'),
   );
+
+  // Years of service: UPDATE only this column (from data/seed/player_yos.json, produced by the stats
+  // pull) so a player's team/position stay sourced from the live scrape rather than frozen here.
+  const yosRows = merged('player_yos.json', 'player_id').filter((r) => r.player_id != null);
+  if (yosRows.length) {
+    const ids = yosRows.map((r) => String(r.player_id));
+    const yos = yosRows.map((r) => Number(r.years_of_service ?? 0));
+    await sql.query(
+      `UPDATE players p SET years_of_service = v.yos
+       FROM (SELECT unnest($1::text[]) AS id, unnest($2::int[]) AS yos) v
+       WHERE p.id = v.id`,
+      [ids, yos],
+    );
+    console.log(`updated years_of_service for ${ids.length} players`);
+  }
+
   await upsert(
     sql,
     'contracts',
@@ -116,6 +138,7 @@ async function main() {
       { name: 'option_type', type: 'text' },
       { name: 'guarantee_status', type: 'text' },
       { name: 'no_trade_clause', type: 'boolean' },
+      { name: 'trade_bonus_pct', type: 'numeric' },
       { name: 'source', type: 'text' },
     ],
     'id',
@@ -138,6 +161,7 @@ async function main() {
         { name: 'is_swap', type: 'boolean' },
         { name: 'is_frozen', type: 'boolean' },
         { name: 'conveyed', type: 'boolean' },
+        { name: 'protections', type: 'jsonb' },
       ],
       'id',
       merged('draft_picks.json', 'id'),
@@ -166,6 +190,26 @@ async function main() {
     );
   } catch (e) {
     console.warn('skip team_exceptions (run migrate first for 0008):', (e as Error).message);
+  }
+
+  // team_projected_record: projected (or prior-season) W-L per team, used to value picks by the
+  // owner's expected draft slot and to resolve conveyance/swaps. Full-replace.
+  try {
+    await sql`DELETE FROM team_projected_record`;
+    await upsert(
+      sql,
+      'team_projected_record',
+      [
+        { name: 'team_id', type: 'text' },
+        { name: 'season', type: 'text' },
+        { name: 'wins', type: 'int' },
+        { name: 'losses', type: 'int' },
+      ],
+      'team_id, season',
+      merged('team_projected_record.json', 'team_id'),
+    );
+  } catch (e) {
+    console.warn('skip team_projected_record:', (e as Error).message);
   }
 
   try {

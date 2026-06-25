@@ -9,11 +9,16 @@ export function GenerateLinkButton() {
   const season = useTradeStore((s) => s.season);
   const teams = useTradeStore((s) => s.teams);
   const assets = useTradeStore((s) => s.assets);
+  const simulatedDate = useTradeStore((s) => s.simulatedDate);
+  const tradeMethod = useTradeStore((s) => s.tradeMethod);
 
   async function gen() {
     setBusy(true);
     try {
-      const res = await fetch('/api/trade', { method: 'POST', body: JSON.stringify({ season, teams, assets }) });
+      const res = await fetch('/api/trade', {
+        method: 'POST',
+        body: JSON.stringify({ season, teams, assets, simulatedDate, tradeMethod }),
+      });
       const { slug } = await res.json();
       const link = `${location.origin}/trade/${slug}`;
       setUrl(link);

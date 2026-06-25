@@ -3,7 +3,8 @@ import { selectValidation } from '@/lib/store/selectValidation';
 import { gradeTrade } from '@/lib/cba/grade';
 import { ValidationFeed } from '@/components/ValidationFeed';
 import { TradeComments } from '@/components/TradeComments';
-import type { TradeAsset, TradeTeamInput } from '@/lib/cba/types';
+import { EditTradeButton } from '@/components/EditTradeButton';
+import type { TradeAsset, TradeTeamInput, TradeMethod } from '@/lib/cba/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
@@ -20,7 +21,9 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
 
   const teams = payload.teams as TradeTeamInput[];
   const assets = payload.assets as Record<string, TradeAsset>;
-  const validation = selectValidation({ season: payload.season, teams, assets });
+  const tradeMethod = payload.tradeMethod as TradeMethod | undefined;
+  // Re-validate with the author's date + method so the verdict matches what they saw when sharing.
+  const validation = selectValidation({ season: payload.season, teams, assets, simulatedDate: payload.simulatedDate, tradeMethod });
   const grade = gradeTrade(teams, Object.values(assets));
   const list = Object.values(assets);
 
@@ -92,9 +95,12 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
       </div>
 
       <ValidationFeed validation={validation} />
-      <Link href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">
-        Build your own trade →
-      </Link>
+      <div className="flex flex-wrap items-center gap-3">
+        <EditTradeButton season={payload.season} teams={teams} assets={assets} simulatedDate={payload.simulatedDate} tradeMethod={tradeMethod} />
+        <Link href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">
+          Build your own trade →
+        </Link>
+      </div>
       <TradeComments slug={slug} />
     </main>
   );

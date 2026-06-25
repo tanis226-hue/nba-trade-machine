@@ -1,5 +1,5 @@
 import type { TradeAsset, TradeTeamInput } from './types';
-import { pickValue } from './pickValue';
+import { pickValue, protectionMultiplier } from './pickValue';
 
 export interface TeamGrade {
   abbr: string;
@@ -21,7 +21,9 @@ export interface TradeGradeResult {
 /** Trade value of one asset in per-game value units (players: Game Score; picks: pick curve). */
 export function assetValue(a: TradeAsset): number {
   if (a.kind === 'player') return a.value ?? 0;
-  if (a.kind === 'pick') return pickValue(a.round ?? 2, a.pickYear);
+  // Protected picks are worth less to the receiver (they may never convey); keep the grade's scale
+  // but discount by the same protection factor the value model uses.
+  if (a.kind === 'pick') return pickValue(a.round ?? 2, a.pickYear) * protectionMultiplier(a.protections);
   return 0; // cash / tpe carry no on-court value
 }
 

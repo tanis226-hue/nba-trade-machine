@@ -172,6 +172,22 @@ async function pullBio(dir: string) {
   fs.writeFileSync(path.join(dir, 'player_bio.json'), JSON.stringify(bio, null, 2), 'utf8');
   console.log(`wrote ${bio.length} player bios to data/seed/player_bio.json`);
 
+  // Years of service from the player index's FROM_YEAR (first NBA season). Drives RFA detection and
+  // min-scale / over-38 eligibility. Written as its own file so the importer can UPDATE only this
+  // column (no full-row override, so a player's team/position stay sourced from the live scrape).
+  const seasonStart = Number(BIO_SEASON.slice(0, 4));
+  const hasFromYear = 'FROM_YEAR' in idx;
+  const yos = rs.rowSet
+    .map((row) => {
+      const first = String(row[idx['PLAYER_FIRST_NAME']] ?? '').trim();
+      const last = String(row[idx['PLAYER_LAST_NAME']] ?? '').trim();
+      const fromYear = hasFromYear ? Number(row[idx['FROM_YEAR']] ?? 0) : 0;
+      return { player_id: slug(`${first} ${last}`), years_of_service: fromYear ? Math.max(0, seasonStart - fromYear) : 0 };
+    })
+    .filter((r) => r.player_id !== 'p_');
+  fs.writeFileSync(path.join(dir, 'player_yos.json'), JSON.stringify(yos, null, 2), 'utf8');
+  console.log(`wrote ${yos.length} years-of-service rows to data/seed/player_yos.json${hasFromYear ? '' : ' (WARN: FROM_YEAR missing from playerindex; all 0)'}`);
+
   // 2026 draft class: the player index lists this year's rookies with team + pick. Inject them as
   // players + rookie-scale contracts via the override layer so they show on rosters (with headshots).
   const players: Record<string, unknown>[] = [];

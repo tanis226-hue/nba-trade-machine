@@ -23,6 +23,8 @@ export interface ContractYear {
   option_type: string;
   guarantee_status: string;
   no_trade_clause: boolean;
+  trade_bonus_pct?: number | null; // trade kicker as a fraction (0.15 = 15%); matching adds it to the cap hit
+  trade_bonus_earned?: boolean; // already paid out, so it no longer counts toward matching
 }
 
 export interface RosterEntry {
@@ -74,4 +76,5 @@ export interface DbDraftPick {
   is_swap: boolean;
   is_frozen: boolean;
   conveyed?: boolean;
+  swap_direction?: string | null; // 'favorable' | 'unfavorable' for a linked swap
 }

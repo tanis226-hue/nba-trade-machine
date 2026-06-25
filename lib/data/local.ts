@@ -47,6 +47,8 @@ interface LocalContract {
   option_type: string;
   guarantee_status: string;
   no_trade_clause: boolean;
+  trade_bonus_pct?: number | null;
+  trade_bonus_earned?: boolean;
 }
 
 export function localRoster(teamId: string, season: string): RosterEntry[] {
@@ -63,6 +65,8 @@ export function localRoster(teamId: string, season: string): RosterEntry[] {
           option_type: c.option_type,
           guarantee_status: c.guarantee_status,
           no_trade_clause: c.no_trade_clause,
+          trade_bonus_pct: c.trade_bonus_pct,
+          trade_bonus_earned: c.trade_bonus_earned,
         }));
       const cur = contract.find((c) => c.season === season);
       return { playerId: p.id, name: p.name, position: p.position, age: p.age, salary: cur?.salary ?? 0, contract };
@@ -100,6 +104,15 @@ export function localFreeAgents(
 
 export function localTeamExceptions(season: string): DbTeamException[] {
   return read<DbTeamException>('team_exceptions.json', (e) => e.id).filter((e) => e.season === season);
+}
+
+export function localProjectedRecords(season: string): { team_id: string; wins: number; losses: number }[] {
+  return read<{ team_id: string; season: string; wins: number; losses: number }>(
+    'team_projected_record.json',
+    (r) => `${r.team_id}_${r.season}`,
+  )
+    .filter((r) => r.season === season)
+    .map((r) => ({ team_id: r.team_id, wins: r.wins, losses: r.losses }));
 }
 
 export function localDraftPicks(teamId: string): DbDraftPick[] {

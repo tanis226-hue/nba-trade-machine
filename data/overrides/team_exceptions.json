@@ -1,5 +1,185 @@
 [
   {
+    "id": "te_atl_clint_capela",
+    "team_id": "atl",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 6700000,
+    "expires_date": "2026-08-01",
+    "source_player": "Clint Capela",
+    "source": "override"
+  },
+  {
+    "id": "te_atl_luke_kennard",
+    "team_id": "atl",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 11000000,
+    "expires_date": "2027-02-05",
+    "source_player": "Luke Kennard",
+    "source": "override"
+  },
+  {
+    "id": "te_bos_kristaps_porzingis",
+    "team_id": "bos",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 22531707,
+    "expires_date": "2026-07-07",
+    "source_player": "Kristaps Porzingis",
+    "source": "override"
+  },
+  {
+    "id": "te_cha_collin_sexton",
+    "team_id": "cha",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 8200962,
+    "expires_date": "2027-02-04",
+    "source_player": "Collin Sexton",
+    "source": "override"
+  },
+  {
+    "id": "te_cha_lamelo_ball",
+    "team_id": "cha",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 40800000,
+    "expires_date": "2027-06-30",
+    "source_player": "LaMelo Ball",
+    "source": "override"
+  },
+  {
+    "id": "te_cha_tyus_jones",
+    "team_id": "cha",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 7000000,
+    "expires_date": "2027-02-05",
+    "source_player": "Tyus Jones",
+    "source": "override"
+  },
+  {
+    "id": "te_chi_kevin_huerter",
+    "team_id": "chi",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 17991071,
+    "expires_date": "2027-02-03",
+    "source_player": "Kevin Huerter",
+    "source": "override"
+  },
+  {
+    "id": "te_chi_mike_conley",
+    "team_id": "chi",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 10774038,
+    "expires_date": "2027-02-04",
+    "source_player": "Mike Conley",
+    "source": "override"
+  },
+  {
+    "id": "te_chi_ousmane_dieng",
+    "team_id": "chi",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 6670882,
+    "expires_date": "2027-02-04",
+    "source_player": "Ousmane Dieng",
+    "source": "override"
+  },
+  {
+    "id": "te_cle_de_andre_hunter",
+    "team_id": "cle",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 7000000,
+    "expires_date": "2027-02-05",
+    "source_player": "De'Andre Hunter",
+    "source": "override"
+  },
+  {
+    "id": "te_dal_anthony_davis",
+    "team_id": "dal",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 20830154,
+    "expires_date": "2027-02-05",
+    "source_player": "Anthony Davis",
+    "source": "override"
+  },
+  {
+    "id": "te_det_dennis_schroder",
+    "team_id": "det",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 14200000,
+    "expires_date": "2026-07-07",
+    "source_player": "Dennis Schroder",
+    "source": "override"
+  },
+  {
+    "id": "te_mem_jaren_jackson_jr",
+    "team_id": "mem",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 28872920,
+    "expires_date": "2027-02-03",
+    "source_player": "Jaren Jackson Jr.",
+    "source": "override"
+  },
+  {
+    "id": "te_mia_duncan_robinson",
+    "team_id": "mia",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 16834692,
+    "expires_date": "2026-07-07",
+    "source_player": "Duncan Robinson",
+    "source": "override"
+  },
+  {
+    "id": "te_mil_bobby_portis",
+    "team_id": "mil",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 25500000,
+    "expires_date": "2027-06-30",
+    "source_player": "Bobby Portis",
+    "source": "override"
+  },
+  {
+    "id": "te_min_mike_conley",
+    "team_id": "min",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 10774038,
+    "expires_date": "2027-02-03",
+    "source_player": "Mike Conley",
+    "source": "override"
+  },
+  {
+    "id": "te_min_rob_dillingham",
+    "team_id": "min",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 6576120,
+    "expires_date": "2027-02-03",
+    "source_player": "Rob Dillingham",
+    "source": "override"
+  },
+  {
+    "id": "te_nop_kelly_olynyk",
+    "team_id": "nop",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 13445122,
+    "expires_date": "2026-07-06",
+    "source_player": "Kelly Olynyk",
+    "source": "override"
+  },
+  {
     "id": "te_okc_wiggins_2026-27",
     "team_id": "okc",
     "season": "2026-27",
@@ -7,5 +187,45 @@
     "amount": 9200000,
     "expires_date": "2027-06-21",
     "source_player": "Aaron Wiggins"
+  },
+  {
+    "id": "te_orl_tyus_jones",
+    "team_id": "orl",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 7000000,
+    "expires_date": "2027-02-05",
+    "source_player": "Tyus Jones",
+    "source": "override"
+  },
+  {
+    "id": "te_tor_ochai_agbaji",
+    "team_id": "tor",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 6383525,
+    "expires_date": "2027-02-05",
+    "source_player": "Ochai Agbaji",
+    "source": "override"
+  },
+  {
+    "id": "te_uta_john_collins",
+    "team_id": "uta",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 26600000,
+    "expires_date": "2026-07-07",
+    "source_player": "John Collins",
+    "source": "override"
+  },
+  {
+    "id": "te_was_kelly_olynyk",
+    "team_id": "was",
+    "season": "2026-27",
+    "kind": "tpe",
+    "amount": 13445122,
+    "expires_date": "2026-07-08",
+    "source_player": "Kelly Olynyk",
+    "source": "override"
   }
 ]

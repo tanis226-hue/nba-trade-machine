@@ -4,7 +4,7 @@ import { normalizePlayerId } from '@/lib/slug';
 import type { DbTeam, DbSeasonCap, RosterEntry, ContractYear, DbDraftPick, DbPlayerValue, DbPlayerBio } from './types';
 import {
   localSeasons, localTeams, localRoster, localDraftPicks, localPlayerValues, localPlayerBios, localSaveTrade, localGetTrade,
-  localFreeAgents, localTeamExceptions,
+  localFreeAgents, localTeamExceptions, localProjectedRecords,
 } from './local';
 import type { TeamException } from '@/lib/cba/types';
 import type { DbTeamException } from './types';
@@ -86,7 +86,8 @@ export async function getRoster(teamId: string, season: string): Promise<RosterE
         json_agg(
           json_build_object(
             'season', c.season, 'salary', c.salary::int, 'option_type', c.option_type,
-            'guarantee_status', c.guarantee_status, 'no_trade_clause', c.no_trade_clause
+            'guarantee_status', c.guarantee_status, 'no_trade_clause', c.no_trade_clause,
+            'trade_bonus_pct', c.trade_bonus_pct, 'trade_bonus_earned', c.trade_bonus_earned
           ) ORDER BY c.season
         ) FILTER (WHERE c.id IS NOT NULL), '[]'
       ) AS contract
@@ -169,11 +170,46 @@ export async function getTeamExceptions(season: string): Promise<Record<string, 
   return map;
 }
 
+export interface ProjectedRecord {
+  teamId: string;
+  wins: number;
+  losses: number;
+  winPct: number;
+  projectedSlot: number; // expected first-round draft slot (1 = worst record), a proxy for pick value + conveyance
+}
+
+/** Projected (or prior-season) records keyed by team id. Each team's expected first-round draft slot
+ *  is derived by ranking win% ascending (worst record => slot 1), the input pick value + conveyance need.
+ *  Degrades to {} when no data is present. */
+export async function getProjectedRecords(season: string): Promise<Record<string, ProjectedRecord>> {
+  let rows: { team_id: string; wins: number | null; losses: number | null }[] = [];
+  if (!hasDb()) {
+    rows = localProjectedRecords(season);
+  } else {
+    try {
+      rows = (await db()`SELECT team_id, wins, losses FROM team_projected_record WHERE season = ${season}`) as unknown as typeof rows;
+    } catch {
+      rows = localProjectedRecords(season);
+    }
+  }
+  if (!rows.length) rows = localProjectedRecords(season);
+
+  const recs = rows.map((r) => {
+    const w = Number(r.wins ?? 0);
+    const l = Number(r.losses ?? 0);
+    return { teamId: r.team_id, wins: w, losses: l, winPct: w + l > 0 ? w / (w + l) : 0 };
+  });
+  const slotByTeam = new Map([...recs].sort((a, b) => a.winPct - b.winPct).map((t, i) => [t.teamId, i + 1] as const));
+  const map: Record<string, ProjectedRecord> = {};
+  for (const t of recs) map[t.teamId] = { ...t, projectedSlot: slotByTeam.get(t.teamId) ?? 30 };
+  return map;
+}
+
 export async function getDraftPicks(teamId: string): Promise<DbDraftPick[]> {
   if (!hasDb()) return localDraftPicks(teamId);
   try {
     const rows = await db()`
-      SELECT id, owning_team_id, original_team_id, season, round, protections, is_swap, is_frozen
+      SELECT id, owning_team_id, original_team_id, season, round, protections, is_swap, is_frozen, conveyed, swap_direction
       FROM draft_picks WHERE owning_team_id = ${teamId}
       ORDER BY season, round`;
     if (rows.length) return rows as DbDraftPick[];
@@ -188,6 +224,10 @@ export interface TradePayload {
   teams: unknown;
   assets: unknown;
   contracts?: unknown;
+  // Captured so a reopened/shared trade re-validates exactly as the author saw it (date-aware
+  // eligibility keys off simulatedDate; the matching path differs for simultaneous vs TPE).
+  simulatedDate?: string;
+  tradeMethod?: string;
 }
 
 export async function saveTrade(payload: TradePayload): Promise<string> {
@@ -204,4 +244,52 @@ export async function getTrade(slug: string): Promise<TradePayload | null> {
   if (!hasDb()) return localGetTrade(slug) as TradePayload | null;
   const rows = await db()`SELECT payload FROM trades WHERE slug = ${slug}`;
   return rows[0] ? (rows[0].payload as TradePayload) : null;
+}
+
+export interface UserTradeListItem {
+  slug: string;
+  title: string;
+  season: string;
+  updatedAt: string;
+}
+
+// Save a trade under a signed-in user. A fresh save mints a slug; passing a slug the user already
+// owns overwrites that row in place (rename + new payload). The ON CONFLICT guard keys on user_id
+// so a guessed slug can never clobber another user's (or an anonymous) saved trade. Returns the slug.
+export async function saveUserTrade(args: {
+  userId: string;
+  title: string;
+  payload: TradePayload;
+  slug?: string;
+}): Promise<string> {
+  if (!hasDb()) throw new Error('Saving to an account requires the database');
+  const slug = args.slug ?? nanoid(10);
+  const title = args.title.trim().slice(0, 120) || 'Untitled trade';
+  await db()`
+    INSERT INTO trades (id, slug, payload, user_id, title, updated_at)
+    VALUES (${slug}, ${slug}, ${JSON.stringify(args.payload)}::jsonb, ${args.userId}, ${title}, now())
+    ON CONFLICT (slug) DO UPDATE
+      SET payload = excluded.payload, title = excluded.title, updated_at = now()
+      WHERE trades.user_id = ${args.userId}
+  `;
+  return slug;
+}
+
+export async function listUserTrades(userId: string): Promise<UserTradeListItem[]> {
+  if (!hasDb()) return [];
+  const rows = await db()`
+    SELECT slug, coalesce(title, 'Untitled trade') AS title, payload->>'season' AS season, updated_at
+    FROM trades WHERE user_id = ${userId} ORDER BY updated_at DESC
+  `;
+  return rows.map((r) => ({
+    slug: r.slug as string,
+    title: r.title as string,
+    season: (r.season as string) ?? '',
+    updatedAt: r.updated_at instanceof Date ? r.updated_at.toISOString() : String(r.updated_at),
+  }));
+}
+
+export async function deleteUserTrade(userId: string, slug: string): Promise<void> {
+  if (!hasDb()) return;
+  await db()`DELETE FROM trades WHERE slug = ${slug} AND user_id = ${userId}`;
 }

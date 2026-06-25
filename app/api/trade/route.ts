@@ -3,6 +3,13 @@ import { saveTrade } from '@/lib/data/queries';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const slug = await saveTrade({ season: body.season, teams: body.teams, assets: body.assets, contracts: body.contracts });
+  const slug = await saveTrade({
+    season: body.season,
+    teams: body.teams,
+    assets: body.assets,
+    contracts: body.contracts,
+    simulatedDate: body.simulatedDate,
+    tradeMethod: body.tradeMethod,
+  });
   return NextResponse.json({ slug });
 }
