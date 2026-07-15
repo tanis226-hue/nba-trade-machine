@@ -16,8 +16,7 @@ const body = Bricolage_Grotesque({ subsets: ["latin"], variable: "--ff-body" });
 const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--ff-mono" });
 
 export const metadata: Metadata = {
-  // TODO: set to the real deployed origin before launch.
-  metadataBase: new URL("https://nbatrademachine.app"),
+  metadataBase: new URL("https://nbatm.zldagroup.com"),
   title: "NBA Trade Machine - Accurate Multi-Team Trade Simulator",
   description:
     "Build 2-7 team NBA trades with real current contracts and exact 2023-CBA salary-matching, luxury-tax, and first/second-apron validation. Fast, correct, shareable.",

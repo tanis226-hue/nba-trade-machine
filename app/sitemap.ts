@@ -2,8 +2,7 @@ import type { MetadataRoute } from "next";
 import { getTeams } from "@/lib/data/queries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // TODO: set to the real deployed origin before launch.
-  const base = "https://nbatrademachine.app";
+  const base = "https://nbatm.zldagroup.com";
   const teams = await getTeams();
   return [
     { url: base, changeFrequency: "daily", priority: 1 },
