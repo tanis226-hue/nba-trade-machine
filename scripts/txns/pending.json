@@ -1,0 +1,119 @@
+{
+  "as_of": "2026-07-13",
+  "deals": [
+    {
+      "date": "2026-07-08",
+      "status": "final",
+      "reflected": true,
+      "summary": "Six-team trade: Wizards land Khris Middleton (sign-and-trade), Bucks get Caris LeVert, Pistons add Gary Harris, Taurean Prince and John Collins (S&T), Grizzlies get D’Angelo Russell, Mavericks get Santi Aldama and Marcus Sasser. Traded players reflected; the Middleton and Collins sign-and-trade legs await new-contract data.",
+      "moves": [
+        { "player": "Caris LeVert", "team": "mil" },
+        { "player": "Gary Harris", "team": "det" },
+        { "player": "Taurean Prince", "team": "det" },
+        { "player": "D'Angelo Russell", "team": "mem" },
+        { "player": "Santi Aldama", "team": "dal" },
+        { "player": "Marcus Sasser", "team": "dal" },
+        { "player": "A.J. Johnson", "team": "mem" },
+        { "player": "Khris Middleton", "team": "was", "reflect": false },
+        { "player": "John Collins", "team": "det", "reflect": false }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "status": "final",
+      "reflected": true,
+      "summary": "Lakers trade DeAndre Ayton to the Wizards for Jaden Hardy and two second-round picks.",
+      "moves": [
+        { "player": "DeAndre Ayton", "team": "was" },
+        { "player": "Jaden Hardy", "team": "lal" }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "status": "final",
+      "reflected": true,
+      "summary": "Rockets trade Dorian Finney-Smith and three second-round picks to the Hornets for a trade exception.",
+      "moves": [{ "player": "Dorian Finney-Smith", "team": "cha" }]
+    },
+    {
+      "date": "2026-07-01",
+      "status": "final",
+      "reflected": true,
+      "summary": "Celtics trade Jaylen Brown to the 76ers for Paul George, two first-round picks and two second-rounders. Player moves reflected; pick-ownership update pending.",
+      "moves": [
+        { "player": "Jaylen Brown", "team": "phi" },
+        { "player": "Paul George", "team": "bos" }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "status": "final",
+      "reflected": false,
+      "summary": "Lakers acquire Walker Kessler from the Jazz in a sign-and-trade (two firsts, two swaps). Cap reflection pending new-contract data.",
+      "moves": [{ "player": "Walker Kessler", "team": "lal", "reflect": false }]
+    },
+    {
+      "date": "2026-07-01",
+      "status": "final",
+      "reflected": false,
+      "summary": "Free-agency wave (reported; new contracts not yet in the cap sheets): Norman Powell (CHI), Mitchell Robinson (BOS), Andre Drummond (NYK), Quentin Grimes and Collin Sexton (LAL), Rui Hachimura (LAC), Luke Kennard (PHX), Kelly Oubre Jr. (IND), Tim Hardaway Jr. (MIA), Anfernee Simons (PHI), Kyle Anderson (TOR) and others change teams.",
+      "moves": [
+        { "player": "Norman Powell", "team": "chi", "reflect": false },
+        { "player": "Mitchell Robinson", "team": "bos", "reflect": false },
+        { "player": "Andre Drummond", "team": "nyk", "reflect": false },
+        { "player": "Quentin Grimes", "team": "lal", "reflect": false },
+        { "player": "Collin Sexton", "team": "lal", "reflect": false },
+        { "player": "Rui Hachimura", "team": "lac", "reflect": false },
+        { "player": "Luke Kennard", "team": "phx", "reflect": false },
+        { "player": "Kelly Oubre Jr.", "team": "ind", "reflect": false },
+        { "player": "Tim Hardaway Jr.", "team": "mia", "reflect": false },
+        { "player": "Anfernee Simons", "team": "phi", "reflect": false },
+        { "player": "Kyle Anderson", "team": "tor", "reflect": false }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "status": "pending",
+      "reflected": false,
+      "summary": "Reported Raptors acquisition of Kawhi Leonard from the Clippers (for Brandon Ingram, Gradey Dick and picks) is on hold pending an NBA investigation - not yet reflected.",
+      "moves": []
+    },
+    {
+      "date": "2026-06-29",
+      "status": "final",
+      "reflected": true,
+      "summary": "Trail Blazers acquire Ja Morant from the Grizzlies for Jerami Grant and Kris Murray.",
+      "moves": [
+        { "player": "Ja Morant", "team": "por" },
+        { "player": "Jerami Grant", "team": "mem" },
+        { "player": "Kris Murray", "team": "mem" }
+      ]
+    },
+    {
+      "date": "2026-06-29",
+      "status": "final",
+      "reflected": true,
+      "summary": "Hawks acquire Devin Carter from the Kings for a 2033 second-round pick.",
+      "moves": [{ "player": "Devin Carter", "team": "atl" }]
+    },
+    {
+      "date": "2026-06-28",
+      "status": "final",
+      "reflected": true,
+      "summary": "Suns acquire Miles Bridges from the Hornets for Grayson Allen, Royce O’Neale and draft compensation.",
+      "moves": [
+        { "player": "Miles Bridges", "team": "phx" },
+        { "player": "Grayson Allen", "team": "cha" },
+        { "player": "Royce O'Neale", "team": "cha" }
+      ]
+    },
+    {
+      "date": "2026-06-26",
+      "status": "final",
+      "reflected": true,
+      "summary": "Thunder trade Isaiah Joe to the Pistons for two future second-round picks.",
+      "moves": [{ "player": "Isaiah Joe", "team": "det" }]
+    }
+  ],
+  "extensions": []
+}

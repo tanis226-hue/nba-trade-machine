@@ -1,12 +1,52 @@
 [
   {
-    "id": "p_giannis_antetokounmpo",
-    "name": "Giannis Antetokounmpo",
+    "id": "p_aaron_wiggins",
+    "name": "Aaron Wiggins",
     "position": null,
-    "team_id": "mia",
+    "team_id": "atl",
     "age": null,
     "years_of_service": null,
     "source": "override"
+  },
+  {
+    "id": "p_aday_mara",
+    "name": "Aday Mara",
+    "position": "C",
+    "team_id": "okc",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_aj_dybantsa",
+    "name": "AJ Dybantsa",
+    "position": "F",
+    "team_id": "was",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_alex_karaban",
+    "name": "Alex Karaban",
+    "position": "F",
+    "team_id": "sac",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_allen_graves",
+    "name": "Allen Graves",
+    "position": "F",
+    "team_id": "tor",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_bennett_stirtz",
+    "name": "Bennett Stirtz",
+    "position": "G",
+    "team_id": "okc",
+    "age": null,
+    "years_of_service": 0
   },
   {
     "id": "p_bobby_portis",
@@ -18,89 +58,18 @@
     "source": "override"
   },
   {
-    "id": "p_tyler_herro",
-    "name": "Tyler Herro",
-    "position": null,
-    "team_id": "mil",
-    "age": null,
-    "years_of_service": null,
-    "source": "override"
-  },
-  {
-    "id": "p_jaime_jaquez_jr",
-    "name": "Jaime Jaquez Jr.",
-    "position": null,
-    "team_id": "mil",
-    "age": null,
-    "years_of_service": null,
-    "source": "override"
-  },
-  {
-    "id": "p_kel_el_ware",
-    "name": "Kel'el Ware",
-    "position": null,
-    "team_id": "mil",
-    "age": null,
-    "years_of_service": null,
-    "source": "override"
-  },
-  {
-    "id": "p_kasparas_jakucionis",
-    "name": "Kasparas Jakučionis",
-    "position": null,
-    "team_id": "mil",
-    "age": null,
-    "years_of_service": null,
-    "source": "override"
-  },
-  {
-    "id": "p_aaron_wiggins",
-    "name": "Aaron Wiggins",
-    "position": null,
-    "team_id": "atl",
-    "age": null,
-    "years_of_service": null,
-    "source": "override"
-  },
-  {
-    "id": "p_julius_randle",
-    "name": "Julius Randle",
-    "position": null,
-    "team_id": "bkn",
-    "age": null,
-    "years_of_service": null,
-    "source": "override"
-  },
-  {
-    "id": "p_nic_claxton",
-    "name": "Nic Claxton",
-    "position": null,
-    "team_id": "chi",
-    "age": null,
-    "years_of_service": null,
-    "source": "override"
-  },
-  {
-    "id": "p_darius_acuff_jr",
-    "name": "Darius Acuff Jr.",
+    "id": "p_brayden_burries",
+    "name": "Brayden Burries",
     "position": "G",
-    "team_id": "sac",
+    "team_id": "mil",
     "age": null,
     "years_of_service": 0
   },
   {
-    "id": "p_nate_ament",
-    "name": "Nate Ament",
+    "id": "p_caleb_wilson",
+    "name": "Caleb Wilson",
     "position": "F",
-    "team_id": "mia",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_christian_anderson",
-    "name": "Christian Anderson",
-    "position": "G",
-    "team_id": "cha",
+    "team_id": "chi",
     "age": null,
     "years_of_service": 0
   },
@@ -109,22 +78,6 @@
     "name": "Cameron Boozer",
     "position": "F",
     "team_id": "mem",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_mikel_brown_jr",
-    "name": "Mikel Brown Jr.",
-    "position": "G",
-    "team_id": "bkn",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_brayden_burries",
-    "name": "Brayden Burries",
-    "position": "G",
-    "team_id": "mil",
     "age": null,
     "years_of_service": 0
   },
@@ -145,154 +98,10 @@
     "years_of_service": 0
   },
   {
-    "id": "p_sergio_de_larrea",
-    "name": "Sergio De Larrea",
+    "id": "p_christian_anderson",
+    "name": "Christian Anderson",
     "position": "G",
-    "team_id": "dal",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_aj_dybantsa",
-    "name": "AJ Dybantsa",
-    "position": "F",
-    "team_id": "was",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_zuby_ejiofor",
-    "name": "Zuby Ejiofor",
-    "position": "F",
-    "team_id": "atl",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_kingston_flemings",
-    "name": "Kingston Flemings",
-    "position": "G",
-    "team_id": "atl",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_allen_graves",
-    "name": "Allen Graves",
-    "position": "F",
-    "team_id": "tor",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_joshua_jefferson",
-    "name": "Joshua Jefferson",
-    "position": "F",
-    "team_id": "min",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_morez_johnson",
-    "name": "Morez Johnson",
-    "position": "F",
-    "team_id": "dal",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_alex_karaban",
-    "name": "Alex Karaban",
-    "position": "F",
-    "team_id": "sac",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_yaxel_lendeborg",
-    "name": "Yaxel Lendeborg",
-    "position": "F",
-    "team_id": "gsw",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_karim_lopez",
-    "name": "Karim Lopez",
-    "position": "F",
-    "team_id": "mem",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_aday_mara",
-    "name": "Aday Mara",
-    "position": "C",
-    "team_id": "okc",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_ebuka_okorie",
-    "name": "Ebuka Okorie",
-    "position": "G",
-    "team_id": "det",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_koa_peat",
-    "name": "Koa Peat",
-    "position": "F",
-    "team_id": "phx",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_darryn_peterson",
-    "name": "Darryn Peterson",
-    "position": "G",
-    "team_id": "uta",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_labaron_philon",
-    "name": "Labaron Philon",
-    "position": "G",
-    "team_id": "phi",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_jayden_quaintance",
-    "name": "Jayden Quaintance",
-    "position": "F",
-    "team_id": "sas",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_tarris_reed_jr",
-    "name": "Tarris Reed Jr.",
-    "position": "C",
-    "team_id": "sas",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_hannes_steinbach",
-    "name": "Hannes Steinbach",
-    "position": "F",
     "team_id": "cha",
-    "age": null,
-    "years_of_service": 0
-  },
-  {
-    "id": "p_bennett_stirtz",
-    "name": "Bennett Stirtz",
-    "position": "G",
-    "team_id": "okc",
     "age": null,
     "years_of_service": 0
   },
@@ -305,6 +114,125 @@
     "years_of_service": 0
   },
   {
+    "id": "p_darius_acuff_jr",
+    "name": "Darius Acuff Jr.",
+    "position": "G",
+    "team_id": "sac",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_darryn_peterson",
+    "name": "Darryn Peterson",
+    "position": "G",
+    "team_id": "uta",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_ebuka_okorie",
+    "name": "Ebuka Okorie",
+    "position": "G",
+    "team_id": "det",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_giannis_antetokounmpo",
+    "name": "Giannis Antetokounmpo",
+    "position": null,
+    "team_id": "mia",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_hannes_steinbach",
+    "name": "Hannes Steinbach",
+    "position": "F",
+    "team_id": "cha",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_isaiah_stewart",
+    "name": "Isaiah Stewart",
+    "position": null,
+    "team_id": "mem",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_jaime_jaquez_jr",
+    "name": "Jaime Jaquez Jr.",
+    "position": null,
+    "team_id": "mil",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_jayden_quaintance",
+    "name": "Jayden Quaintance",
+    "position": "F",
+    "team_id": "sas",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_josh_green",
+    "name": "Josh Green",
+    "position": null,
+    "team_id": "min",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_joshua_jefferson",
+    "name": "Joshua Jefferson",
+    "position": "F",
+    "team_id": "min",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_julius_randle",
+    "name": "Julius Randle",
+    "position": null,
+    "team_id": "bkn",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_kam_jones",
+    "name": "Kam Jones",
+    "position": null,
+    "team_id": "chi",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_karim_lopez",
+    "name": "Karim Lopez",
+    "position": "F",
+    "team_id": "mem",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_kasparas_jakucionis",
+    "name": "Kasparas Jakučionis",
+    "position": null,
+    "team_id": "mil",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
     "id": "p_keaton_wagler",
     "name": "Keaton Wagler",
     "position": "G",
@@ -313,11 +241,335 @@
     "years_of_service": 0
   },
   {
-    "id": "p_caleb_wilson",
-    "name": "Caleb Wilson",
-    "position": "F",
-    "team_id": "chi",
+    "id": "p_kel_el_ware",
+    "name": "Kel'el Ware",
+    "position": null,
+    "team_id": "mil",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_kingston_flemings",
+    "name": "Kingston Flemings",
+    "position": "G",
+    "team_id": "atl",
     "age": null,
     "years_of_service": 0
+  },
+  {
+    "id": "p_koa_peat",
+    "name": "Koa Peat",
+    "position": "F",
+    "team_id": "phx",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_labaron_philon",
+    "name": "Labaron Philon",
+    "position": "G",
+    "team_id": "phi",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_lamelo_ball",
+    "name": "LaMelo Ball",
+    "position": null,
+    "team_id": "min",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_mikel_brown_jr",
+    "name": "Mikel Brown Jr.",
+    "position": "G",
+    "team_id": "bkn",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_morez_johnson",
+    "name": "Morez Johnson",
+    "position": "F",
+    "team_id": "dal",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_nate_ament",
+    "name": "Nate Ament",
+    "position": "F",
+    "team_id": "mia",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_naz_reid",
+    "name": "Naz Reid",
+    "position": null,
+    "team_id": "cha",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_nic_claxton",
+    "name": "Nic Claxton",
+    "position": null,
+    "team_id": "chi",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_sergio_de_larrea",
+    "name": "Sergio De Larrea",
+    "position": "G",
+    "team_id": "dal",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_tarris_reed_jr",
+    "name": "Tarris Reed Jr.",
+    "position": "C",
+    "team_id": "sas",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_tyler_herro",
+    "name": "Tyler Herro",
+    "position": null,
+    "team_id": "mil",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_yaxel_lendeborg",
+    "name": "Yaxel Lendeborg",
+    "position": "F",
+    "team_id": "gsw",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_zuby_ejiofor",
+    "name": "Zuby Ejiofor",
+    "position": "F",
+    "team_id": "atl",
+    "age": null,
+    "years_of_service": 0
+  },
+  {
+    "id": "p_isaiah_joe",
+    "name": "Isaiah Joe",
+    "position": null,
+    "team_id": "det",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_miles_bridges",
+    "name": "Miles Bridges",
+    "position": null,
+    "team_id": "phx",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_grayson_allen",
+    "name": "Grayson Allen",
+    "position": null,
+    "team_id": "cha",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_royce_o_neale",
+    "name": "Royce O'Neale",
+    "position": null,
+    "team_id": "cha",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_ja_morant",
+    "name": "Ja Morant",
+    "position": null,
+    "team_id": "por",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_jerami_grant",
+    "name": "Jerami Grant",
+    "position": null,
+    "team_id": "mem",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_kris_murray",
+    "name": "Kris Murray",
+    "position": null,
+    "team_id": "mem",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_devin_carter",
+    "name": "Devin Carter",
+    "position": null,
+    "team_id": "atl",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_jaylen_brown",
+    "name": "Jaylen Brown",
+    "position": null,
+    "team_id": "phi",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_paul_george",
+    "name": "Paul George",
+    "position": null,
+    "team_id": "bos",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_deandre_ayton",
+    "name": "DeAndre Ayton",
+    "position": null,
+    "team_id": "was",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_jaden_hardy",
+    "name": "Jaden Hardy",
+    "position": null,
+    "team_id": "lal",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_dorian_finney_smith",
+    "name": "Dorian Finney-Smith",
+    "position": null,
+    "team_id": "cha",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_caris_levert",
+    "name": "Caris LeVert",
+    "position": null,
+    "team_id": "mil",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_gary_harris",
+    "name": "Gary Harris",
+    "position": null,
+    "team_id": "det",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_taurean_prince",
+    "name": "Taurean Prince",
+    "position": null,
+    "team_id": "det",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_d_angelo_russell",
+    "name": "D'Angelo Russell",
+    "position": null,
+    "team_id": "mem",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_santi_aldama",
+    "name": "Santi Aldama",
+    "position": null,
+    "team_id": "dal",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_marcus_sasser",
+    "name": "Marcus Sasser",
+    "position": null,
+    "team_id": "dal",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_aj_johnson",
+    "name": "A.J. Johnson",
+    "position": null,
+    "team_id": "mem",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_sandro_mamukelashvili",
+    "name": "Sandro Mamukelashvili",
+    "position": null,
+    "team_id": "lal",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_marcus_smart",
+    "name": "Marcus Smart",
+    "position": null,
+    "team_id": "hou",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
+  },
+  {
+    "id": "p_bogdan_bogdanovic",
+    "name": "Bogdan Bogdanovic",
+    "position": null,
+    "team_id": "hou",
+    "age": null,
+    "years_of_service": null,
+    "source": "override"
   }
 ]
