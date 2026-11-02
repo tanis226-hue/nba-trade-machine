@@ -30,6 +30,7 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       REFRESH_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.database == 'isolated' && 'isolated' || 'production' }}
       # An absent isolated secret must NEVER fall back to the production connection.

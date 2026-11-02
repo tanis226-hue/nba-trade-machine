@@ -1,7 +1,7 @@
 {
   "season": "2026-27",
-  "version": "e64dc987bd5b0f72",
-  "checkedAt": "2026-11-02T13:51:12.739755+00:00",
+  "version": "cfa377fb73b4a579",
+  "checkedAt": "2026-11-02T18:20:31.213943+00:00",
   "rosterAsOf": "2026-11-02",
   "pickAsOf": "2026-11-02",
   "source": "Public SalarySwish cap sheets; ESPN roster biographies",
@@ -25176,8 +25176,8 @@
             {
               "season": "2027-28",
               "salary": 9976560,
-              "option_type": "team",
-              "guarantee_status": "non_guaranteed",
+              "option_type": "guaranteed",
+              "guarantee_status": "full",
               "no_trade_clause": false,
               "trade_bonus_pct": 0,
               "trade_bonus_earned": false
@@ -25484,7 +25484,7 @@
             {
               "season": "2027-28",
               "salary": 4988948,
-              "option_type": "team",
+              "option_type": "guaranteed",
               "guarantee_status": "non_guaranteed",
               "no_trade_clause": false,
               "trade_bonus_pct": 0,
