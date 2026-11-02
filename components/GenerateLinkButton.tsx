@@ -50,7 +50,7 @@ export function GenerateLinkButton() {
         disabled={busy}
         className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-2)]/50 py-2.5 font-display text-sm font-semibold uppercase tracking-[0.1em] text-[var(--text)] transition hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-50"
       >
-        {busy ? 'Generating…' : copied && url ? 'Link copied ✓' : 'Generate Trade Link'}
+        {busy ? 'Saving draft…' : copied && url ? 'Link copied ✓' : 'Share draft link'}
       </button>
       {url && (
         <input

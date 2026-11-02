@@ -115,10 +115,10 @@ export function TradeComments({ slug }: { slug: string }) {
   const pct = total ? Math.round((tally.up / total) * 100) : 0;
 
   return (
-    <section className="panel rounded-xl p-4">
-      <div className="text-[11px] uppercase tracking-[0.18em] text-[var(--faint)]">Community</div>
-      <h2 className="font-display text-xl font-bold uppercase tracking-tight text-[var(--text)]">
-        Verdict
+    <section className="panel community-panel rounded-xl p-5">
+      <p className="text-sm text-[var(--muted)]">Talk it over</p>
+      <h2 className="mt-1 text-xl font-bold text-[var(--text)]">
+        Would you make this trade?
       </h2>
       {error && <p role="alert" className="mt-2 text-xs text-[var(--illegal)]">{error}</p>}
 

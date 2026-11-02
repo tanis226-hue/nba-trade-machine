@@ -39,9 +39,9 @@ export function EditTradeButton({
   return (
     <button
       onClick={edit}
-      className="inline-block rounded-lg border border-[var(--accent)]/50 bg-[var(--accent)]/10 px-4 py-2 font-display text-sm font-semibold uppercase tracking-[0.1em] text-[var(--accent)] transition hover:bg-[var(--accent)]/20"
+      className="ui-button primary"
     >
-      Open in editor →
+      Open in builder
     </button>
   );
 }

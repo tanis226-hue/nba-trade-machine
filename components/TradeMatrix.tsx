@@ -57,6 +57,8 @@ export function TradeMatrix({
   const setPlayerSort = useTradeStore((s) => s.setPlayerSort);
 
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [viewedTeam,setViewedTeam]=useState<string|null>(null);
+  const currentTeam=teams.some(t=>t.abbr===viewedTeam)?viewedTeam:teams[0]?.abbr;
 
   const sensors = useSensors(
     // distance constraint so a click on a card's buttons isn't read as a drag
@@ -81,6 +83,7 @@ export function TradeMatrix({
   const byTeam = useMemo(() => Object.fromEntries(validation.perTeam.map((t) => [t.abbr, t])), [validation]);
   const isTrade = teams.length >= 2;
   const hasMoves = Object.values(assets).some((asset) => asset.fromTeam !== asset.toTeam);
+  const movedCount=Object.values(assets).filter(asset=>asset.fromTeam!==asset.toTeam).length;
 
   function onDragStart(e: DragStartEvent) {
     setActiveId(String(e.active.id));
@@ -118,71 +121,31 @@ export function TradeMatrix({
   ] as const;
 
   return (
-    <div className="space-y-4">
-      {teams.length >= 1 && (
-        <div className="panel flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl px-3.5 py-2.5 text-[12px]">
-          {hasMoves&&<a href="#trade-verdict" className="rounded bg-[var(--accent)] px-3 py-1.5 font-semibold text-[var(--ink)]">View result · {validation.valid?'review & share':`${validation.errors.length} to fix`} ↓</a>}
-          <div className="flex items-center gap-1.5">
-            <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Sort</span>
-            {SORTS.map(([mode, label]) => (
-              <button
-                key={mode}
-                onClick={() => setPlayerSort(mode)}
-                className={`rounded px-2 py-0.5 font-semibold transition ${
-                  playerSort === mode ? 'bg-[var(--accent)] text-[var(--ink)]' : 'bg-[var(--surface-2)] text-[var(--muted)] hover:text-[var(--text)]'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          {isTrade && (
-          <>
-          <div className="h-4 w-px bg-[var(--border)]" />
-          <label className="flex items-center gap-2 text-[var(--muted)]">
-            <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Trade date</span>
-            <input
-              type="date"
-              value={simulatedDate ?? defaultTradeDate(season)}
-              onChange={(e) => setSimulatedDate(e.target.value || undefined)}
-              className="rounded bg-[var(--surface-2)] px-2 py-1 text-[var(--text)] outline-none"
-            />
-            {simulatedDate && (
-              <button onClick={() => setSimulatedDate(undefined)} className="text-[var(--faint)] hover:text-[var(--text)]">
-                clear
-              </button>
-            )}
-          </label>
-          <div className="h-4 w-px bg-[var(--border)]" />
-          <div className="flex items-center gap-1.5">
-            <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Method</span>
-            {(['simultaneous', 'non_simultaneous'] as const).map((mth) => (
-              <button
-                key={mth}
-                onClick={() => setTradeMethod(mth)}
-                className={`rounded px-2 py-0.5 font-semibold transition ${
-                  tradeMethod === mth ? 'bg-[var(--accent)] text-[var(--ink)]' : 'bg-[var(--surface-2)] text-[var(--muted)] hover:text-[var(--text)]'
-                }`}
-              >
-                {mth === 'simultaneous' ? 'Simultaneous' : 'Non-simultaneous (TPE)'}
-              </button>
-            ))}
-          </div>
-          </>
-          )}
-          <div className="ml-auto flex items-center gap-2">
-            <span className="hidden text-[10px] text-[var(--faint)] sm:inline">
-              Drag a card into another team to trade it; reorder within a team.
-            </span>
-            <TradeRulesButton />
-          </div>
-        </div>
-      )}
-
+    <div className={hasMoves?'has-trade-moves':''}>
+      <p className="sr-only" role="status">{movedCount} assets moved. {hasMoves?(validation.valid?'No blocking trade issues.':'Trade needs changes.'):''}</p>
+      {hasMoves&&<a href="#trade-verdict" className="mobile-trade-action"><span>{movedCount} {movedCount===1?'asset':'assets'} moved <small>{validation.valid?'Ready to review':'Trade needs changes'}</small></span><strong>View trade check ↑</strong></a>}
+      <div className="workspace-grid">
+        <aside id="trade-verdict" className="panel trade-check" aria-labelledby="trade-check-heading">
+          <h2 id="trade-check-heading">Trade check</h2>
+          {isTrade&&hasMoves?<>
+            <ValidationFeed validation={validation} fixes={fixes} onAutoFix={autoFix.length?applyAutoFix:undefined} autoFixCount={autoFix.length}/>
+            <div className="trade-check-actions"><ExecuteTradeButton valid={validation.valid}/>{!validation.valid&&<GenerateLinkButton/>}{authEnabled&&<SaveTradeButton/>}</div>
+          </>:<div className="trade-check-empty"><strong>{isTrade?'Ready when you are.':'One more team, then game on.'}</strong>{isTrade?'Use “Send to” on a player card or add a draft pick. The salary and roster checks update with every move.':'Add another team above to build a trade. You can explore this roster in the meantime.'}</div>}
+          <details className="trade-settings"><summary>Trade settings</summary>
+            <label>Trade date<input aria-label="Trade date" type="date" value={simulatedDate??defaultTradeDate(season)} onChange={e=>setSimulatedDate(e.target.value||undefined)}/></label>
+            <label>Salary-matching method<select value={tradeMethod} onChange={e=>setTradeMethod(e.target.value as typeof tradeMethod)}><option value="simultaneous">Standard trade (simultaneous)</option><option value="non_simultaneous">Use trade exception (non-simultaneous)</option></select></label>
+            <p className="mt-2 text-xs text-[var(--muted)]">Leave the standard method selected unless you are modeling a trade exception.</p>
+          </details>
+          <TradeRulesButton/>
+        </aside>
+        <section className="workspace-rosters" aria-label="Team rosters">
+          <div className="workspace-controls"><h2>Build your deal</h2><label>Sort players<select aria-label="Sort players" value={playerSort} onChange={e=>setPlayerSort(e.target.value as typeof playerSort)}>{SORTS.map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label></div>
+          <div className="roster-team-switch" aria-label="Choose a roster">{teams.map(t=><button key={t.abbr} aria-label={`View ${t.abbr} roster`} aria-pressed={currentTeam===t.abbr} onClick={()=>setViewedTeam(t.abbr)}>{t.abbr}</button>)}</div>
+          <p className="mb-3 text-xs text-[var(--muted)]">Tap “Send to” to move a player. On desktop, you can also drag using the grip.</p>
       <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={onDragStart} onDragEnd={onDragEnd}>
-        <div className="scroll-x flex gap-3 overflow-x-auto pb-2">
+        <div className="scroll-x roster-columns">
           {teams.map((t) => (
-            <div key={t.abbr} className="snap-start">
+            <div key={t.abbr} className={`roster-column-wrap ${currentTeam!==t.abbr?'mobile-inactive':''}`}>
               <TeamColumn
                 abbr={t.abbr}
                 meta={teamMeta[t.abbr]}
@@ -209,27 +172,9 @@ export function TradeMatrix({
         </DragOverlay>
       </DndContext>
 
-      <TradeGrade />
-      <CapSheet />
-
-      {isTrade && hasMoves ? (
-        <div id="trade-verdict" className="grid scroll-mt-24 gap-3 md:grid-cols-[1fr_280px] md:items-stretch">
-          <ValidationFeed validation={validation} fixes={fixes} onAutoFix={autoFix.length ? applyAutoFix : undefined} autoFixCount={autoFix.length} />
-          <div className="space-y-2">
-            <ExecuteTradeButton valid={validation.valid} />
-            <GenerateLinkButton />
-            {authEnabled && <SaveTradeButton />}
-          </div>
-        </div>
-      ) : (
-        <div className="panel ticked flex items-center justify-center gap-2 rounded-xl px-5 py-4 text-center">
-          <span className="eyebrow">{isTrade ? 'Build your deal' : 'Inspecting one team'}</span>
-          <span className="text-[13px] text-[var(--muted)]">
-            {isTrade ? 'Move a player, pick, or cash to another team to see the checks.' : 'Add another team above to build and validate a trade.'}
-          </span>
-        </div>
-      )}
-
+        </section>
+      </div>
+      <details className="panel optional-analysis"><summary>Trade value &amp; future salaries</summary><div><TradeGrade/><CapSheet/></div></details>
       <PlayerCompare />
     </div>
   );

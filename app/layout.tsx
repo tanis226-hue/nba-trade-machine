@@ -41,11 +41,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>
-        <div className="grain" aria-hidden />
+      <body className="flex min-h-screen flex-col">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <header className="sticky top-0 z-30 border-b border-[var(--border-soft)] bg-[var(--bg)]/80 backdrop-blur-md">
-          <div className="accent-rule" />
-          <div className="mx-auto flex h-16 max-w-[1500px] items-center gap-3 px-4 sm:px-6">
+          <div className="mx-auto flex h-[72px] max-w-[1400px] items-center gap-3 px-4 sm:px-6">
             <Link href="/" className="group flex items-center gap-3">
               <span className="relative flex h-9 w-9 items-center justify-center rounded-[4px] bg-[var(--accent)] shadow-[0_6px_20px_-6px_var(--accent)]">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="var(--ink)" strokeWidth="1.6">
@@ -57,29 +56,23 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <span className="font-display text-[22px] font-bold uppercase leading-[0.85] tracking-[0.02em] text-[var(--text)]">
                   Trade Machine
                 </span>
-                <span className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.34em] text-[var(--faint)]">
-                  NBA · Cap & CBA Engine
+                <span className="mt-1 text-[11px] text-[var(--muted)]">
+                  Built for NBA fans
                 </span>
               </span>
             </Link>
             <div className="ml-auto flex items-center gap-3">
-              <span className="hidden font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--faint)] lg:block">
-                2026-27 · 2023 CBA
-              </span>
-              <span className="hidden items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)]/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--muted)] sm:inline-flex">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--legal)] opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--legal)]" />
-                </span>
-                Apron-aware
-              </span>
+              <nav aria-label="Main navigation" className="hidden items-center gap-6 pr-5 text-sm font-semibold sm:flex">
+                <Link href="/" className="hover:text-[var(--accent)]">Trade builder</Link>
+                <Link href="/#how-it-works" className="text-[var(--muted)] hover:text-[var(--accent)]">How it works</Link>
+              </nav>
               <ThemeToggle />
               {authEnabled && <AuthControls />}
             </div>
           </div>
         </header>
 
-        <div className="mx-auto flex max-w-[1500px] justify-center gap-6 px-4 sm:px-6">
+        <div className="mx-auto flex w-full max-w-[1400px] flex-1 justify-center gap-6 px-4 sm:px-6">
           {adsEnabled && (
             <aside className="hidden shrink-0 pt-8 2xl:block">
               <div className="sticky top-24">
@@ -87,7 +80,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </div>
             </aside>
           )}
-          <div className={`w-full min-w-0 max-w-5xl pt-8 ${adsEnabled ? "pb-28" : "pb-16"}`}>{children}</div>
+          <div id="main-content" tabIndex={-1} className={`w-full min-w-0 pt-8 outline-none ${adsEnabled ? "pb-28" : "pb-12"}`}>{children}</div>
           {adsEnabled && (
             <aside className="hidden shrink-0 pt-8 2xl:block">
               <div className="sticky top-24">
@@ -97,7 +90,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           )}
         </div>
 
-        <footer className="fixed inset-x-0 bottom-0 z-20 flex flex-col items-center gap-1 border-t border-[var(--border-soft)] bg-[var(--bg-elev)]/92 py-2 backdrop-blur">
+        <footer className="flex flex-col items-center gap-1 border-t border-[var(--border-soft)] py-6">
           {adsEnabled && (
             <>
               <div className="md:hidden">
@@ -108,7 +101,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </div>
             </>
           )}
-          <p className="px-4 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--faint)]">
+          <p className="px-4 text-center text-xs text-[var(--muted)]">
             Public salary data · Fan simulation · Not affiliated with the NBA
           </p>
         </footer>

@@ -32,18 +32,18 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
   const list = Object.values(assets);
 
   return (
-    <main className="rise space-y-5">
-      <div className="stagger">
-        <div className="eyebrow flex items-center gap-2.5">
-          <span className="h-px w-8 bg-[var(--accent)]" /> Shared {hasMoves?'proposal':'board'} · {payload.season}
+    <main className="mx-auto max-w-4xl space-y-6">
+      <div>
+        <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
+          Shared {hasMoves?'proposal':'board'} · {payload.season}
         </div>
-        <h1 className="mt-2 font-display text-5xl font-extrabold uppercase leading-[0.85] tracking-tight text-[var(--text)] sm:text-6xl">
-          {hasMoves?'Proposed Trade':'Saved Board'}
+        <h1 className="mt-3 font-display text-5xl font-bold leading-tight text-[var(--text)]">
+          {hasMoves?`${teams.map(t=>t.abbr).join(' / ')} proposal`:'Saved board'}
         </h1>
         {hasMoves&&<p className="mt-2 text-[13px] text-[var(--muted)]">{grade.verdict}</p>}
-        <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
+        <details className="mt-3 text-xs text-[var(--muted)]"><summary className="min-h-10">Saved inputs &amp; assumptions</summary><p className="mt-2 max-w-prose leading-relaxed">
           {!hasMoves?'This older link contains a saved board with no assets exchanged. Open it in the editor to build a proposal.':payload.rulesVersion ? `Saved with rules ${payload.rulesVersion} · data ${payload.dataVersion} · trade date ${payload.simulatedDate}. The saved verdict is preserved; opening in the editor runs the current checks.` : 'Legacy proposal: recalculated with current rules. Its original data version was not recorded.'}
-        </p>
+        </p></details>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
@@ -56,7 +56,7 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
             <div key={a.id} className="flex items-center gap-2 text-sm">
               {a.kind === 'player' && a.headshot ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={a.headshot} alt="" className="h-6 w-6 shrink-0 rounded-full bg-[var(--surface-2)] object-cover object-top ring-1 ring-[var(--border)]" />
+                <img src={a.headshot} alt="" width={24} height={24} className="h-6 w-6 shrink-0 rounded-full bg-[var(--surface-2)] object-cover object-top ring-1 ring-[var(--border)]" />
               ) : (
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--surface-2)] text-[10px] text-[var(--faint)]">
                   {a.kind === 'pick' ? '◆' : a.kind === 'cash' ? '$' : ''}
@@ -73,7 +73,7 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={teamLogo(t.abbr)} alt={t.abbr} className="h-7 w-7 object-contain" />
+                  <img src={teamLogo(t.abbr)} alt={t.abbr} width={28} height={28} className="h-7 w-7 object-contain" />
                   <div className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">{t.abbr}</div>
                 </div>
                 <div className={`num text-xs font-semibold ${net >= 0 ? 'text-[var(--legal)]' : 'text-[var(--illegal)]'}`}>
@@ -104,8 +104,8 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
       {hasMoves?<ValidationFeed validation={validation}/>:<div className="panel rounded-xl p-4 text-sm text-[var(--muted)]">No trade verdict yet. Add a second team if needed, then move an asset to run the checks.</div>}
       <div className="flex flex-wrap items-center gap-3">
         <EditTradeButton season={payload.season} teams={teams} assets={assets} simulatedDate={payload.simulatedDate} tradeMethod={tradeMethod} dataVersion={payload.dataVersion} />
-        <Link href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">
-          Build your own trade →
+        <Link href="/" className="ui-button">
+          Build another trade
         </Link>
       </div>
       <TradeComments slug={slug} />

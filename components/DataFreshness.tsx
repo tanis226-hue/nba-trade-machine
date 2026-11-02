@@ -4,7 +4,7 @@ type SnapshotStatus={rosterAsOf:string;pickAsOf:string;loadedFrom:'database'|'bu
 const fmt=(iso:string)=>new Date(iso.length===10?iso+'T00:00:00':iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 export function DataFreshness({snapshot}:{snapshot?:SnapshotStatus}) {
   const [open,setOpen]=useState(false);
-  return <div className="panel rounded-xl px-3.5 py-2.5 text-xs">
+  return <div className="data-freshness text-xs">
     <button onClick={()=>setOpen(v=>!v)} aria-expanded={open} className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 text-left">
       <span className="font-semibold text-[var(--text)]">Rosters &amp; contracts · {fmt(snapshot?.rosterAsOf??'2026-06-01')}</span>
       <span className="text-[var(--warn)]">Picks · {fmt(snapshot?.pickAsOf??'2026-06-01')}</span>

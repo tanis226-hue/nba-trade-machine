@@ -23,7 +23,7 @@ export function TradeGrade() {
           {grade.verdict}
         </span>
       </div>
-      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${grade.teams.length}, minmax(0, 1fr))` }}>
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-4">
         {grade.teams.map((t) => (
           <div key={t.abbr} className="rounded-lg border border-[var(--border-soft)] bg-[var(--surface-2)]/40 p-2">
             <div className="font-display text-sm font-bold text-[var(--text)]">{t.abbr}</div>

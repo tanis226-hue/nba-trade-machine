@@ -18,8 +18,8 @@ function Space({ label, value, hint }: { label: string; value: number; hint: str
   const over = value < 0;
   return (
     <div className="flex cursor-help flex-col items-start" title={`${hint} ${over ? `Currently over by ${m(-value)}.` : `${m(value)} of room.`}`}>
-      <span className="text-[9px] uppercase tracking-wide text-[var(--faint)]">{label}</span>
-      <span className="num text-[11px] font-semibold" style={{ color: over ? 'var(--illegal)' : 'var(--legal)' }}>
+      <span className="text-[11px] text-[var(--faint)]">{label}</span>
+      <span className="num text-[12px] font-semibold" style={{ color: over ? 'var(--illegal)' : 'var(--legal)' }}>
         {over ? '-' : ''}
         {m(Math.abs(value))}
       </span>
@@ -43,7 +43,7 @@ export function TeamCapPanel({ result }: { result?: TeamResult }) {
       <div className="flex items-center justify-between">
         <span
           title={tier.hint}
-          className="cursor-help rounded px-1.5 py-0.5 font-display text-[11px] font-semibold uppercase tracking-wide"
+          className="cursor-help rounded px-1.5 py-0.5 font-display text-[12px] font-semibold uppercase tracking-wide"
           style={{ color: tier.color, backgroundColor: `color-mix(in srgb, ${tier.color} 16%, transparent)` }}
         >
           {tier.label}

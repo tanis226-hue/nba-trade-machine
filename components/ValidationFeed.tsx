@@ -56,7 +56,7 @@ export function ValidationFeed({
 
   return (
     <div
-      className="rounded-xl border px-4 py-3"
+      className="validation-feed rounded-xl border px-4 py-3"
       style={{
         borderColor: `color-mix(in srgb, ${statusColor} 30%, transparent)`,
         backgroundColor: `color-mix(in srgb, ${statusColor} 10%, transparent)`,
@@ -76,20 +76,21 @@ export function ValidationFeed({
         <TradeRulesButton className="ml-auto bg-transparent text-[var(--muted)] hover:text-[var(--text)]" />
       </div>
 
-      {blocks.length > 0 && (
+        {blocks.length > 0 && (
         <ul className="space-y-1.5">
-          {blocks.map((f, i) => (
+          {blocks.slice(0,2).map((f, i) => (
             <Finding key={`b${i}`} f={f} />
           ))}
         </ul>
       )}
 
+      {blocks.length>2&&<details className="mt-3"><summary className="min-h-10 text-xs font-semibold">{blocks.length-2} more {blocks.length===3?'issue':'issues'} to resolve</summary><ul className="mt-2 space-y-3">{blocks.slice(2).map((f,i)=><Finding key={i} f={f}/>)}</ul></details>}
       {notes.length > 0 && (
-        <ul className={`space-y-1.5 ${blocks.length ? 'mt-2 border-t border-[var(--border)] pt-2' : ''}`}>
+        <details className="mt-3 border-t border-[var(--border)] pt-2"><summary className="min-h-10 text-xs font-semibold">{notes.length} {notes.length===1?'note':'notes'} &amp; assumptions</summary><ul className="mt-2 space-y-3">
           {notes.map((f, i) => (
             <Finding key={`n${i}`} f={f} />
           ))}
-        </ul>
+        </ul></details>
       )}
 
       {valid && notes.length === 0 && (
