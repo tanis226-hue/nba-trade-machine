@@ -1,6 +1,13 @@
-import { describe,it,expect } from 'vitest';
+import {afterEach,describe,it,expect,vi} from 'vitest';
 import { readJson } from '../request';
+afterEach(()=>vi.unstubAllEnvs());
 describe('bounded JSON requests',()=>{
+  it('accepts the deployment origin behind a proxy while rejecting spoofed forwarded hosts',async()=>{
+    vi.stubEnv('NBA_DEPLOY_ORIGINS','https://deploy-preview-20--nbatmz.netlify.app');
+    const req=(origin:string)=>new Request('http://internal:3000/api/trade',{method:'POST',body:'{}',headers:{'Content-Type':'application/json',Origin:origin,'X-Forwarded-Host':'unrelated.test'}});
+    await expect(readJson(req('https://deploy-preview-20--nbatmz.netlify.app'))).resolves.toEqual({});
+    await expect(readJson(req('https://unrelated.test'))).rejects.toMatchObject({status:403});
+  });
   it('rejects cross-origin writes, unsupported content types, and malformed JSON',async()=>{
     const req=(body:string,headers:Record<string,string>)=>new Request('https://nba.test/api/trade',{method:'POST',body,headers});
     await expect(readJson(req('{}',{'Content-Type':'application/json',Origin:'https://other.test'}))).rejects.toMatchObject({status:403});

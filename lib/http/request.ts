@@ -3,7 +3,11 @@ export class RequestError extends Error {
 }
 export async function readJson(req:Request,maxBytes=256_000):Promise<unknown> {
   const origin=req.headers.get('origin');
-  if(origin && origin!==new URL(req.url).origin) throw new RequestError(403,'Cross-site writes are not allowed');
+  const allowed=new Set([new URL(req.url).origin]);
+  for(const value of (process.env.NBA_DEPLOY_ORIGINS??'').split(',')) {
+    try {const url=new URL(value);if(url.protocol==='https:')allowed.add(url.origin);}catch{}
+  }
+  if(origin && !allowed.has(origin)) throw new RequestError(403,'Cross-site writes are not allowed');
   if(!req.headers.get('content-type')?.toLowerCase().startsWith('application/json')) throw new RequestError(415,'Send application/json');
   const length=Number(req.headers.get('content-length'));
   if(length>maxBytes) throw new RequestError(413,'Request is too large');

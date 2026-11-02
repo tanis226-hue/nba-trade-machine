@@ -16,11 +16,12 @@ The release supports a fan building a multi-team proposal, understanding a block
 
 ## Validation
 
-- 220 tests across 35 files, lint, TypeScript, structural data audit and legacy transaction consistency checks pass. Tests include failed-save behavior, versioned sharing, source conflicts, active/dead salary separation, draft-rights ownership and same-year Stepien holdings.
+- 222 tests across 36 files are covered by the release verification, including failed-save behavior, proxy-origin validation, hosted client isolation, versioned sharing, source conflicts, active/dead salary separation, draft-rights ownership and same-year Stepien holdings. Lint, TypeScript, structural data audit and legacy transaction consistency checks pass.
 - Production build passes. Clerk's required middleware convention remains, with a Next deprecation warning; Google font fallback is configured explicitly.
 - Additive migrations 0010 (public-write limits) and 0011 (versioned snapshots) were tested on an isolated Neon branch. Snapshot publication/readback verified all 30 teams and version e64dc987bd5b0f72.
 - Isolated production-server smoke verified durable create/reopen, server-saved verdicts, malformed/oversized/cross-origin rejection, comment bounds, vote deduplication and database-backed throttling. Hosted preview reopens the isolated local-created slug.
 - Source and production preview verification, scheduled-refresh proof and final browser checks are release gates; record their actual outcomes in the launch report. Do not infer live readiness from a local test result.
+- Hosted Chrome checks verify direct-link reopening in the editor, saved inputs, season reload, 390×844 routing/result access, and dialog focus/escape restoration. In-app browser controls were inconsistent; this is not a Safari compatibility certification. Chrome exposed a proxy-origin rejection, now regression-tested using public deployment URLs captured at build time. Runtime hosted detection uses Netlify's documented SITE_ID variable so missing NETLIFY does not enable filesystem persistence or a shared local throttle bucket.
 
 ## Model boundaries
 

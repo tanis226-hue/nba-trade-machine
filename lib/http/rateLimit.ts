@@ -1,11 +1,12 @@
 import { createHash } from 'node:crypto';
 import { db,hasDb } from '@/lib/data/db';
 import { RequestError } from './request';
+import {isNetlify} from '@/lib/platform';
 
 const local=new Map<string,{hits:number;reset:number}>();
 export async function limitWrite(req:Request,action:string,limit=20) {
   // Netlify replaces this header at the edge. Never trust arbitrary X-Forwarded-For.
-  const ip=process.env.NETLIFY==='true'?req.headers.get('x-nf-client-connection-ip'):null;
+  const ip=isNetlify()?req.headers.get('x-nf-client-connection-ip'):null;
   const key=createHash('sha256').update(`${action}:${ip??'local'}`).digest('hex');
   if(hasDb()) {
     const rows=await db()`INSERT INTO public_write_limits (key,hits,reset_at)
@@ -17,7 +18,7 @@ export async function limitWrite(req:Request,action:string,limit=20) {
     if(Number(rows[0]?.hits)>limit) throw new RequestError(429,'Too many requests. Try again in 15 minutes.');
     return;
   }
-  if(process.env.NETLIFY==='true') throw new RequestError(503,'Sharing is temporarily unavailable. Your board is saved in this browser.');
+  if(isNetlify()) throw new RequestError(503,'Sharing is temporarily unavailable. Your board is saved in this browser.');
   const now=Date.now(); const bucket=local.get(key);
   const next=bucket&&bucket.reset>now?{...bucket,hits:bucket.hits+1}:{hits:1,reset:now+900_000};
   local.set(key,next);

@@ -9,6 +9,7 @@ import {
 import type { TeamException } from '@/lib/cba/types';
 import { tradeSchema,validSlug } from '@/lib/trades/schema';
 import { getRosterSnapshot } from './rosterSnapshot';
+import {isNetlify} from '@/lib/platform';
 import type { DbTeamException } from './types';
 
 export interface PlayerMeta {
@@ -255,7 +256,7 @@ export interface TradePayload {
 export async function saveTrade(payload: TradePayload): Promise<string> {
   const slug = nanoid(10);
   if (!hasDb()) {
-    if (process.env.NETLIFY === 'true') throw new Error('Durable trade storage is not configured');
+    if (isNetlify()) throw new Error('Durable trade storage is not configured');
     localSaveTrade(slug, payload);
     return slug;
   }

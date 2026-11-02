@@ -110,7 +110,7 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
               </Rule>
 
               <Rule title="Cash in trades">
-                <p>A team can send or receive at most <Hi>{fm(cash)}</Hi> in cash per season, and the send and receive limits are <Hi>separate</Hi>. Second-apron teams cannot send or receive cash at all. Cash never counts toward salary matching.</p>
+                <p>A team can send or receive at most <Hi>{fm(cash)}</Hi> in cash per season, and the send and receive limits are <Hi>separate</Hi>. Second-apron teams cannot send cash. Cash never counts toward salary matching; prior cash usage must also be checked.</p>
               </Rule>
 
               <Rule title="Draft picks">
