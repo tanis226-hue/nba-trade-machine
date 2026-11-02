@@ -41,11 +41,13 @@ export function ValidationFeed({
   fixes = [],
   onAutoFix,
   autoFixCount = 0,
+  hideRules = false,
 }: {
   validation: TradeValidation;
   fixes?: FixSuggestion[];
   onAutoFix?: () => void;
   autoFixCount?: number;
+  hideRules?: boolean;
 }) {
   const findings = validation.findings ?? validation.errors;
   const blocks = findings.filter((f) => f.severity === 'block');
@@ -73,7 +75,7 @@ export function ValidationFeed({
           {valid ? '✓' : '!'}
         </span>
         {valid ? needsReview?'Review assumptions':'Passes modeled checks' : 'Trade needs changes'}
-        <TradeRulesButton className="ml-auto bg-transparent text-[var(--muted)] hover:text-[var(--text)]" />
+        {!hideRules&&<TradeRulesButton className="ml-auto bg-transparent text-[var(--muted)] hover:text-[var(--text)]" />}
       </div>
 
         {blocks.length > 0 && (

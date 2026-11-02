@@ -322,7 +322,6 @@ summary { display: flex; align-items: center; gap: 12px; }
 .data-freshness { padding: 0 0 12px; color: var(--muted); }
 .validation-feed { padding: 14px; border-radius: 8px; }
 .validation-feed > div:first-child { font-family: var(--ff-body),sans-serif; text-transform: none; letter-spacing: normal; font-size: 14px; align-items: flex-start; }
-.validation-feed > div:first-child > button { display: none; }
 .validation-feed li { font-size: 13px; line-height: 1.55; }
 .validation-feed li > span:first-child { font-size: 11px; }
 .validation-feed > ul { display: grid; gap: 14px; }

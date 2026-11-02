@@ -128,7 +128,7 @@ export function TradeMatrix({
         <aside id="trade-verdict" className="panel trade-check" aria-labelledby="trade-check-heading">
           <h2 id="trade-check-heading">Trade check</h2>
           {isTrade&&hasMoves?<>
-            <ValidationFeed validation={validation} fixes={fixes} onAutoFix={autoFix.length?applyAutoFix:undefined} autoFixCount={autoFix.length}/>
+            <ValidationFeed hideRules validation={validation} fixes={fixes} onAutoFix={autoFix.length?applyAutoFix:undefined} autoFixCount={autoFix.length}/>
             <div className="trade-check-actions"><ExecuteTradeButton valid={validation.valid}/>{!validation.valid&&<GenerateLinkButton/>}{authEnabled&&<SaveTradeButton/>}</div>
           </>:<div className="trade-check-empty"><strong>{isTrade?'Ready when you are.':'One more team, then game on.'}</strong>{isTrade?'Use “Send to” on a player card or add a draft pick. The salary and roster checks update with every move.':'Add another team above to build a trade. You can explore this roster in the meantime.'}</div>}
           <details className="trade-settings"><summary>Trade settings</summary>
