@@ -75,7 +75,9 @@ function relationships(p:z.infer<typeof payloadObject>,ctx:z.RefinementCtx,requi
 export const tradeSchema=payloadObject.strict().superRefine(relationships);
 // Older links could store a single-team inspection or an untouched board. Keep them readable
 // with all field/routing safety checks; current write endpoints still require a real proposal.
-export const storedTradeSchema=payloadObject.extend({teams:z.array(teamInput).min(1).max(7)}).strict().superRefine((p,ctx)=>relationships(p,ctx,false));
+export const storedTradeSchema=payloadObject.extend({teams:z.array(teamInput).min(1).max(7),
+  tradeMethod:z.enum(['simultaneous','non_simultaneous','sign_and_trade']).optional().transform(v=>v==='sign_and_trade'?undefined:v),
+}).strict().superRefine((p,ctx)=>relationships(p,ctx,false));
 export const saveTradeSchema=payloadObject.extend({title:z.string().trim().min(1).max(120),slug:z.string().regex(/^[A-Za-z0-9_-]{10}$/).optional()}).strict().superRefine(relationships);
 export type TradeRequest=z.infer<typeof tradeSchema>;
 export const validSlug=(v:string)=>/^[A-Za-z0-9_-]{10}$/.test(v);

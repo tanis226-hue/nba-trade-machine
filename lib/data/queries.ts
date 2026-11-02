@@ -249,6 +249,7 @@ export interface TradePayload {
   schemaVersion?: number;
   rulesVersion?: string;
   dataVersion?: string;
+  legacyMethodReview?: boolean;
   createdAt?: string;
   validation?: import('@/lib/cba/types').TradeValidation;
 }
@@ -271,7 +272,7 @@ export async function getTrade(slug: string): Promise<TradePayload | null> {
   const payload=raw as TradePayload;
   const parsed=storedTradeSchema.safeParse({season:payload.season,teams:payload.teams,assets:payload.assets,contracts:payload.contracts,simulatedDate:payload.simulatedDate,tradeMethod:payload.tradeMethod,dataVersion:payload.dataVersion});
   if(!parsed.success) return null;
-  return {...payload,...parsed.data};
+  return {...payload,...parsed.data,legacyMethodReview:payload.tradeMethod==='sign_and_trade'};
 }
 
 export interface UserTradeListItem {

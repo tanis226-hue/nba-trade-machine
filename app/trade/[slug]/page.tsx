@@ -19,12 +19,13 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
   const payload = await getTrade(slug);
   if (!payload) notFound();
 
-  const teams = payload.teams as TradeTeamInput[];
+  const methodNote='This older board used sign-and-trade as its matching method. Confirm the current matching method and player sign-and-trade flags before relying on the checks.';
+  const teams = (payload.teams as TradeTeamInput[]).map(t=>payload.legacyMethodReview?{...t,dataNotes:[...(t.dataNotes??[]),methodNote]}:t);
   const assets = payload.assets as Record<string, TradeAsset>;
   const tradeMethod = payload.tradeMethod as TradeMethod | undefined;
   const hasMoves=teams.length>=2&&Object.values(assets).some(a=>a.fromTeam!==a.toTeam);
   // Re-validate with the author's date + method so the verdict matches what they saw when sharing.
-  const validation = payload.schemaVersion === 1 && payload.validation
+  const validation = payload.schemaVersion === 1 && payload.validation && !payload.legacyMethodReview
     ? payload.validation
     : selectValidation({ season: payload.season, teams, assets, simulatedDate: payload.simulatedDate, tradeMethod });
   const grade = gradeTrade(teams, Object.values(assets));

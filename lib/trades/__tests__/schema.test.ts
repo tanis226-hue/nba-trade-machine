@@ -9,6 +9,11 @@ describe('public trade boundary',()=>{
     expect(storedTradeSchema.safeParse(board).success).toBe(true);
     expect(tradeSchema.safeParse(board).success).toBe(false);
   });
+  it('reads the obsolete sign-and-trade method without carrying it into current matching',()=>{
+    const board={season:'2026-27',teams:[{abbr:'BOS',preTradeSalary:180_000_000}],assets:{},tradeMethod:'sign_and_trade'};
+    expect(storedTradeSchema.parse(board).tradeMethod).toBeUndefined();
+    expect(tradeSchema.safeParse(board).success).toBe(false);
+  });
   it('reads a legacy untouched two-team board while rejecting a new empty share',()=>{
     const board=proposal();board.assets.player.toTeam='BOS';
     expect(storedTradeSchema.safeParse(board).success).toBe(true);
