@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { filterContracts, guaranteeLabel, listedCommitments, listedSeasons, salaryFor } from '../contractsPortal';
+import { filterContracts, formatCompactCapHit, guaranteeLabel, listedCommitments, listedSeasons, salaryFor } from '../contractsPortal';
 import type { ContractFilters, ContractPortalRow } from '../contractsPortal';
 
 const filters:ContractFilters = {query:'',team:'',position:'',feature:'',sort:'salary',year:'2027-28',direction:'desc'};
@@ -12,6 +12,13 @@ const year = (season:string,salary:number,extras:Partial<ContractPortalRow['cont
 });
 
 describe('contracts portal data boundaries',()=>{
+  it.each([
+    [59_033_114,'$59M'],
+    [62_587_158,'$62.6M'],
+    [0,'$0'],
+  ])('renders compact cap hit %s as %s across server and client runtimes',(salary,expected)=>{
+    expect(formatCompactCapHit(salary as number)).toBe(expected);
+  });
   it('keeps an unlisted future year separate from a reported $0 cap charge in both sort directions',()=>{
     const rows = [row('Unlisted',[year('2026-27',10)]),row('Zero',[year('2027-28',0)],{isTwoWay:true}),row('Paid',[year('2027-28',20)])];
     expect(filterContracts(rows,filters,'2026-27').map(item=>item.name)).toEqual(['Paid','Zero','Unlisted']);

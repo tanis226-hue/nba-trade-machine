@@ -1,5 +1,16 @@
 import type { ContractYear, DbTeam, RosterEntry } from './types';
 
+// Node 22 and newer browser runtimes choose different currency fraction defaults.
+// Set both bounds so the server and client produce identical hydration text.
+const compactCapHit = new Intl.NumberFormat('en-US', {
+  style: 'currency', currency: 'USD', notation: 'compact',
+  minimumFractionDigits: 0, maximumFractionDigits: 1,
+});
+
+export function formatCompactCapHit(salary: number): string {
+  return compactCapHit.format(salary);
+}
+
 export interface ContractPortalRow {
   id: string;
   playerId: string;
