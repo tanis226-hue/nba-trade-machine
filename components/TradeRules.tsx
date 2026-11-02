@@ -102,7 +102,7 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
                   <li><Hi>Salary cap {fm(cap.salaryCap)}</Hi> - a soft cap. Teams go over it using exceptions, so most contenders are above it.</li>
                   <li><Hi>Luxury tax {fm(cap.taxLine)}</Hi> - go over and you pay an escalating penalty on every dollar above the line.</li>
                   <li><Hi>First apron {fm(cap.firstApron)}</Hi> - a harder ceiling: you lose tools (see below) and your trade take-back drops to 1:1.</li>
-                  <li><Hi>Second apron {fm(cap.secondApron)}</Hi> - the strictest tier: no combining salaries, no trade exceptions, no cash, and a frozen future pick.</li>
+                  <li><Hi>Second apron {fm(cap.secondApron)}</Hi> - the strictest tier: aggregation and exception restrictions, a frozen future pick, and a ceiling a cash sender must meet after its trade.</li>
                 </ul>
               </Rule>
 
@@ -130,7 +130,9 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
               </Rule>
 
               <Rule title="Cash in trades">
-                <p>A team can send or receive at most <Hi>{fm(cash)}</Hi> in cash per season, and the send and receive limits are <Hi>separate</Hi>. Second-apron teams cannot send cash. Cash never counts toward salary matching; prior cash usage must also be checked.</p>
+                <p>The modeled cash allowance is <Hi>5.15% of the salary cap</Hi>, allowing at most <Hi>{Math.floor(cash).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Hi> in whole dollars each way during {season}. Prior transactions and reimbursements consume the <Hi>separate gross sent and received limits</Hi>; receiving cash never replenishes the sending allowance.</p>
+                <p>Sending cash triggers a <Hi>second-apron hard cap after the transaction</Hi>. A team can shed salary in the same deal to get at or below that line; an existing tighter hard cap still applies. Cash never counts toward payroll or salary matching. Enter prior cash usage under each team’s Cash allowances; blank balances remain unknown.</p>
+                <p>Sending cash after the regular season through June 30 also requires next-year apron checks, which need additional payroll and option assumptions.</p>
               </Rule>
 
               <Rule title="Draft picks">
