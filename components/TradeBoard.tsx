@@ -92,6 +92,7 @@ export function TradeBoard({
   const teamMeta = useMemo(() => Object.fromEntries(teams.map((t) => [t.abbr, t])), [teams]);
 
   function add(team: DbTeam) {
+    if(useTradeStore.getState().season!==rosterSeason)return;
     const roster = rosters[team.abbr] ?? [];
     const reported=payroll?.[team.id];
     const sal = computeTeamSalary(roster.map((r) => r.salary), ACTIVE_SEASON);
@@ -214,7 +215,7 @@ export function TradeBoard({
       </div>}
       {capYear !== ACTIVE_SEASON.season && (
         <p className="rounded-xl border border-[var(--warn)]/40 bg-[var(--warn)]/10 px-3.5 py-2.5 text-xs text-[var(--muted)]">
-          Cap year changes the rules only. This board still uses {ACTIVE_SEASON.season} roster salaries; it is not a historical roster.
+          Loading {capYear} roster data…
         </p>
       )}
       <div className="panel flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl p-3.5">
@@ -239,7 +240,7 @@ export function TradeBoard({
                 onClick={() => { add(t); setTeamSearch(''); }}
                 aria-label={`Add ${t.name}`}
                 title={t.name}
-                disabled={atMax||stale}
+                disabled={atMax||stale||capYear!==rosterSeason}
                 className="group relative overflow-hidden rounded-md px-2.5 py-1 font-display text-sm font-semibold tracking-wide text-white transition enabled:hover:-translate-y-0.5 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-30"
                 style={{ backgroundColor: t.primary_color ?? '#1f2937' }}
               >
@@ -272,7 +273,7 @@ export function TradeBoard({
         )}
       </div>
 
-      {storeTeams.length >= 1 ? (
+      {capYear!==rosterSeason?<div role="status" className="panel rounded-xl p-6 text-sm text-[var(--muted)]">Loading the matching rosters and rules…</div>:storeTeams.length >= 1 ? (
         <TradeMatrix contracts={contracts} teamMeta={teamMeta} picks={picks} freeAgents={enrichedFreeAgents} projectedRecords={projectedRecords} />
       ) : (
         <div className="panel ticked flex flex-col items-center justify-center rounded-xl px-6 py-16 text-center">
