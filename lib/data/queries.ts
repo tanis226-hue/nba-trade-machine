@@ -7,6 +7,9 @@ import {
   localFreeAgents, localTeamExceptions, localProjectedRecords,
 } from './local';
 import type { TeamException } from '@/lib/cba/types';
+import { tradeSchema,validSlug } from '@/lib/trades/schema';
+import { getRosterSnapshot } from './rosterSnapshot';
+import {isNetlify} from '@/lib/platform';
 import type { DbTeamException } from './types';
 
 export interface PlayerMeta {
@@ -55,16 +58,20 @@ export async function getPlayerValues(): Promise<PlayerValueMap> {
 
 export async function getSeasons(): Promise<string[]> {
   if (!hasDb()) return localSeasons();
+  try {
   const rows = await db()`SELECT season FROM season_cap ORDER BY season`;
   return rows.map((r) => r.season as string);
+  } catch {return localSeasons();}
 }
 
 export async function getTeams(): Promise<DbTeam[]> {
   if (!hasDb()) return localTeams();
+  try {
   const rows = await db()`
     SELECT id, name, abbr, conference, logo_url, primary_color, secondary_color
     FROM teams ORDER BY name`;
   return rows as DbTeam[];
+  } catch {return localTeams();}
 }
 
 export async function getSeasonCap(season: string): Promise<DbSeasonCap> {
@@ -79,6 +86,9 @@ export async function getSeasonCap(season: string): Promise<DbSeasonCap> {
 }
 
 export async function getRoster(teamId: string, season: string): Promise<RosterEntry[]> {
+  if(season==='2025-26')return localRoster(teamId,season,true);
+  const snapshot=await getRosterSnapshot(season);
+  if(snapshot?.teams[teamId])return snapshot.teams[teamId].roster;
   if (!hasDb()) return localRoster(teamId, season);
   const rows = await db()`
     SELECT p.id, p.name, p.position, p.age,
@@ -118,7 +128,10 @@ export interface FreeAgentRow {
  * query to power free-agent signing. Degrades to the local seed/scrape fallback on any DB error.
  */
 export async function getFreeAgents(season: string, priorSeason: string): Promise<FreeAgentRow[]> {
-  if (!hasDb()) return localFreeAgents(season, priorSeason);
+  const snapshot=await getRosterSnapshot(season);
+  const rostered=new Set(Object.values(snapshot?.teams??{}).flatMap(t=>t.roster.map(p=>normalizePlayerId(p.playerId))));
+  const inactive=(rows:FreeAgentRow[])=>rows.filter(r=>!rostered.has(normalizePlayerId(r.playerId)));
+  if (!hasDb()) return inactive(localFreeAgents(season, priorSeason));
   try {
     const rows = await db()`
       SELECT p.id AS player_id, p.name, p.team_id AS prior_team_id, p.years_of_service AS yos,
@@ -128,16 +141,16 @@ export async function getFreeAgents(season: string, priorSeason: string): Promis
       WHERE NOT EXISTS (SELECT 1 FROM contracts cur WHERE cur.player_id = p.id AND cur.season = ${season})
       GROUP BY p.id, p.name, p.team_id, p.years_of_service
       ORDER BY prior_salary DESC NULLS LAST`;
-    return (rows as { player_id: string; name: string; prior_team_id: string | null; yos: number | null; prior_salary: number | null }[])
+    return inactive((rows as { player_id: string; name: string; prior_team_id: string | null; yos: number | null; prior_salary: number | null }[])
       .map((r) => ({
         playerId: r.player_id,
         name: r.name,
         priorTeamId: r.prior_team_id,
         priorSalary: Number(r.prior_salary ?? 0),
         restricted: r.yos != null && r.yos <= 3,
-      }));
+      })));
   } catch {
-    return localFreeAgents(season, priorSeason);
+    return inactive(localFreeAgents(season, priorSeason));
   }
 }
 
@@ -147,6 +160,8 @@ export interface TeamExceptionView extends TeamException {
 
 /** Per-team trade exceptions (TPE/MLE/BAE/room) for the season, keyed by team id. Degrades to seed. */
 export async function getTeamExceptions(season: string): Promise<Record<string, TeamExceptionView[]>> {
+  const snapshot=await getRosterSnapshot(season);
+  if(snapshot)return Object.fromEntries(Object.entries(snapshot.teams).map(([id,t])=>[id,t.exceptions.map(e=>({...e,createdFromSignAndTrade:false}))]));
   const rows: DbTeamException[] = !hasDb()
     ? localTeamExceptions(season)
     : await (async () => {
@@ -205,7 +220,10 @@ export async function getProjectedRecords(season: string): Promise<Record<string
   return map;
 }
 
-export async function getDraftPicks(teamId: string): Promise<DbDraftPick[]> {
+export async function getDraftPicks(teamId: string,season='2026-27'): Promise<DbDraftPick[]> {
+  const snapshot=await getRosterSnapshot(season);
+  if(snapshot?.teams[teamId]?.picks)return snapshot.teams[teamId].picks;
+  if(season==='2025-26')return localDraftPicks(teamId);
   if (!hasDb()) return localDraftPicks(teamId);
   try {
     const rows = await db()`
@@ -228,11 +246,17 @@ export interface TradePayload {
   // eligibility keys off simulatedDate; the matching path differs for simultaneous vs TPE).
   simulatedDate?: string;
   tradeMethod?: string;
+  schemaVersion?: number;
+  rulesVersion?: string;
+  dataVersion?: string;
+  createdAt?: string;
+  validation?: import('@/lib/cba/types').TradeValidation;
 }
 
 export async function saveTrade(payload: TradePayload): Promise<string> {
   const slug = nanoid(10);
   if (!hasDb()) {
+    if (isNetlify()) throw new Error('Durable trade storage is not configured');
     localSaveTrade(slug, payload);
     return slug;
   }
@@ -241,9 +265,13 @@ export async function saveTrade(payload: TradePayload): Promise<string> {
 }
 
 export async function getTrade(slug: string): Promise<TradePayload | null> {
-  if (!hasDb()) return localGetTrade(slug) as TradePayload | null;
-  const rows = await db()`SELECT payload FROM trades WHERE slug = ${slug}`;
-  return rows[0] ? (rows[0].payload as TradePayload) : null;
+  if (!validSlug(slug)) return null;
+  const raw:unknown=!hasDb()?localGetTrade(slug):(await db()`SELECT payload FROM trades WHERE slug = ${slug}`)[0]?.payload;
+  if(!raw||typeof raw!=='object') return null;
+  const payload=raw as TradePayload;
+  const parsed=tradeSchema.safeParse({season:payload.season,teams:payload.teams,assets:payload.assets,contracts:payload.contracts,simulatedDate:payload.simulatedDate,tradeMethod:payload.tradeMethod,dataVersion:payload.dataVersion});
+  if(!parsed.success) return null;
+  return {...payload,...parsed.data};
 }
 
 export interface UserTradeListItem {
@@ -265,13 +293,15 @@ export async function saveUserTrade(args: {
   if (!hasDb()) throw new Error('Saving to an account requires the database');
   const slug = args.slug ?? nanoid(10);
   const title = args.title.trim().slice(0, 120) || 'Untitled trade';
-  await db()`
+  const saved = await db()`
     INSERT INTO trades (id, slug, payload, user_id, title, updated_at)
     VALUES (${slug}, ${slug}, ${JSON.stringify(args.payload)}::jsonb, ${args.userId}, ${title}, now())
     ON CONFLICT (slug) DO UPDATE
       SET payload = excluded.payload, title = excluded.title, updated_at = now()
       WHERE trades.user_id = ${args.userId}
+    RETURNING slug
   `;
+  if (!saved[0]) throw new Error('This trade could not be saved under your account');
   return slug;
 }
 

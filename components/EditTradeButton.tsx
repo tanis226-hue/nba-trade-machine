@@ -12,12 +12,14 @@ export function EditTradeButton({
   assets,
   simulatedDate,
   tradeMethod,
+  dataVersion,
 }: {
   season: string;
   teams: TradeTeamInput[];
   assets: Record<string, TradeAsset>;
   simulatedDate?: string;
   tradeMethod?: TradeMethod;
+  dataVersion?:string;
 }) {
   const router = useRouter();
 
@@ -27,10 +29,11 @@ export function EditTradeButton({
       teams,
       assets,
       simulatedDate,
+      dataVersion,
       tradeMethod: tradeMethod ?? 'simultaneous',
       compareIds: [],
     });
-    router.push('/');
+    router.push(`/?season=${season}`);
   }
 
   return (

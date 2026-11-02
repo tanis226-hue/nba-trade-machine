@@ -1,9 +1,8 @@
-// Data-currency surface. The override layer (data/overrides/*) is curated by hand during the
-// offseason trade/FA surge; this records how current that curation is and which recent moves are
-// (or are not yet) reflected in the rosters, so the UI can be honest about freshness - something no
-// competitor does. Update DATA_AS_OF and prepend to RECENT_TRANSACTIONS whenever overrides change.
+// Default date for the current structured roster snapshot. Manual transaction notes below are
+// historical curation records; the UI reports actual snapshot and database import timestamps.
 
-export const DATA_AS_OF = '2026-07-13';
+export const DATA_AS_OF = '2026-11-02';
+export const defaultTradeDate=(season:string)=>season==='2025-26'?'2026-06-01':DATA_AS_OF;
 
 export type TxnStatus = 'final' | 'pending';
 

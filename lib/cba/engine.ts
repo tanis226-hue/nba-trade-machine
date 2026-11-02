@@ -8,7 +8,8 @@ import type {
   TradeFinding,
   Rule,
 } from './types';
-import { tierFor } from './tier';
+import { tierForTeam } from './tier';
+import { postApronSalary } from './rules/hardCap';
 import { RULES } from './rules';
 
 const FIRST_APRON_HARD_CAP_TOOLS = new Set(['non_taxpayer_mle', 'bae', 'prior_year_tpe', 'sign_and_trade_acquire']);
@@ -51,14 +52,15 @@ export function buildContext(input: TradeInput): RuleContext {
     );
     const incoming = incomingAssets.reduce((s, a) => s + a.salary, 0);
     const postSalary = team.preTradeSalary - outgoing + incoming;
-    const preTier = tierFor(team.preTradeSalary, input.season);
-    return {
+    const preTier = tierForTeam(team.preTradeSalary,team.apronSalary??team.preTradeSalary,input.season);
+    const context:PerTeamContext = {
       abbr: team.abbr,
+      dataNotes: team.dataNotes,
       outgoing,
       incoming,
       postSalary,
       preTier,
-      postTier: tierFor(postSalary, input.season),
+      postTier: preTier,
       playersOut: outgoingAssets.filter((a) => a.kind === 'player').length,
       preTradeSalary: team.preTradeSalary,
       apronSalary: team.apronSalary ?? team.preTradeSalary,
@@ -74,9 +76,12 @@ export function buildContext(input: TradeInput): RuleContext {
       // Repeater = explicitly flagged, or a taxpayer in 3+ of the prior 4 seasons.
       isRepeaterTaxpayer: team.isRepeaterTaxpayer ?? (team.priorTaxpayerSeasons != null && team.priorTaxpayerSeasons >= 3),
       ownedFirstRoundPicks: team.ownedFirstRoundPicks,
+      pickOwnershipUncertain:team.pickOwnershipUncertain,
       outgoingAssets,
       incomingAssets,
     };
+    context.postTier=tierForTeam(postSalary,postApronSalary(context),input.season);
+    return context;
   });
 
   return {
@@ -98,7 +103,10 @@ export function runRules(ctx: RuleContext, rules: Rule[] = RULES): TradeFinding[
     try {
       findings.push(...rule(ctx));
     } catch {
-      // A buggy/half-built rule must never crash the whole validation. Skip it.
+      findings.push({
+        code: 'RULE_EVALUATION_FAILED', severity: 'block',
+        message: 'A rule could not be evaluated. This proposal cannot be verified; reload and try again.',
+      });
     }
   }
   return findings;
@@ -119,8 +127,8 @@ export function evaluate(input: TradeInput, rules: Rule[] = RULES): TradeValidat
       preTier: t.preTier,
       postTier: t.postTier,
       playersOut: t.playersOut,
-      apronPostSalary: t.apronSalary - t.outgoing + t.incoming,
-      capSpacePost: t.capSpace,
+      apronPostSalary: postApronSalary(t),
+      capSpacePost: Math.max(0,input.season.salaryCap-t.postSalary),
       hardCapLine: t.hardCapLine,
       generatedTpe: t.generatedTpe,
     })),

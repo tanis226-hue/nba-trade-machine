@@ -19,23 +19,27 @@ export function TradeComments({ slug }: { slug: string }) {
   const [posting, setPosting] = useState(false);
   const [voting, setVoting] = useState(false);
   const [myVote, setMyVote] = useState<0 | 1 | -1>(0);
+  const [error,setError]=useState<string|null>(null);
 
   // Stable per-browser voter id so a person's vote counts once (re-voting flips it). Created lazily
   // on the client; '' on the server. It's never rendered, so this can't cause a hydration mismatch.
   const [voter] = useState(() => {
     if (typeof window === 'undefined') return '';
+    try {
     let id = localStorage.getItem('tv_voter');
     if (!id) {
       id = crypto.randomUUID();
       localStorage.setItem('tv_voter', id);
     }
     return id;
+    } catch {return crypto.randomUUID();}
   });
 
   // Restore this browser's prior vote after mount. localStorage is client-only, so this can't be a
   // render-time initializer without risking a hydration mismatch on the button styling.
   useEffect(() => {
-    const mv = Number(localStorage.getItem(`tv_vote_${slug}`));
+    let mv=0;
+    try {mv=Number(localStorage.getItem(`tv_vote_${slug}`));} catch {}
     if (mv === 1 || mv === -1) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional post-mount restore
       setMyVote(mv);
@@ -45,15 +49,15 @@ export function TradeComments({ slug }: { slug: string }) {
   useEffect(() => {
     let alive = true;
     Promise.all([
-      fetch(`/api/trade/${slug}/comments`).then((r) => r.json()),
-      fetch(`/api/trade/${slug}/vote`).then((r) => r.json()),
+      fetch(`/api/trade/${slug}/comments`).then((r) => {if(!r.ok) throw new Error('Community is temporarily unavailable');return r.json();}),
+      fetch(`/api/trade/${slug}/vote`).then((r) => {if(!r.ok) throw new Error('Community is temporarily unavailable');return r.json();}),
     ])
       .then(([c, v]) => {
         if (!alive) return;
         setComments(c.comments ?? []);
         setTally({ up: v.up ?? 0, down: v.down ?? 0 });
       })
-      .catch(() => {});
+      .catch(()=>{if(alive) setError('Community is temporarily unavailable');});
     return () => {
       alive = false;
     };
@@ -62,6 +66,7 @@ export function TradeComments({ slug }: { slug: string }) {
   async function vote(value: 1 | -1) {
     if (voting) return;
     setVoting(true);
+    setError(null);
     try {
       const res = await fetch(`/api/trade/${slug}/vote`, {
         method: 'POST',
@@ -69,11 +74,12 @@ export function TradeComments({ slug }: { slug: string }) {
         body: JSON.stringify({ vote: value, voter }),
       });
       const v = await res.json();
+      if(!res.ok) throw new Error(v.error??'Could not record your vote');
       setTally({ up: v.up ?? 0, down: v.down ?? 0 });
       setMyVote(value);
-      localStorage.setItem(`tv_vote_${slug}`, String(value));
-    } catch {
-      // no-op
+      try {localStorage.setItem(`tv_vote_${slug}`, String(value));} catch {}
+    } catch(error) {
+      setError(error instanceof Error?error.message:'Could not record your vote');
     } finally {
       setVoting(false);
     }
@@ -84,19 +90,22 @@ export function TradeComments({ slug }: { slug: string }) {
     const text = body.trim();
     if (!text || posting) return;
     setPosting(true);
+    setError(null);
     try {
       const res = await fetch(`/api/trade/${slug}/comments`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ body: text, author: author.trim() || undefined }),
       });
-      const { comment } = await res.json();
+      const data=await res.json();
+      if(!res.ok) throw new Error(data.error??'Could not post this comment');
+      const {comment}=data;
       if (comment) {
         setComments((prev) => [comment, ...prev]);
         setBody('');
       }
-    } catch {
-      // no-op
+    } catch(error) {
+      setError(error instanceof Error?error.message:'Could not post this comment');
     } finally {
       setPosting(false);
     }
@@ -111,6 +120,7 @@ export function TradeComments({ slug }: { slug: string }) {
       <h2 className="font-display text-xl font-bold uppercase tracking-tight text-[var(--text)]">
         Verdict
       </h2>
+      {error && <p role="alert" className="mt-2 text-xs text-[var(--illegal)]">{error}</p>}
 
       <div className="mt-3 flex items-center gap-2">
         <button
@@ -143,12 +153,16 @@ export function TradeComments({ slug }: { slug: string }) {
       <form onSubmit={submit} className="mt-4 space-y-2">
         <input
           type="text"
+          maxLength={80}
+          aria-label="Name (optional)"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Name (optional)"
           className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--faint)] focus:border-[var(--accent)] focus:outline-none"
         />
         <textarea
+          maxLength={1000}
+          aria-label="Comment"
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Drop your take on this trade…"

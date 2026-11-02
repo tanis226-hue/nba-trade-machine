@@ -7,7 +7,7 @@ import {
 } from '@/lib/cba/constants';
 
 const BY_SEASON = {
-  '2026-27': { cap: SEASON_2026_27, matching: MATCHING_2026_27, cash: CASH_LIMIT_2026_27, cal: LEAGUE_CALENDAR_2026_27, projected: true },
+  '2026-27': { cap: SEASON_2026_27, matching: MATCHING_2026_27, cash: CASH_LIMIT_2026_27, cal: LEAGUE_CALENDAR_2026_27, projected: false },
   '2025-26': { cap: SEASON_2025_26, matching: MATCHING_2025_26, cash: CASH_LIMIT_2025_26, cal: LEAGUE_CALENDAR_2025_26, projected: false },
 } as const;
 
@@ -65,6 +65,11 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
             </div>
 
             <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
+              <p className="text-[11px] leading-relaxed text-[var(--muted)]">
+                Based on the <a className="underline" href="https://nbpa.com/cba" target="_blank" rel="noreferrer">2023 CBA</a>.
+                {' '}<a className="underline" href={season === '2026-27' ? 'https://www.nba.com/news/nba-salary-cap-2026-27-season' : 'https://www.nba.com/news/nba-salary-cap-2025-26-season'} target="_blank" rel="noreferrer">Official season cap figures</a>;
+                {' '}matching and tax bands are indexed to the cap. Dollar labels below are rounded.
+              </p>
               {projected && (
                 <p className="rounded-md border border-[var(--warn)]/30 bg-[var(--warn)]/10 px-2.5 py-1.5 text-[11px] text-[var(--muted)]">
                   {season} cap landmarks are projected. The CBA <em>structure</em> below is fixed; only the dollar thresholds move when the NBA sets the official cap.
@@ -105,7 +110,7 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
               </Rule>
 
               <Rule title="Cash in trades">
-                <p>A team can send or receive at most <Hi>{fm(cash)}</Hi> in cash per season, and the send and receive limits are <Hi>separate</Hi>. Second-apron teams cannot send or receive cash at all. Cash never counts toward salary matching.</p>
+                <p>A team can send or receive at most <Hi>{fm(cash)}</Hi> in cash per season, and the send and receive limits are <Hi>separate</Hi>. Second-apron teams cannot send cash. Cash never counts toward salary matching; prior cash usage must also be checked.</p>
               </Rule>
 
               <Rule title="Draft picks">
@@ -127,7 +132,7 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
                   <li><Hi>Trade deadline:</Hi> in-season trades stop at the deadline (<Hi>{date(cal.tradeDeadline)}</Hi> this year).</li>
                   <li><Hi>Consent:</Hi> a <Hi>no-trade clause</Hi> (or a one-year Bird re-signing) lets the player veto the deal.</li>
                 </ul>
-                <p>These are evaluated as of the <Hi>Trade date</Hi> in the toolbar (today by default), so the engine can tell you a deal is &ldquo;illegal now, legal on &lt;date&gt;.&rdquo;</p>
+                <p>These are evaluated as of the <Hi>Trade date</Hi> in the toolbar (the bundled snapshot date by default). Choose another date to explore when a restriction expires.</p>
               </Rule>
 
               <Rule title="Reading the verdict">
@@ -138,7 +143,7 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
                   <li><span className="font-semibold" style={{ color: 'var(--info)' }}>Conditional</span> - legal only on or after a certain date.</li>
                   <li><span className="font-semibold text-[var(--muted)]">Note</span> - informational (a TPE created, consent required).</li>
                 </ul>
-                <p>Each finding cites the rule it comes from, and &ldquo;Make this trade legal&rdquo; suggests the smallest fix.</p>
+                <p>Each finding cites the rule it comes from. Suggested corrections are starting points; check the resulting deal against the validation panel.</p>
               </Rule>
             </div>
           </div>

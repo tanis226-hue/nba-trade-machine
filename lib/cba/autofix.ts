@@ -1,6 +1,5 @@
 import type { TradeInput } from './types';
 import { buildContext, evaluate } from './engine';
-import { maxIncomingSalary } from './matching';
 import { fmt } from './format';
 
 export interface FixSuggestion {
@@ -16,61 +15,33 @@ export interface FixAction {
 }
 
 /**
- * Compute a minimal set of routing changes that make the trade legal, by greedily simplifying the
- * deal: drop a too-much-takeback team's smallest incoming player (OVER_MATCH / hard cap), and
- * un-aggregate a second-apron team down to one outgoing player (NO_AGGREGATION). Returns the actions
- * (empty if already legal or not auto-fixable). Pure — the caller applies them to the store.
+ * Search bounded combinations of removals, preferring fewer changed routes. Every returned plan
+ * passes the full engine and preserves a nonempty deal. An exhausted search returns no proposal.
  */
 export function planAutoFix(input: TradeInput): FixAction[] {
-  let assets = input.assets.map((a) => ({ ...a }));
-  const actions: FixAction[] = [];
-  const sendBack = (id: string, fromTeam: string, label: string) => {
-    assets = assets.map((a) => (a.id === id ? { ...a, toTeam: a.fromTeam } : a));
-    actions.push({ assetId: id, toTeam: fromTeam, label });
-  };
-
-  for (let iter = 0; iter < 60; iter++) {
-    const res = evaluate({ ...input, assets });
-    if (res.valid) break;
-    const ctx = buildContext({ ...input, assets });
-    const find = (code: string) => res.errors.find((e) => e.code === code);
-
-    const overMatch = find('OVER_MATCH') || find('HARD_CAP_EXCEEDED') || find('HARD_CAP_ST');
-    if (overMatch?.teamAbbr) {
-      const t = ctx.teams.find((x) => x.abbr === overMatch.teamAbbr);
-      const smallest = t?.incomingAssets
-        .filter((a) => a.kind === 'player')
-        .sort((a, b) => a.salary - b.salary)[0];
-      if (smallest) {
-        sendBack(smallest.id, smallest.fromTeam, `Keep ${smallest.label} on ${smallest.fromTeam} (drop from the deal)`);
-        continue;
-      }
+  if(evaluate(input).valid) return [];
+  const moved=input.assets.filter(a=>a.fromTeam!==a.toTeam).sort((a,b)=>b.salary-a.salary||a.id.localeCompare(b.id));
+  if(moved.length>24) return [];
+  let frontier:number[][]=[[]]; let checked=0;
+  for(let depth=1;depth<=3;depth++) {
+    const next:number[][]=[];
+    for(const chosen of frontier) for(let i=(chosen.at(-1)??-1)+1;i<moved.length;i++) {
+      const candidate=[...chosen,i]; if(candidate.length>=moved.length) continue;
+      const ids=new Set(candidate.map(n=>moved[n].id));
+      const assets=input.assets.map(a=>ids.has(a.id)?{...a,toTeam:a.fromTeam}:a);
+      if(evaluate({...input,assets}).valid) return candidate.map(n=>({assetId:moved[n].id,toTeam:moved[n].fromTeam,label:`Keep ${moved[n].label} on ${moved[n].fromTeam}`}));
+      if(++checked>=200) return [];
+      next.push(candidate);
     }
-
-    const noAgg = find('NO_AGGREGATION');
-    if (noAgg?.teamAbbr) {
-      const t = ctx.teams.find((x) => x.abbr === noAgg.teamAbbr);
-      const out = (t?.outgoingAssets ?? [])
-        .filter((a) => a.kind === 'player')
-        .sort((a, b) => b.salary - a.salary); // keep the largest, drop the rest
-      let removed = false;
-      for (const a of out.slice(1)) {
-        sendBack(a.id, a.fromTeam, `Keep ${a.label} on ${a.fromTeam} (second-apron team can't aggregate)`);
-        removed = true;
-      }
-      if (removed) continue;
-    }
-
-    break; // remaining blocks aren't auto-fixable by simplification
+    frontier=next;
   }
-  return actions;
+  return [];
 }
 
 /**
  * "Make this trade legal" — turn the blocking findings into concrete, quantified remedies.
- * No competitor offers this. Pure: runs the engine, then for each block computes the exact
- * delta and the cheapest way to close it (send more out, take less back, use a TPE/cap space,
- * switch to non-simultaneous, or split the deal).
+ * Uses the validator's own matching quantities, including cap room, exceptions, and bonuses.
+ * Suggestions require rechecking the entire deal; they are not guaranteed minimal changes.
  */
 export function suggestFixes(input: TradeInput): FixSuggestion[] {
   const res = evaluate(input);
@@ -84,15 +55,11 @@ export function suggestFixes(input: TradeInput): FixSuggestion[] {
     switch (e.code) {
       case 'OVER_MATCH': {
         if (!t) break;
-        const limit =
-          input.tradeMethod === 'non_simultaneous'
-            ? t.outgoing + 250_000
-            : maxIncomingSalary(t.outgoing, t.preTier, input.matching);
-        const over = Math.max(0, t.incoming - limit);
-        const tail = input.tradeMethod !== 'non_simultaneous' ? ', or switch to a non-simultaneous trade' : '';
+        if (!e.matching) break;
+        const { incoming, limit, shortfall } = e.matching;
         fixes.push({
           teamAbbr: t.abbr,
-          text: `${t.abbr}: take back ${fmt(over)} less, send ${fmt(over)} more out, or route a ${fmt(over)} contract into cap space / a TPE${tail}.`,
+          text: `${t.abbr}: reduce matched incoming salary by ${fmt(shortfall)} (${fmt(incoming)} incoming, ${fmt(limit)} allowed). Adjust outgoing players or use an eligible exception, then recheck the whole deal.`,
         });
         break;
       }

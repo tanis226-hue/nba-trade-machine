@@ -98,17 +98,18 @@ export function TeamColumn({
       salary: 0,
       fromTeam: abbr,
       toTeam: abbr,
-      label: `${next.season} ${next.round === 1 ? '1st' : '2nd'}`,
+      label: `${next.season} ${next.original_team_id.toUpperCase()} ${next.round === 1 ? '1st' : '2nd'}`,
       pickYear: Number(next.season),
       round: next.round as 1 | 2,
       isFrozen: next.is_frozen,
       isSwap: next.is_swap,
-      originalTeam: next.original_team_id,
+      originalTeam: next.original_team_id.toUpperCase(),
       protections: parseProtection(next.protections),
+      dataNotes:next.needsReview?['Conditional draft rights: verify the full protection, swap and rollover chain at '+(next.source??'the source')+'.']:undefined,
     });
   }
   function addCash() {
-    addAsset({ id: crypto.randomUUID(), kind: 'cash', salary: 0, amount: 1_000_000, fromTeam: abbr, toTeam: abbr, label: 'Cash' });
+    addAsset({ id: crypto.randomUUID(), kind: 'cash', salary: 0, amount: 1_000_000, fromTeam: abbr, toTeam: abbr, label: 'Cash',dataNotes:['Prior cash sent and received this season is not supplied. Confirm remaining annual allowances for both teams.'] });
   }
 
   return (
@@ -143,7 +144,7 @@ export function TeamColumn({
         <div className="mb-1.5 flex items-center justify-between">
           <span
             className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--faint)]"
-            title="Real future-pick ownership (firsts + seconds, drafts 2027-2033) as of June 2026 — own + acquired picks, researched from ESPN / Fanspo / trade reporting. Protection wording is approximate."
+            title="Reported future draft rights. Asterisks identify source notes; conditional rights require review of the complete protection and swap chain."
           >
             Draft capital
           </span>
@@ -182,6 +183,7 @@ export function TeamColumn({
                   className="num inline-flex items-center gap-1 rounded border border-[var(--border)] bg-[var(--surface-2)]/50 px-1.5 py-0.5 text-[10px] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--text)]"
                 >
                   {p.season.slice(2)} {p.round === 1 ? '1st' : '2nd'}
+                  <span>{p.original_team_id.toUpperCase()}</span>
                   {p.is_swap && <span className="text-[var(--accent-2)]" title="Swap">⇄</span>}
                   {p.is_frozen && <span className="text-[var(--illegal)]" title="Frozen (2nd-apron)">❄</span>}
                   {note && <span className="text-[var(--faint)]" title={`Protected: ${note}`}>*</span>}

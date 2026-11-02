@@ -63,15 +63,17 @@ export const picksRule: Rule = (ctx) => {
     }
 
     // (3) Ted Stepien rule.
-    const stepien = stepienViolation(team.ownedFirstRoundPicks, outgoingPicks);
+    const stepien = stepienViolation(team.ownedFirstRoundPicks, outgoingPicks,team.incomingAssets);
+    if(team.pickOwnershipUncertain&&outgoingPicks.some(p=>p.round===1))out.push({code:'PICK_RIGHTS_REVIEW',severity:'conditional',teamAbbr:team.abbr,
+      message:`${team.abbr} has conditional first-round rights. Confirm all conveyance outcomes and Stepien compliance before relying on this proposal.`});
     if (stepien) {
       out.push({
         code: 'STEPIEN_VIOLATION',
-        severity: 'block',
+        severity: team.pickOwnershipUncertain?'conditional':'block',
         teamAbbr: team.abbr,
         message: `${team.abbr} would be left without a first-round pick in consecutive years (${stepien[0]} and ${stepien[1]}).`,
         citation: '2023 CBA — Ted Stepien rule (a team must retain a first in consecutive future drafts).',
-        fix: `Keep a first-round pick in ${stepien[0]} or ${stepien[1]}, or add protection so one conveys.`,
+        fix: `Retain a guaranteed first-round selection in ${stepien[0]} or ${stepien[1]}; review any conditional obligations.`,
       });
     }
   }
@@ -84,8 +86,9 @@ export const picksRule: Rule = (ctx) => {
  * after sending away the round===1 picks in this trade, or null if compliant / no data.
  */
 function stepienViolation(
-  owned: { year: number; conveyed?: boolean; isSwap?: boolean }[] | undefined,
+  owned: { id?:string;year: number; conveyed?: boolean; isSwap?: boolean }[] | undefined,
   outgoingPicks: TradeAsset[],
+  incomingPicks:TradeAsset[],
 ): [number, number] | null {
   if (!owned) return null; // no data → skip Stepien check
 
@@ -101,9 +104,10 @@ function stepienViolation(
   // for that year (a swap guarantees one of two firsts, which satisfies the Stepien requirement).
   const heldYears = new Set(
     owned
-      .filter((p) => !p.conveyed && (p.isSwap === true || !tradedAwayFirsts.has(p.year)))
+      .filter((p) => !p.conveyed && (p.id?!outgoingPicks.some(a=>a.id===p.id&&!a.isSwap):p.isSwap === true || !tradedAwayFirsts.has(p.year)))
       .map((p) => p.year),
   );
+  for(const p of incomingPicks)if(p.kind==='pick'&&p.round===1&&typeof p.pickYear==='number'&&!p.protections)heldYears.add(p.pickYear);
 
   const ownedYears = owned.map((p) => p.year);
   if (ownedYears.length === 0) return null;

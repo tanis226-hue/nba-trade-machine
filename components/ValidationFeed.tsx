@@ -51,26 +51,28 @@ export function ValidationFeed({
   const blocks = findings.filter((f) => f.severity === 'block');
   const notes = findings.filter((f) => f.severity !== 'block');
   const valid = blocks.length === 0;
+  const needsReview=notes.some(f=>f.severity==='conditional'||f.severity==='warning');
+  const statusColor=!valid?'var(--illegal)':needsReview?'var(--info)':'var(--legal)';
 
   return (
     <div
       className="rounded-xl border px-4 py-3"
       style={{
-        borderColor: valid ? 'color-mix(in srgb, var(--legal) 30%, transparent)' : 'color-mix(in srgb, var(--illegal) 30%, transparent)',
-        backgroundColor: valid ? 'color-mix(in srgb, var(--legal) 10%, transparent)' : 'color-mix(in srgb, var(--illegal) 10%, transparent)',
+        borderColor: `color-mix(in srgb, ${statusColor} 30%, transparent)`,
+        backgroundColor: `color-mix(in srgb, ${statusColor} 10%, transparent)`,
       }}
     >
       <div
         className="mb-1.5 flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-wide"
-        style={{ color: valid ? 'var(--legal)' : 'var(--illegal)' }}
+        style={{ color: statusColor }}
       >
         <span
           className="flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold text-[var(--ink)]"
-          style={{ backgroundColor: valid ? 'var(--legal)' : 'var(--illegal)' }}
+          style={{ backgroundColor: statusColor }}
         >
           {valid ? '✓' : '!'}
         </span>
-        {valid ? 'Trade Legal' : 'Trade Denied'}
+        {valid ? needsReview?'Review assumptions':'Passes modeled checks' : 'Trade needs changes'}
         <TradeRulesButton className="ml-auto bg-transparent text-[var(--muted)] hover:text-[var(--text)]" />
       </div>
 
@@ -91,8 +93,12 @@ export function ValidationFeed({
       )}
 
       {valid && notes.length === 0 && (
-        <div className="text-xs text-[var(--muted)]">All teams satisfy CBA salary-matching, apron, and roster rules.</div>
+        <div className="text-xs text-[var(--muted)]">No blocking findings for the supplied salaries and assumptions.</div>
       )}
+
+      <p className="mt-2 text-[11px] leading-relaxed text-[var(--muted)]">
+        A simulation, not league approval. Active roster counts, team transaction history, and some pick conditions are incomplete.
+      </p>
 
       {fixes.length > 0 && (
         <div className="mt-2 border-t border-[var(--border)] pt-2">

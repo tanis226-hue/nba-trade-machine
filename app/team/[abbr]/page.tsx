@@ -3,6 +3,10 @@ import type { RosterEntry } from '@/lib/data/types';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import {getRosterSnapshot} from '@/lib/data/rosterSnapshot';
+import {DataFreshness} from '@/components/DataFreshness';
+
+export const dynamic='force-dynamic';
 
 const SEASON = '2026-27';
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
@@ -46,7 +50,8 @@ export default async function TeamPage({ params }: { params: Promise<{ abbr: str
   const [roster, picks, values] = await Promise.all([getRoster(team.id, SEASON), getDraftPicks(team.id), getPlayerValues()]);
 
   const sorted = [...roster].sort((a, b) => b.salary - a.salary);
-  const total = sorted.reduce((s, r) => s + r.salary, 0);
+  const snapshot=await getRosterSnapshot(SEASON);
+  const total = snapshot?.teams[team.id]?.preTradeSalary??sorted.reduce((s, r) => s + r.salary, 0);
   const tradeablePicks = picks.filter((p) => !p.is_frozen && !p.conveyed);
 
   return (
@@ -64,6 +69,8 @@ export default async function TeamPage({ params }: { params: Promise<{ abbr: str
           </div>
         </div>
       </div>
+
+      <DataFreshness snapshot={snapshot?{rosterAsOf:snapshot.rosterAsOf,pickAsOf:snapshot.pickAsOf,loadedFrom:snapshot.loadedFrom,importedAt:snapshot.importedAt}:undefined}/>
 
       <section className="panel rounded-xl p-4">
         <h2 className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">Roster</h2>
@@ -111,7 +118,7 @@ export default async function TeamPage({ params }: { params: Promise<{ abbr: str
 
       <section className="panel rounded-xl p-4">
         <h2 className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">
-          Tradeable Draft Picks
+          Reported Draft Rights
         </h2>
         {tradeablePicks.length === 0 ? (
           <div className="mt-2 text-sm text-[var(--faint)]">No tradeable picks on record.</div>
@@ -120,9 +127,9 @@ export default async function TeamPage({ params }: { params: Promise<{ abbr: str
             {tradeablePicks.map((p) => (
               <li key={p.id} className="flex items-center justify-between border-t border-[var(--border-soft)] py-1.5">
                 <span className="text-[var(--text)]">
-                  {p.season} {p.round === 1 ? '1st' : '2nd'}-round pick
+                  {p.season} {p.original_team_id.toUpperCase()} {p.round === 1 ? '1st' : '2nd'}-round pick
                   {p.is_swap && <span className="ml-2 text-xs text-[var(--faint)]">swap</span>}
-                  {p.protections != null && <span className="ml-2 text-xs text-[var(--faint)]">protected</span>}
+                  {p.needsReview && <span className="ml-2 text-xs text-[var(--warn)]">conditional · review source</span>}
                 </span>
               </li>
             ))}

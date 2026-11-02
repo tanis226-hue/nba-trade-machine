@@ -14,7 +14,7 @@ import { fmt } from '../format';
  * sign-and-trade, or that uses the Non-Taxpayer MLE or the Bi-Annual Exception,
  * is hard-capped at the first apron for the remainder of that Salary Cap Year.
  */
-function postApronSalary(team: PerTeamContext): number {
+export function postApronSalary(team: PerTeamContext): number {
   // Prefer an explicit apron-basis hit per asset when present, else the cap hit. The trade kicker
   // travels with the player to the acquiring team, so it adds to the INCOMING apron hit only.
   const base = (a: TradeAsset) => (a.apronSalary != null ? a.apronSalary : a.salary);

@@ -12,6 +12,7 @@ import { eligibilityRule } from './eligibility';
 import { toolsRule } from './tools';
 import { floorRule } from './floor';
 import { taxRule } from './tax';
+import { dataQualityRule } from './dataQuality';
 
 /**
  * Ordered CBA rule pipeline. validateTrade (via the engine) runs these in sequence and collects
@@ -19,6 +20,7 @@ import { taxRule } from './tax';
  * paths); the rest are independent additive constraints. Each finding carries a CBA citation.
  */
 export const RULES: Rule[] = [
+  dataQualityRule,
   matchingRule,
   aggregationRule,
   hardCapRule,

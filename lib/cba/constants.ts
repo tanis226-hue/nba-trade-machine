@@ -1,6 +1,38 @@
 import type { SeasonCap, MatchingRules, ApronRules, SeasonRules, TaxBracket, LeagueCalendar } from './types';
 
-// 2025-26 official figures. Sources in spec section 11. VERIFY each cap year before refresh.
+// Primary sources, reviewed 2026-11-02:
+// https://www.nba.com/news/nba-salary-cap-2026-27-season
+// https://www.nba.com/news/key-dates
+// https://nbpa.com/cba — 2023 CBA Art. VII §§2(d), 6(j)(1)(iv), 8(a).
+export const CBA_BASE_CAP = 136_021_000; // official 2023-24 cap; the CBA's indexing denominator
+
+/** Exact breakpoints of max(min(2*out + 250k, out + indexed allowance), 1.25*out + 250k). */
+export function matchingRulesForCap(salaryCap: number): MatchingRules {
+  const allowance = 7_500_000 * salaryCap / CBA_BASE_CAP;
+  const firstBreakpoint = allowance - 250_000;
+  return {
+    belowApron: [
+      { upTo: firstBreakpoint, pct: 2, add: 250_000 },
+      { upTo: firstBreakpoint * 4, pct: 1, add: allowance },
+      { upTo: Infinity, pct: 1.25, add: 250_000 },
+    ],
+    apronTakebackPct: 1,
+  };
+}
+
+/** Rates effective from 2025-26; band widths grow with the cap, including the escalating tail. */
+export function taxBracketsForCap(salaryCap: number): TaxBracket[] {
+  const width = 5_000_000 * salaryCap / CBA_BASE_CAP;
+  return [
+    { upTo: width, rate: 1, repeaterRate: 3 },
+    { upTo: width * 2, rate: 1.25, repeaterRate: 3.25 },
+    { upTo: width * 3, rate: 3.5, repeaterRate: 5.5 },
+    { upTo: width * 4, rate: 4.75, repeaterRate: 6.75 },
+    { upTo: Infinity, rate: 5.25, repeaterRate: 7.25, increment: { width, rate: 0.5 } },
+  ];
+}
+
+// Official 2025-26 figures, retained for historical proposals.
 export const SEASON_2025_26: SeasonCap = {
   season: '2025-26',
   salaryCap: 154_647_000,
@@ -10,15 +42,7 @@ export const SEASON_2025_26: SeasonCap = {
   minTeamSalary: 139_182_000, // 90% of cap
 };
 
-// Below first apron: <=$7.5M -> 200%+$250K; $7.5M-$29M -> outgoing+$7.5M; >$29M -> 125%+$250K.
-export const MATCHING_2025_26: MatchingRules = {
-  belowApron: [
-    { upTo: 7_500_000, pct: 2.0, add: 250_000 },
-    { upTo: 29_000_000, pct: 1.0, add: 7_500_000 },
-    { upTo: Infinity, pct: 1.25, add: 250_000 },
-  ],
-  apronTakebackPct: 1.0, // over first apron (incl. second): 100%
-};
+export const MATCHING_2025_26 = matchingRulesForCap(SEASON_2025_26.salaryCap);
 
 export const APRON_2025_26: ApronRules = {
   firstApron: {
@@ -33,14 +57,7 @@ export const APRON_2025_26: ApronRules = {
   },
 };
 
-// Luxury-tax brackets: rate applied to each $5M step OVER the tax line. // VERIFY 2025-26 repeater steps beyond $20M.
-export const TAX_BRACKETS_2025_26: TaxBracket[] = [
-  { upTo: 5_000_000, rate: 1.5, repeaterRate: 2.5 },
-  { upTo: 10_000_000, rate: 1.75, repeaterRate: 2.75 },
-  { upTo: 15_000_000, rate: 2.5, repeaterRate: 3.5 },
-  { upTo: 20_000_000, rate: 3.25, repeaterRate: 4.25 },
-  { upTo: Infinity, rate: 3.75, repeaterRate: 4.75 },
-];
+export const TAX_BRACKETS_2025_26 = taxBracketsForCap(SEASON_2025_26.salaryCap);
 
 // Key league dates for the 2025-26 league year. // VERIFY exact dates each season.
 export const LEAGUE_CALENDAR_2025_26: LeagueCalendar = {
@@ -51,7 +68,7 @@ export const LEAGUE_CALENDAR_2025_26: LeagueCalendar = {
   aggregationCutoff: '2025-12-15',
 };
 
-export const CASH_LIMIT_2025_26 = 7_970_000; // annual cash-in-trade limit. // VERIFY.
+export const CASH_LIMIT_2025_26 = SEASON_2025_26.salaryCap * 0.0515;
 
 /** Full season rule bundle the engine consumes (cap + matching + apron + tax + calendar + cash). */
 export const SEASON_RULES_2025_26: SeasonRules = {
@@ -63,40 +80,31 @@ export const SEASON_RULES_2025_26: SeasonRules = {
   cashLimit: CASH_LIMIT_2025_26,
 };
 
-// ===== 2026-27 (base/working season). PROJECTED landmarks — VERIFY against official figures once
-// the NBA sets the 2026-27 cap. Apron/matching/tax STRUCTURE is CBA-fixed; only the dollar
-// thresholds drift with the cap, so the brackets below mirror 2025-26 pending official numbers.
+// Official 2026-27 landmarks, announced June 30, 2026. Future-season cap sheets remain projections.
 export const SEASON_2026_27: SeasonCap = {
   season: '2026-27',
-  salaryCap: 170_100_000, // PROJECTED (+~10%)
-  taxLine: 207_800_000, // PROJECTED
-  firstApron: 216_600_000, // PROJECTED
-  secondApron: 229_800_000, // PROJECTED
-  minTeamSalary: 153_090_000, // 90% of projected cap
+  salaryCap: 164_961_000,
+  taxLine: 200_428_000,
+  firstApron: 209_015_000,
+  secondApron: 221_686_000,
+  minTeamSalary: 148_465_000,
 };
 
-export const MATCHING_2026_27: MatchingRules = {
-  belowApron: [
-    { upTo: 7_500_000, pct: 2.0, add: 250_000 }, // PROJECTED thresholds; rise with the cap
-    { upTo: 29_000_000, pct: 1.0, add: 7_500_000 },
-    { upTo: Infinity, pct: 1.25, add: 250_000 },
-  ],
-  apronTakebackPct: 1.0,
-};
+export const MATCHING_2026_27 = matchingRulesForCap(SEASON_2026_27.salaryCap);
 
 export const APRON_2026_27: ApronRules = APRON_2025_26; // tool restrictions are CBA-fixed, season-independent
 
-export const TAX_BRACKETS_2026_27: TaxBracket[] = TAX_BRACKETS_2025_26; // rate structure unchanged; VERIFY repeater rates
+export const TAX_BRACKETS_2026_27 = taxBracketsForCap(SEASON_2026_27.salaryCap);
 
 export const LEAGUE_CALENDAR_2026_27: LeagueCalendar = {
-  tradeDeadline: '2027-02-04',
+  tradeDeadline: '2027-02-11',
   decGuaranteeEligible: '2026-12-15',
   janFifteen: '2027-01-15',
   moratoriumEnd: '2026-07-06',
   aggregationCutoff: '2026-12-15',
 };
 
-export const CASH_LIMIT_2026_27 = 8_300_000; // PROJECTED annual cash-in-trade limit
+export const CASH_LIMIT_2026_27 = SEASON_2026_27.salaryCap * 0.0515;
 
 export const SEASON_RULES_2026_27: SeasonRules = {
   cap: SEASON_2026_27,

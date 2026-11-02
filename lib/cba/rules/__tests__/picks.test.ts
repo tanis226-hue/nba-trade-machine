@@ -58,6 +58,19 @@ function ctxWith(teams: PerTeamContext[]): RuleContext {
 }
 
 describe('picksRule', () => {
+  it('retains another acquired first in the same year when trading only one pick',()=>{
+    const team=makeTeam({abbr:'BOS',outgoingAssets:[pick({id:'own',pickYear:2027})],ownedFirstRoundPicks:[
+      {id:'own',year:2027},{id:'acquired',year:2027},{year:2028,conveyed:true},{year:2029},
+    ]});
+    expect(picksRule(ctxWith([team])).some(f=>f.code==='STEPIEN_VIOLATION')).toBe(false);
+  });
+  it('requires review rather than certifying an uncertain conveyance chain',()=>{
+    const team=makeTeam({abbr:'BOS',pickOwnershipUncertain:true,outgoingAssets:[pick({id:'own',pickYear:2027})],
+      ownedFirstRoundPicks:[{id:'own',year:2027},{year:2028,conveyed:true},{year:2029}]});
+    const findings=picksRule(ctxWith([team]));
+    expect(findings.find(f=>f.code==='PICK_RIGHTS_REVIEW')?.severity).toBe('conditional');
+    expect(findings.find(f=>f.code==='STEPIEN_VIOLATION')?.severity).toBe('conditional');
+  });
   it('blocks a pick more than seven drafts out (seven-year rule)', () => {
     const p = pick({ pickYear: 2033, label: '2033 first' }); // 2033 - 2025 = 8 > 7
     const team = makeTeam({ abbr: 'BOS', outgoingAssets: [p] });

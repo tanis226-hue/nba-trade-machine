@@ -40,7 +40,7 @@ export const taxRule: Rule = (ctx) => {
   return findings;
 };
 
-function taxBill(overage: number, brackets: TaxBracket[], repeater: boolean): number {
+export function taxBill(overage: number, brackets: TaxBracket[], repeater: boolean): number {
   let remaining = overage;
   let prevCap = 0;
   let bill = 0;
@@ -50,6 +50,14 @@ function taxBill(overage: number, brackets: TaxBracket[], repeater: boolean): nu
     const width = b.upTo - prevCap; // size of this marginal slice
     const slice = Math.min(remaining, width);
     const rate = repeater ? b.repeaterRate : b.rate;
+    if (b.upTo === Infinity && b.increment) {
+      const { width: step, rate: increase } = b.increment;
+      const fullSteps = Math.floor(remaining / step);
+      const remainder = remaining - fullSteps * step;
+      bill += step * (fullSteps * rate + increase * fullSteps * (fullSteps - 1) / 2);
+      bill += remainder * (rate + fullSteps * increase);
+      break;
+    }
     bill += slice * rate;
     remaining -= slice;
     prevCap = b.upTo;
