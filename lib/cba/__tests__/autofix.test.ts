@@ -35,7 +35,7 @@ describe('suggestFixes', () => {
     };
     const fixes = suggestFixes(input);
     expect(fixes.length).toBeGreaterThan(0);
-    expect(fixes.some((f) => f.teamAbbr === 'AAA' && /send .* more out|take back/.test(f.text))).toBe(true);
+    expect(fixes.some((f) => f.teamAbbr === 'AAA' && /reduce matched incoming salary by \$29.8M/.test(f.text))).toBe(true);
   });
 
   it('suggests de-aggregation for a second-apron team', () => {

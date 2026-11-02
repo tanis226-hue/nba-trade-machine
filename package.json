@@ -7,6 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "data:check": "tsx scripts/audit.ts",
+    "snapshot:build": "tsx scripts/snapshot.ts",
+    "verify": "npm run lint && npm run typecheck && npm test && npm run data:check && npm run txns:check",
     "test": "vitest run",
     "test:watch": "vitest",
     "migrate": "tsx scripts/migrate.ts",
@@ -25,6 +29,7 @@
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "zod": "^4.6.7",
     "zustand": "^5.0.14"
   },
   "devDependencies": {

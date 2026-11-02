@@ -17,18 +17,18 @@ const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], var
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nbatm.zldagroup.com"),
-  title: "NBA Trade Machine - Accurate Multi-Team Trade Simulator",
+  title: "NBA Trade Machine - Build and Explore Multi-Team Deals",
   description:
-    "Build 2-7 team NBA trades with real current contracts and exact 2023-CBA salary-matching, luxury-tax, and first/second-apron validation. Fast, correct, shareable.",
+    "Build 2-7 team NBA trades, explore cap consequences, and understand salary-matching and apron checks with cited rule explanations.",
   openGraph: {
     title: "NBA Trade Machine",
-    description: "Accurate, current multi-team NBA trade simulator.",
+    description: "Explore multi-team NBA trades and understand the cap consequences.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "NBA Trade Machine",
-    description: "Accurate, current multi-team NBA trade simulator.",
+    description: "Explore multi-team NBA trades and understand the cap consequences.",
   },
 };
 
@@ -109,7 +109,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </>
           )}
           <p className="px-4 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--faint)]">
-            Salaries from public data, hand-verified · Not affiliated with the NBA
+            Public salary data · Fan simulation · Not affiliated with the NBA
           </p>
         </footer>
         {/* Traffic analytics handled by Netlify Analytics (server-side, dashboard-enabled);

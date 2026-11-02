@@ -71,14 +71,15 @@ export const matchingRule: Rule = (ctx) => {
       const msg =
         t.outgoing > 0
           ? `${t.abbr} can take back at most ${fmt(limit)} for ${fmt(t.outgoing)} sent out, but are taking back ${fmt(incMatched)}${exemptNote}.`
-          : `${t.abbr} are taking back ${fmt(incMatched)} with nothing sent out and no cap space or exception to absorb it (limit ${fmt(limit)}).`;
+          : `${t.abbr} are taking back ${fmt(incMatched)} with nothing sent out; available cap room and exceptions allow ${fmt(limit)}.`;
       out.push({
         code: 'OVER_MATCH',
         severity: 'block',
         teamAbbr: t.abbr,
         message: msg,
         citation: '2023 CBA Art. VII §6 — traded-player salary matching limits.',
-        fix: `Send out more salary, take back less, route a contract into a TPE/cap space, or add a minimum-salary filler.`,
+        matching: { incoming: incMatched, limit, shortfall: incMatched - limit },
+        fix: `Reduce matched incoming salary by ${fmt(incMatched - limit)}, adjust outgoing players, or choose an eligible exception, then recheck the whole deal.`,
       });
     } else if (nonSim) {
       const generated = Math.max(0, t.outgoing - incMatched);

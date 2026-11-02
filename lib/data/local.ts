@@ -5,11 +5,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { DbTeam, DbSeasonCap, RosterEntry, ContractYear, DbDraftPick, DbPlayerValue, DbPlayerBio, DbTeamException } from './types';
 
-const root = process.cwd();
 const LAYERS = [
-  path.join(root, 'data/seed'),
-  path.join(root, 'scripts/scraper/out'),
-  path.join(root, 'data/overrides'),
+  path.join(/* turbopackIgnore: true */ process.cwd(), 'data', 'seed'),
+  path.join(/* turbopackIgnore: true */ process.cwd(), 'scripts', 'scraper', 'out'),
+  path.join(/* turbopackIgnore: true */ process.cwd(), 'data', 'overrides'),
 ];
 
 function read<T>(file: string, key: (row: T) => string): T[] {
@@ -123,7 +122,7 @@ export function localDraftPicks(teamId: string): DbDraftPick[] {
 
 // File-backed trade store for shared links when there is no database (dev only).
 // A file (not in-memory) so it survives across Next's separate route/page module graphs.
-const TRADE_DIR = path.join(root, '.trades');
+const TRADE_DIR = path.join(/* turbopackIgnore: true */ process.cwd(), '.trades');
 
 export function localSaveTrade(slug: string, payload: unknown): void {
   fs.mkdirSync(TRADE_DIR, { recursive: true });

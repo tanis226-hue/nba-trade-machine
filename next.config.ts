@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  outputFileTracingIncludes: {
+    '/*': ['./data/seed/*.json', './data/overrides/*.json'],
+  },
+  outputFileTracingExcludes: {
+    '/*': ['./.env*','./.git/**/*','./.netlify/**/*','./.trades/**/*','./scripts/**/*','./docs/**/*'],
+  },
 };
 
 export default nextConfig;

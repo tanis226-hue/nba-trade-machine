@@ -26,6 +26,7 @@ import { ExecuteTradeButton } from './ExecuteTradeButton';
 import { GenerateLinkButton } from './GenerateLinkButton';
 import { SaveTradeButton } from './SaveTradeButton';
 import { authEnabled } from '@/lib/auth';
+import { DATA_AS_OF } from '@/lib/data/freshness';
 import type { ContractYear, DbTeam, DbDraftPick } from '@/lib/data/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
@@ -79,6 +80,7 @@ export function TradeMatrix({
   const applyAutoFix = () => autoFix.forEach((a) => routeAsset(a.assetId, a.toTeam));
   const byTeam = useMemo(() => Object.fromEntries(validation.perTeam.map((t) => [t.abbr, t])), [validation]);
   const isTrade = teams.length >= 2;
+  const hasMoves = Object.values(assets).some((asset) => asset.fromTeam !== asset.toTeam);
 
   function onDragStart(e: DragStartEvent) {
     setActiveId(String(e.active.id));
@@ -140,7 +142,7 @@ export function TradeMatrix({
             <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Trade date</span>
             <input
               type="date"
-              value={simulatedDate ?? ''}
+              value={simulatedDate ?? DATA_AS_OF}
               onChange={(e) => setSimulatedDate(e.target.value || undefined)}
               className="rounded bg-[var(--surface-2)] px-2 py-1 text-[var(--text)] outline-none"
             />
@@ -209,7 +211,7 @@ export function TradeMatrix({
       <TradeGrade />
       <CapSheet />
 
-      {isTrade ? (
+      {isTrade && hasMoves ? (
         <div className="grid gap-3 md:grid-cols-[1fr_280px] md:items-stretch">
           <ValidationFeed validation={validation} fixes={fixes} onAutoFix={autoFix.length ? applyAutoFix : undefined} autoFixCount={autoFix.length} />
           <div className="space-y-2">
@@ -220,8 +222,10 @@ export function TradeMatrix({
         </div>
       ) : (
         <div className="panel ticked flex items-center justify-center gap-2 rounded-xl px-5 py-4 text-center">
-          <span className="eyebrow">Inspecting one team</span>
-          <span className="text-[13px] text-[var(--muted)]">— add another team above to build and validate a trade.</span>
+          <span className="eyebrow">{isTrade ? 'Build your deal' : 'Inspecting one team'}</span>
+          <span className="text-[13px] text-[var(--muted)]">
+            {isTrade ? 'Move a player, pick, or cash to another team to see the checks.' : 'Add another team above to build and validate a trade.'}
+          </span>
         </div>
       )}
 

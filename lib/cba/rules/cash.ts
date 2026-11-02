@@ -1,10 +1,6 @@
 import type { Rule, TradeFinding, TradeAsset } from '../types';
 import { fmt } from '../format';
 
-// VERIFY: 2025-26 annual cash-in-trade limit is ~$7.97M; default below is the conservative
-// $7.5M floor used elsewhere in the engine. Real value should come from ctx.rules.cashLimit.
-const DEFAULT_CASH_LIMIT = 7_500_000;
-
 function cashValue(a: TradeAsset): number {
   return a.amount ?? a.salary ?? 0;
 }
@@ -14,9 +10,9 @@ function cashValue(a: TradeAsset): number {
  * cash limit across a single season; the two directions are tracked separately.
  */
 export const cashRule: Rule = (ctx) => {
-  const limit = ctx.rules?.cashLimit ?? DEFAULT_CASH_LIMIT;
+  const limit = ctx.rules?.cashLimit ?? ctx.season.salaryCap * 0.0515;
   const findings: TradeFinding[] = [];
-  const citation = '2023 CBA Art. VII, §4 — annual cash-in-trade limit (separate send/receive)';
+  const citation = '2023 CBA Art. VII, §8(a) — 5.15% of the salary cap (separate send/receive)';
 
   for (const team of ctx.teams) {
     const cashAssets = ctx.assets.filter((a) => a.kind === 'cash');

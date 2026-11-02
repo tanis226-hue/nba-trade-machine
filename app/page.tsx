@@ -1,6 +1,7 @@
 import { getTeams, getRoster, getSeasons, getDraftPicks, getPlayerValues, getFreeAgents, getTeamExceptions, getProjectedRecords } from '@/lib/data/queries';
 import { TradeBoard } from '@/components/TradeBoard';
 import { DataFreshness } from '@/components/DataFreshness';
+import { hasDb } from '@/lib/data/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,7 +30,7 @@ export default async function Home() {
     <main>
       <section className="stagger mb-9">
         <div className="eyebrow flex items-center gap-2.5">
-          <span className="h-px w-8 bg-[var(--accent)]" /> Live {season} apron engine
+          <span className="h-px w-8 bg-[var(--accent)]" /> {season} trade playground
         </div>
         <h1 className="mt-3 font-display text-6xl font-extrabold uppercase leading-[0.8] tracking-[-0.01em] text-[var(--text)] sm:text-7xl lg:text-[5.6rem]">
           Build the
@@ -38,9 +39,8 @@ export default async function Home() {
           <span className="text-[var(--accent-2)]">.</span>
         </h1>
         <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[var(--muted)]">
-          Mock up 2-7 team deals with real {season} contracts and picks, plus instant 2023-CBA validation:
-          salary matching, luxury tax, first / second apron, hard caps, and trade exceptions, recalculated the
-          moment you move a player or a pick.
+          Build 2-7 team deals, explore the cap impact, and see what needs to change.
+          Salary matching, apron checks, tax estimates, and rule explanations update as you move players and picks.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--faint)]">
           <span>
@@ -60,10 +60,10 @@ export default async function Home() {
           </span>
         </div>
       </section>
-      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
-      <div className="mt-5">
-        <DataFreshness />
+      <div className="mb-5">
+        <DataFreshness source={hasDb() ? 'database' : 'snapshot'} />
       </div>
+      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
     </main>
   );
 }

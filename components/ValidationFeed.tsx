@@ -70,7 +70,7 @@ export function ValidationFeed({
         >
           {valid ? '✓' : '!'}
         </span>
-        {valid ? 'Trade Legal' : 'Trade Denied'}
+        {valid ? 'Passes modeled checks' : 'Trade needs changes'}
         <TradeRulesButton className="ml-auto bg-transparent text-[var(--muted)] hover:text-[var(--text)]" />
       </div>
 
@@ -91,8 +91,12 @@ export function ValidationFeed({
       )}
 
       {valid && notes.length === 0 && (
-        <div className="text-xs text-[var(--muted)]">All teams satisfy CBA salary-matching, apron, and roster rules.</div>
+        <div className="text-xs text-[var(--muted)]">No blocking findings for the supplied salaries and assumptions.</div>
       )}
+
+      <p className="mt-2 text-[11px] leading-relaxed text-[var(--muted)]">
+        A simulation, not league approval. Active roster counts, team transaction history, and some pick conditions are incomplete.
+      </p>
 
       {fixes.length > 0 && (
         <div className="mt-2 border-t border-[var(--border)] pt-2">

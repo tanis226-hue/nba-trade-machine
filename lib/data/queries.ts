@@ -7,6 +7,7 @@ import {
   localFreeAgents, localTeamExceptions, localProjectedRecords,
 } from './local';
 import type { TeamException } from '@/lib/cba/types';
+import { tradeSchema,validSlug } from '@/lib/trades/schema';
 import type { DbTeamException } from './types';
 
 export interface PlayerMeta {
@@ -228,11 +229,17 @@ export interface TradePayload {
   // eligibility keys off simulatedDate; the matching path differs for simultaneous vs TPE).
   simulatedDate?: string;
   tradeMethod?: string;
+  schemaVersion?: number;
+  rulesVersion?: string;
+  dataVersion?: string;
+  createdAt?: string;
+  validation?: import('@/lib/cba/types').TradeValidation;
 }
 
 export async function saveTrade(payload: TradePayload): Promise<string> {
   const slug = nanoid(10);
   if (!hasDb()) {
+    if (process.env.NETLIFY === 'true') throw new Error('Durable trade storage is not configured');
     localSaveTrade(slug, payload);
     return slug;
   }
@@ -241,9 +248,13 @@ export async function saveTrade(payload: TradePayload): Promise<string> {
 }
 
 export async function getTrade(slug: string): Promise<TradePayload | null> {
-  if (!hasDb()) return localGetTrade(slug) as TradePayload | null;
-  const rows = await db()`SELECT payload FROM trades WHERE slug = ${slug}`;
-  return rows[0] ? (rows[0].payload as TradePayload) : null;
+  if (!validSlug(slug)) return null;
+  const raw:unknown=!hasDb()?localGetTrade(slug):(await db()`SELECT payload FROM trades WHERE slug = ${slug}`)[0]?.payload;
+  if(!raw||typeof raw!=='object') return null;
+  const payload=raw as TradePayload;
+  const parsed=tradeSchema.safeParse({season:payload.season,teams:payload.teams,assets:payload.assets,contracts:payload.contracts,simulatedDate:payload.simulatedDate,tradeMethod:payload.tradeMethod});
+  if(!parsed.success) return null;
+  return {...payload,...parsed.data};
 }
 
 export interface UserTradeListItem {
@@ -265,13 +276,15 @@ export async function saveUserTrade(args: {
   if (!hasDb()) throw new Error('Saving to an account requires the database');
   const slug = args.slug ?? nanoid(10);
   const title = args.title.trim().slice(0, 120) || 'Untitled trade';
-  await db()`
+  const saved = await db()`
     INSERT INTO trades (id, slug, payload, user_id, title, updated_at)
     VALUES (${slug}, ${slug}, ${JSON.stringify(args.payload)}::jsonb, ${args.userId}, ${title}, now())
     ON CONFLICT (slug) DO UPDATE
       SET payload = excluded.payload, title = excluded.title, updated_at = now()
       WHERE trades.user_id = ${args.userId}
+    RETURNING slug
   `;
+  if (!saved[0]) throw new Error('This trade could not be saved under your account');
   return slug;
 }
 

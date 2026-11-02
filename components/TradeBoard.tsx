@@ -32,9 +32,11 @@ export function TradeBoard({
   projectedRecords?: Record<string, ProjectedRecord>;
 }) {
   const storeTeams = useTradeStore((s) => s.teams);
+  const capYear = useTradeStore((s) => s.season);
   const addTeam = useTradeStore((s) => s.addTeam);
   const addAsset = useTradeStore((s) => s.addAsset);
   const [hydrated, setHydrated] = useState(false);
+  const [teamSearch, setTeamSearch] = useState('');
 
   // Per-player contract years for cap-sheet display, derived purely from the teams in the store and
   // the server rosters. Deriving (not storing) means a board restored from localStorage rebuilds its
@@ -153,6 +155,8 @@ export function TradeBoard({
 
   const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
   const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
+  const query = teamSearch.trim().toLowerCase();
+  const filteredTeams = available.filter((t) => `${t.name} ${t.abbr}`.toLowerCase().includes(query));
   const atMax = storeTeams.length >= MAX_TRADE_TEAMS;
 
   // Until localStorage rehydrates, render a neutral skeleton (matches the server-rendered output)
@@ -168,18 +172,33 @@ export function TradeBoard({
 
   return (
     <div className="space-y-5">
+      {capYear !== ACTIVE_SEASON.season && (
+        <p className="rounded-xl border border-[var(--warn)]/40 bg-[var(--warn)]/10 px-3.5 py-2.5 text-xs text-[var(--muted)]">
+          Cap year changes the rules only. This board still uses {ACTIVE_SEASON.season} roster salaries; it is not a historical roster.
+        </p>
+      )}
       <div className="panel flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl p-3.5">
         <SeasonSelector seasons={seasons} />
         <div className="h-5 w-px bg-[var(--border)]" />
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
           <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--faint)]">
             Add teams {storeTeams.length}/{MAX_TRADE_TEAMS}
           </span>
+          <input
+            type="search"
+            aria-label="Search teams"
+            placeholder="Find a team…"
+            value={teamSearch}
+            onChange={(e) => setTeamSearch(e.target.value)}
+            className="min-w-0 rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1.5 text-sm text-[var(--text)] outline-none focus:border-[var(--accent)]"
+          />
           <div className="flex flex-wrap gap-1.5">
-            {available.map((t) => (
+            {filteredTeams.map((t) => (
               <button
                 key={t.id}
-                onClick={() => add(t)}
+                onClick={() => { add(t); setTeamSearch(''); }}
+                aria-label={`Add ${t.name}`}
+                title={t.name}
                 disabled={atMax}
                 className="group relative overflow-hidden rounded-md px-2.5 py-1 font-display text-sm font-semibold tracking-wide text-white transition enabled:hover:-translate-y-0.5 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-30"
                 style={{ backgroundColor: t.primary_color ?? '#1f2937' }}
@@ -191,6 +210,9 @@ export function TradeBoard({
               <span className="text-xs text-[var(--faint)]">No more seeded rosters available</span>
             )}
           </div>
+          {query && filteredTeams.length === 0 && available.length > 0 && (
+            <span className="text-xs text-[var(--muted)]">No available teams match “{teamSearch}”.</span>
+          )}
         </div>
         {storeTeams.length > 0 && (
           <div className="ml-auto flex items-center gap-2">

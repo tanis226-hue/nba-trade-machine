@@ -1,0 +1,17 @@
+{
+  "note": "Versioned demo baseline copied from the local scraper cache. File timestamps are not verified data freshness. Curated overrides apply after this baseline.",
+  "sources": [
+    {
+      "file": "scripts/scraper/out/players.json",
+      "sha256": "53418ef9e739a1c458c89836fb1f7f8be51423889bdc889e69b7f551e94a689b",
+      "cacheFileModifiedAt": "2026-06-01T04:26:13.636Z"
+    },
+    {
+      "file": "scripts/scraper/out/contracts.json",
+      "sha256": "3bca8bbb137875f4005ec94353dcbfb8dc1f950be4c8bf65ce566b7294111548",
+      "cacheFileModifiedAt": "2026-06-01T04:26:13.645Z"
+    }
+  ],
+  "players": 490,
+  "contracts": 1192
+}

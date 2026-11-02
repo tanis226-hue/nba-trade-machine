@@ -4,21 +4,21 @@ import { DATA_AS_OF, RECENT_TRANSACTIONS } from '@/lib/data/freshness';
 
 const fmt = (iso: string) => new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-export function DataFreshness() {
+export function DataFreshness({ source }: { source: 'database' | 'snapshot' }) {
   const [open, setOpen] = useState(false);
   const pending = RECENT_TRANSACTIONS.filter((t) => !t.reflected).length;
 
   return (
     <div className="panel rounded-xl px-3.5 py-2.5 text-[12px]">
       <button onClick={() => setOpen((o) => !o)} className="flex w-full flex-wrap items-center gap-2 text-left">
-        <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Rosters current to</span>
+        <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Bundled roster snapshot</span>
         <span className="num font-semibold text-[var(--text)]">{fmt(DATA_AS_OF)}</span>
         {pending > 0 && (
           <span className="rounded bg-[var(--warn)]/20 px-1.5 py-0.5 text-[10px] font-semibold text-[var(--warn)]">
-            {pending} recent trade{pending > 1 ? 's' : ''} not yet in rosters
+            {pending} move{pending > 1 ? 's' : ''} pending curation
           </span>
         )}
-        <span className="ml-auto text-[11px] text-[var(--muted)]">{open ? '▾' : '▸'} Recent moves</span>
+        <span className="ml-auto text-[11px] text-[var(--muted)]">{open ? '▾' : '▸'} Snapshot notes</span>
       </button>
 
       {open && (
@@ -30,9 +30,9 @@ export function DataFreshness() {
                 className={`mt-0.5 shrink-0 rounded px-1 text-[9px] font-bold uppercase tracking-wide ${
                   t.reflected ? 'bg-[var(--legal)]/20 text-[var(--legal)]' : 'bg-[var(--warn)]/20 text-[var(--warn)]'
                 }`}
-                title={t.reflected ? 'Reflected in the rosters above' : 'Reported, not yet curated into the rosters'}
+                title={t.reflected ? 'Applied to the bundled snapshot; database sync is not verified here' : 'Reported, not yet curated into the snapshot'}
               >
-                {t.reflected ? '✓ in rosters' : 'pending'}
+                {t.reflected ? 'in snapshot' : 'pending'}
               </span>
               {t.status === 'pending' && (
                 <span className="mt-0.5 shrink-0 rounded bg-[var(--info)]/20 px-1 text-[9px] font-bold uppercase tracking-wide text-[var(--info)]">unofficial</span>
@@ -44,8 +44,9 @@ export function DataFreshness() {
       )}
 
       <p className="mt-1.5 text-[10px] leading-relaxed text-[var(--faint)]">
-        Trades are curated into the data during the offseason. The live database reflects them after the next sync. Items marked
-        <span className="text-[var(--warn)]"> pending</span> are reported but not yet applied to the rosters above.
+        {source === 'database'
+          ? 'Database mode: the latest sync has not been verified. Snapshot notes do not confirm which moves are in the database.'
+          : 'Using the bundled roster snapshot. Later moves may be missing; check player teams and pick ownership before sharing.'}
       </p>
     </div>
   );

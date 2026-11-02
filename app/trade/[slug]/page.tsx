@@ -23,7 +23,9 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
   const assets = payload.assets as Record<string, TradeAsset>;
   const tradeMethod = payload.tradeMethod as TradeMethod | undefined;
   // Re-validate with the author's date + method so the verdict matches what they saw when sharing.
-  const validation = selectValidation({ season: payload.season, teams, assets, simulatedDate: payload.simulatedDate, tradeMethod });
+  const validation = payload.schemaVersion === 1 && payload.validation
+    ? payload.validation
+    : selectValidation({ season: payload.season, teams, assets, simulatedDate: payload.simulatedDate, tradeMethod });
   const grade = gradeTrade(teams, Object.values(assets));
   const list = Object.values(assets);
 
@@ -37,6 +39,9 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
           Proposed Trade
         </h1>
         <p className="mt-2 text-[13px] text-[var(--muted)]">{grade.verdict}</p>
+        <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
+          {payload.rulesVersion ? `Saved with rules ${payload.rulesVersion} · data ${payload.dataVersion} · trade date ${payload.simulatedDate}. The saved verdict is preserved; opening in the editor runs the current checks.` : 'Legacy proposal: recalculated with current rules. Its original data version was not recorded.'}
+        </p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">

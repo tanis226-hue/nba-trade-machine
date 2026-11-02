@@ -98,7 +98,10 @@ export function runRules(ctx: RuleContext, rules: Rule[] = RULES): TradeFinding[
     try {
       findings.push(...rule(ctx));
     } catch {
-      // A buggy/half-built rule must never crash the whole validation. Skip it.
+      findings.push({
+        code: 'RULE_EVALUATION_FAILED', severity: 'block',
+        message: 'A rule could not be evaluated. This proposal cannot be verified; reload and try again.',
+      });
     }
   }
   return findings;

@@ -10,6 +10,7 @@ export function SaveTradeButton() {
   const { isSignedIn } = useUser();
   const [busy, setBusy] = useState(false);
   const [saved, setSaved] = useState<string | null>(null);
+  const [error,setError]=useState<string|null>(null);
   const season = useTradeStore((s) => s.season);
   const teams = useTradeStore((s) => s.teams);
   const assets = useTradeStore((s) => s.assets);
@@ -31,28 +32,35 @@ export function SaveTradeButton() {
     if (!title) return;
     setBusy(true);
     setSaved(null);
+    setError(null);
     try {
       const res = await fetch('/api/trade/save', {
         method: 'POST',
+        headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ title, season, teams, assets, simulatedDate, tradeMethod }),
       });
-      if (res.ok) {
-        const { slug } = await res.json();
+      const data=await res.json();
+      if (res.ok && typeof data.slug==='string') {
+        const {slug}=data;
         setSaved(slug);
         setTimeout(() => setSaved(null), 2000);
-      }
+      } else throw new Error(data.error??'Could not save this trade. Please try again.');
+    } catch(error) {
+      setError(error instanceof Error?error.message:'Could not save this trade.');
     } finally {
       setBusy(false);
     }
   }
 
   return (
-    <button
+    <div className="space-y-2"><button
       onClick={save}
       disabled={busy}
       className="w-full rounded-lg border border-[var(--accent)]/50 bg-[var(--accent)]/10 py-2.5 font-display text-sm font-semibold uppercase tracking-[0.1em] text-[var(--accent)] transition hover:bg-[var(--accent)]/20 disabled:opacity-50"
     >
       {busy ? 'Saving…' : saved ? 'Saved ✓' : 'Save to my account'}
     </button>
+    {error && <p role="alert" className="text-xs text-[var(--illegal)]">{error}</p>}
+    </div>
   );
 }

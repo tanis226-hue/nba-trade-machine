@@ -34,6 +34,7 @@ export interface TaxBracket {
   upTo: number; // amount over the tax line, ascending; last = Infinity
   rate: number; // standard multiplier
   repeaterRate: number; // repeater multiplier (taxpayer in 3 of prior 4 yrs)
+  increment?: { width: number; rate: number }; // final band: rate rises for each further width
 }
 export interface LeagueCalendar {
   tradeDeadline: string; // ISO date
@@ -168,6 +169,7 @@ export interface TradeFinding {
   citation?: string; // CBA reference for the audit trail
   fix?: string; // suggested remedy (auto-fixer seed)
   legalOnDate?: string; // ISO; for conditional/date-gated findings
+  matching?: { incoming: number; limit: number; shortfall: number };
 }
 /** Back-compat: blocking findings, shaped like the original error type. */
 export interface TradeError {
