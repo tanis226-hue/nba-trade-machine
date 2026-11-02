@@ -22,6 +22,7 @@ function makeTeam(partial: Partial<PerTeamContext> & { abbr: string }): PerTeamC
     exceptions: [],
     outgoingAssets: [],
     incomingAssets: [],
+    cashUsage: { season: '2025-26', sent: 0, received: 0 },
     ...partial,
   };
 }
@@ -97,13 +98,13 @@ describe('cashRule', () => {
     expect(findings).toHaveLength(0);
   });
 
-  it('falls back to asset.salary when amount is absent', () => {
+  it('rejects legacy matching-salary cash instead of using it as an amount', () => {
     const assets = [
       cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: undefined, salary: 9_000_000 }),
     ];
     const teams = [makeTeam({ abbr: 'LAL' }), makeTeam({ abbr: 'BOS' })];
     const findings = cashRule(ctx(assets, teams));
-    expect(findings.find((f) => f.teamAbbr === 'LAL')).toBeDefined();
+    expect(findings.find((f) => f.code === 'INVALID_CASH_AMOUNT')).toBeDefined();
   });
 
   it('returns [] (negative case) when cash is within the limit', () => {
@@ -121,5 +122,84 @@ describe('cashRule', () => {
     ];
     const teams = [makeTeam({ abbr: 'LAL' }), makeTeam({ abbr: 'BOS' })];
     expect(cashRule(ctx(assets, teams))).toEqual([]);
+  });
+
+  it('ignores retained cash, even if its draft amount is missing or over the limit', () => {
+    const assets = [cash({ fromTeam: 'LAL', toTeam: 'LAL', amount: 99_000_000 }),
+      cash({ id: 'draft', fromTeam: 'BOS', toTeam: 'BOS' })];
+    expect(cashRule(ctx(assets, [makeTeam({ abbr: 'LAL', cashUsage: undefined }), makeTeam({ abbr: 'BOS' })]))).toEqual([]);
+  });
+
+  it('checks prior sent and received independently without netting a multi-team pass-through', () => {
+    const assets = [cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: 2 }),
+      cash({ fromTeam: 'MIA', toTeam: 'LAL', amount: 2 })];
+    const teams = [makeTeam({ abbr: 'LAL', cashUsage: { season: '2025-26', sent: 9, received: 1 } }),
+      makeTeam({ abbr: 'BOS' }), makeTeam({ abbr: 'MIA' })];
+    const findings = cashRule(ctx(assets, teams, 10));
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toMatchObject({ code: 'CASH_OVER_LIMIT', teamAbbr: 'LAL', severity: 'block' });
+    expect(findings[0].message).toContain('by $1.');
+    expect(findings[0].fix).toContain('$1 or less');
+  });
+
+  it('allows an exact gross allowance and blocks the next whole dollar', () => {
+    const assets = [cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: 3 })];
+    const teams = [makeTeam({ abbr: 'LAL', cashUsage: { season: '2025-26', sent: 7 } }),
+      makeTeam({ abbr: 'BOS' })];
+    expect(cashRule(ctx(assets, teams, 10))).toEqual([]);
+    assets[0].amount = 4;
+    expect(cashRule(ctx(assets, teams, 10))[0].message).toContain('by $1.');
+  });
+
+  it('retains fractional formula limits while suggesting a whole-dollar maximum', () => {
+    const assets = [cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: 11 })];
+    const teams = [makeTeam({ abbr: 'LAL' }), makeTeam({ abbr: 'BOS' })];
+    const findings = cashRule(ctx(assets, teams, 10.5));
+    expect(findings[0].message).toContain('$10.50');
+    expect(findings[0].message).toContain('$0.50');
+    expect(findings[0].fix).toContain('$10 or less');
+  });
+
+  it('marks each missing or wrong-season direction unknown rather than zero', () => {
+    const assets = [cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: 1 }),
+      cash({ fromTeam: 'BOS', toTeam: 'LAL', amount: 1 })];
+    const teams = [makeTeam({ abbr: 'LAL', cashUsage: { season: '2025-26', sent: 0 } }),
+      makeTeam({ abbr: 'BOS', cashUsage: { season: '2024-25', sent: 0, received: 0 } })];
+    const findings = cashRule(ctx(assets, teams, 10));
+    expect(findings).toHaveLength(3);
+    expect(findings.every((f) => f.code === 'CASH_USAGE_UNKNOWN' && f.severity === 'conditional')).toBe(true);
+    expect(findings.find((f) => f.teamAbbr === 'LAL')?.message).toContain('prior cash received');
+  });
+
+  it.each([undefined, 0, -1, 1.5, NaN, Infinity])('blocks malformed moved cash amount %s', (amount) => {
+    const findings = cashRule(ctx([cash({ fromTeam: 'LAL', toTeam: 'BOS', amount })], [makeTeam({ abbr: 'LAL' })]));
+    expect(findings).toEqual([expect.objectContaining({ code: 'INVALID_CASH_AMOUNT', severity: 'block' })]);
+  });
+
+  it.each([-1, 0.5, NaN, Infinity])('blocks malformed prior usage %s rather than offsetting the deal', (sent) => {
+    const findings = cashRule(ctx([cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: 1 })],
+      [makeTeam({ abbr: 'LAL', cashUsage: { season: '2025-26', sent } })]));
+    expect(findings[0].code).toBe('INVALID_CASH_USAGE');
+  });
+
+  it('makes a date outside the selected cap year conditional', () => {
+    const context = ctx([cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: 1 })], [makeTeam({ abbr: 'LAL' })]);
+    context.simulatedDate = '2026-07-01';
+    expect(cashRule(context)).toContainEqual(expect.objectContaining({ code: 'CASH_CAP_YEAR_MISMATCH', severity: 'conditional' }));
+  });
+
+  it('warns only senders during the post-regular-season window about unmodeled next-year apron rules', () => {
+    const context = ctx([cash({ fromTeam: 'LAL', toTeam: 'BOS', amount: 1 })],
+      [makeTeam({ abbr: 'LAL' }), makeTeam({ abbr: 'BOS' })]);
+    context.rules = { calendar: { regularSeasonEnd: '2026-04-12' } } as RuleContext['rules'];
+    for (const date of ['2026-04-13', '2026-06-30']) {
+      context.simulatedDate = date;
+      expect(cashRule(context).filter((f) => f.code === 'CASH_NEXT_SEASON_APRON_UNKNOWN'))
+        .toEqual([expect.objectContaining({ teamAbbr: 'LAL', severity: 'conditional' })]);
+    }
+    for (const date of ['2026-04-12', '2025-07-01', '2026-07-01']) {
+      context.simulatedDate = date;
+      expect(cashRule(context).some((f) => f.code === 'CASH_NEXT_SEASON_APRON_UNKNOWN')).toBe(false);
+    }
   });
 });

@@ -1,9 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { PlayerHeadshot } from './PlayerHeadshot';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import type { TradeAsset } from '@/lib/cba/types';
 
-const m = (n?: number) => (n == null ? '—' : `$${(n / 1_000_000).toFixed(1)}M`);
+const m = (n?: number) => (n == null ? 'â€”' : `$${(n / 1_000_000).toFixed(1)}M`);
 
 // Highlight the best value per stat row across the compared players.
 function bestIndex(vals: (number | undefined)[]): number {
@@ -53,7 +54,7 @@ export function PlayerCompare() {
             <span key={p.id} className="flex items-center gap-1 rounded-full bg-[var(--surface-2)] px-2 py-0.5 text-[11px] text-[var(--text)]">
               {p.label}
               <button onClick={() => toggleCompare(p.id)} aria-label={`Remove ${p.label}`} className="text-[var(--faint)] hover:text-[var(--illegal)]">
-                ✕
+                âœ•
               </button>
             </span>
           ))}
@@ -61,7 +62,7 @@ export function PlayerCompare() {
             onClick={() => setOpen(true)}
             disabled={players.length < 2}
             className="ml-1 rounded-lg bg-[var(--accent)] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--ink)] transition enabled:hover:brightness-110 disabled:opacity-40"
-            title={players.length < 2 ? 'Add another player (⊕ vs) to compare' : 'Open side-by-side comparison'}
+            title={players.length < 2 ? 'Add another player (âŠ• vs) to compare' : 'Open side-by-side comparison'}
           >
             Compare {players.length}
           </button>
@@ -83,7 +84,7 @@ export function PlayerCompare() {
             <div className="sticky top-0 flex items-center justify-between bg-[var(--accent)] px-4 py-2.5">
               <span className="font-display text-base font-bold uppercase tracking-[0.08em] text-[var(--ink)]">Player comparison</span>
               <button onClick={() => setOpen(false)} aria-label="Close" className="text-[var(--ink)]/80 transition hover:text-[var(--ink)]">
-                ✕
+                âœ•
               </button>
             </div>
 
@@ -95,9 +96,9 @@ export function PlayerCompare() {
                     {players.map((p) => (
                       <th key={p.id} className="px-2 py-2 text-center">
                         <div className="flex flex-col items-center gap-1">
-                          <Photo src={p.headshot} name={p.label} />
+                          <PlayerHeadshot size={48} shape="circle" src={p.headshot} name={p.label} />
                           <span className="font-display text-[12px] font-bold uppercase leading-tight text-[var(--text)]">{p.label}</span>
-                          <span className="text-[10px] text-[var(--faint)]">{p.fromTeam}{p.position ? ` · ${p.position}` : ''}</span>
+                          <span className="text-[10px] text-[var(--faint)]">{p.fromTeam}{p.position ? ` Â· ${p.position}` : ''}</span>
                         </div>
                       </th>
                     ))}
@@ -118,7 +119,7 @@ export function PlayerCompare() {
                               key={p.id}
                               className={`num px-2 py-2 text-center ${i === best ? 'font-bold text-[var(--legal)]' : 'text-[var(--text)]'}`}
                             >
-                              {v == null ? '—' : row.fmt ? row.fmt(v) : v}
+                              {v == null ? 'â€”' : row.fmt ? row.fmt(v) : v}
                             </td>
                           );
                         })}
@@ -129,7 +130,7 @@ export function PlayerCompare() {
                     <td className="py-2 text-left font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--muted)]">Age</td>
                     {players.map((p) => (
                       <td key={p.id} className="num px-2 py-2 text-center text-[var(--text)]">
-                        {p.age != null ? p.age : '—'}
+                        {p.age != null ? p.age : 'â€”'}
                       </td>
                     ))}
                   </tr>
@@ -137,7 +138,7 @@ export function PlayerCompare() {
                     <td className="py-2 text-left font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--muted)]">Bio</td>
                     {players.map((p) => (
                       <td key={p.id} className="px-2 py-2 text-center text-[11px] text-[var(--muted)]">
-                        {[p.height, p.weight ? `${p.weight} lbs` : null].filter(Boolean).join(' · ') || '—'}
+                        {[p.height, p.weight ? `${p.weight} lbs` : null].filter(Boolean).join(' Â· ') || 'â€”'}
                       </td>
                     ))}
                   </tr>
@@ -146,8 +147,8 @@ export function PlayerCompare() {
                     {players.map((p) => (
                       <td key={p.id} className="px-2 py-2 text-center text-[11px] text-[var(--muted)]">
                         {p.futureSalaries && p.futureSalaries.length > 0
-                          ? p.futureSalaries.map((f) => `${f.season.slice(2)} ${m(f.salary)}`).join(' · ')
-                          : '—'}
+                          ? p.futureSalaries.map((f) => `${f.season.slice(2)} ${m(f.salary)}`).join(' Â· ')
+                          : 'â€”'}
                       </td>
                     ))}
                   </tr>
@@ -159,18 +160,4 @@ export function PlayerCompare() {
       )}
     </>
   );
-}
-
-function Photo({ src, name }: { src?: string; name: string }) {
-  const [err, setErr] = useState(false);
-  const initials = name.split(' ').map((w) => w[0]).slice(0, 2).join('');
-  if (!src || err) {
-    return (
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--surface-2)] text-[11px] font-semibold text-[var(--muted)] ring-1 ring-[var(--border)]">
-        {initials}
-      </div>
-    );
-  }
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt={name} onError={() => setErr(true)} className="h-12 w-12 rounded-full bg-[var(--surface-2)] object-cover object-top ring-1 ring-[var(--border)]" />;
 }

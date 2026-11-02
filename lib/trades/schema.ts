@@ -20,6 +20,7 @@ const exception = z.object({
 const teamInput = z.object({
   dataNotes:z.array(z.string().max(500)).max(10).optional(),
   abbr: team, preTradeSalary: money, apronSalary: money.optional(), capSpace: money.optional(),
+  cashUsage:z.object({season, sent:money.int().optional(), received:money.int().optional()}).optional(),
   hardCapLine: money.nullish(), exceptions: z.array(exception).max(40).optional(),
   rosterCount: z.number().int().min(0).max(40).optional(), openRosterSpots: z.number().int().min(0).max(40).optional(),
   twoWayCount: z.number().int().min(0).max(10).optional(),
@@ -70,6 +71,7 @@ function relationships(p:z.infer<typeof payloadObject>,ctx:z.RefinementCtx,requi
   for(const [key,a] of entries) {
     if(key!==a.id || !abbrs.includes(a.fromTeam) || !abbrs.includes(a.toTeam)) ctx.addIssue({code:'custom',message:'Asset ID or team routing is invalid',path:['assets',key]});
     if(a.kind!=='player' && a.salary!==0) ctx.addIssue({code:'custom',message:'Non-player assets cannot match salary',path:['assets',key,'salary']});
+    if(requireMove && a.kind==='cash' && a.fromTeam!==a.toTeam && (!Number.isSafeInteger(a.amount) || (a.amount??0)<=0)) ctx.addIssue({code:'custom',message:'Moved cash needs a positive whole-dollar amount',path:['assets',key,'amount']});
   }
 }
 export const tradeSchema=payloadObject.strict().superRefine(relationships);

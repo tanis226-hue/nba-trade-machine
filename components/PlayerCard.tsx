@@ -4,34 +4,12 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import { PlayerContractModal } from './PlayerContractModal';
+import { PlayerHeadshot } from './PlayerHeadshot';
 import type { TradeAsset, TradeTeamInput } from '@/lib/cba/types';
 import type { ContractYear } from '@/lib/data/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 
-function Headshot({ src, name }: { src?: string; name: string }) {
-  const [err, setErr] = useState(false);
-  const initials = name.split(' ').map((w) => w[0]).slice(0, 2).join('');
-  if (!src || err) {
-    return (
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] text-[10px] font-semibold text-[var(--muted)] ring-1 ring-[var(--border)]">
-        {initials}
-      </div>
-    );
-  }
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt=""
-      width={40}
-      height={40}
-      loading="lazy"
-      onError={() => setErr(true)}
-      className="h-10 w-10 shrink-0 rounded-full bg-[var(--surface-2)] object-cover object-top ring-1 ring-[var(--border)]"
-    />
-  );
-}
 const OPT: Record<string, string> = { team: 'TO', player: 'PO', eto: 'ETO', guaranteed: '', non_guaranteed: 'NG', two_way: '2W' };
 
 export function PlayerCard({asset,contract,teams}:{asset:TradeAsset;contract?:ContractYear[];teams:TradeTeamInput[]}) {
@@ -53,7 +31,7 @@ export function PlayerCard({asset,contract,teams}:{asset:TradeAsset;contract?:Co
   return <>
     <div ref={setNodeRef} style={{transform:CSS.Transform.toString(transform),transition,opacity:isDragging?.4:1}} className={`player-card ${routed?'routed':''} ${inCompare?'ring-2 ring-[var(--accent)]':''}`}>
       <div className="player-card-head">
-        <Headshot src={asset.headshot} name={asset.label}/>
+        <PlayerHeadshot src={asset.headshot} name={asset.label}/>
         <div className="min-w-0 flex-1"><button className="player-name" onClick={()=>setShowModal(true)} title="View or edit contract">{asset.label}</button><p className="player-bio">{[asset.position,asset.age!=null?`${asset.age} yrs`:null,asset.isTwoWay?'Two-way':null].filter(Boolean).join(' · ')}</p></div>
         <span className="player-salary">{m(asset.salary)}</span>
         <button ref={setActivatorNodeRef} {...attributes} {...listeners} aria-label={`Drag ${asset.label}`} className="drag-handle"><svg aria-hidden="true" width="14" height="22" viewBox="0 0 14 22" fill="currentColor"><circle cx="4" cy="5" r="1.5"/><circle cx="10" cy="5" r="1.5"/><circle cx="4" cy="11" r="1.5"/><circle cx="10" cy="11" r="1.5"/><circle cx="4" cy="17" r="1.5"/><circle cx="10" cy="17" r="1.5"/></svg></button>

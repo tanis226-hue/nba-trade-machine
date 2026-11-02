@@ -47,4 +47,29 @@ describe('public trade boundary',()=>{
     expect(saved.simulatedDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(saved.validation.valid).toBe(false);
   });
+
+  it('persists independent cash directions as proposal assumptions through snapshots',()=>{
+    const input=proposal();
+    const board={...input,teams:[{...input.teams[0],cashUsage:{season:'2026-27',sent:123}},
+      {...input.teams[1],cashUsage:{season:'2026-27',received:0}}]};
+    const saved=snapshotTrade(tradeSchema.parse(board));
+    expect(saved.teams[0].cashUsage).toEqual({season:'2026-27',sent:123});
+    expect(saved.teams[1].cashUsage).toEqual({season:'2026-27',received:0});
+    expect(saved.rulesVersion).toBe('2026-11-02.4');
+    for(const sent of [-1,0.5,NaN,Infinity])expect(tradeSchema.safeParse({...board,
+      teams:[{...board.teams[0],cashUsage:{season:'2026-27',sent}},board.teams[1]]}).success).toBe(false);
+  });
+
+  it('requires positive whole-dollar moved cash on writes but keeps legacy amounts readable',()=>{
+    const input=proposal();
+    const cash={id:'cash',kind:'cash',label:'Cash',salary:0,fromTeam:'BOS',toTeam:'LAL',amount:1};
+    expect(tradeSchema.safeParse({...input,assets:{cash}}).success).toBe(true);
+    for(const amount of [undefined,0,0.5]) {
+      const board={...input,assets:{cash:{...cash,amount}}};
+      expect(tradeSchema.safeParse(board).success).toBe(false);
+      expect(storedTradeSchema.safeParse(board).success).toBe(true);
+    }
+    expect(tradeSchema.safeParse({...input,assets:{...input.assets,cash:{...cash,toTeam:'BOS',amount:0}}}).success).toBe(true);
+    expect(tradeSchema.safeParse({...input,assets:{cash:{...cash,salary:1}}}).success).toBe(false);
+  });
 });

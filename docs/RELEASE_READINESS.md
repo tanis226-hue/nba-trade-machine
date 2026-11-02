@@ -37,7 +37,7 @@ Released November 2, 2026 at 14:06 EST (19:06 UTC) on [nbatm.zldagroup.com](http
 
 ## Model boundaries
 
-The app is a fan simulation. Passing modeled checks is not NBA approval. Contract flags and acquisition/signing/Bird history are incomplete; prior cash usage and repeater status may not be supplied. Cash proposals ask for annual-allowance review. Tax figures are estimates. Reported temporary roster exceptions, conflicting hard-cap labels and complex conditional conveyance chains require independent review. Historical 2025–26 rosters are an archived contract snapshot. Future commitments exclude dead money, cap holds, future signings and changes to options; future cap lines are not assumed.
+The app is a fan simulation. Passing modeled checks is not NBA approval. Contract flags and acquisition/signing/Bird history are incomplete; repeater status may not be supplied. Cash proposals use independently entered gross sent/received totals for the selected cap year; missing directions remain unknown and entered figures are proposal assumptions. Retained cash has no trade effect, and cash is excluded from salary matching, payroll and tax calculations. Sending cash derives a second-apron hard cap measured after the transaction, preserving any tighter existing line. Cash sending after the regular season through June 30 remains conditional because next-year apron payroll and the required option assumptions are not modeled. The annual cash limit follows the CBA's exact 5.15% formula; transfers use whole dollars. Tax figures are estimates. Reported temporary roster exceptions, conflicting hard-cap labels and complex conditional conveyance chains require independent review. Historical 2025–26 rosters are an archived contract snapshot. Future commitments exclude dead money, cap holds, future signings and changes to options; future cap lines are not assumed.
 
 ## Operating the release
 
@@ -50,7 +50,7 @@ The isolated deploy-preview database is separate from production. Retain the pri
 ## Next portfolio milestones
 
 1. Fan feedback on the phone flow and explanation clarity.
-2. Explicit acquisition/Bird/cash/repeater inputs and independently reconciled contract restrictions.
+2. Explicit acquisition/Bird/repeater inputs, independently reconciled contract restrictions and an independently sourced cash-usage ledger.
 3. Pick-chain visualization covering every conveyance outcome.
 4. Fork/compare workflows and a sequence-of-moves planner.
 

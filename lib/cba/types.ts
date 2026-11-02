@@ -37,6 +37,7 @@ export interface TaxBracket {
   increment?: { width: number; rate: number }; // final band: rate rises for each further width
 }
 export interface LeagueCalendar {
+  regularSeasonEnd?: string; // ISO; cash sending after this day also constrains the next cap year
   tradeDeadline: string; // ISO date
   decGuaranteeEligible: string; // Dec 15 — offseason-signed FAs become tradeable
   janFifteen: string; // Jan 15 — certain re-sign trade eligibility
@@ -139,6 +140,7 @@ export interface TeamException {
 
 export interface TradeTeamInput {
   abbr: string;
+  cashUsage?: CashUsage;
   dataNotes?: string[];
   preTradeSalary: number; // cap-basis team salary pre-trade
   apronSalary?: number; // apron-basis team salary pre-trade (defaults to preTradeSalary)
@@ -154,6 +156,15 @@ export interface TradeTeamInput {
   priorTaxpayerSeasons?: number; // taxpayer count in the prior 4 seasons (>=3 → repeater)
   pickOwnershipUncertain?:boolean;
   ownedFirstRoundPicks?: { id?:string;year: number; conveyed?: boolean; isSwap?: boolean }[]; // for Stepien
+}
+
+/** Gross cash already sent/received before this proposal in the identified Salary Cap Year.
+ * Missing directions are unknown, not zero. User-entered totals are proposal assumptions.
+ */
+export interface CashUsage {
+  season: string;
+  sent?: number;
+  received?: number;
 }
 
 /** A roster tool whose use hard-caps the team for the season (which apron depends on the tool). */
@@ -209,6 +220,7 @@ export type TradeMethod = 'simultaneous' | 'non_simultaneous';
 
 export interface PerTeamContext extends TeamResult {
   dataNotes?: string[];
+  cashUsage?: CashUsage;
   preTradeSalary: number;
   apronSalary: number;
   outgoingMatch?: number; // outgoing salary for MATCHING purposes (base-year comp reduces it); = outgoing otherwise

@@ -1,5 +1,6 @@
 import type { Rule, TradeFinding, PerTeamContext, TradeAsset } from '../types';
 import { fmt } from '../format';
+import { formatCash, hasValidCashAmount, isMovedCash } from '../cash';
 
 /**
  * HARD CAP enforcement.
@@ -26,8 +27,8 @@ export function postApronSalary(team: PerTeamContext): number {
     }
     return v;
   };
-  const incoming = team.incomingAssets.reduce((s, a) => s + withKicker(a), 0);
-  const outgoing = team.outgoingAssets.reduce((s, a) => s + base(a), 0);
+  const incoming = team.incomingAssets.filter((a) => a.kind === 'player').reduce((s, a) => s + withKicker(a), 0);
+  const outgoing = team.outgoingAssets.filter((a) => a.kind === 'player').reduce((s, a) => s + base(a), 0);
   return team.apronSalary - outgoing + incoming;
 }
 
@@ -38,6 +39,7 @@ export const hardCapRule: Rule = (ctx) => {
     if (!Array.isArray(team.incomingAssets) || !Array.isArray(team.outgoingAssets)) continue;
 
     const post = postApronSalary(team);
+    const money = team.outgoingAssets.some((a) => isMovedCash(a) && hasValidCashAmount(a)) ? formatCash : fmt;
 
     // (1) Pre-existing hard cap line.
     if (typeof team.hardCapLine === 'number' && post > team.hardCapLine) {
@@ -46,14 +48,14 @@ export const hardCapRule: Rule = (ctx) => {
         code: 'HARD_CAP_EXCEEDED',
         severity: 'block',
         teamAbbr: team.abbr,
-        message: `${team.abbr} is hard-capped at ${fmt(team.hardCapLine)}. Post-trade apron salary ${fmt(post)} exceeds it by ${fmt(over)}.`,
-        citation: '2023 CBA Art. VII, §6(f) — hard cap (first apron) for teams that used a hard-cap-triggering tool',
-        fix: `Shed at least ${fmt(over)} in apron salary (send out more / take back less) to stay at or below ${fmt(team.hardCapLine)}.`,
+        message: `${team.abbr} is hard-capped at ${money(team.hardCapLine)}. Post-trade apron salary ${money(post)} exceeds it by ${money(over)}.`,
+        citation: '2023 CBA Art. VII, §2(e)(2)(i), (4) — post-transaction apron limit and hard cap for the Salary Cap Year',
+        fix: `Shed at least ${money(over)} in apron salary (send out more / take back less) to stay at or below ${money(team.hardCapLine)}.`,
       });
     }
 
     // (2) Acquiring a sign-and-trade player triggers a first-apron hard cap.
-    const acquiresSignAndTrade = team.incomingAssets.some((a) => a.signedVia === 'sign_and_trade');
+    const acquiresSignAndTrade = team.incomingAssets.some((a) => a.kind === 'player' && a.signedVia === 'sign_and_trade');
     if (acquiresSignAndTrade) {
       const firstApron = ctx.season.firstApron;
       if (typeof firstApron === 'number' && post > firstApron) {

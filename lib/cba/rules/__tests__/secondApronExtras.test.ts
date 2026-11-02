@@ -50,7 +50,7 @@ function makeCtx(teams: PerTeamContext[], assets: TradeAsset[]): RuleContext {
 }
 
 describe('secondApronExtrasRule', () => {
-  it('blocks a second-apron team from sending cash', () => {
+  it('leaves cash sending to the post-transaction hard-cap check', () => {
     const cash: TradeAsset = {
       id: 'c1',
       kind: 'cash',
@@ -68,11 +68,7 @@ describe('secondApronExtrasRule', () => {
       [cash],
     );
     const out = secondApronExtrasRule(ctx);
-    expect(out).toHaveLength(1);
-    expect(out[0].code).toBe('SECOND_APRON_CASH');
-    expect(out[0].teamAbbr).toBe('BOS');
-    expect(out[0].severity).toBe('block');
-    expect(out[0].fix).toBeTruthy();
+    expect(out).toEqual([]);
   });
 
   it('ALLOWS a second-apron team to RECEIVE cash (only sending is barred)', () => {

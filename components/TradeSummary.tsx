@@ -1,32 +1,21 @@
 'use client';
 import { useState } from 'react';
 import { useTradeStore } from '@/lib/store/tradeStore';
+import { PlayerHeadshot } from './PlayerHeadshot';
+import { formatCash as cash } from '@/lib/cba/cash';
 import type { TradeAsset } from '@/lib/cba/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
-const salOf = (a: TradeAsset) => (a.kind === 'cash' ? a.amount ?? 0 : a.salary);
 
-function Avatar({ src, name }: { src?: string; name: string }) {
-  const [err, setErr] = useState(false);
-  const initials = name.split(' ').map((w) => w[0]).slice(0, 2).join('');
-  if (!src || err) {
-    return (
-      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--bg)] text-[8px] font-semibold text-[var(--muted)] ring-1 ring-[var(--border)]">
-        {initials}
-      </span>
-    );
-  }
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt={name} onError={() => setErr(true)} className="h-5 w-5 shrink-0 rounded-full bg-[var(--bg)] object-cover object-top ring-1 ring-[var(--border)]" />;
-}
 
 function Chip({ asset, onRemove }: { asset: TradeAsset; onRemove: () => void }) {
   const icon = asset.kind === 'pick' ? '🎟' : asset.kind === 'cash' ? '💵' : null;
+  const label = asset.kind === 'cash' ? `${asset.label} ${cash(asset.amount ?? 0)}` : asset.label;
   return (
     <span className="flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--surface-2)] py-0.5 pl-1 pr-1.5 text-xs text-[var(--text)]">
-      {asset.kind === 'player' ? <Avatar src={asset.headshot} name={asset.label} /> : <span className="px-0.5 text-[10px]">{icon}</span>}
-      <span className="max-w-[130px] truncate">{asset.label}</span>
-      <button onClick={onRemove} aria-label={`Undo move for ${asset.label}`} className="ml-1 inline-grid h-7 w-7 place-items-center rounded-full text-[var(--muted)] hover:bg-[var(--bg)] hover:text-[var(--illegal)]">
+      {asset.kind === 'player' ? <PlayerHeadshot src={asset.headshot} name={asset.label} size={24}/> : <span className="px-0.5 text-[10px]">{icon}</span>}
+      <span className={asset.kind === 'cash' ? 'whitespace-nowrap' : 'max-w-[130px] truncate'}>{label}</span>
+      <button onClick={onRemove} aria-label={`Undo move for ${label}`} className="ml-1 inline-grid h-7 w-7 place-items-center rounded-full text-[var(--muted)] hover:bg-[var(--bg)] hover:text-[var(--illegal)]">
         ✕
       </button>
     </span>
@@ -53,7 +42,7 @@ function Side({
     <div>
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between py-1">
         <span className="text-xs font-semibold text-[var(--faint)]">
-          {label} <span className="num font-semibold" style={{ color }}>({sign} {m(total)})</span>
+          {label} <span className="num font-semibold" style={{ color }}>({sign} {m(total)} salary)</span>
         </span>
         <span className="text-[var(--faint)]">{open ? '▾' : '▸'}</span>
       </button>
@@ -80,9 +69,13 @@ export function TradeSummary({ abbr }: { abbr: string }) {
   const incoming = assets.filter((a) => a.toTeam === abbr && a.fromTeam !== abbr).sort(byOrder);
   if (outgoing.length === 0 && incoming.length === 0) return null;
 
-  const outTotal = outgoing.reduce((s, a) => s + salOf(a), 0);
-  const inTotal = incoming.reduce((s, a) => s + salOf(a), 0);
+  const outTotal = outgoing.reduce((s, a) => s + (a.kind === 'player' ? a.salary : 0), 0);
+  const inTotal = incoming.reduce((s, a) => s + (a.kind === 'player' ? a.salary : 0), 0);
   const net = inTotal - outTotal;
+  const cashSent = outgoing.reduce((s, a) => s + (a.kind === 'cash' ? a.amount ?? 0 : 0), 0);
+  const cashReceived = incoming.reduce((s, a) => s + (a.kind === 'cash' ? a.amount ?? 0 : 0), 0);
+  const netCash = cashReceived - cashSent;
+  const hasCash = [...outgoing, ...incoming].some((a) => a.kind === 'cash');
 
   return (
     <div className="border-t border-[var(--border-soft)] px-3 py-2">
@@ -94,6 +87,11 @@ export function TradeSummary({ abbr }: { abbr: string }) {
           {net > 0 ? '+' : net < 0 ? '-' : ''}{m(Math.abs(net))}
         </span>
       </div>
+      {hasCash && <dl className="mt-2 space-y-1 border-t border-[var(--border-soft)] pt-2 text-xs text-[var(--muted)]">
+        <div className="flex items-center justify-between gap-2"><dt>Cash sent</dt><dd className="num">{cash(cashSent)}</dd></div>
+        <div className="flex items-center justify-between gap-2"><dt>Cash received</dt><dd className="num">{cash(cashReceived)}</dd></div>
+        <div className="flex items-center justify-between gap-2"><dt>Net cash</dt><dd className="num">{netCash > 0 ? '+' : netCash < 0 ? '−' : ''}{cash(Math.abs(netCash))}</dd></div>
+      </dl>}
     </div>
   );
 }

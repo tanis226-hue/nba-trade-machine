@@ -22,6 +22,21 @@ describe('tradeStore', () => {
     expect(useTradeStore.getState().season).toBe('2026-27');
   });
 
+  it('edits exact whole-dollar cash without creating malformed assets or changing payroll', () => {
+    const s = useTradeStore.getState();
+    s.addTeam({ abbr: 'AAA', preTradeSalary: 120_000_000 });
+    s.addAsset({ id: 'cash', kind: 'cash', salary: 0, amount: 1_000_000, fromTeam: 'AAA', toTeam: 'AAA', label: 'Cash' });
+    s.setAssetAmount('cash', 1_234_567);
+    expect(useTradeStore.getState().assets.cash.amount).toBe(1_234_567);
+    for (const invalid of [NaN, Infinity, -1, 0.5, 2_000_000_001]) s.setAssetAmount('cash', invalid);
+    s.setAssetAmount('missing', 1);
+    expect(Object.keys(useTradeStore.getState().assets)).toEqual(['cash']);
+    expect(useTradeStore.getState().assets.cash).toMatchObject({ amount: 1_234_567, salary: 0 });
+    expect(useTradeStore.getState().teams[0].preTradeSalary).toBe(120_000_000);
+    s.setAssetAmount('cash', 0);
+    expect(useTradeStore.getState().assets.cash.amount).toBe(0);
+  });
+
   it('removing a team returns incoming assets to their owners and preserves the other teams', () => {
     const s = useTradeStore.getState();
     ['AAA', 'BBB', 'CCC'].forEach((abbr) => s.addTeam({ abbr, preTradeSalary: 100 }));

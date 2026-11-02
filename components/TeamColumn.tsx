@@ -9,6 +9,7 @@ import { AssetRow } from './AssetRow';
 import { TeamCapPanel } from './TeamCapPanel';
 import { SignFreeAgentPanel } from './SignFreeAgentPanel';
 import { TradeSummary } from './TradeSummary';
+import { CashBudget } from './CashBudget';
 import type { TeamResult } from '@/lib/cba/types';
 import type { ContractYear, DbTeam, DbDraftPick } from '@/lib/data/types';
 import { parseProtection } from '@/lib/cba/protections';
@@ -93,7 +94,12 @@ export function TeamColumn({
     });
   }
   function addCash() {
-    addAsset({ id: crypto.randomUUID(), kind: 'cash', salary: 0, amount: 1_000_000, fromTeam: abbr, toTeam: abbr, label: 'Cash',dataNotes:['Prior cash sent and received this season is not supplied. Confirm remaining annual allowances for both teams.'] });
+    const draft = assets.find(a => a.kind === 'cash' && a.fromTeam === abbr && a.toTeam === abbr);
+    if (draft) {
+      document.getElementById(`cash-amount-${draft.id}`)?.focus();
+      return;
+    }
+    addAsset({ id: crypto.randomUUID(), kind: 'cash', salary: 0, amount: 1_000_000, fromTeam: abbr, toTeam: abbr, label: 'Cash' });
   }
 
   return (
@@ -112,6 +118,7 @@ export function TeamColumn({
       </div>
 
       <TradeSummary abbr={abbr} />
+      <CashBudget abbr={abbr}/>
 
       <details className="team-extras"><summary>Picks &amp; exceptions <span className="text-xs font-normal text-[var(--muted)]">{firstCount} firsts / {secondCount} seconds</span></summary>
       {/* Reported draft rights retain their protection and swap notes. */}

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { PlayerHeadshot } from './PlayerHeadshot';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import { DATA_AS_OF } from '@/lib/data/freshness';
 import type { TradeAsset } from '@/lib/cba/types';
@@ -40,7 +41,7 @@ export function PlayerContractModal({
 
   const stat = (label: string, v?: number) => (
     <div className="flex flex-col items-center">
-      <span className="num text-lg font-bold text-[var(--text)]">{v ?? '—'}</span>
+      <span className="num text-lg font-bold text-[var(--text)]">{v ?? 'â€”'}</span>
       <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--faint)]">{label}</span>
     </div>
   );
@@ -59,13 +60,13 @@ export function PlayerContractModal({
             {asset.fromTeam} Contract
           </span>
           <button onClick={onClose} aria-label="Close" className="text-[var(--ink)]/80 transition hover:text-[var(--ink)]">
-            ✕
+            âœ•
           </button>
         </div>
 
         <div className="p-5">
           <div className="flex items-start gap-4">
-            <Photo src={asset.headshot} name={asset.label} />
+            <PlayerHeadshot size={80} shape="rounded" src={asset.headshot} name={asset.label} />
             <div className="min-w-0 flex-1">
               <h2 className="font-display text-2xl font-bold uppercase leading-none tracking-tight text-[var(--text)]">
                 {asset.label}
@@ -73,7 +74,7 @@ export function PlayerContractModal({
               <div className="mt-1 text-[12px] text-[var(--muted)]">
                 {[asset.position, asset.jersey ? `#${asset.jersey}` : null, asset.height, asset.weight ? `${asset.weight} lbs` : null, asset.age != null ? `${asset.age} yo` : null]
                   .filter(Boolean)
-                  .join(' · ')}
+                  .join(' Â· ')}
               </div>
               {asset.pts != null && (
                 <div className="mt-3 grid grid-cols-4 gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface-2)]/40 px-3 py-2">
@@ -104,7 +105,7 @@ export function PlayerContractModal({
                       <td className="num py-1.5 text-right text-[var(--text)]">{m(c.salary)}</td>
                       <td className="py-1.5 text-right text-[11px] text-[var(--muted)]">
                         {OPT[c.option_type] ?? c.option_type}
-                        {c.no_trade_clause ? ' · NTC' : ''}
+                        {c.no_trade_clause ? ' Â· NTC' : ''}
                       </td>
                     </tr>
                   ))}
@@ -182,21 +183,5 @@ function Flag({ label, on, hint, onToggle }: { label: string; on: boolean; hint:
     >
       {label}
     </button>
-  );
-}
-
-function Photo({ src, name }: { src?: string; name: string }) {
-  const [err, setErr] = useState(false);
-  const initials = name.split(' ').map((w) => w[0]).slice(0, 2).join('');
-  if (!src || err) {
-    return (
-      <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-2)] font-display text-2xl font-bold text-[var(--muted)] ring-1 ring-[var(--border)]">
-        {initials}
-      </div>
-    );
-  }
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={name} onError={() => setErr(true)} className="h-20 w-20 shrink-0 rounded-xl bg-[var(--surface-2)] object-cover object-top ring-1 ring-[var(--border)]" />
   );
 }

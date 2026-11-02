@@ -11,6 +11,7 @@ import type {
 import { tierForTeam } from './tier';
 import { postApronSalary } from './rules/hardCap';
 import { RULES } from './rules';
+import { hasValidCashAmount, isMovedCash } from './cash';
 
 const FIRST_APRON_HARD_CAP_TOOLS = new Set(['non_taxpayer_mle', 'bae', 'prior_year_tpe', 'sign_and_trade_acquire']);
 const SECOND_APRON_HARD_CAP_TOOLS = new Set(['taxpayer_mle']);
@@ -20,16 +21,20 @@ const SECOND_APRON_HARD_CAP_TOOLS = new Set(['taxpayer_mle']);
  * salary may not exceed it. Triggers:
  *   - using the Non-Taxpayer MLE / BAE / a prior-year (expanded) TPE / acquiring via sign-and-trade → first apron
  *   - using the Taxpayer MLE → second apron
+ *   - sending positive cash consideration → second apron
  *   - taking back MORE salary than is sent out (the expanded traded-player exception) → first apron
  * Returns the tightest (lowest) applicable line, or any pre-existing line, else null.
  * 2023 CBA Art. VII §6 — apron hard caps.
  */
-function deriveHardCap(team: TradeTeamInput, preTier: string, incoming: number, outgoing: number, season: SeasonCap): number | null {
+function deriveHardCap(team: TradeTeamInput, preTier: string, incoming: number, outgoing: number, season: SeasonCap, sendsCash: boolean): number | null {
   let line = team.hardCapLine ?? null;
   const apply = (v: number) => (line = line == null ? v : Math.min(line, v));
   const tools = team.toolsUsed ?? [];
   if (tools.some((t) => FIRST_APRON_HARD_CAP_TOOLS.has(t))) apply(season.firstApron);
   if (tools.some((t) => SECOND_APRON_HARD_CAP_TOOLS.has(t))) apply(season.secondApron);
+  // Art. VII §2(e)(2)(i), transaction table row I: cash sending hard-caps the
+  // sender at the second apron AFTER this transaction, including salary-shedding trades.
+  if (sendsCash) apply(season.secondApron);
   // In-trade: an over-the-cap team that takes back more than it sends used the matching expansion
   // (a traded-player exception) and is hard-capped at the first apron for the rest of the season.
   if (preTier !== 'below_cap' && incoming > outgoing) apply(season.firstApron);
@@ -44,18 +49,21 @@ export function buildContext(input: TradeInput): RuleContext {
     // untouched roster reads as outgoing+incoming and trips phantom flags.
     const outgoingAssets = input.assets.filter((a) => a.fromTeam === team.abbr && a.toTeam !== team.abbr);
     const incomingAssets = input.assets.filter((a) => a.toTeam === team.abbr && a.fromTeam !== team.abbr);
-    const outgoing = outgoingAssets.reduce((s, a) => s + a.salary, 0);
+    const outgoingPlayers = outgoingAssets.filter((a) => a.kind === 'player');
+    const incomingPlayers = incomingAssets.filter((a) => a.kind === 'player');
+    const outgoing = outgoingPlayers.reduce((s, a) => s + a.salary, 0);
     // Outgoing value for MATCHING: a base-year-comp player counts as max(50% of new salary, prior salary).
-    const outgoingMatch = outgoingAssets.reduce(
+    const outgoingMatch = outgoingPlayers.reduce(
       (s, a) => s + (a.isBaseYearComp ? Math.max(0.5 * a.salary, a.bycPriorSalary ?? 0) : a.salary),
       0,
     );
-    const incoming = incomingAssets.reduce((s, a) => s + a.salary, 0);
+    const incoming = incomingPlayers.reduce((s, a) => s + a.salary, 0);
     const postSalary = team.preTradeSalary - outgoing + incoming;
     const preTier = tierForTeam(team.preTradeSalary,team.apronSalary??team.preTradeSalary,input.season);
     const context:PerTeamContext = {
       abbr: team.abbr,
       dataNotes: team.dataNotes,
+      cashUsage: team.cashUsage,
       outgoing,
       incoming,
       postSalary,
@@ -66,7 +74,8 @@ export function buildContext(input: TradeInput): RuleContext {
       apronSalary: team.apronSalary ?? team.preTradeSalary,
       outgoingMatch,
       capSpace: team.capSpace,
-      hardCapLine: deriveHardCap(team, preTier, incoming, outgoing, input.season),
+      hardCapLine: deriveHardCap(team, preTier, incoming, outgoing, input.season,
+        outgoingAssets.some((a) => isMovedCash(a) && hasValidCashAmount(a))),
       exceptions: team.exceptions ?? [],
       rosterCount: team.rosterCount,
       openRosterSpots: team.openRosterSpots,

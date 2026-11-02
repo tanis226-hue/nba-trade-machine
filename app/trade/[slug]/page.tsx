@@ -4,6 +4,9 @@ import { gradeTrade } from '@/lib/cba/grade';
 import { ValidationFeed } from '@/components/ValidationFeed';
 import { TradeComments } from '@/components/TradeComments';
 import { EditTradeButton } from '@/components/EditTradeButton';
+import { PlayerHeadshot } from '@/components/PlayerHeadshot';
+import { CashUsageNotes } from '@/components/CashUsageNotes';
+import { formatCash as cash } from '@/lib/cba/cash';
 import type { TradeAsset, TradeTeamInput, TradeMethod } from '@/lib/cba/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -50,13 +53,16 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
         {teams.map((t) => {
           const incoming = list.filter((a) => a.toTeam === t.abbr && a.fromTeam !== t.abbr);
           const outgoing = list.filter((a) => a.fromTeam === t.abbr && a.toTeam !== t.abbr);
-          const net = incoming.reduce((s, a) => s + a.salary, 0) - outgoing.reduce((s, a) => s + a.salary, 0);
+          const net = incoming.reduce((s, a) => s + (a.kind === 'player' ? a.salary : 0), 0) - outgoing.reduce((s, a) => s + (a.kind === 'player' ? a.salary : 0), 0);
+          const cashSent = outgoing.reduce((s, a) => s + (a.kind === 'cash' ? a.amount ?? 0 : 0), 0);
+          const cashReceived = incoming.reduce((s, a) => s + (a.kind === 'cash' ? a.amount ?? 0 : 0), 0);
+          const netCash = cashReceived - cashSent;
+          const hasCash = [...incoming, ...outgoing].some((a) => a.kind === 'cash');
           const tg = grade.teams.find((g) => g.abbr === t.abbr);
           const row = (a: TradeAsset, dir: '+' | '−') => (
             <div key={a.id} className="flex items-center gap-2 text-sm">
-              {a.kind === 'player' && a.headshot ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={a.headshot} alt="" width={24} height={24} className="h-6 w-6 shrink-0 rounded-full bg-[var(--surface-2)] object-cover object-top ring-1 ring-[var(--border)]" />
+              {a.kind === 'player' ? (
+                <PlayerHeadshot src={a.headshot} name={a.label} size={24}/>
               ) : (
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--surface-2)] text-[10px] text-[var(--faint)]">
                   {a.kind === 'pick' ? '◆' : a.kind === 'cash' ? '$' : ''}
@@ -65,7 +71,7 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
               <span style={{ color: dir === '+' ? 'var(--legal)' : 'var(--illegal)' }}>
                 {dir} {a.label}
               </span>
-              {a.kind === 'player' && <span className="num ml-auto text-xs text-[var(--muted)]">{m(a.salary)}</span>}
+              {a.kind === 'cash' ? <span className="num ml-auto shrink-0 text-xs text-[var(--muted)]">{cash(a.amount ?? 0)}</span> : a.kind === 'player' && <span className="num ml-auto text-xs text-[var(--muted)]">{m(a.salary)}</span>}
             </div>
           );
           return (
@@ -77,7 +83,7 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
                   <div className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">{t.abbr}</div>
                 </div>
                 <div className={`num text-xs font-semibold ${net >= 0 ? 'text-[var(--legal)]' : 'text-[var(--illegal)]'}`}>
-                  Net {net >= 0 ? '+' : '−'}
+                  Net salary {net > 0 ? '+' : net < 0 ? '−' : ''}
                   {m(Math.abs(net))}
                 </div>
               </div>
@@ -89,6 +95,12 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
                   {outgoing.map((a) => row(a, '−'))}
                 </div>
               )}
+              {hasCash && <dl className="mt-2 space-y-1 border-t border-[var(--border-soft)] pt-2 text-xs text-[var(--muted)]">
+                <div className="flex justify-between gap-2"><dt>Cash sent</dt><dd className="num">{cash(cashSent)}</dd></div>
+                <div className="flex justify-between gap-2"><dt>Cash received</dt><dd className="num">{cash(cashReceived)}</dd></div>
+                <div className="flex justify-between gap-2"><dt>Net cash</dt><dd className="num">{netCash > 0 ? '+' : netCash < 0 ? '−' : ''}{cash(Math.abs(netCash))}</dd></div>
+              </dl>}
+              {hasCash && <CashUsageNotes team={t} season={payload.season}/>}
               {tg && (incoming.length > 0 || outgoing.length > 0) && (
                 <div className="mt-2 border-t border-[var(--border-soft)] pt-1.5 num text-[11px] text-[var(--faint)]">
                   Talent net {tg.net > 0 ? '+' : ''}
