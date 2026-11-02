@@ -57,6 +57,8 @@ The demo baseline is versioned in `data/seed/{players,contracts}.json`, with has
 
 The current refresh pipeline fetches ESPN biographies and throttled SalarySwish cap sheets, builds and audits a complete snapshot, then publishes it in one database write. It never replaces trades, comments or votes. A failed fetch/audit leaves the last published snapshot intact. Repository Actions needs the NBA database URL secret. To review fresh data locally:
 
+For Actions verification, manual `refresh-data` dispatch defaults to the isolated database (`NBA_LAUNCH_DATABASE_URL`), with no fallback to production credentials. Select `production` explicitly from `main` for a production refresh; schedules on `main` use the production database secret. Each successful audit uploads the exact public snapshot as a short-lived artifact.
+
 ```bash
 pip install -r scripts/scraper/requirements.txt
 python scripts/rosters/pull.py

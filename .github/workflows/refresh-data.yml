@@ -5,6 +5,15 @@ name: refresh-data
 # Manual dispatch covers same-day breaking moves (e.g. a Shams report) between scheduled runs.
 on:
   workflow_dispatch:
+    inputs:
+      database:
+        description: Database to refresh (production requires main)
+        type: choice
+        required: true
+        default: isolated
+        options:
+          - isolated
+          - production
   schedule:
     - cron: '0 9 * * *'            # daily 09:00 UTC — quiet-season baseline
     - cron: '0 */6 1-29 2 *'       # every 6h in February — trade deadline window
@@ -12,7 +21,7 @@ on:
     - cron: '0 */6 1-15 7 *'       # every 6h early July — free-agency moratorium/open
 
 concurrency:
-  group: refresh-data
+  group: refresh-data-${{ github.event_name == 'workflow_dispatch' && inputs.database == 'isolated' && 'isolated' || 'production' }}
   cancel-in-progress: false
 
 permissions:
@@ -22,17 +31,25 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL || secrets.NETLIFY_DATABASE_URL }}
+      REFRESH_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.database == 'isolated' && 'isolated' || 'production' }}
+      # An absent isolated secret must NEVER fall back to the production connection.
+      # Production credentials are only selected on main, including scheduled runs.
+      DATABASE_URL: ${{ (github.event_name == 'workflow_dispatch' && inputs.database == 'isolated' && secrets.NBA_LAUNCH_DATABASE_URL) || (github.ref == 'refs/heads/main' && (github.event_name != 'workflow_dispatch' || inputs.database == 'production') && (secrets.DATABASE_URL || secrets.NETLIFY_DATABASE_URL)) || '' }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Check database configuration
         shell: bash
         run: |
-          if [ -z "$DATABASE_URL" ]; then
-            echo "::error::Configure the DATABASE_URL or NETLIFY_DATABASE_URL repository secret before refreshing."
+          if [ "$REFRESH_TARGET" = "production" ] && [ "$GITHUB_REF" != "refs/heads/main" ]; then
+            echo "::error::Production refreshes must run from main."
             exit 1
           fi
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::error::Configure the database secret for the selected $REFRESH_TARGET target before refreshing."
+            exit 1
+          fi
+          echo "Refreshing the $REFRESH_TARGET database."
 
       - uses: actions/setup-python@v5
         with:
@@ -59,6 +76,13 @@ jobs:
 
       - name: Verify merged data before database writes
         run: npm run data:check
+
+      - name: Keep the audited public snapshot for release verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: nba-snapshot-${{ github.run_id }}
+          path: data/seed/roster_snapshot_2026_27.json
+          retention-days: 7
 
       - name: Apply migrations (idempotent)
         run: npx tsx scripts/migrate.ts

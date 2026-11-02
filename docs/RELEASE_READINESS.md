@@ -31,6 +31,8 @@ The app is a fan simulation. Passing modeled checks is not NBA approval. Contrac
 
 `refresh-data.yml` reads the NBA database repository secret, fetches current sources on the calendar cadence, builds and audits before writes, applies additive migrations and publishes one complete snapshot. Its clean checkout has no source caches. For local research, clear only the intended ignored roster cache before fetching again. `txns:apply`, `snapshot:build` and `seed` are legacy curation tools and do not update the current structured snapshot. Never use a full legacy import as a production freshness check.
 
+Manual dispatch defaults to `database=isolated` and reads only `NBA_LAUNCH_DATABASE_URL`. A missing isolated secret cannot fall back to production. Production dispatch and scheduled refreshes require `main` and `DATABASE_URL` (or `NETLIFY_DATABASE_URL`). The audited public snapshot is retained as a seven-day Actions artifact so the exact published dataset can be inspected.
+
 The isolated deploy-preview database is separate from production. Retain the prior deployment and database snapshot for rollback. A deployment can be rolled back independently; do not delete trade/community data to roll back code.
 
 ## Next portfolio milestones
