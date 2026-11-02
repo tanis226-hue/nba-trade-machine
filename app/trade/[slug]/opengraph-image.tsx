@@ -1,12 +1,12 @@
 import { ImageResponse } from 'next/og';
 import { getTrade } from '@/lib/data/queries';
+import { formatCash as cash } from '@/lib/cba/cash';
 import type { TradeTeamInput, TradeAsset } from '@/lib/cba/types';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export const dynamic = 'force-dynamic';
 const salary = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
-const cash = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

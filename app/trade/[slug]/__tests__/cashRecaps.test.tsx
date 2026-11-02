@@ -27,6 +27,28 @@ beforeEach(() => {
 afterEach(() => {cleanup(); vi.clearAllMocks(); mocks.image=undefined;});
 
 describe('shared cash presentation', () => {
+  it('preserves historical fractional cash in the saved view and social image', async () => {
+    mocks.getTrade.mockResolvedValue({
+      season:'2026-27', schemaVersion:1, validation:savedValidation,
+      teams:[{abbr:'BOS', preTradeSalary:180_000_000}, {abbr:'LAL', preTradeSalary:180_000_000}],
+      assets:{cash:{id:'cash', kind:'cash', salary:0, amount:0.5, fromTeam:'BOS', toTeam:'LAL', label:'Cash'}},
+    });
+    const {unmount} = render(await SharedTrade({params:Promise.resolve({slug:'abcdefghij'})}));
+    const card = screen.getByText('BOS').closest('.panel');
+    expect(card).toBeTruthy();
+    const summary = within(card! as HTMLElement);
+    expect(summary.getByText('Cash sent').nextElementSibling?.textContent).toBe('$0.50');
+    expect(summary.getByText('Net cash').nextElementSibling?.textContent).toBe('−$0.50');
+    expect(summary.getAllByText('$0.50')).toHaveLength(2);
+    expect(mocks.validationFeed).toHaveBeenCalledWith({validation:savedValidation});
+    unmount();
+    await Image({params:Promise.resolve({slug:'abcdefghij'})});
+    render(mocks.image as ReactNode);
+    expect(screen.getByText('+ Cash $0.50')).toBeTruthy();
+    expect(screen.getByText('Cash sent $0.50')).toBeTruthy();
+    expect(screen.getByText('Net cash −$0.50')).toBeTruthy();
+  });
+
   it('shows exact consideration and separate payroll while retaining the saved verdict', async () => {
     render(await SharedTrade({params:Promise.resolve({slug:'abcdefghij'})}));
     const card = screen.getByText('BOS').closest('.panel');

@@ -2,10 +2,10 @@
 import { useState } from 'react';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import { PlayerHeadshot } from './PlayerHeadshot';
+import { formatCash as cash } from '@/lib/cba/cash';
 import type { TradeAsset } from '@/lib/cba/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
-const cash = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 
 function Chip({ asset, onRemove }: { asset: TradeAsset; onRemove: () => void }) {

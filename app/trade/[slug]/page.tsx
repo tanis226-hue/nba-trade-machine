@@ -6,6 +6,7 @@ import { TradeComments } from '@/components/TradeComments';
 import { EditTradeButton } from '@/components/EditTradeButton';
 import { PlayerHeadshot } from '@/components/PlayerHeadshot';
 import { CashUsageNotes } from '@/components/CashUsageNotes';
+import { formatCash as cash } from '@/lib/cba/cash';
 import type { TradeAsset, TradeTeamInput, TradeMethod } from '@/lib/cba/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -13,7 +14,6 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
-const cash = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 const ESPN: Record<string, string> = { GSW: 'gs', NOP: 'no', NYK: 'ny', SAS: 'sa', UTA: 'utah', WAS: 'wsh' };
 const teamLogo = (abbr: string) => `https://a.espncdn.com/i/teamlogos/nba/500/${(ESPN[abbr] ?? abbr).toLowerCase()}.png`;
 

@@ -3,13 +3,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {createPortal} from 'react-dom';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import { CashUsageNotes } from './CashUsageNotes';
+import { formatCash as cash } from '@/lib/cba/cash';
 import type { TradeAsset } from '@/lib/cba/types';
 
 type Phase = 'review' | 'processing' | 'done';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 const signed = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${m(Math.abs(n))}`;
-const cash = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 interface TeamSummary {
   abbr: string;
