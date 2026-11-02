@@ -19,11 +19,13 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
   const payload = await getTrade(slug);
   if (!payload) notFound();
 
-  const teams = payload.teams as TradeTeamInput[];
+  const methodNote='This older board used sign-and-trade as its matching method. Confirm the current matching method and player sign-and-trade flags before relying on the checks.';
+  const teams = (payload.teams as TradeTeamInput[]).map(t=>payload.legacyMethodReview?{...t,dataNotes:[...(t.dataNotes??[]),methodNote]}:t);
   const assets = payload.assets as Record<string, TradeAsset>;
   const tradeMethod = payload.tradeMethod as TradeMethod | undefined;
+  const hasMoves=teams.length>=2&&Object.values(assets).some(a=>a.fromTeam!==a.toTeam);
   // Re-validate with the author's date + method so the verdict matches what they saw when sharing.
-  const validation = payload.schemaVersion === 1 && payload.validation
+  const validation = payload.schemaVersion === 1 && payload.validation && !payload.legacyMethodReview
     ? payload.validation
     : selectValidation({ season: payload.season, teams, assets, simulatedDate: payload.simulatedDate, tradeMethod });
   const grade = gradeTrade(teams, Object.values(assets));
@@ -33,14 +35,14 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
     <main className="rise space-y-5">
       <div className="stagger">
         <div className="eyebrow flex items-center gap-2.5">
-          <span className="h-px w-8 bg-[var(--accent)]" /> Shared proposal · {payload.season}
+          <span className="h-px w-8 bg-[var(--accent)]" /> Shared {hasMoves?'proposal':'board'} · {payload.season}
         </div>
         <h1 className="mt-2 font-display text-5xl font-extrabold uppercase leading-[0.85] tracking-tight text-[var(--text)] sm:text-6xl">
-          Proposed Trade
+          {hasMoves?'Proposed Trade':'Saved Board'}
         </h1>
-        <p className="mt-2 text-[13px] text-[var(--muted)]">{grade.verdict}</p>
+        {hasMoves&&<p className="mt-2 text-[13px] text-[var(--muted)]">{grade.verdict}</p>}
         <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
-          {payload.rulesVersion ? `Saved with rules ${payload.rulesVersion} · data ${payload.dataVersion} · trade date ${payload.simulatedDate}. The saved verdict is preserved; opening in the editor runs the current checks.` : 'Legacy proposal: recalculated with current rules. Its original data version was not recorded.'}
+          {!hasMoves?'This older link contains a saved board with no assets exchanged. Open it in the editor to build a proposal.':payload.rulesVersion ? `Saved with rules ${payload.rulesVersion} · data ${payload.dataVersion} · trade date ${payload.simulatedDate}. The saved verdict is preserved; opening in the editor runs the current checks.` : 'Legacy proposal: recalculated with current rules. Its original data version was not recorded.'}
         </p>
       </div>
 
@@ -99,7 +101,7 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
         })}
       </div>
 
-      <ValidationFeed validation={validation} />
+      {hasMoves?<ValidationFeed validation={validation}/>:<div className="panel rounded-xl p-4 text-sm text-[var(--muted)]">No trade verdict yet. Add a second team if needed, then move an asset to run the checks.</div>}
       <div className="flex flex-wrap items-center gap-3">
         <EditTradeButton season={payload.season} teams={teams} assets={assets} simulatedDate={payload.simulatedDate} tradeMethod={tradeMethod} dataVersion={payload.dataVersion} />
         <Link href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">

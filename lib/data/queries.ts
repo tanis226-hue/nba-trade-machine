@@ -7,7 +7,7 @@ import {
   localFreeAgents, localTeamExceptions, localProjectedRecords,
 } from './local';
 import type { TeamException } from '@/lib/cba/types';
-import { tradeSchema,validSlug } from '@/lib/trades/schema';
+import { storedTradeSchema,validSlug } from '@/lib/trades/schema';
 import { getRosterSnapshot } from './rosterSnapshot';
 import {isNetlify} from '@/lib/platform';
 import type { DbTeamException } from './types';
@@ -249,6 +249,7 @@ export interface TradePayload {
   schemaVersion?: number;
   rulesVersion?: string;
   dataVersion?: string;
+  legacyMethodReview?: boolean;
   createdAt?: string;
   validation?: import('@/lib/cba/types').TradeValidation;
 }
@@ -269,9 +270,9 @@ export async function getTrade(slug: string): Promise<TradePayload | null> {
   const raw:unknown=!hasDb()?localGetTrade(slug):(await db()`SELECT payload FROM trades WHERE slug = ${slug}`)[0]?.payload;
   if(!raw||typeof raw!=='object') return null;
   const payload=raw as TradePayload;
-  const parsed=tradeSchema.safeParse({season:payload.season,teams:payload.teams,assets:payload.assets,contracts:payload.contracts,simulatedDate:payload.simulatedDate,tradeMethod:payload.tradeMethod,dataVersion:payload.dataVersion});
+  const parsed=storedTradeSchema.safeParse({season:payload.season,teams:payload.teams,assets:payload.assets,contracts:payload.contracts,simulatedDate:payload.simulatedDate,tradeMethod:payload.tradeMethod,dataVersion:payload.dataVersion});
   if(!parsed.success) return null;
-  return {...payload,...parsed.data};
+  return {...payload,...parsed.data,legacyMethodReview:payload.tradeMethod==='sign_and_trade'};
 }
 
 export interface UserTradeListItem {
