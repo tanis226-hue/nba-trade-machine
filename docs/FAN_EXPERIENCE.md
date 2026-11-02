@@ -20,7 +20,9 @@ Listed commitments include options and are not guaranteed-money totals. Missing 
 
 ## Verification
 
-All 242 tests in 40 files pass, including new regressions for future-amount sorting, commitments, filters, team removal, direct contracts hydration, historical-board preservation, explicit shared-proposal replacement and review dialogs escaping a clipped workspace. Lint, TypeScript, structural roster and legacy transaction checks pass. Remote CI also builds and audits the production dependencies.
+All 245 tests in 40 files pass, including new regressions for future-amount sorting, commitments, filters, team removal, direct contracts hydration, historical-board preservation, explicit shared-proposal replacement, compact currency across runtimes and review dialogs escaping a clipped workspace. Lint, TypeScript, structural roster and legacy transaction checks pass. Remote CI also builds and audits the production dependencies.
+
+Post-deploy verification caught a server/browser formatting difference: Node 22 defaulted to `$59.0M` while the browser rendered `$59M`. Compact cap hits now set both fraction bounds explicitly. The same semantic cases pass under Node 22 and Node 24; browser hydration is checked again against the repaired hosted build.
 
 Hosted Chrome checks cover desktop and 390×844 phone layouts; player search and routing; reset cancellation, keyboard focus and historical season navigation; contract search, combined filters, year sorting, pagination, URL reload and expansion; two-way disclosures; and light/dark rendering without page-level horizontal overflow. Cap tables intentionally scroll. This is not a certification of every browser or complete accessibility conformance.
 

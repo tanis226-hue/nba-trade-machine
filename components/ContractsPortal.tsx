@@ -4,13 +4,12 @@ import { Fragment, useMemo, useRef, useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { ContractYear } from '@/lib/data/types';
-import { filterContracts, guaranteeLabel, listedCommitments, listedSeasons, salaryFor } from '@/lib/data/contractsPortal';
+import { filterContracts, formatCompactCapHit, guaranteeLabel, listedCommitments, listedSeasons, salaryFor } from '@/lib/data/contractsPortal';
 import type { ContractFilters, ContractPortalRow } from '@/lib/data/contractsPortal';
 import { TeamLogo } from './TeamLogo';
 import styles from '@/app/contracts/ContractsPortal.module.css';
 
 const dollars = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
-const compact = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',notation:'compact',maximumFractionDigits:1});
 const FEATURES = [
   ['player_option','Player option'],['team_option','Team option'],['partial','Partial guarantee'],
   ['non_guaranteed','Non-guaranteed year'],['two_way','Two-way'],['no_trade','No-trade clause'],
@@ -186,7 +185,7 @@ export function ContractsPortal({rows,teams,season,seasons,asOf,sourceVersion}:{
         const value=salaryFor(row,year,season),contract=row.contract.find(contract=>contract.season===year);
         return <article className={`panel ${styles.mobileCard}`} key={row.id}>
           <div className={styles.mobilePlayer}><PlayerPhoto row={row}/><div><h3>{row.name}</h3><p><TeamLogo abbr={row.teamAbbr} size={20}/>{row.teamAbbr} <span>{row.position}</span>{row.isTwoWay&&<span>Two-way</span>}</p></div></div>
-          <div className={styles.mobileAmounts}><div><span>{year} cap hit</span><strong title={value===null?'Not listed':dollars.format(value)}>{value===null?'Not listed':compact.format(value)}</strong><Flags year={contract} twoWay={row.isTwoWay&&value!==null}/></div><div><span>Listed commitments</span><strong title={dollars.format(listedCommitments(row,season))}>{compact.format(listedCommitments(row,season))}</strong><small>Includes options</small></div></div>
+          <div className={styles.mobileAmounts}><div><span>{year} cap hit</span><strong title={value===null?'Not listed':dollars.format(value)}>{value===null?'Not listed':formatCompactCapHit(value)}</strong><Flags year={contract} twoWay={row.isTwoWay&&value!==null}/></div><div><span>Listed commitments</span><strong title={dollars.format(listedCommitments(row,season))}>{formatCompactCapHit(listedCommitments(row,season))}</strong><small>Includes options</small></div></div>
           <button className={styles.mobileDetailButton} aria-expanded={expanded===row.id} aria-controls={`contract-mobile-${row.id}`} onClick={()=>togglePlayer(row.id)}>Contract details <span aria-hidden="true">{expanded===row.id?'−':'+'}</span></button>
           {expanded===row.id&&<div id={`contract-mobile-${row.id}`}>{details(row)}</div>}
         </article>;
