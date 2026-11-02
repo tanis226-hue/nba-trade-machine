@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import {createPortal} from 'react-dom';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import {
   SEASON_2026_27, MATCHING_2026_27, CASH_LIMIT_2026_27, LEAGUE_CALENDAR_2026_27,
@@ -28,19 +29,36 @@ const Hi = ({ children }: { children: ReactNode }) => <span className="num font-
 export function TradeRulesButton({ className = '' }: { className?: string }) {
   const season = useTradeStore((s) => s.season);
   const [open, setOpen] = useState(false);
+  const dialogRef=useRef<HTMLDivElement>(null);
+  const triggerRef=useRef<HTMLButtonElement>(null);
   const cfg = BY_SEASON[season as keyof typeof BY_SEASON] ?? BY_SEASON['2026-27'];
   const { cap, matching, cash, cal, projected } = cfg;
   const [b0, b1] = matching.belowApron;
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, []);
+    if(!open)return;
+    const trigger=triggerRef.current;
+    const overflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    const onKey=(event:KeyboardEvent)=>{
+      if(event.key==='Escape'){event.preventDefault();setOpen(false);}
+      if(event.key==='Tab'){
+        const nodes=dialogRef.current?.querySelectorAll<HTMLElement>('button,a[href],input');
+        if(!nodes?.length)return;
+        const first=nodes[0],last=nodes[nodes.length-1];
+        if(event.shiftKey&&(document.activeElement===first||document.activeElement===dialogRef.current)){event.preventDefault();last.focus();}
+        else if(!event.shiftKey&&(document.activeElement===last||document.activeElement===dialogRef.current)){event.preventDefault();first.focus();}
+      }
+    };
+    dialogRef.current?.focus();
+    document.addEventListener('keydown',onKey);
+    return ()=>{document.removeEventListener('keydown',onKey);document.body.style.overflow=overflow;trigger?.focus();};
+  },[open]);
 
   return (
     <>
       <button
+        ref={triggerRef}
         onClick={() => setOpen(true)}
         title="How NBA trade rules work"
         className={`rounded px-2 py-0.5 text-[11px] font-semibold transition ${className || 'bg-[var(--surface-2)] text-[var(--muted)] hover:text-[var(--text)]'}`}
@@ -48,9 +66,11 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
         ⓘ Trade rules
       </button>
 
-      {open && (
+      {open && createPortal(
         <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm" onClick={() => setOpen(false)}>
           <div
+            ref={dialogRef}
+            tabIndex={-1}
             role="dialog"
             aria-modal="true"
             aria-label="NBA trade rules"
@@ -132,22 +152,22 @@ export function TradeRulesButton({ className = '' }: { className?: string }) {
                   <li><Hi>Trade deadline:</Hi> in-season trades stop at the deadline (<Hi>{date(cal.tradeDeadline)}</Hi> this year).</li>
                   <li><Hi>Consent:</Hi> a <Hi>no-trade clause</Hi> (or a one-year Bird re-signing) lets the player veto the deal.</li>
                 </ul>
-                <p>These are evaluated as of the <Hi>Trade date</Hi> in the toolbar (the bundled snapshot date by default). Choose another date to explore when a restriction expires.</p>
+                <p>These are evaluated as of the <Hi>Trade date</Hi> under Trade settings (the snapshot date by default). Choose another date to explore when a restriction expires.</p>
               </Rule>
 
               <Rule title="Reading the verdict">
                 <p>The validation panel flags each finding by severity:</p>
                 <ul className="ml-3 list-disc space-y-0.5">
-                  <li><span className="font-semibold" style={{ color: 'var(--illegal)' }}>Illegal</span> - a hard block; the trade can&rsquo;t be made as built.</li>
-                  <li><span className="font-semibold" style={{ color: 'var(--warn)' }}>Warning</span> - legal, but it costs you (tax bill, hard cap, repeater).</li>
-                  <li><span className="font-semibold" style={{ color: 'var(--info)' }}>Conditional</span> - legal only on or after a certain date.</li>
+                  <li><span className="font-semibold" style={{ color: 'var(--illegal)' }}>Blocker</span> - the proposal needs changes before it can pass the modeled checks.</li>
+                  <li><span className="font-semibold" style={{ color: 'var(--warn)' }}>Warning</span> - review the cost, transaction history or other assumptions described in the finding.</li>
+                  <li><span className="font-semibold" style={{ color: 'var(--info)' }}>Conditional</span> - verify the stated date, source conflict or outstanding condition before relying on the result.</li>
                   <li><span className="font-semibold text-[var(--muted)]">Note</span> - informational (a TPE created, consent required).</li>
                 </ul>
                 <p>Each finding cites the rule it comes from. Suggested corrections are starting points; check the resulting deal against the validation panel.</p>
               </Rule>
             </div>
           </div>
-        </div>
+        </div>,document.body
       )}
     </>
   );

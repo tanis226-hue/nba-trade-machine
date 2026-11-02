@@ -122,7 +122,7 @@ export function TradeMatrix({
 
   return (
     <div className={hasMoves?'has-trade-moves':''}>
-      <p className="sr-only" role="status">{movedCount} assets moved. {hasMoves?(validation.valid?'No blocking trade issues.':'Trade needs changes.'):''}</p>
+      <p className="sr-only" role="status">{movedCount} {movedCount===1?'asset':'assets'} moved. {hasMoves?(validation.valid?'No blocking trade issues.':'Trade needs changes.'):''}</p>
       {hasMoves&&<a href="#trade-verdict" className="mobile-trade-action"><span>{movedCount} {movedCount===1?'asset':'assets'} moved <small>{validation.valid?'Ready to review':'Trade needs changes'}</small></span><strong>View trade check ↑</strong></a>}
       <div className="workspace-grid">
         <aside id="trade-verdict" className="panel trade-check" aria-labelledby="trade-check-heading">
