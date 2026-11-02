@@ -30,42 +30,22 @@ export default async function Home({searchParams}:{searchParams:Promise<{season?
   ]);
   return (
     <main>
-      <section className="stagger mb-9">
-        <div className="eyebrow flex items-center gap-2.5">
-          <span className="h-px w-8 bg-[var(--accent)]" /> {season} trade playground
+      <section id="how-it-works" className="builder-intro">
+        <div>
+          <p className="intro-season">NBA trade playground <span>{season}</span></p>
+          <h1>Make your next big move.</h1>
+          <p className="intro-description">Your teams. Your trade ideas. See how the salaries fit, find what needs to change, and send the deal to your group chat.</p>
         </div>
-        <h1 className="mt-3 font-display text-6xl font-extrabold uppercase leading-[0.8] tracking-[-0.01em] text-[var(--text)] sm:text-7xl lg:text-[5.6rem]">
-          Build the
-          <br />
-          <span className="text-[var(--accent)]">trade</span>
-          <span className="text-[var(--accent-2)]">.</span>
-        </h1>
-        <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[var(--muted)]">
-          Build 2-7 team deals, explore the cap impact, and see what needs to change.
-          Salary matching, apron checks, tax estimates, and rule explanations update as you move players and picks.
-        </p>
-        <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--faint)]">
-          <span>
-            <b className="text-[var(--text)]">30</b> teams
-          </span>
-          <span className="h-3 w-px bg-[var(--border)]" />
-          <span>
-            <b className="text-[var(--text)]">real</b> game-score values
-          </span>
-          <span className="h-3 w-px bg-[var(--border)]" />
-          <span>
-            <b className="text-[var(--text)]">cba-cited</b> verdicts
-          </span>
-          <span className="h-3 w-px bg-[var(--border)]" />
-          <span>
-            <b className="text-[var(--text)]">picks · cash · tpe</b>
-          </span>
-        </div>
+        <ol className="intro-steps" aria-label="How to build a trade">
+          <li><span>1</span><div><strong>Pick your teams</strong><p>Start with two. Bring in up to seven.</p></div></li>
+          <li><span>2</span><div><strong>Build the deal</strong><p>Send players, add picks, check the fit.</p></div></li>
+          <li><span>3</span><div><strong>Get the conversation going</strong><p>Share a saved proposal. No account needed.</p></div></li>
+        </ol>
       </section>
       <div className="mb-5">
         <DataFreshness snapshot={snapshot?{rosterAsOf:snapshot.rosterAsOf,pickAsOf:snapshot.pickAsOf,loadedFrom:snapshot.loadedFrom,importedAt:snapshot.importedAt}:undefined} />
       </div>
-      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} rosterSeason={season} payroll={snapshot?.teams} dataVersion={snapshot?.version} defaultDate={snapshot?.rosterAsOf??'2026-06-01'} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
+      <TradeBoard requestedSeason={requested && seasons.includes(requested) ? requested : undefined} teams={teams} rosters={rosters} seasons={seasons} rosterSeason={season} payroll={snapshot?.teams} dataVersion={snapshot?.version} defaultDate={snapshot?.rosterAsOf??'2026-06-01'} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
     </main>
   );
 }

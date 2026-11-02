@@ -23,10 +23,10 @@ function Avatar({ src, name }: { src?: string; name: string }) {
 function Chip({ asset, onRemove }: { asset: TradeAsset; onRemove: () => void }) {
   const icon = asset.kind === 'pick' ? '🎟' : asset.kind === 'cash' ? '💵' : null;
   return (
-    <span className="flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--surface-2)] py-0.5 pl-1 pr-1.5 text-[11px] text-[var(--text)]">
+    <span className="flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--surface-2)] py-0.5 pl-1 pr-1.5 text-xs text-[var(--text)]">
       {asset.kind === 'player' ? <Avatar src={asset.headshot} name={asset.label} /> : <span className="px-0.5 text-[10px]">{icon}</span>}
       <span className="max-w-[130px] truncate">{asset.label}</span>
-      <button onClick={onRemove} aria-label={`Remove ${asset.label}`} className="text-[var(--faint)] transition hover:text-[var(--illegal)]">
+      <button onClick={onRemove} aria-label={`Undo move for ${asset.label}`} className="ml-1 inline-grid h-7 w-7 place-items-center rounded-full text-[var(--muted)] hover:bg-[var(--bg)] hover:text-[var(--illegal)]">
         ✕
       </button>
     </span>
@@ -52,7 +52,7 @@ function Side({
   return (
     <div>
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between py-1">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--faint)]">
+        <span className="text-xs font-semibold text-[var(--faint)]">
           {label} <span className="num font-semibold" style={{ color }}>({sign} {m(total)})</span>
         </span>
         <span className="text-[var(--faint)]">{open ? '▾' : '▸'}</span>
@@ -89,8 +89,8 @@ export function TradeSummary({ abbr }: { abbr: string }) {
       <Side label="Outgoing" sign="-" total={outTotal} color="var(--illegal)" assets={outgoing} onRemove={(a) => routeAsset(a.id, abbr)} />
       <Side label="Incoming" sign="+" total={inTotal} color="var(--legal)" assets={incoming} onRemove={(a) => routeAsset(a.id, a.fromTeam)} />
       <div className="mt-1 flex items-center justify-between border-t border-[var(--border-soft)] pt-1">
-        <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Net salary</span>
-        <span className="num text-[11px] font-semibold" style={{ color: net > 0 ? 'var(--illegal)' : net < 0 ? 'var(--legal)' : 'var(--muted)' }}>
+        <span className="text-xs text-[var(--faint)]">Net salary</span>
+        <span className="num text-xs font-semibold" style={{ color: net > 0 ? 'var(--illegal)' : net < 0 ? 'var(--legal)' : 'var(--muted)' }}>
           {net > 0 ? '+' : net < 0 ? '-' : ''}{m(Math.abs(net))}
         </span>
       </div>

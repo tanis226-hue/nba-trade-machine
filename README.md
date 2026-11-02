@@ -2,7 +2,7 @@
 
 A trade playground for NBA fans: build 2–7 team proposals, move players and picks, inspect cap consequences, and understand why a deal needs changes.
 
-[Public demo](https://nbatm.zldagroup.com/) · [Release readiness](docs/RELEASE_READINESS.md)
+[Trade builder](https://nbatm.zldagroup.com/) · [Contracts portal](https://nbatm.zldagroup.com/contracts) · [Release readiness](docs/RELEASE_READINESS.md)
 
 The November 2, 2026 production release is live. Try a [saved Boston–Dallas proposal](https://nbatm.zldagroup.com/trade/pa974oWnxs), then open it in the editor to build your own variation. The engine checks the inputs it receives; incomplete roster history and pick conditions limit its conclusions. See the release record for the deployed commit, validation and data provenance.
 
@@ -28,11 +28,17 @@ CI runs these checks without database/auth secrets. Passing them does not certif
 ## Fan workflow
 
 1. Search for two teams and add them to the board.
-2. Drag a player to the receiving team, or use the card's destination control. Add picks or cash as needed.
+2. Find a player with roster search and use “Send to” to choose a destination. Desktop users can also drag with the grip. On phones, switch rosters with the team tabs. Add picks or cash as needed.
 3. Read the blocking finding, the numerical allowance, and the cited rule. Suggestions use the validator's own shortfall; automatic fixes are offered only when the full engine verifies a nonempty resulting deal.
 4. Inspect salary and estimated tax changes. Generate a link to discuss the proposal.
 
 The board persists in the same browser. Generated links require durable database storage in production; the filesystem store is for local development.
+
+## Contracts portal
+
+Browse `/contracts` to search rostered player contracts, filter by team, position or contract feature, sort annual cap hits, and inspect option and guarantee notes. Filters and expanded players have shareable URLs. Desktop has a comparison table; phones use expandable player cards. Contracts navigation preserves a working trade, including historical roster years.
+
+Listed commitments include options and are not guaranteed-money totals. Unlisted future figures remain unknown. Two-way $0 figures are NBA team cap charges, not player earnings. Coverage excludes waived-player dead money, cap holds and unrostered free agents. See [the fan experience design record](docs/FAN_EXPERIENCE.md) for interaction decisions and validation.
 
 ## How it works
 

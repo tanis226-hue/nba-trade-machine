@@ -14,26 +14,8 @@ import type { ContractYear, DbTeam, DbDraftPick } from '@/lib/data/types';
 import { parseProtection } from '@/lib/cba/protections';
 import { resolveConveyance } from '@/lib/cba/conveyance';
 
-// ESPN logo abbreviations differ from ours for a handful of teams.
-const ESPN_ABBR: Record<string, string> = { GSW: 'gs', NOP: 'no', NYK: 'ny', SAS: 'sa', UTA: 'utah', WAS: 'wsh' };
-const espnLogo = (abbr: string) => `https://a.espncdn.com/i/teamlogos/nba/500/${(ESPN_ABBR[abbr] ?? abbr).toLowerCase()}.png`;
-
-function TeamLogo({ abbr, color, color2 }: { abbr: string; color: string; color2: string }) {
-  const [err, setErr] = useState(false);
-  return (
-    <div
-      className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-md font-display text-[11px] font-bold text-white shadow-inner"
-      style={{ background: `linear-gradient(135deg, ${color}, ${color2})` }}
-    >
-      {err ? (
-        abbr
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={espnLogo(abbr)} alt={abbr} loading="lazy" onError={() => setErr(true)} className="h-7 w-7 object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]" />
-      )}
-    </div>
-  );
-}
+import { TeamLogo } from './TeamLogo';
+import {ConfirmDialog} from './ConfirmDialog';
 
 export function TeamColumn({
   abbr,
@@ -58,6 +40,8 @@ export function TeamColumn({
   const addAsset = useTradeStore((s) => s.addAsset);
   const [signing, setSigning] = useState(false);
   const [chOpen, setChOpen] = useState(false);
+  const [playerSearch,setPlayerSearch]=useState('');
+  const [confirmRemove,setConfirmRemove]=useState(false);
 
   // The whole column is a droppable so a card dropped anywhere on it routes here.
   const { setNodeRef, isOver } = useDroppable({ id: `col:${abbr}` });
@@ -80,11 +64,11 @@ export function TeamColumn({
   const byOrder = (a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0);
   const here = assets.filter((a) => a.toTeam === abbr);
   const herePlayers = here.filter((a) => a.kind === 'player').sort(byOrder);
+  const visiblePlayers=herePlayers.filter(a=>a.label.toLowerCase().includes(playerSearch.trim().toLowerCase()));
   const hereExtras = here.filter((a) => a.kind !== 'player').sort(byOrder);
-  const sortableIds = [...herePlayers, ...hereExtras].map((a) => a.id);
+  const sortableIds = [...hereExtras, ...visiblePlayers].map((a) => a.id);
 
   const color = meta?.primary_color ?? '#334155';
-  const color2 = meta?.secondary_color ?? color;
 
   const addedPickIds = new Set(assets.filter((a) => a.fromTeam === abbr && a.kind === 'pick').map((a) => a.id));
   const sortedPicks = [...picks].sort((a, b) => a.season.localeCompare(b.season) || a.round - b.round);
@@ -115,31 +99,22 @@ export function TeamColumn({
   return (
     <div
       ref={setNodeRef}
-      className={`panel flex w-[290px] flex-col overflow-hidden rounded-xl transition ${isOver ? 'drop-active' : ''}`}
+      className={`panel team-column flex flex-col ${isOver ? 'drop-active' : ''}`}
     >
-      <div className="h-1" style={{ background: `linear-gradient(90deg, ${color}, ${color2})` }} />
-      <div className="flex items-center gap-2.5 px-3 py-2.5">
-        <TeamLogo abbr={abbr} color={color} color2={color2} />
-        <div className="min-w-0 leading-tight">
-          <div className="font-display text-sm font-semibold uppercase tracking-wide text-[var(--text)]">{abbr}</div>
-          {meta && <div className="truncate text-[11px] text-[var(--muted)]">{meta.name}</div>}
-        </div>
-        <button
-          onClick={() => removeTeam(abbr)}
-          className="ml-auto rounded p-1 text-[var(--faint)] transition hover:bg-[var(--surface-2)] hover:text-[var(--illegal)]"
-          aria-label={`Remove ${abbr}`}
-        >
-          ✕
-        </button>
+      <div className="h-1" style={{backgroundColor:color}}/>
+      <div className="team-column-header">
+        <TeamLogo abbr={abbr} size={42}/>
+        <div className="min-w-0"><h3 id={`roster-${abbr}`} tabIndex={-1}>{abbr}</h3><p>{meta?.name??abbr}</p></div>
+        <button onClick={()=>setConfirmRemove(true)} aria-label={`Remove ${abbr}`}>×</button>
       </div>
-
       <div className="border-t border-[var(--border-soft)] px-3 py-3">
         <TeamCapPanel result={result} />
       </div>
 
       <TradeSummary abbr={abbr} />
 
-      {/* Draft capital — owned future picks (click a chip to add it to the deal). */}
+      <details className="team-extras"><summary>Picks &amp; exceptions <span className="text-xs font-normal text-[var(--muted)]">{firstCount} firsts / {secondCount} seconds</span></summary>
+      {/* Reported draft rights retain their protection and swap notes. */}
       <div className="border-t border-[var(--border-soft)] px-3 py-2.5">
         <div className="mb-1.5 flex items-center justify-between">
           <span
@@ -249,44 +224,47 @@ export function TeamColumn({
         </div>
       )}
 
+      </details>
       <div className="flex-1 px-3 pb-3 pt-3">
         <div className="mb-1.5 flex items-center justify-between">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--faint)]">Roster</span>
+          <span className="text-sm font-semibold">Roster <span className="text-xs font-normal text-[var(--muted)]">{herePlayers.length} players</span></span>
           <div className="flex items-center gap-1">
             {freeAgents.length > 0 && (
               <button
                 onClick={() => setSigning(true)}
                 title="Sign a free agent to this team"
-                className="rounded bg-[var(--surface-2)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--muted)] hover:text-[var(--text)]"
+                className="route-button"
               >
-                + Sign FA
+                Sign free agent
               </button>
             )}
-            <button onClick={addCash} className="rounded bg-[var(--surface-2)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--muted)] hover:text-[var(--text)]">
+            <button onClick={addCash} className="route-button">
               + Cash
             </button>
           </div>
         </div>
 
+        <label className="roster-search block"><span className="sr-only">Search {abbr} players</span><input className="ui-input" type="search" name={`players-${abbr}`} autoComplete="off" placeholder="Find a player…" value={playerSearch} onChange={e=>setPlayerSearch(e.target.value)}/></label>
         <SortableContext items={sortableIds} strategy={verticalListSortingStrategy}>
-          <div className="space-y-1.5">
-            {herePlayers.map((a) => (
-              <PlayerCard key={a.id} asset={a} contract={contracts[a.id]} teams={teams} />
-            ))}
-            {herePlayers.length === 0 && <div className="text-xs text-[var(--faint)]">All players traded away</div>}
-          </div>
-
           {hereExtras.length > 0 && (
-            <div className="mt-2 space-y-1.5">
+            <div className="mb-3 space-y-2">
               {hereExtras.map((a) => (
                 <AssetRow key={a.id} asset={a} teams={teams} />
               ))}
             </div>
           )}
+          <div className="space-y-1.5">
+            {visiblePlayers.map((a) => (
+              <PlayerCard key={a.id} asset={a} contract={contracts[a.id]} teams={teams} />
+            ))}
+            {visiblePlayers.length===0&&<p role="status" className="p-3 text-sm text-[var(--muted)]">{herePlayers.length?'No players match. Try another name.':'All players have been moved to another team.'}</p>}
+          </div>
+
         </SortableContext>
 
       </div>
 
+      {confirmRemove&&<ConfirmDialog title={`Remove ${abbr}?`} description="This removes the team and its moves from your current proposal. Other teams stay on the board." action="Remove team" onCancel={()=>setConfirmRemove(false)} onConfirm={()=>removeTeam(abbr)}/>}
       {signing && (
         <SignFreeAgentPanel abbr={abbr} freeAgents={freeAgents} onClose={() => setSigning(false)} />
       )}

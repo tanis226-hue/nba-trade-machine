@@ -6,7 +6,7 @@ import type { TradeAsset, TradeTeamInput } from '@/lib/cba/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 
-const noDrag = { onPointerDown: (e: React.PointerEvent) => e.stopPropagation() };
+
 
 /** A routable non-player asset (draft pick or cash) with route + remove controls. */
 export function AssetRow({
@@ -24,7 +24,7 @@ export function AssetRow({
   const isCash = asset.kind === 'cash';
   const amount = asset.amount ?? 0;
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: asset.id });
+  const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } = useSortable({ id: asset.id });
   const style = { transform: CSS.Transform.toString(transform), transition, opacity: isDragging ? 0.4 : 1 };
 
   const protectionNote =
@@ -32,17 +32,23 @@ export function AssetRow({
       ? String((asset.protections as { note?: unknown }).note ?? '')
       : '';
 
+  function move(next:string,event:React.MouseEvent<HTMLButtonElement>) {
+    const focusTarget=event.detail===0&&next!==asset.toTeam
+      ? event.currentTarget.closest('.player-card')?.nextElementSibling?.querySelector('button')??document.getElementById(`roster-${asset.toTeam}`)
+      : null;
+    routeAsset(asset.id,next);
+    focusTarget?.focus();
+  }
   return (
     <div
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
-      className={`touch-none cursor-grab rounded-lg border px-2.5 py-2 transition active:cursor-grabbing ${
+      className={`player-card ${
         routed ? 'border-[var(--accent)]/50 bg-[var(--accent)]/8' : 'border-[var(--border-soft)] bg-[var(--surface-2)]/40'
       }`}
     >
       <div className="flex items-center justify-between gap-2">
+        <button ref={setActivatorNodeRef} {...attributes} {...listeners} aria-label={`Drag ${asset.label}`} className="drag-handle">⠿</button>
         <span className="flex min-w-0 items-center gap-1 truncate text-[12px] font-medium text-[var(--text)]">
           {asset.kind === 'pick' ? '🎟 ' : '💵 '}
           {asset.label}
@@ -52,27 +58,24 @@ export function AssetRow({
         {isCash ? (
           <div className="flex items-center gap-1">
             <button
-              {...noDrag}
-              onClick={() => setAssetAmount(asset.id, Math.max(0, amount - 500_000))}
-              className="h-4 w-4 rounded bg-[var(--surface-2)] text-[11px] leading-none text-[var(--muted)]"
+                  onClick={() => setAssetAmount(asset.id, Math.max(0, amount - 500_000))}
+              className="route-button" aria-label="Decrease cash by $500,000"
             >
               −
             </button>
             <span className="num w-12 text-center text-[12px] font-semibold text-[var(--text)]">{m(amount)}</span>
             <button
-              {...noDrag}
-              onClick={() => setAssetAmount(asset.id, amount + 500_000)}
-              className="h-4 w-4 rounded bg-[var(--surface-2)] text-[11px] leading-none text-[var(--muted)]"
+                  onClick={() => setAssetAmount(asset.id, amount + 500_000)}
+              className="route-button" aria-label="Increase cash by $500,000"
             >
               +
             </button>
           </div>
         ) : null}
         <button
-          {...noDrag}
           onClick={() => removeAsset(asset.id)}
           className="rounded p-0.5 text-[var(--faint)] transition hover:text-[var(--illegal)]"
-          aria-label="Remove asset"
+          aria-label={`Remove ${asset.label}`}
         >
           ✕
         </button>
@@ -84,31 +87,9 @@ export function AssetRow({
         </div>
       )}
 
-      <div className="mt-1.5 flex flex-wrap gap-1">
-        <button
-          {...noDrag}
-          onClick={() => routeAsset(asset.id, asset.fromTeam)}
-          className={`rounded px-1.5 py-0.5 text-[11px] font-medium transition ${
-            !routed ? 'bg-[var(--surface-2)] text-[var(--muted)]' : 'text-[var(--faint)] hover:bg-[var(--surface-2)]'
-          }`}
-        >
-          Stay
-        </button>
-        {dests.map((t) => {
-          const active = asset.toTeam === t.abbr;
-          return (
-            <button
-              key={t.abbr}
-              {...noDrag}
-              onClick={() => routeAsset(asset.id, t.abbr)}
-              className={`rounded px-1.5 py-0.5 font-display text-[11px] font-semibold tracking-wide transition ${
-                active ? 'bg-[var(--accent)] text-[var(--ink)]' : 'bg-[var(--surface-2)] text-[var(--muted)] hover:text-[var(--text)]'
-              }`}
-            >
-              → {t.abbr}
-            </button>
-          );
-        })}
+      <div className="player-routing">
+        <button className="route-button" aria-label={routed?`Return to ${asset.fromTeam}: ${asset.label}`:`Keep: ${asset.label} at ${asset.fromTeam}`} aria-pressed={!routed} onClick={e=>move(asset.fromTeam,e)}>{routed?`Return to ${asset.fromTeam}`:'Keep'}</button>
+        {dests.map(t=><button key={t.abbr} className="route-button" aria-label={`Send to ${t.abbr}: ${asset.label}`} aria-pressed={asset.toTeam===t.abbr} onClick={e=>move(t.abbr,e)}>Send to {t.abbr}</button>)}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {createPortal} from 'react-dom';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import type { TradeAsset } from '@/lib/cba/types';
 
@@ -107,9 +108,11 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
         else if(!e.shiftKey&&(document.activeElement===last||document.activeElement===dialogRef.current)){e.preventDefault();first.focus();}
       }
     };
+    const previousOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
     document.addEventListener('keydown', onKey);
     dialogRef.current?.focus();
-    return () => document.removeEventListener('keydown', onKey);
+    return () => {document.removeEventListener('keydown', onKey);document.body.style.overflow=previousOverflow;};
   }, [open, phase, close]);
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
@@ -128,7 +131,7 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
         Review &amp; Share
       </button>
 
-      {open && (
+      {open && createPortal(
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
           onClick={() => phase !== 'processing' && close()}
@@ -146,7 +149,7 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
               <>
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <div>
-                    <h2 className="font-display text-lg font-bold uppercase tracking-[0.1em] text-[var(--text)]">
+                    <h2 className="text-lg font-bold text-[var(--text)]">
                       Review Proposal
                     </h2>
                     <p className="mt-0.5 text-[12px] text-[var(--muted)]">
@@ -218,7 +221,7 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--legal)]/15 text-2xl text-[var(--legal)]">
                   ✓
                 </div>
-                <h2 className="font-display text-lg font-bold uppercase tracking-[0.1em] text-[var(--text)]">
+                <h2 className="text-lg font-bold text-[var(--text)]">
                   Proposal Saved
                 </h2>
                 <p className="max-w-xs text-[13px] text-[var(--muted)]">
@@ -250,7 +253,7 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
               </div>
             )}
           </div>
-        </div>
+        </div>,document.body
       )}
     </>
   );
@@ -266,7 +269,7 @@ function AssetList({ title, items, total, accent }: { title: string; items: Trad
         <ul className="space-y-0.5">
           {items.map((a) => (
             <li key={a.id} className="flex items-baseline justify-between gap-2">
-              <span className={`truncate ${accent ? 'text-[var(--text)]' : 'text-[var(--muted)]'}`}>{a.label}</span>
+              <span className={`min-w-0 break-words ${accent ? 'text-[var(--text)]' : 'text-[var(--muted)]'}`}>{a.label}</span>
               {a.salary > 0 && <span className="num shrink-0 text-[11px] text-[var(--faint)]">{m(a.salary)}</span>}
             </li>
           ))}

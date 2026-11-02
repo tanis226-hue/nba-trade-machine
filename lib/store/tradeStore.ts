@@ -145,11 +145,27 @@ export const useTradeStore = create<TradeState>()(
       s.teams.length >= MAX_TEAMS || s.teams.some((x) => x.abbr === t.abbr) ? s : { teams: [...s.teams, t] },
     ),
   removeTeam: (abbr) =>
-    set((s) => ({
-      teams: s.teams.filter((t) => t.abbr !== abbr),
-      assets: Object.fromEntries(Object.entries(s.assets).filter(([, a]) => a.fromTeam !== abbr && a.toTeam !== abbr)),
-      compareIds: s.compareIds.filter((id) => s.assets[id] && s.assets[id].fromTeam !== abbr),
-    })),
+    set((s) => {
+      // Cancel the removed team's legs without deleting assets another team owns.
+      const assets = Object.fromEntries(Object.entries(s.assets).filter(([, a]) => a.fromTeam !== abbr));
+      const nextOrder = new Map<string, number>();
+      for (const asset of Object.values(assets)) {
+        if (asset.toTeam === abbr) continue;
+        const group = `${asset.toTeam}:${asset.kind}`;
+        nextOrder.set(group, Math.max(nextOrder.get(group) ?? 0, (asset.order ?? 0) + 1));
+      }
+      for (const asset of Object.values(assets).filter((a) => a.toTeam === abbr).sort((a, b) => (a.order ?? 0) - (b.order ?? 0))) {
+        const group = `${asset.fromTeam}:${asset.kind}`;
+        const order = nextOrder.get(group) ?? 0;
+        assets[asset.id] = { ...asset, toTeam: asset.fromTeam, order };
+        nextOrder.set(group, order + 1);
+      }
+      return {
+        teams: s.teams.filter((t) => t.abbr !== abbr),
+        assets,
+        compareIds: s.compareIds.filter((id) => assets[id]),
+      };
+    }),
   addAsset: (a) =>
     set((s) => ({ assets: { ...s.assets, [a.id]: { order: Object.keys(s.assets).length, ...a } } })),
   removeAsset: (id) =>

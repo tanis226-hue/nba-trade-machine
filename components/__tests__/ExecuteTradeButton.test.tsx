@@ -4,6 +4,17 @@ import {ExecuteTradeButton} from '../ExecuteTradeButton';
 import {useTradeStore} from '@/lib/store/tradeStore';
 afterEach(()=>{cleanup();vi.unstubAllGlobals();useTradeStore.getState().reset();});
 describe('proposal saving',()=>{
+  it('opens above a clipped workspace, locks background scrolling and restores focus',()=>{
+    const overflow=document.body.style.overflow;
+    render(<div data-testid="workspace" style={{overflow:'auto',position:'sticky'}}><ExecuteTradeButton valid/></div>);
+    const trigger=screen.getByRole('button',{name:'Review & Share'});
+    trigger.focus();fireEvent.click(trigger);
+    expect(screen.getByTestId('workspace').contains(screen.getByRole('dialog'))).toBe(false);
+    expect(document.body.style.overflow).toBe('hidden');
+    fireEvent.click(screen.getByRole('button',{name:'Cancel'}));
+    expect(document.body.style.overflow).toBe(overflow);
+    expect(document.activeElement).toBe(trigger);
+  });
   it('retains the review and reports a failed save instead of claiming success',async()=>{
     const fetch=vi.fn().mockResolvedValue({ok:false,json:async()=>({error:'Please try again later.'})});vi.stubGlobal('fetch',fetch);
     render(<ExecuteTradeButton valid />);

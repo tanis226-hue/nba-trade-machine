@@ -1,7 +1,10 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTradeStore, MAX_TRADE_TEAMS } from '@/lib/store/tradeStore';
 import { TradeMatrix } from './TradeMatrix';
+import { TeamLogo } from './TeamLogo';
+import { ConfirmDialog } from './ConfirmDialog';
 import { SeasonSelector } from './SeasonSelector';
 import { computeTeamSalary } from '@/lib/cba/teamSalary';
 import { SEASON_2026_27,SEASON_2025_26 } from '@/lib/cba/constants';
@@ -17,6 +20,7 @@ export function TradeBoard({
   rosters,
   seasons,
   rosterSeason='2026-27',
+  requestedSeason,
   payroll,
   dataVersion='historical-2026-06-01',
   defaultDate='2026-06-01',
@@ -30,6 +34,7 @@ export function TradeBoard({
   rosters: Record<string, RosterEntry[]>;
   seasons: string[];
   rosterSeason?:string;
+  requestedSeason?:string;
   payroll?:RosterSnapshot['teams'];
   dataVersion?:string;
   defaultDate?:string;
@@ -39,6 +44,7 @@ export function TradeBoard({
   exceptions?: Record<string, TeamExceptionView[]>;
   projectedRecords?: Record<string, ProjectedRecord>;
 }) {
+  const router=useRouter();
   const ACTIVE_SEASON=rosterSeason==='2025-26'?SEASON_2025_26:SEASON_2026_27;
   const storeTeams = useTradeStore((s) => s.teams);
   const capYear = useTradeStore((s) => s.season);
@@ -48,6 +54,10 @@ export function TradeBoard({
   const addAsset = useTradeStore((s) => s.addAsset);
   const [hydrated, setHydrated] = useState(false);
   const [teamSearch, setTeamSearch] = useState('');
+  const [teamPickerOpen,setTeamPickerOpen]=useState(false);
+  const [showAllTeams,setShowAllTeams]=useState(false);
+  const [confirmation,setConfirmation]=useState<'new'|'current'|null>(null);
+  const [removeTeam,setRemoveTeam]=useState<string|null>(null);
 
   // Per-player contract years for cap-sheet display, derived purely from the teams in the store and
   // the server rosters. Deriving (not storing) means a board restored from localStorage rebuilds its
@@ -92,7 +102,10 @@ export function TradeBoard({
   const teamMeta = useMemo(() => Object.fromEntries(teams.map((t) => [t.abbr, t])), [teams]);
 
   function add(team: DbTeam) {
-    if(useTradeStore.getState().season!==rosterSeason)return;
+    const state=useTradeStore.getState();
+    if(state.season!==rosterSeason)return;
+    // Removing the last team leaves an empty board, which can now use fresh data.
+    if(!state.teams.length){state.setDataVersion(dataVersion);state.setSimulatedDate(defaultDate);}
     const roster = rosters[team.abbr] ?? [];
     const reported=payroll?.[team.id];
     const sal = computeTeamSalary(roster.map((r) => r.salary), ACTIVE_SEASON);
@@ -168,23 +181,33 @@ export function TradeBoard({
   // state for a frame before localStorage loads. The skeleton matches SSR (both pre-hydration), so
   // there is no React hydration mismatch.
   useEffect(() => {
+    let active=true;
     const finish = () => {
-      if(useTradeStore.getState().season!==rosterSeason)useTradeStore.getState().setSeason(rosterSeason);
+      if(!active)return;
       const state=useTradeStore.getState();
-      if(!state.teams.length) {
+      // Page navigation must never replace a working board without confirmation.
+      // A season mismatch is handled by the restore/replace choice below.
+      if(!state.teams.length&&!Object.keys(state.assets).length) {
+        if(state.season!==rosterSeason)state.setSeason(rosterSeason);
         state.setDataVersion(dataVersion);
         state.setSimulatedDate(defaultDate);
-      } else if(!state.dataVersion) {
+      } else if(state.season===rosterSeason&&!state.dataVersion) {
         state.setDataVersion('legacy-2026-07-13');
         if(!state.simulatedDate)state.setSimulatedDate('2026-07-13');
       }
       setHydrated(true);
     };
     const unsub = useTradeStore.persist.onFinishHydration(finish);
-    void useTradeStore.persist.rehydrate();
     if (useTradeStore.persist.hasHydrated()) finish();
-    return unsub;
+    else void useTradeStore.persist.rehydrate();
+    return ()=>{active=false;unsub();};
   }, [rosterSeason,dataVersion,defaultDate]);
+
+  useEffect(()=>{
+    if(hydrated&&storeTeams.length>0&&capYear!==rosterSeason&&!requestedSeason&&seasons.includes(capYear)) {
+      router.replace(`/?season=${encodeURIComponent(capYear)}`,{scroll:false});
+    }
+  },[hydrated,storeTeams.length,capYear,rosterSeason,requestedSeason,seasons,router]);
 
   const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
   const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
@@ -207,86 +230,71 @@ export function TradeBoard({
     );
   }
 
+  if(storeTeams.length>0&&capYear!==rosterSeason) {
+    const canResume=seasons.includes(capYear);
+    if(!requestedSeason&&canResume)return <div role="status" className="panel rounded-xl p-6 text-sm text-[var(--muted)]">Restoring your {capYear} board…</div>;
+    return <section className="panel rounded-xl p-6" aria-labelledby="restore-board-heading">
+      <h2 id="restore-board-heading" className="text-xl font-bold">{canResume?`Your ${capYear} proposal is still saved.`:'Your saved board uses an unavailable roster year.'}</h2>
+      <p className="mt-3 max-w-prose text-sm leading-relaxed text-[var(--muted)]">You opened the {rosterSeason} builder. Starting that year replaces the working board in this browser. {canResume?'Resume your proposal to keep editing or save a share link first.':'The existing inputs have been preserved; start a new board only when you are ready to replace them.'}</p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {canResume&&<button className="ui-button primary" onClick={()=>router.replace(`/?season=${encodeURIComponent(capYear)}`)}>Resume {capYear} board</button>}
+        <button className="ui-button" onClick={startNewBoard}>Start a {rosterSeason} board</button>
+      </div>
+    </section>;
+  }
+
+  const pickerVisible=storeTeams.length<2||teamPickerOpen;
+  const popular=['LAL','BOS','GSW','NYK','CHI','DAL'];
+  const displayedTeams=query||showAllTeams?filteredTeams:filteredTeams.filter(t=>popular.includes(t.abbr));
   return (
     <div className="space-y-5">
-      {stale&&<div className="panel space-y-2 rounded-xl border border-[var(--warn)]/40 p-3 text-xs text-[var(--muted)]">
-        <p>This saved proposal uses earlier roster inputs. You can keep editing its existing teams, or start a new board with current rosters. New teams use the current dataset.</p>
-        <button className="rounded bg-[var(--accent)] px-3 py-1.5 font-semibold text-[var(--ink)]" onClick={()=>{if(confirm('Start a new board with current rosters? Save a link first to keep this proposal.'))startNewBoard();}}>Load current rosters</button>
+      {stale&&<div role="status" className="panel rounded-xl border-[var(--warn)] p-4 text-sm">
+        <strong>You’re editing a saved roster snapshot.</strong>
+        <p className="mt-1 text-[var(--muted)]">Keep working with these teams, or start a fresh board to use current rosters.</p>
+        <button className="ui-button mt-3" onClick={()=>setConfirmation('current')}>Load current rosters</button>
       </div>}
-      {capYear !== ACTIVE_SEASON.season && (
-        <p className="rounded-xl border border-[var(--warn)]/40 bg-[var(--warn)]/10 px-3.5 py-2.5 text-xs text-[var(--muted)]">
-          Loading {capYear} roster data…
-        </p>
-      )}
-      <div className="panel flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl p-3.5">
-        <SeasonSelector seasons={seasons} />
-        <div className="h-5 w-px bg-[var(--border)]" />
-        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
-          <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--faint)]">
-            Add teams {storeTeams.length}/{MAX_TRADE_TEAMS}
-          </span>
-          <input
-            type="search"
-            aria-label="Search teams"
-            placeholder="Find a team…"
-            value={teamSearch}
-            onChange={(e) => setTeamSearch(e.target.value)}
-            className="min-w-0 rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1.5 text-sm text-[var(--text)] outline-none focus:border-[var(--accent)]"
-          />
-          <div className="flex flex-wrap gap-1.5">
-            {filteredTeams.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => { add(t); setTeamSearch(''); }}
-                aria-label={`Add ${t.name}`}
-                title={t.name}
-                disabled={atMax||stale||capYear!==rosterSeason}
-                className="group relative overflow-hidden rounded-md px-2.5 py-1 font-display text-sm font-semibold tracking-wide text-white transition enabled:hover:-translate-y-0.5 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-30"
-                style={{ backgroundColor: t.primary_color ?? '#1f2937' }}
-              >
-                <span className="relative">+ {t.abbr}</span>
-              </button>
-            ))}
-            {available.length === 0 && !atMax && (
-              <span className="text-xs text-[var(--faint)]">No more seeded rosters available</span>
-            )}
+      <section className="panel team-setup" aria-labelledby="teams-heading">
+        <div className="setup-heading">
+          <div>
+            <h2 id="teams-heading" tabIndex={-1}>{storeTeams.length===0?"Who's in your trade?":'Your teams'}</h2>
+            {!storeTeams.length&&<p>Choose two teams to start. You can add more as your deal grows.</p>}
+            {storeTeams.length===1&&<p>Add one more team to start moving players.</p>}
           </div>
-          {query && filteredTeams.length === 0 && available.length > 0 && (
-            <span className="text-xs text-[var(--muted)]">No available teams match “{teamSearch}”.</span>
-          )}
+          <div className="flex flex-wrap items-center gap-3">
+            <SeasonSelector seasons={seasons} />
+            {storeTeams.length>0&&<button className="ui-button" onClick={()=>setConfirmation('new')}>New trade</button>}
+          </div>
         </div>
-        {storeTeams.length > 0 && (
-          <div className="ml-auto flex items-center gap-2">
-            <span className="hidden items-center gap-1 text-[10px] uppercase tracking-[0.16em] text-[var(--faint)] sm:flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--legal)]" /> Auto-saved
-            </span>
-            <button
-              onClick={() => {
-                if (confirm('Clear this trade and start a new one? This cannot be undone.'))
-                  startNewBoard();
-              }}
-              className="rounded-md border border-[var(--border)] px-2.5 py-1 font-display text-xs font-semibold uppercase tracking-[0.1em] text-[var(--muted)] transition hover:border-[var(--illegal)]/60 hover:text-[var(--illegal)]"
-            >
-              New trade
-            </button>
+        {storeTeams.length>0&&<div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="selected-teams">
+            {storeTeams.map(t=><span className="selected-team" key={t.abbr}><TeamLogo abbr={t.abbr} size={26}/>{t.abbr}<button aria-label={`Remove ${t.abbr} from trade`} onClick={()=>setRemoveTeam(t.abbr)}>×</button></span>)}
+            {storeTeams.length>=2&&<button className="ui-button" aria-expanded={pickerVisible} aria-controls="team-picker" disabled={atMax||stale} onClick={()=>setTeamPickerOpen(v=>!v)}>{pickerVisible?'Close team picker':'+ Add team'}</button>}
           </div>
-        )}
-      </div>
-
-      {capYear!==rosterSeason?<div role="status" className="panel rounded-xl p-6 text-sm text-[var(--muted)]">Loading the matching rosters and rules…</div>:storeTeams.length >= 1 ? (
+          <span className="text-xs text-[var(--muted)]">Saved in this browser <span className="ml-1 text-[var(--legal)]" aria-hidden="true">✓</span></span>
+        </div>}
+        {pickerVisible&&<div className="team-picker" id="team-picker">
+          <div className="team-search-row">
+            <label><span className="sr-only">Search teams</span><input className="ui-input" name="team-search" autoComplete="off" type="search" placeholder="Search city, team or abbreviation…" value={teamSearch} onChange={e=>setTeamSearch(e.target.value)}/></label>
+            <span className="text-xs text-[var(--muted)]">{storeTeams.length}/{MAX_TRADE_TEAMS} teams</span>
+          </div>
+          <div className="team-picker-grid">
+            {displayedTeams.map(t=><button className="team-option" key={t.id} aria-label={`Add ${t.name}`} disabled={atMax||stale||capYear!==rosterSeason} onClick={()=>{add(t);setTeamSearch('');if(storeTeams.length+1>=2)setTeamPickerOpen(false);}}>
+              <TeamLogo abbr={t.abbr} size={34}/><span className="min-w-0"><strong>{t.abbr}</strong><small>{t.name}</small></span><span className="plus" aria-hidden="true">+</span>
+            </button>)}
+          </div>
+          {query&&filteredTeams.length===0&&<p role="status" className="py-4 text-sm text-[var(--muted)]">No available teams match “{teamSearch}”. Try another city or team name.</p>}
+          {atMax&&<p role="status" className="mt-3 text-sm text-[var(--muted)]">Seven teams is the limit. Remove a team to choose another.</p>}
+          <div className="team-picker-footer">
+            {!query&&<button className="ui-button" aria-expanded={showAllTeams} onClick={()=>setShowAllTeams(v=>!v)}>{showAllTeams?'Show popular teams':`Browse all ${withData.length} teams`}</button>}
+            <span>Players, salaries and picks load with each team.</span>
+          </div>
+        </div>}
+      </section>
+      {capYear!==rosterSeason?<div role="status" className="panel rounded-xl p-6 text-sm text-[var(--muted)]">Loading the matching rosters and rules…</div>:storeTeams.length>0 ? (
         <TradeMatrix contracts={contracts} teamMeta={teamMeta} picks={picks} freeAgents={enrichedFreeAgents} projectedRecords={projectedRecords} />
-      ) : (
-        <div className="panel ticked flex flex-col items-center justify-center rounded-xl px-6 py-16 text-center">
-          <div className="eyebrow mb-2">Roster · cap · draft capital</div>
-          <div className="font-display text-3xl font-bold uppercase tracking-wide text-[var(--text)]">
-            Add a team to begin
-          </div>
-          <p className="mt-2 max-w-sm text-sm text-[var(--muted)]">
-            Load one team to inspect its roster, cap sheet, and draft capital, then add a second to build and
-            validate a trade.
-          </p>
-        </div>
-      )}
+      ) : <div className="board-empty">Your trade board will appear here. Start with your favorite team above.</div>}
+      {confirmation&&<ConfirmDialog title={confirmation==='current'?'Start with current rosters?':'Start a new trade?'} description="This replaces the board in this browser. Save a share link first if you want to return to this proposal." action="Start new trade" onCancel={()=>setConfirmation(null)} onConfirm={()=>{startNewBoard();setConfirmation(null);setTeamPickerOpen(false);}}/>}
+      {removeTeam&&<ConfirmDialog title={`Remove ${removeTeam}?`} description="This removes the team and its moves from your current proposal. Other teams stay on the board." action="Remove team" onCancel={()=>setRemoveTeam(null)} onConfirm={()=>{useTradeStore.getState().removeTeam(removeTeam);setRemoveTeam(null);}}/>}
     </div>
   );
 }
