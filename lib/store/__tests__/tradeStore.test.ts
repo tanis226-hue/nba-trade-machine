@@ -22,6 +22,35 @@ describe('tradeStore', () => {
     expect(useTradeStore.getState().season).toBe('2026-27');
   });
 
+  it('removing a team returns incoming assets to their owners and preserves the other teams', () => {
+    const s = useTradeStore.getState();
+    ['AAA', 'BBB', 'CCC'].forEach((abbr) => s.addTeam({ abbr, preTradeSalary: 100 }));
+    s.addAsset({ id: 'a1', kind: 'player', salary: 20, fromTeam: 'AAA', toTeam: 'CCC', label: 'Removed team player' });
+    s.addAsset({ id: 'b0', kind: 'player', salary: 10, fromTeam: 'BBB', toTeam: 'BBB', label: 'Kept player', order: 3 });
+    s.addAsset({ id: 'b1', kind: 'player', salary: 15, fromTeam: 'BBB', toTeam: 'AAA', label: 'Returning player', order: 2 });
+    s.addAsset({ id: 'b2', kind: 'player', salary: 12, fromTeam: 'BBB', toTeam: 'AAA', label: 'Second returning player', order: 5 });
+    s.addAsset({ id: 'bp', kind: 'pick', salary: 0, fromTeam: 'BBB', toTeam: 'AAA', label: 'Returning pick', order: 1 });
+    s.addAsset({ id: 'c1', kind: 'player', salary: 8, fromTeam: 'CCC', toTeam: 'BBB', label: 'Unrelated move', order: 8 });
+    useTradeStore.setState({ compareIds: ['a1', 'b1', 'c1', 'missing'] });
+    const untouched = useTradeStore.getState().assets.c1;
+
+    s.removeTeam('AAA');
+
+    const state = useTradeStore.getState();
+    expect(state.teams).toEqual([{ abbr: 'BBB', preTradeSalary: 100 }, { abbr: 'CCC', preTradeSalary: 100 }]);
+    expect(Object.keys(state.assets).sort()).toEqual(['b0', 'b1', 'b2', 'bp', 'c1']);
+    expect(state.assets.b1.toTeam).toBe('BBB');
+    expect(state.assets.b2.toTeam).toBe('BBB');
+    expect(state.assets.bp.toTeam).toBe('BBB');
+    expect(state.assets.c1).toBe(untouched);
+    expect(state.compareIds).toEqual(['b1', 'c1']);
+    const playerOrder = Object.values(state.assets)
+      .filter((a) => a.toTeam === 'BBB' && a.kind === 'player')
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    expect(playerOrder.map((a) => a.id)).toEqual(['b0', 'c1', 'b1', 'b2']);
+    expect(new Set(playerOrder.map((a) => a.order)).size).toBe(playerOrder.length);
+  });
+
   it('reorders with direction-correct arrayMove semantics (down lands after the target)', () => {
     const s = useTradeStore.getState();
     s.addTeam({ abbr: 'AAA', preTradeSalary: 120 });

@@ -4,6 +4,7 @@ import { Big_Shoulders, Bricolage_Grotesque, Geist_Mono } from "next/font/google
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { AdSlot } from "@/components/AdSlot";
+import { PrimaryNavigation } from "@/components/PrimaryNavigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthControls } from "@/components/AuthControls";
 import { authEnabled } from "@/lib/auth";
@@ -62,14 +63,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </span>
             </Link>
             <div className="ml-auto flex items-center gap-3">
-              <nav aria-label="Main navigation" className="hidden items-center gap-6 pr-5 text-sm font-semibold sm:flex">
-                <Link href="/" className="hover:text-[var(--accent)]">Trade builder</Link>
-                <Link href="/#how-it-works" className="text-[var(--muted)] hover:text-[var(--accent)]">How it works</Link>
-              </nav>
+              <PrimaryNavigation/>
               <ThemeToggle />
               {authEnabled && <AuthControls />}
             </div>
           </div>
+          <PrimaryNavigation mobile/>
         </header>
 
         <div className="mx-auto flex w-full max-w-[1400px] flex-1 justify-center gap-6 px-4 sm:px-6">

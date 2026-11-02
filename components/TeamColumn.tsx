@@ -66,7 +66,7 @@ export function TeamColumn({
   const herePlayers = here.filter((a) => a.kind === 'player').sort(byOrder);
   const visiblePlayers=herePlayers.filter(a=>a.label.toLowerCase().includes(playerSearch.trim().toLowerCase()));
   const hereExtras = here.filter((a) => a.kind !== 'player').sort(byOrder);
-  const sortableIds = [...herePlayers, ...hereExtras].map((a) => a.id);
+  const sortableIds = [...hereExtras, ...visiblePlayers].map((a) => a.id);
 
   const color = meta?.primary_color ?? '#334155';
 
@@ -104,7 +104,7 @@ export function TeamColumn({
       <div className="h-1" style={{backgroundColor:color}}/>
       <div className="team-column-header">
         <TeamLogo abbr={abbr} size={42}/>
-        <div className="min-w-0"><h3>{abbr}</h3><p>{meta?.name??abbr}</p></div>
+        <div className="min-w-0"><h3 id={`roster-${abbr}`} tabIndex={-1}>{abbr}</h3><p>{meta?.name??abbr}</p></div>
         <button onClick={()=>setConfirmRemove(true)} aria-label={`Remove ${abbr}`}>×</button>
       </div>
       <div className="border-t border-[var(--border-soft)] px-3 py-3">
@@ -233,12 +233,12 @@ export function TeamColumn({
               <button
                 onClick={() => setSigning(true)}
                 title="Sign a free agent to this team"
-                className="rounded bg-[var(--surface-2)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--muted)] hover:text-[var(--text)]"
+                className="route-button"
               >
-                + Sign FA
+                Sign free agent
               </button>
             )}
-            <button onClick={addCash} className="rounded bg-[var(--surface-2)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--muted)] hover:text-[var(--text)]">
+            <button onClick={addCash} className="route-button">
               + Cash
             </button>
           </div>

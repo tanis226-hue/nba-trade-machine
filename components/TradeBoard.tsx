@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTradeStore, MAX_TRADE_TEAMS } from '@/lib/store/tradeStore';
 import { TradeMatrix } from './TradeMatrix';
 import { TeamLogo } from './TeamLogo';
@@ -19,6 +20,7 @@ export function TradeBoard({
   rosters,
   seasons,
   rosterSeason='2026-27',
+  requestedSeason,
   payroll,
   dataVersion='historical-2026-06-01',
   defaultDate='2026-06-01',
@@ -32,6 +34,7 @@ export function TradeBoard({
   rosters: Record<string, RosterEntry[]>;
   seasons: string[];
   rosterSeason?:string;
+  requestedSeason?:string;
   payroll?:RosterSnapshot['teams'];
   dataVersion?:string;
   defaultDate?:string;
@@ -41,6 +44,7 @@ export function TradeBoard({
   exceptions?: Record<string, TeamExceptionView[]>;
   projectedRecords?: Record<string, ProjectedRecord>;
 }) {
+  const router=useRouter();
   const ACTIVE_SEASON=rosterSeason==='2025-26'?SEASON_2025_26:SEASON_2026_27;
   const storeTeams = useTradeStore((s) => s.teams);
   const capYear = useTradeStore((s) => s.season);
@@ -98,7 +102,10 @@ export function TradeBoard({
   const teamMeta = useMemo(() => Object.fromEntries(teams.map((t) => [t.abbr, t])), [teams]);
 
   function add(team: DbTeam) {
-    if(useTradeStore.getState().season!==rosterSeason)return;
+    const state=useTradeStore.getState();
+    if(state.season!==rosterSeason)return;
+    // Removing the last team leaves an empty board, which can now use fresh data.
+    if(!state.teams.length){state.setDataVersion(dataVersion);state.setSimulatedDate(defaultDate);}
     const roster = rosters[team.abbr] ?? [];
     const reported=payroll?.[team.id];
     const sal = computeTeamSalary(roster.map((r) => r.salary), ACTIVE_SEASON);
@@ -174,23 +181,33 @@ export function TradeBoard({
   // state for a frame before localStorage loads. The skeleton matches SSR (both pre-hydration), so
   // there is no React hydration mismatch.
   useEffect(() => {
+    let active=true;
     const finish = () => {
-      if(useTradeStore.getState().season!==rosterSeason)useTradeStore.getState().setSeason(rosterSeason);
+      if(!active)return;
       const state=useTradeStore.getState();
-      if(!state.teams.length) {
+      // Page navigation must never replace a working board without confirmation.
+      // A season mismatch is handled by the restore/replace choice below.
+      if(!state.teams.length&&!Object.keys(state.assets).length) {
+        if(state.season!==rosterSeason)state.setSeason(rosterSeason);
         state.setDataVersion(dataVersion);
         state.setSimulatedDate(defaultDate);
-      } else if(!state.dataVersion) {
+      } else if(state.season===rosterSeason&&!state.dataVersion) {
         state.setDataVersion('legacy-2026-07-13');
         if(!state.simulatedDate)state.setSimulatedDate('2026-07-13');
       }
       setHydrated(true);
     };
     const unsub = useTradeStore.persist.onFinishHydration(finish);
-    void useTradeStore.persist.rehydrate();
     if (useTradeStore.persist.hasHydrated()) finish();
-    return unsub;
+    else void useTradeStore.persist.rehydrate();
+    return ()=>{active=false;unsub();};
   }, [rosterSeason,dataVersion,defaultDate]);
+
+  useEffect(()=>{
+    if(hydrated&&storeTeams.length>0&&capYear!==rosterSeason&&!requestedSeason&&seasons.includes(capYear)) {
+      router.replace(`/?season=${encodeURIComponent(capYear)}`,{scroll:false});
+    }
+  },[hydrated,storeTeams.length,capYear,rosterSeason,requestedSeason,seasons,router]);
 
   const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
   const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
@@ -213,6 +230,19 @@ export function TradeBoard({
     );
   }
 
+  if(storeTeams.length>0&&capYear!==rosterSeason) {
+    const canResume=seasons.includes(capYear);
+    if(!requestedSeason&&canResume)return <div role="status" className="panel rounded-xl p-6 text-sm text-[var(--muted)]">Restoring your {capYear} board…</div>;
+    return <section className="panel rounded-xl p-6" aria-labelledby="restore-board-heading">
+      <h2 id="restore-board-heading" className="text-xl font-bold">{canResume?`Your ${capYear} proposal is still saved.`:'Your saved board uses an unavailable roster year.'}</h2>
+      <p className="mt-3 max-w-prose text-sm leading-relaxed text-[var(--muted)]">You opened the {rosterSeason} builder. Starting that year replaces the working board in this browser. {canResume?'Resume your proposal to keep editing or save a share link first.':'The existing inputs have been preserved; start a new board only when you are ready to replace them.'}</p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {canResume&&<button className="ui-button primary" onClick={()=>router.replace(`/?season=${encodeURIComponent(capYear)}`)}>Resume {capYear} board</button>}
+        <button className="ui-button" onClick={startNewBoard}>Start a {rosterSeason} board</button>
+      </div>
+    </section>;
+  }
+
   const pickerVisible=storeTeams.length<2||teamPickerOpen;
   const popular=['LAL','BOS','GSW','NYK','CHI','DAL'];
   const displayedTeams=query||showAllTeams?filteredTeams:filteredTeams.filter(t=>popular.includes(t.abbr));
@@ -226,7 +256,7 @@ export function TradeBoard({
       <section className="panel team-setup" aria-labelledby="teams-heading">
         <div className="setup-heading">
           <div>
-            <h2 id="teams-heading">{storeTeams.length===0?"Who's in your trade?":'Your teams'}</h2>
+            <h2 id="teams-heading" tabIndex={-1}>{storeTeams.length===0?"Who's in your trade?":'Your teams'}</h2>
             {!storeTeams.length&&<p>Choose two teams to start. You can add more as your deal grows.</p>}
             {storeTeams.length===1&&<p>Add one more team to start moving players.</p>}
           </div>

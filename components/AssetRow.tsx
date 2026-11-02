@@ -32,6 +32,13 @@ export function AssetRow({
       ? String((asset.protections as { note?: unknown }).note ?? '')
       : '';
 
+  function move(next:string,event:React.MouseEvent<HTMLButtonElement>) {
+    const focusTarget=event.detail===0&&next!==asset.toTeam
+      ? event.currentTarget.closest('.player-card')?.nextElementSibling?.querySelector('button')??document.getElementById(`roster-${asset.toTeam}`)
+      : null;
+    routeAsset(asset.id,next);
+    focusTarget?.focus();
+  }
   return (
     <div
       ref={setNodeRef}
@@ -81,8 +88,8 @@ export function AssetRow({
       )}
 
       <div className="player-routing">
-        <button className="route-button" aria-label={`Keep ${asset.label} at ${asset.fromTeam}`} aria-pressed={!routed} onClick={()=>routeAsset(asset.id,asset.fromTeam)}>Keep</button>
-        {dests.map(t=><button key={t.abbr} className="route-button" aria-label={`Send ${asset.label} to ${t.abbr}`} aria-pressed={asset.toTeam===t.abbr} onClick={()=>routeAsset(asset.id,t.abbr)}>Send to {t.abbr}</button>)}
+        <button className="route-button" aria-label={routed?`Return to ${asset.fromTeam}: ${asset.label}`:`Keep: ${asset.label} at ${asset.fromTeam}`} aria-pressed={!routed} onClick={e=>move(asset.fromTeam,e)}>{routed?`Return to ${asset.fromTeam}`:'Keep'}</button>
+        {dests.map(t=><button key={t.abbr} className="route-button" aria-label={`Send to ${t.abbr}: ${asset.label}`} aria-pressed={asset.toTeam===t.abbr} onClick={e=>move(t.abbr,e)}>Send to {t.abbr}</button>)}
       </div>
     </div>
   );

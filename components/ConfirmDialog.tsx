@@ -9,10 +9,10 @@ export function ConfirmDialog({title,description,action,onCancel,onConfirm}:{tit
     const overflow=document.body.style.overflow;
     document.body.style.overflow='hidden';
     dialog.current?.querySelector('button')?.focus();
-    return ()=>{document.body.style.overflow=overflow;previous?.focus();};
+    return ()=>{document.body.style.overflow=overflow;if(previous?.isConnected)previous.focus();else document.getElementById('teams-heading')?.focus();};
   },[]);
   return <div className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4 backdrop-blur-sm" onClick={e=>{if(e.target===e.currentTarget)onCancel();}}>
-    <div ref={dialog} role="dialog" aria-modal="true" aria-labelledby={id} aria-describedby={`${id}-description`} className="panel w-full max-w-md rounded-2xl p-6" onKeyDown={e=>{
+    <div ref={dialog} role="dialog" aria-modal="true" aria-labelledby={id} aria-describedby={`${id}-description`} className="panel max-h-[calc(100dvh-32px)] w-full max-w-md overflow-y-auto rounded-2xl p-6" onKeyDown={e=>{
       if(e.key==='Escape'){e.stopPropagation();onCancel();}
       if(e.key==='Tab'){
         const buttons=dialog.current?.querySelectorAll('button');if(!buttons?.length)return;

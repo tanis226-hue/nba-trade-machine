@@ -45,7 +45,7 @@ export default async function Home({searchParams}:{searchParams:Promise<{season?
       <div className="mb-5">
         <DataFreshness snapshot={snapshot?{rosterAsOf:snapshot.rosterAsOf,pickAsOf:snapshot.pickAsOf,loadedFrom:snapshot.loadedFrom,importedAt:snapshot.importedAt}:undefined} />
       </div>
-      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} rosterSeason={season} payroll={snapshot?.teams} dataVersion={snapshot?.version} defaultDate={snapshot?.rosterAsOf??'2026-06-01'} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
+      <TradeBoard requestedSeason={requested && seasons.includes(requested) ? requested : undefined} teams={teams} rosters={rosters} seasons={seasons} rosterSeason={season} payroll={snapshot?.teams} dataVersion={snapshot?.version} defaultDate={snapshot?.rosterAsOf??'2026-06-01'} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
     </main>
   );
 }

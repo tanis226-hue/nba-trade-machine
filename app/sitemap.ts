@@ -6,6 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const teams = await getTeams();
   return [
     { url: base, changeFrequency: "daily", priority: 1 },
+    { url: `${base}/contracts`, changeFrequency: "daily", priority: 0.9 },
     ...teams.map((t) => ({
       url: `${base}/team/${t.abbr.toLowerCase()}`,
       changeFrequency: "weekly" as const,

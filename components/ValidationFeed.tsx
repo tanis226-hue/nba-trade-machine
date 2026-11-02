@@ -102,10 +102,11 @@ export function ValidationFeed({
       </p>
 
       {fixes.length > 0 && (
-        <div className="mt-2 border-t border-[var(--border)] pt-2">
+        <details className="mt-2 border-t border-[var(--border)] pt-2">
+          <summary className="min-h-10 text-xs font-semibold">Suggested adjustments</summary>
           <div className="mb-1 flex items-center justify-between gap-2">
             <span className="font-display text-[11px] font-semibold uppercase tracking-wide text-[var(--accent)]">
-              Make this trade legal
+              Try a change, then recheck
             </span>
             {onAutoFix && autoFixCount > 0 && (
               <button
@@ -113,7 +114,7 @@ export function ValidationFeed({
                 title="Apply the minimal change to make the trade legal"
                 className="rounded-md bg-[var(--accent)] px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--ink)] transition hover:brightness-110"
               >
-                ✨ Fix it for me
+                Apply suggested fix
               </button>
             )}
           </div>
@@ -124,7 +125,7 @@ export function ValidationFeed({
               </li>
             ))}
           </ul>
-        </div>
+        </details>
       )}
     </div>
   );
