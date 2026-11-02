@@ -4,10 +4,6 @@ import { CSS } from '@dnd-kit/utilities';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import type { TradeAsset, TradeTeamInput } from '@/lib/cba/types';
 
-const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
-
-
-
 /** A routable non-player asset (draft pick or cash) with route + remove controls. */
 export function AssetRow({
   asset,
@@ -55,23 +51,6 @@ export function AssetRow({
           {asset.isSwap && <span className="text-[var(--accent-2)]" title="Swap rights">⇄</span>}
           {asset.isFrozen && <span className="text-[var(--illegal)]" title="Frozen (2nd-apron 7-yr-out)">❄</span>}
         </span>
-        {isCash ? (
-          <div className="flex items-center gap-1">
-            <button
-                  onClick={() => setAssetAmount(asset.id, Math.max(0, amount - 500_000))}
-              className="route-button" aria-label="Decrease cash by $500,000"
-            >
-              −
-            </button>
-            <span className="num w-12 text-center text-[12px] font-semibold text-[var(--text)]">{m(amount)}</span>
-            <button
-                  onClick={() => setAssetAmount(asset.id, amount + 500_000)}
-              className="route-button" aria-label="Increase cash by $500,000"
-            >
-              +
-            </button>
-          </div>
-        ) : null}
         <button
           onClick={() => removeAsset(asset.id)}
           className="rounded p-0.5 text-[var(--faint)] transition hover:text-[var(--illegal)]"
@@ -80,6 +59,12 @@ export function AssetRow({
           ✕
         </button>
       </div>
+
+      {isCash && <div className="mt-3">
+        <label htmlFor={`cash-amount-${asset.id}`} className="mb-1 block text-xs font-medium">Amount (USD)</label>
+        <input id={`cash-amount-${asset.id}`} aria-label={`Cash amount from ${asset.fromTeam} to ${asset.toTeam}`} className="ui-input num w-full" type="number" inputMode="numeric" min={0} max={2_000_000_000} step={1} value={amount} onChange={event => setAssetAmount(asset.id, event.target.value === '' ? 0 : event.target.valueAsNumber)}/>
+        <p className="mt-1 text-xs text-[var(--muted)]">{routed ? `${asset.fromTeam} pays ${asset.toTeam}. No salary or cap relief.` : 'Choose a destination to include this cash in the deal.'}</p>
+      </div>}
 
       {protectionNote && (
         <div className="mt-1 text-[10px] leading-snug text-[var(--faint)]">

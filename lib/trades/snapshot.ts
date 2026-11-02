@@ -1,7 +1,7 @@
 import { selectValidation } from '@/lib/store/selectValidation';
 import { defaultTradeDate } from '@/lib/data/freshness';
 import type { TradeRequest } from './schema';
-export const RULES_VERSION='2026-11-02.3';
+export const RULES_VERSION='2026-11-02.4';
 export function snapshotTrade(payload:TradeRequest) {
   const simulatedDate=payload.simulatedDate??defaultTradeDate(payload.season);
   return {

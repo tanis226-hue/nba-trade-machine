@@ -2,12 +2,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {createPortal} from 'react-dom';
 import { useTradeStore } from '@/lib/store/tradeStore';
+import { CashUsageNotes } from './CashUsageNotes';
 import type { TradeAsset } from '@/lib/cba/types';
 
 type Phase = 'review' | 'processing' | 'done';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 const signed = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${m(Math.abs(n))}`;
+const cash = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 interface TeamSummary {
   abbr: string;
@@ -15,6 +17,8 @@ interface TeamSummary {
   sends: TradeAsset[];
   incoming: number;
   outgoing: number;
+  cashReceived: number;
+  cashSent: number;
 }
 
 export function ExecuteTradeButton({ valid }: { valid: boolean }) {
@@ -43,8 +47,10 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
         abbr: t.abbr,
         receives,
         sends,
-        incoming: receives.reduce((n, a) => n + (a.salary || 0), 0),
-        outgoing: sends.reduce((n, a) => n + (a.salary || 0), 0),
+        incoming: receives.reduce((n, a) => n + (a.kind === 'player' ? a.salary : 0), 0),
+        outgoing: sends.reduce((n, a) => n + (a.kind === 'player' ? a.salary : 0), 0),
+        cashReceived: receives.reduce((n, a) => n + (a.kind === 'cash' ? a.amount ?? 0 : 0), 0),
+        cashSent: sends.reduce((n, a) => n + (a.kind === 'cash' ? a.amount ?? 0 : 0), 0),
       };
     });
   }, [teams, assets]);
@@ -168,6 +174,8 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
                 <div className="space-y-3">
                   {summaries.map((s) => {
                     const net = s.incoming - s.outgoing;
+                    const netCash = s.cashReceived - s.cashSent;
+                    const hasCash = [...s.receives, ...s.sends].some((a) => a.kind === 'cash');
                     return (
                       <div key={s.abbr} className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-3">
                         <div className="mb-2 flex items-center justify-between">
@@ -179,13 +187,19 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
                               net > 0 ? 'text-[var(--illegal)]' : net < 0 ? 'text-[var(--legal)]' : 'text-[var(--muted)]'
                             }`}
                           >
-                            Net {signed(net)}
+                            Net salary {signed(net)}
                           </span>
                         </div>
                         <div className="grid grid-cols-2 gap-3 text-[12px]">
                           <AssetList title="Receives" items={s.receives} total={s.incoming} accent />
                           <AssetList title="Sends" items={s.sends} total={s.outgoing} />
                         </div>
+                        {hasCash && <dl className="mt-2 space-y-1 border-t border-[var(--border-soft)] pt-2 text-[12px] text-[var(--muted)]">
+                          <div className="flex justify-between gap-2"><dt>Cash sent</dt><dd className="num">{cash(s.cashSent)}</dd></div>
+                          <div className="flex justify-between gap-2"><dt>Cash received</dt><dd className="num">{cash(s.cashReceived)}</dd></div>
+                          <div className="flex justify-between gap-2"><dt>Net cash</dt><dd className="num">{netCash > 0 ? '+' : netCash < 0 ? '−' : ''}{cash(Math.abs(netCash))}</dd></div>
+                        </dl>}
+                        {hasCash && <CashUsageNotes team={teams.find(t => t.abbr === s.abbr)} season={season}/>}
                       </div>
                     );
                   })}
@@ -270,13 +284,13 @@ function AssetList({ title, items, total, accent }: { title: string; items: Trad
           {items.map((a) => (
             <li key={a.id} className="flex items-baseline justify-between gap-2">
               <span className={`min-w-0 break-words ${accent ? 'text-[var(--text)]' : 'text-[var(--muted)]'}`}>{a.label}</span>
-              {a.salary > 0 && <span className="num shrink-0 text-[11px] text-[var(--faint)]">{m(a.salary)}</span>}
+              {a.kind === 'cash' ? <span className="num shrink-0 text-[11px] text-[var(--faint)]">{cash(a.amount ?? 0)}</span> : a.kind === 'player' && a.salary > 0 && <span className="num shrink-0 text-[11px] text-[var(--faint)]">{m(a.salary)}</span>}
             </li>
           ))}
         </ul>
       )}
       <div className="mt-1 border-t border-[var(--border-soft)] pt-1 num text-[11px] text-[var(--muted)]">
-        {m(total)}
+        Salary {m(total)}
       </div>
     </div>
   );

@@ -212,7 +212,9 @@ export const useTradeStore = create<TradeState>()(
       return { assets };
     }),
   setAssetAmount: (id, amount) =>
-    set((s) => ({ assets: { ...s.assets, [id]: { ...s.assets[id], amount, salary: 0 } } })),
+    set((s) => s.assets[id] && Number.isSafeInteger(amount) && amount >= 0 && amount <= 2_000_000_000
+      ? { assets: { ...s.assets, [id]: { ...s.assets[id], amount, salary: 0 } } }
+      : s),
   setAssetSalary: (id, salary) =>
     set((s) => {
       const asset = s.assets[id];

@@ -89,7 +89,7 @@ export function suggestFixes(input: TradeInput): FixSuggestion[] {
         fixes.push({ teamAbbr: e.teamAbbr, text: `${e.teamAbbr}: a sign-and-trade contract must be 3-4 years.` });
         break;
       case 'CASH_OVER_LIMIT':
-        fixes.push({ teamAbbr: e.teamAbbr, text: `${e.teamAbbr}: reduce cash in the deal to within the annual limit.` });
+        fixes.push({ teamAbbr: e.teamAbbr, text: `${e.teamAbbr}: ${e.fix ?? 'Reduce cash in the deal to within the remaining annual allowance.'}` });
         break;
       case 'PICK_TOO_FAR':
         fixes.push({ teamAbbr: e.teamAbbr, text: `${e.teamAbbr}: that pick is more than 7 drafts out — trade a nearer pick.` });

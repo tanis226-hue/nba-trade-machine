@@ -7,6 +7,7 @@ import type { ContractYear } from '@/lib/data/types';
 import { filterContracts, formatCompactCapHit, guaranteeLabel, listedCommitments, listedSeasons, salaryFor } from '@/lib/data/contractsPortal';
 import type { ContractFilters, ContractPortalRow } from '@/lib/data/contractsPortal';
 import { TeamLogo } from './TeamLogo';
+import { PlayerHeadshot } from './PlayerHeadshot';
 import styles from '@/app/contracts/ContractsPortal.module.css';
 
 const dollars = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
@@ -16,12 +17,7 @@ const FEATURES = [
 ] as const;
 
 function PlayerPhoto({row}:{row:ContractPortalRow}) {
-  const [failed,setFailed] = useState(false);
-  return <span className={styles.photo} aria-hidden="true">{row.headshot&&!failed ?
-    // eslint-disable-next-line @next/next/no-img-element
-    <img src={row.headshot} width={36} height={36} alt="" loading="lazy" onError={()=>setFailed(true)}/> :
-    row.name.split(' ').map(word=>word[0]).slice(0,2).join('')}
-  </span>;
+  return <PlayerHeadshot src={row.headshot} name={row.name} size={44}/>;
 }
 
 function Flags({year,twoWay=false}:{year?:ContractYear;twoWay?:boolean}) {

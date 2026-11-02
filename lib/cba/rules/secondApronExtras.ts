@@ -2,9 +2,9 @@ import type { Rule, TradeFinding } from '../types';
 
 /**
  * Second-apron extra restrictions (beyond the aggregation prohibition, which lives in a
- * separate rule). For a team at/above the second apron pre-trade:
- *   (1) it may not SEND cash in a trade (receiving cash is permitted, subject to the league limit); and
- *   (2) it may not use a Traded Player Exception that was created from a prior sign-and-trade
+ * separate rule). Cash sending is evaluated by the post-transaction hard-cap rule.
+ * For a team at/above the second apron pre-trade, it may not use a Traded Player
+ * Exception that was created from a prior sign-and-trade
  *       to absorb incoming salary.
  * 2023 CBA Art. VII — second-apron team restrictions.
  */
@@ -13,19 +13,6 @@ export const secondApronExtrasRule: Rule = (ctx) => {
 
   for (const t of ctx.teams) {
     if (t.preTier !== 'second_apron') continue;
-
-    // (1) A second-apron team may not SEND cash (it may still receive cash).
-    const sendsCash = ctx.assets.some((a) => a.kind === 'cash' && a.fromTeam === t.abbr);
-    if (sendsCash) {
-      out.push({
-        code: 'SECOND_APRON_CASH',
-        severity: 'block',
-        teamAbbr: t.abbr,
-        message: `${t.abbr} are above the second apron and cannot send cash in a trade.`,
-        citation: '2023 CBA Art. VII — a second-apron team may not send cash considerations in trades.',
-        fix: `Remove the cash from ${t.abbr}'s side of the deal, or get below the second apron before trading.`,
-      });
-    }
 
     // (2) No absorbing incoming salary via a sign-and-trade-created exception.
     // Model: the team is receiving players while it holds a TPE flagged createdFromSignAndTrade.

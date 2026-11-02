@@ -61,6 +61,8 @@ export const TAX_BRACKETS_2025_26 = taxBracketsForCap(SEASON_2025_26.salaryCap);
 
 // Key league dates for the 2025-26 league year. // VERIFY exact dates each season.
 export const LEAGUE_CALENDAR_2025_26: LeagueCalendar = {
+  // https://www.nba.com/news/live-updates-nba-regular-season-conclusion
+  regularSeasonEnd: '2026-04-12',
   tradeDeadline: '2026-02-05',
   decGuaranteeEligible: '2025-12-15',
   janFifteen: '2026-01-15',
@@ -97,6 +99,8 @@ export const APRON_2026_27: ApronRules = APRON_2025_26; // tool restrictions are
 export const TAX_BRACKETS_2026_27 = taxBracketsForCap(SEASON_2026_27.salaryCap);
 
 export const LEAGUE_CALENDAR_2026_27: LeagueCalendar = {
+  // https://pr.nba.com/2026-27-nba-regular-season-schedule
+  regularSeasonEnd: '2027-04-11',
   tradeDeadline: '2027-02-11',
   decGuaranteeEligible: '2026-12-15',
   janFifteen: '2027-01-15',
