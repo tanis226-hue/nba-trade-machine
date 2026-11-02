@@ -106,7 +106,7 @@ describe('tradeStore persistence', () => {
   it('partialize persists only working state - no actions, no ephemeral selection', () => {
     const persisted = partializeTradeState(useTradeStore.getState());
     expect(Object.keys(persisted).sort()).toEqual(
-      ['assets', 'playerSort', 'season', 'simulatedDate', 'teams', 'tradeMethod'].sort(),
+        ['assets', 'playerSort', 'season', 'simulatedDate', 'teams', 'tradeMethod','dataVersion'].sort(),
     );
     // never serialize functions or the transient compare tray
     expect(Object.values(persisted).some((v) => typeof v === 'function')).toBe(false);

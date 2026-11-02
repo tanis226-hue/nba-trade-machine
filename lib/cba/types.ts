@@ -76,6 +76,7 @@ export interface TradeAsset {
   fromTeam: string;
   toTeam: string;
   label: string;
+  dataNotes?: string[];
 
   // --- player detail (all optional; rules degrade gracefully when absent) ---
   apronSalary?: number; // apron-basis hit if it differs from cap hit
@@ -138,6 +139,7 @@ export interface TeamException {
 
 export interface TradeTeamInput {
   abbr: string;
+  dataNotes?: string[];
   preTradeSalary: number; // cap-basis team salary pre-trade
   apronSalary?: number; // apron-basis team salary pre-trade (defaults to preTradeSalary)
   capSpace?: number; // if below the cap
@@ -150,7 +152,8 @@ export interface TradeTeamInput {
   priorSecondApronSeasons?: number; // for frozen-pick derivation
   isRepeaterTaxpayer?: boolean;
   priorTaxpayerSeasons?: number; // taxpayer count in the prior 4 seasons (>=3 → repeater)
-  ownedFirstRoundPicks?: { year: number; conveyed?: boolean; isSwap?: boolean }[]; // for Stepien
+  pickOwnershipUncertain?:boolean;
+  ownedFirstRoundPicks?: { id?:string;year: number; conveyed?: boolean; isSwap?: boolean }[]; // for Stepien
 }
 
 /** A roster tool whose use hard-caps the team for the season (which apron depends on the tool). */
@@ -205,6 +208,7 @@ export interface TradeValidation {
 export type TradeMethod = 'simultaneous' | 'non_simultaneous';
 
 export interface PerTeamContext extends TeamResult {
+  dataNotes?: string[];
   preTradeSalary: number;
   apronSalary: number;
   outgoingMatch?: number; // outgoing salary for MATCHING purposes (base-year comp reduces it); = outgoing otherwise
@@ -217,7 +221,8 @@ export interface PerTeamContext extends TeamResult {
   toolsUsed?: ToolUsage[];
   priorSecondApronSeasons?: number;
   isRepeaterTaxpayer?: boolean;
-  ownedFirstRoundPicks?: { year: number; conveyed?: boolean }[];
+  pickOwnershipUncertain?:boolean;
+  ownedFirstRoundPicks?: { id?:string;year: number; conveyed?: boolean; isSwap?:boolean }[];
   outgoingAssets: TradeAsset[];
   incomingAssets: TradeAsset[];
 }

@@ -43,6 +43,8 @@ export interface FreeAgent {
 
 interface TradeState {
   season: string;
+  dataVersion?:string;
+  setDataVersion:(version:string)=>void;
   teams: TradeTeamInput[];
   assets: Record<string, TradeAsset>;
   simulatedDate?: string; // ISO; drives date-aware eligibility
@@ -89,12 +91,13 @@ export const PERSIST_KEY = 'trade-machine:board:v1';
 // (the transient player-comparison tray) is intentionally dropped so a reload starts it empty.
 export type PersistedTradeState = Pick<
   TradeState,
-  'season' | 'teams' | 'assets' | 'simulatedDate' | 'tradeMethod' | 'playerSort'
+  'season' | 'teams' | 'assets' | 'simulatedDate' | 'tradeMethod' | 'playerSort' | 'dataVersion'
 >;
 
 export function partializeTradeState(s: TradeState): PersistedTradeState {
   return {
     season: s.season,
+    dataVersion:s.dataVersion,
     teams: s.teams,
     assets: s.assets,
     simulatedDate: s.simulatedDate,
@@ -113,13 +116,15 @@ export const useTradeStore = create<TradeState>()(
   persist(
     (set) => ({
   season: '2026-27',
+  dataVersion:undefined,
+  setDataVersion:(dataVersion)=>set({dataVersion}),
   teams: [],
   assets: {},
   simulatedDate: undefined,
   tradeMethod: 'simultaneous',
   compareIds: [],
   playerSort: 'salary_desc',
-  setSeason: (season) => set({ season }),
+  setSeason: (season) => set(s=>s.season===season?s:{season,teams:[],assets:{},simulatedDate:undefined,dataVersion:undefined,compareIds:[]}),
   // Re-order each roster column's player cards by the chosen mode. Grouped by the column the cards are
   // displayed in (toTeam) so a team's kept + acquired players sort together as one roster.
   setPlayerSort: (mode) =>
@@ -250,7 +255,7 @@ export const useTradeStore = create<TradeState>()(
   setSimulatedDate: (simulatedDate) => set({ simulatedDate }),
   setTradeMethod: (tradeMethod) => set({ tradeMethod }),
   reset: () =>
-    set({ season: '2026-27', teams: [], assets: {}, simulatedDate: undefined, tradeMethod: 'simultaneous', compareIds: [], playerSort: 'salary_desc' }),
+    set({ season: '2026-27', teams: [], assets: {}, simulatedDate: undefined, dataVersion:undefined, tradeMethod: 'simultaneous', compareIds: [], playerSort: 'salary_desc' }),
     }),
     {
       name: PERSIST_KEY,

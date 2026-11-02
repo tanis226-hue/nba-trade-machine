@@ -101,7 +101,7 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
 
       <ValidationFeed validation={validation} />
       <div className="flex flex-wrap items-center gap-3">
-        <EditTradeButton season={payload.season} teams={teams} assets={assets} simulatedDate={payload.simulatedDate} tradeMethod={tradeMethod} />
+        <EditTradeButton season={payload.season} teams={teams} assets={assets} simulatedDate={payload.simulatedDate} tradeMethod={tradeMethod} dataVersion={payload.dataVersion} />
         <Link href="/" className="inline-block font-display text-sm font-semibold uppercase tracking-wide text-[var(--accent)] hover:brightness-110">
           Build your own trade →
         </Link>

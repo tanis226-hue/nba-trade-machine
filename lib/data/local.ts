@@ -50,9 +50,10 @@ interface LocalContract {
   trade_bonus_earned?: boolean;
 }
 
-export function localRoster(teamId: string, season: string): RosterEntry[] {
-  const players = read<LocalPlayer>('players.json', (p) => p.id).filter((p) => p.team_id === teamId);
-  const contracts = read<LocalContract>('contracts.json', (c) => c.id);
+export function localRoster(teamId: string, season: string,seedOnly=false): RosterEntry[] {
+  const seed=<T,>(file:string):T[]=>JSON.parse(fs.readFileSync(path.join(/* turbopackIgnore: true */process.cwd(),'data','seed',file),'utf8'));
+  const players = (seedOnly?seed<LocalPlayer>('players.json'):read<LocalPlayer>('players.json', (p) => p.id)).filter((p) => p.team_id === teamId);
+  const contracts = seedOnly?seed<LocalContract>('contracts.json'):read<LocalContract>('contracts.json', (c) => c.id);
   return players
     .map((p) => {
       const contract: ContractYear[] = contracts

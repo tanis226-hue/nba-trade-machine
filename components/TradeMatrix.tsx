@@ -26,7 +26,7 @@ import { ExecuteTradeButton } from './ExecuteTradeButton';
 import { GenerateLinkButton } from './GenerateLinkButton';
 import { SaveTradeButton } from './SaveTradeButton';
 import { authEnabled } from '@/lib/auth';
-import { DATA_AS_OF } from '@/lib/data/freshness';
+import { defaultTradeDate } from '@/lib/data/freshness';
 import type { ContractYear, DbTeam, DbDraftPick } from '@/lib/data/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
@@ -142,7 +142,7 @@ export function TradeMatrix({
             <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Trade date</span>
             <input
               type="date"
-              value={simulatedDate ?? DATA_AS_OF}
+              value={simulatedDate ?? defaultTradeDate(season)}
               onChange={(e) => setSimulatedDate(e.target.value || undefined)}
               className="rounded bg-[var(--surface-2)] px-2 py-1 text-[var(--text)] outline-none"
             />
@@ -215,7 +215,7 @@ export function TradeMatrix({
         <div className="grid gap-3 md:grid-cols-[1fr_280px] md:items-stretch">
           <ValidationFeed validation={validation} fixes={fixes} onAutoFix={autoFix.length ? applyAutoFix : undefined} autoFixCount={autoFix.length} />
           <div className="space-y-2">
-            <ExecuteTradeButton valid={validation.valid} onExecute={() => { /* Phase 6 interstitial */ }} />
+            <ExecuteTradeButton valid={validation.valid} />
             <GenerateLinkButton />
             {authEnabled && <SaveTradeButton />}
           </div>

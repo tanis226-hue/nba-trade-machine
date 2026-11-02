@@ -45,20 +45,26 @@ jobs:
       - name: Install scraper deps
         run: pip install -r scripts/scraper/requirements.txt
 
-      - name: Scrape contracts (Basketball-Reference, throttled)
-        run: python scripts/scraper/normalize.py
+      - name: Read current roster biographies
+        run: python scripts/rosters/pull.py
+
+      - name: Read current team cap sheets (throttled)
+        run: python scripts/rosters/pull_capsheets.py
 
       - name: Install app deps
         run: npm ci
 
+      - name: Build the versioned public snapshot
+        run: npm run rosters:build
+
       - name: Verify merged data before database writes
-        run: npm run data:check && npm run txns:check
+        run: npm run data:check
 
       - name: Apply migrations (idempotent)
         run: npx tsx scripts/migrate.ts
 
-      - name: Import merged data (seed < scrape < override)
-        run: npm run seed
+      - name: Atomically publish the validated roster snapshot
+        run: npm run rosters:publish
 
-      # Note: RealGM/Hoops Rumors scrapers (picks, kickers, NTC, TPE) and the Shams news_links
-      # curation are added as steps here once their fetchers clear the source anti-bot checks.
+      # Contract flags not published by the cap-sheet source remain curated inputs.
+      # A fetch/build/audit failure stops before publication and retains the prior snapshot.

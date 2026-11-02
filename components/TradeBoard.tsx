@@ -4,8 +4,8 @@ import { useTradeStore, MAX_TRADE_TEAMS } from '@/lib/store/tradeStore';
 import { TradeMatrix } from './TradeMatrix';
 import { SeasonSelector } from './SeasonSelector';
 import { computeTeamSalary } from '@/lib/cba/teamSalary';
-import { SEASON_2026_27 as ACTIVE_SEASON } from '@/lib/cba/constants';
-import type { DbTeam, RosterEntry, ContractYear, DbDraftPick } from '@/lib/data/types';
+import { SEASON_2026_27,SEASON_2025_26 } from '@/lib/cba/constants';
+import type { DbTeam, RosterEntry, ContractYear, DbDraftPick,RosterSnapshot } from '@/lib/data/types';
 import type { PlayerValueMap, FreeAgentRow, TeamExceptionView, ProjectedRecord } from '@/lib/data/queries';
 import type { FreeAgent } from '@/lib/store/tradeStore';
 import { normalizePlayerId } from '@/lib/slug';
@@ -16,6 +16,10 @@ export function TradeBoard({
   teams,
   rosters,
   seasons,
+  rosterSeason='2026-27',
+  payroll,
+  dataVersion='historical-2026-06-01',
+  defaultDate='2026-06-01',
   picks,
   values,
   freeAgents = [],
@@ -25,14 +29,21 @@ export function TradeBoard({
   teams: DbTeam[];
   rosters: Record<string, RosterEntry[]>;
   seasons: string[];
+  rosterSeason?:string;
+  payroll?:RosterSnapshot['teams'];
+  dataVersion?:string;
+  defaultDate?:string;
   picks: Record<string, DbDraftPick[]>;
   values: PlayerValueMap;
   freeAgents?: FreeAgentRow[];
   exceptions?: Record<string, TeamExceptionView[]>;
   projectedRecords?: Record<string, ProjectedRecord>;
 }) {
+  const ACTIVE_SEASON=rosterSeason==='2025-26'?SEASON_2025_26:SEASON_2026_27;
   const storeTeams = useTradeStore((s) => s.teams);
   const capYear = useTradeStore((s) => s.season);
+  const boardVersion=useTradeStore(s=>s.dataVersion);
+  const stale=storeTeams.length>0&&boardVersion!==dataVersion;
   const addTeam = useTradeStore((s) => s.addTeam);
   const addAsset = useTradeStore((s) => s.addAsset);
   const [hydrated, setHydrated] = useState(false);
@@ -82,17 +93,24 @@ export function TradeBoard({
 
   function add(team: DbTeam) {
     const roster = rosters[team.abbr] ?? [];
+    const reported=payroll?.[team.id];
     const sal = computeTeamSalary(roster.map((r) => r.salary), ACTIVE_SEASON);
     const teamPicks = picks[team.abbr] ?? [];
     addTeam({
       abbr: team.abbr,
-      preTradeSalary: sal.capSalary,
-      apronSalary: sal.apronSalary,
-      capSpace: sal.capSpace > 0 ? sal.capSpace : undefined, // cap-room matching path only when truly below cap
-      ownedFirstRoundPicks: teamPicks.filter((p) => p.round === 1).map((p) => ({ year: Number(p.season), isSwap: p.is_swap, conveyed: p.conveyed })),
+      preTradeSalary: reported?.preTradeSalary??sal.capSalary,
+      apronSalary: reported?.apronSalary??sal.apronSalary,
+      capSpace: reported?reported.capSpace:sal.capSpace>0?sal.capSpace:undefined,
+      hardCapLine:reported?.hardCapLine,
+      rosterCount:reported?.rosterCount,
+      twoWayCount:reported?.twoWayCount,
+      dataNotes:reported?.dataNotes,
+      pickOwnershipUncertain:teamPicks.some(p=>p.round===1&&p.needsReview),
+      ownedFirstRoundPicks: [
+        ...teamPicks.filter((p) => p.round === 1).map((p) => ({ id:p.id,year: Number(p.season), isSwap: p.is_swap, conveyed: p.conveyed })),
+        ...Array.from({length:7},(_,i)=>Number(rosterSeason.slice(0,4))+1+i).filter(year=>!teamPicks.some(p=>p.round===1&&Number(p.season)===year)).map(year=>({year,conveyed:true})),
+      ],
       exceptions: exceptions[team.id],
-      // rosterCount intentionally omitted until Phase 1 dedupes scraped rosters to true active counts;
-      // the raw scrape includes waived/expired rows, which would trip a spurious ROSTER_OVER block.
     });
     // Insert players in the current sort order (default salary high→low) so `order` reflects it.
     const cmp = comparePlayers(useTradeStore.getState().playerSort);
@@ -117,6 +135,9 @@ export function TradeBoard({
         toTeam: team.abbr,
         label: r.name,
         noTradeClause: cur?.no_trade_clause,
+        isTwoWay:r.isTwoWay,
+        maxSalary:r.maxSalary,
+        dataNotes:r.dataNotes,
         tradeBonusPct: cur?.trade_bonus_pct ?? undefined,
         tradeBonusEarned: cur?.trade_bonus_earned ?? undefined,
         isOver38: over38 || undefined,
@@ -129,12 +150,12 @@ export function TradeBoard({
         pts: v?.pts,
         reb: v?.reb,
         ast: v?.ast,
-        age: v?.age ?? r.age ?? undefined,
-        position: v?.position ?? undefined,
-        height: v?.height ?? undefined,
-        weight: v?.weight ?? undefined,
-        jersey: v?.jersey ?? undefined,
-        headshot: v?.headshot,
+        age: r.age??v?.age??undefined,
+        position: r.position??v?.position??undefined,
+        height: r.height??v?.height??undefined,
+        weight: r.weight??v?.weight??undefined,
+        jersey: r.jersey??v?.jersey??undefined,
+        headshot: r.headshot??v?.headshot,
       });
     });
   }
@@ -146,18 +167,33 @@ export function TradeBoard({
   // state for a frame before localStorage loads. The skeleton matches SSR (both pre-hydration), so
   // there is no React hydration mismatch.
   useEffect(() => {
-    const finish = () => setHydrated(true);
+    const finish = () => {
+      if(useTradeStore.getState().season!==rosterSeason)useTradeStore.getState().setSeason(rosterSeason);
+      const state=useTradeStore.getState();
+      if(!state.teams.length) {
+        state.setDataVersion(dataVersion);
+        state.setSimulatedDate(defaultDate);
+      } else if(!state.dataVersion) {
+        state.setDataVersion('legacy-2026-07-13');
+        if(!state.simulatedDate)state.setSimulatedDate('2026-07-13');
+      }
+      setHydrated(true);
+    };
     const unsub = useTradeStore.persist.onFinishHydration(finish);
     void useTradeStore.persist.rehydrate();
     if (useTradeStore.persist.hasHydrated()) finish();
     return unsub;
-  }, []);
+  }, [rosterSeason,dataVersion,defaultDate]);
 
   const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
   const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
   const query = teamSearch.trim().toLowerCase();
   const filteredTeams = available.filter((t) => `${t.name} ${t.abbr}`.toLowerCase().includes(query));
   const atMax = storeTeams.length >= MAX_TRADE_TEAMS;
+  function startNewBoard() {
+    const state=useTradeStore.getState();state.reset();state.setSeason(rosterSeason);
+    state.setDataVersion(dataVersion);state.setSimulatedDate(defaultDate);
+  }
 
   // Until localStorage rehydrates, render a neutral skeleton (matches the server-rendered output)
   // so a restored trade doesn't flicker through the empty state.
@@ -172,6 +208,10 @@ export function TradeBoard({
 
   return (
     <div className="space-y-5">
+      {stale&&<div className="panel space-y-2 rounded-xl border border-[var(--warn)]/40 p-3 text-xs text-[var(--muted)]">
+        <p>This saved proposal uses earlier roster inputs. You can keep editing its existing teams, or start a new board with current rosters. New teams use the current dataset.</p>
+        <button className="rounded bg-[var(--accent)] px-3 py-1.5 font-semibold text-[var(--ink)]" onClick={()=>{if(confirm('Start a new board with current rosters? Save a link first to keep this proposal.'))startNewBoard();}}>Load current rosters</button>
+      </div>}
       {capYear !== ACTIVE_SEASON.season && (
         <p className="rounded-xl border border-[var(--warn)]/40 bg-[var(--warn)]/10 px-3.5 py-2.5 text-xs text-[var(--muted)]">
           Cap year changes the rules only. This board still uses {ACTIVE_SEASON.season} roster salaries; it is not a historical roster.
@@ -199,7 +239,7 @@ export function TradeBoard({
                 onClick={() => { add(t); setTeamSearch(''); }}
                 aria-label={`Add ${t.name}`}
                 title={t.name}
-                disabled={atMax}
+                disabled={atMax||stale}
                 className="group relative overflow-hidden rounded-md px-2.5 py-1 font-display text-sm font-semibold tracking-wide text-white transition enabled:hover:-translate-y-0.5 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-30"
                 style={{ backgroundColor: t.primary_color ?? '#1f2937' }}
               >
@@ -222,7 +262,7 @@ export function TradeBoard({
             <button
               onClick={() => {
                 if (confirm('Clear this trade and start a new one? This cannot be undone.'))
-                  useTradeStore.getState().reset();
+                  startNewBoard();
               }}
               className="rounded-md border border-[var(--border)] px-2.5 py-1 font-display text-xs font-semibold uppercase tracking-[0.1em] text-[var(--muted)] transition hover:border-[var(--illegal)]/60 hover:text-[var(--illegal)]"
             >

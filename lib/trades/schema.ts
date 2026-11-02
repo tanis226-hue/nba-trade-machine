@@ -18,6 +18,7 @@ const exception = z.object({
   amount: money, expires: date.optional(), createdFromSignAndTrade: z.boolean().optional(), used: z.boolean().optional(),
 });
 const teamInput = z.object({
+  dataNotes:z.array(z.string().max(500)).max(10).optional(),
   abbr: team, preTradeSalary: money, apronSalary: money.optional(), capSpace: money.optional(),
   hardCapLine: money.nullish(), exceptions: z.array(exception).max(40).optional(),
   rosterCount: z.number().int().min(0).max(40).optional(), openRosterSpots: z.number().int().min(0).max(40).optional(),
@@ -25,9 +26,11 @@ const teamInput = z.object({
   toolsUsed: z.array(z.enum(['non_taxpayer_mle', 'bae', 'prior_year_tpe', 'sign_and_trade_acquire', 'taxpayer_mle'])).max(10).optional(),
   priorSecondApronSeasons: z.number().int().min(0).max(10).optional(),
   isRepeaterTaxpayer: z.boolean().optional(), priorTaxpayerSeasons: z.number().int().min(0).max(4).optional(),
-  ownedFirstRoundPicks: z.array(z.object({year:z.number().int().min(2020).max(2040), conveyed:z.boolean().optional(), isSwap:z.boolean().optional()})).max(40).optional(),
+  pickOwnershipUncertain:z.boolean().optional(),
+  ownedFirstRoundPicks: z.array(z.object({id:id.optional(),year:z.number().int().min(2020).max(2040), conveyed:z.boolean().optional(), isSwap:z.boolean().optional()})).max(40).optional(),
 });
 const asset = z.object({
+  dataNotes:z.array(z.string().max(500)).max(10).optional(),
   id, kind: z.enum(['player', 'pick', 'cash', 'tpe']), salary: money, fromTeam: team, toTeam: team,
   label: z.string().min(1).max(200), apronSalary: money.optional(), tradeBonusPct: z.number().min(0).max(0.15).optional(),
   tradeBonusEarned: z.boolean().optional(),
@@ -47,11 +50,12 @@ const asset = z.object({
     const u=new URL(v); return u.protocol==='https:' && ['cdn.nba.com','a.espncdn.com'].includes(u.hostname);
   }).optional(),
   pickYear:z.number().int().min(2020).max(2040).optional(), round:z.union([z.literal(1),z.literal(2)]).optional(),
-  protections:protection.nullish(), isSwap:z.boolean().optional(), originalTeam:team.optional(), isFrozen:z.boolean().optional(),
+  protections:protection.nullish(), isSwap:z.boolean().optional(), originalTeam:z.string().transform(v=>v.toUpperCase()).pipe(team).optional(), isFrozen:z.boolean().optional(),
   amount:money.optional(), expires:date.optional(),
 });
 const contract = z.object({season:z.string().regex(/^20\d{2}-\d{2}$/),salary:money,option_type:z.string().max(30),guarantee_status:z.string().max(30),no_trade_clause:z.boolean(),trade_bonus_pct:z.number().min(0).max(0.15).nullish(),trade_bonus_earned:z.boolean().optional()});
 const shape = {
+  dataVersion:z.string().regex(/^[A-Za-z0-9.-]{1,80}$/).optional(),
   season, teams:z.array(teamInput).min(2).max(7), assets:z.record(id,asset),
   contracts:z.record(id,z.array(contract).max(10)).optional(), simulatedDate:date.optional(),
   tradeMethod:z.enum(['simultaneous','non_simultaneous']).optional(),

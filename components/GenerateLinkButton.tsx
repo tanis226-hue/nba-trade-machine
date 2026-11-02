@@ -12,7 +12,8 @@ export function GenerateLinkButton() {
   const assets = useTradeStore((s) => s.assets);
   const simulatedDate = useTradeStore((s) => s.simulatedDate);
   const tradeMethod = useTradeStore((s) => s.tradeMethod);
-  const key=JSON.stringify({season,teams,assets,simulatedDate,tradeMethod});
+  const dataVersion=useTradeStore(s=>s.dataVersion);
+  const key=JSON.stringify({season,teams,assets,simulatedDate,tradeMethod,dataVersion});
   const url=result?.key===key?result.url:null;
 
   async function gen() {
@@ -23,7 +24,7 @@ export function GenerateLinkButton() {
       const res = await fetch('/api/trade', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ season, teams, assets, simulatedDate, tradeMethod }),
+        body: JSON.stringify({ season, teams, assets, simulatedDate, tradeMethod,dataVersion }),
       });
       const data=await res.json().catch(()=>({}));
       if(!res.ok || typeof data.slug!=='string' || !/^[A-Za-z0-9_-]{10}$/.test(data.slug)) throw new Error(data.error??'Could not create a link. Please try again.');

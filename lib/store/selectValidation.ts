@@ -10,7 +10,7 @@ import {
   APRON_2026_27,
   SEASON_RULES_2026_27,
 } from '@/lib/cba/constants';
-import { DATA_AS_OF } from '@/lib/data/freshness';
+import { defaultTradeDate } from '@/lib/data/freshness';
 import type { TradeAsset, TradeTeamInput, TradeValidation, TradeMethod, TradeInput } from '@/lib/cba/types';
 
 const BY_SEASON = {
@@ -52,7 +52,7 @@ function toInput(state: TradeState): TradeInput {
     assets,
     // Default to the data's as-of date so timing windows (recently-signed, aggregation lock,
     // no-trade-back, extension freeze) are evaluated by default; the trade-date picker overrides it.
-    simulatedDate: state.simulatedDate ?? DATA_AS_OF,
+    simulatedDate: state.simulatedDate ?? defaultTradeDate(state.season),
     tradeMethod: state.tradeMethod,
   };
 }

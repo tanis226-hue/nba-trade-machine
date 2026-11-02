@@ -27,7 +27,7 @@ function twoWayDelta(t: PerTeamContext): number {
 export const rosterRule: Rule = (ctx) => {
   const out: TradeFinding[] = [];
   for (const t of ctx.teams) {
-    if (t.outgoing === 0 && t.incoming === 0) continue;
+    if (![...t.incomingAssets,...t.outgoingAssets].some(a=>a.kind==='player')) continue;
 
     // Two-way contracts: a team may carry at most 3.
     if (t.twoWayCount !== undefined) {
@@ -48,7 +48,11 @@ export const rosterRule: Rule = (ctx) => {
 
     const newCount = t.rosterCount + standardPlayerDelta(t);
 
-    if (newCount > STANDARD_MAX) {
+    if(newCount>STANDARD_MAX && t.rosterCount>STANDARD_MAX && newCount<=t.rosterCount) {
+      out.push({code:'ROSTER_EXCEPTION_UNVERIFIED',severity:'conditional',teamAbbr:t.abbr,
+        message:`${t.abbr} already has ${t.rosterCount} reported standard players. This deal does not increase that count; confirm the existing roster exception.`,
+        citation:'Standard roster limit is 15; temporary hardship exceptions require separate verification.'});
+    } else if (newCount > STANDARD_MAX) {
       out.push({
         code: 'ROSTER_OVER',
         severity: 'block',

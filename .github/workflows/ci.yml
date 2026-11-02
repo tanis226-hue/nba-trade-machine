@@ -19,6 +19,7 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - run: npm run audit:prod
       - run: npm run verify
       # No database/auth secrets: builds use bundled data and cannot write production.
       - run: npm run build

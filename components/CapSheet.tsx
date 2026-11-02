@@ -2,15 +2,16 @@
 import { useTradeStore } from '@/lib/store/tradeStore';
 import { allSeasons, teamCapSheet } from '@/lib/cba/capSheet';
 import { SEASON_2026_27 as CAP } from '@/lib/cba/constants';
+import {SEASON_2025_26} from '@/lib/cba/constants';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 
 // Color a payroll cell by which cap line it crosses (using 2026-27 landmarks as the reference).
-function tierColor(total: number): string {
+function tierColor(total: number,cap=CAP): string {
   if (total <= 0) return 'var(--faint)';
-  if (total >= CAP.secondApron) return 'var(--tier-apron2)';
-  if (total >= CAP.firstApron) return 'var(--tier-apron1)';
-  if (total >= CAP.taxLine) return 'var(--tier-tax)';
+  if (total >= cap.secondApron) return 'var(--tier-apron2)';
+  if (total >= cap.firstApron) return 'var(--tier-apron1)';
+  if (total >= cap.taxLine) return 'var(--tier-tax)';
   return 'var(--text)';
 }
 
@@ -18,6 +19,8 @@ function tierColor(total: number): string {
 export function CapSheet() {
   const teams = useTradeStore((s) => s.teams);
   const assetsMap = useTradeStore((s) => s.assets);
+  const season=useTradeStore(s=>s.season);
+  const cap=season==='2025-26'?SEASON_2025_26:CAP;
   const assets = Object.values(assetsMap);
   const seasons = allSeasons(assets);
   if (seasons.length < 2 || teams.length === 0) return null;
@@ -25,7 +28,7 @@ export function CapSheet() {
   return (
     <div className="panel rounded-xl p-3.5">
       <div className="mb-2 font-display text-[11px] font-semibold uppercase tracking-wide text-[var(--faint)]">
-        Forward cap sheet · post-trade
+        Player contract commitments · post-trade
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-[12px]">
@@ -46,7 +49,7 @@ export function CapSheet() {
                 <tr key={t.abbr} className="border-t border-[var(--border-soft)]">
                   <td className="py-1 font-display font-semibold text-[var(--text)]">{t.abbr}</td>
                   {sheet.map((c) => (
-                    <td key={c.season} className="num px-2 py-1 text-right" style={{ color: tierColor(c.total) }}>
+                    <td key={c.season} className="num px-2 py-1 text-right" style={{ color: c.season===season?tierColor(c.total,cap):'var(--text)' }}>
                       {c.total > 0 ? m(c.total) : '—'}
                     </td>
                   ))}
@@ -56,6 +59,7 @@ export function CapSheet() {
           </tbody>
         </table>
       </div>
+      <p className="mt-2 text-[10px] text-[var(--faint)]">Listed player contracts only; excludes dead money, cap holds and future signings. Options may change these totals. Future cap and apron lines are not assumed.</p>
     </div>
   );
 }

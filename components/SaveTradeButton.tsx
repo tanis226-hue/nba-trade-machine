@@ -16,6 +16,7 @@ export function SaveTradeButton() {
   const assets = useTradeStore((s) => s.assets);
   const simulatedDate = useTradeStore((s) => s.simulatedDate);
   const tradeMethod = useTradeStore((s) => s.tradeMethod);
+  const dataVersion=useTradeStore(s=>s.dataVersion);
 
   if (!isSignedIn) {
     return (
@@ -37,7 +38,7 @@ export function SaveTradeButton() {
       const res = await fetch('/api/trade/save', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ title, season, teams, assets, simulatedDate, tradeMethod }),
+        body: JSON.stringify({ title, season, teams, assets, simulatedDate, tradeMethod,dataVersion }),
       });
       const data=await res.json();
       if (res.ok && typeof data.slug==='string') {

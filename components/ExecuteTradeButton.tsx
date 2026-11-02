@@ -16,16 +16,18 @@ interface TeamSummary {
   outgoing: number;
 }
 
-export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExecute: () => void }) {
+export function ExecuteTradeButton({ valid }: { valid: boolean }) {
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>('review');
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [error,setError]=useState<string|null>(null);
   const season = useTradeStore((s) => s.season);
   const teams = useTradeStore((s) => s.teams);
   const assets = useTradeStore((s) => s.assets);
   const simulatedDate = useTradeStore((s) => s.simulatedDate);
   const tradeMethod = useTradeStore((s) => s.tradeMethod);
+  const dataVersion=useTradeStore(s=>s.dataVersion);
   const dialogRef = useRef<HTMLDivElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -50,6 +52,8 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
     setOpen(false);
     setPhase('review');
     setShareUrl(null);
+    setError(null);
+    setCopied(false);
   }, []);
 
   const start = useCallback(() => {
@@ -64,16 +68,18 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
     try {
       const res = await fetch('/api/trade', {
         method: 'POST',
-        body: JSON.stringify({ season, teams, assets, simulatedDate, tradeMethod }),
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ season, teams, assets, simulatedDate, tradeMethod,dataVersion }),
       });
-      const { slug } = await res.json();
-      if (slug) setShareUrl(`${location.origin}/trade/${slug}`);
-    } catch {
-      /* offline / save failed — still show the finalized state */
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok||typeof data.slug!=='string'||!/^[A-Za-z0-9_-]{10}$/.test(data.slug))throw new Error(data.error??'Could not save this proposal. Please try again.');
+      setShareUrl(`${location.origin}/trade/${data.slug}`);
+      setPhase('done');
+    } catch(error) {
+      setError(error instanceof Error?error.message:'Could not save this proposal. Please try again.');
+      setPhase('review');
     }
-    onExecute();
-    setPhase('done');
-  }, [onExecute, season, teams, assets, simulatedDate, tradeMethod]);
+  }, [season, teams, assets, simulatedDate, tradeMethod,dataVersion]);
 
   const copyLink = useCallback(async () => {
     if (!shareUrl) return;
@@ -88,12 +94,20 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
 
   useEffect(() => {
     if (!open) return;
+    const previous=document.activeElement as HTMLElement|null;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && phase !== 'processing') close();
+      if(e.key==='Tab') {
+        const nodes=Array.from(dialogRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled),input,a[href]')??[]);
+        const first=nodes[0],last=nodes.at(-1);
+        if(!first){e.preventDefault();return;}
+        if(e.shiftKey&&(document.activeElement===first||document.activeElement===dialogRef.current)){e.preventDefault();last?.focus();}
+        else if(!e.shiftKey&&(document.activeElement===last||document.activeElement===dialogRef.current)){e.preventDefault();first.focus();}
+      }
     };
     document.addEventListener('keydown', onKey);
     dialogRef.current?.focus();
-    return () => document.removeEventListener('keydown', onKey);
+    return () => {document.removeEventListener('keydown', onKey);previous?.focus();};
   }, [open, phase, close]);
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
@@ -109,7 +123,7 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
             : 'cursor-not-allowed bg-[var(--surface-2)] text-[var(--faint)]'
         }`}
       >
-        Finalize Trade
+        Review &amp; Share
       </button>
 
       {open && (
@@ -121,7 +135,7 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
             ref={dialogRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Finalize trade"
+            aria-label="Review and share proposal"
             tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
             className="panel relative max-h-[88vh] w-full max-w-lg overflow-y-auto rounded-2xl p-5 outline-none"
@@ -131,10 +145,10 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <div>
                     <h2 className="font-display text-lg font-bold uppercase tracking-[0.1em] text-[var(--text)]">
-                      Confirm Trade
+                      Review Proposal
                     </h2>
                     <p className="mt-0.5 text-[12px] text-[var(--muted)]">
-                      {summaries.length}-team deal • review before finalizing
+                      {summaries.length}-team proposal • save a versioned link for other fans
                     </p>
                   </div>
                   <button
@@ -172,6 +186,7 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
                   })}
                 </div>
 
+                {error&&<p role="alert" className="mt-3 text-sm text-[var(--illegal)]">{error}</p>}
                 <div className="mt-5 flex gap-2">
                   <button
                     onClick={close}
@@ -183,7 +198,7 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
                     onClick={confirm}
                     className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-bold uppercase tracking-[0.1em] text-[var(--ink)] shadow-[0_0_30px_-8px_var(--accent)] transition hover:brightness-110"
                   >
-                    Confirm
+                    Save &amp; Share
                   </button>
                 </div>
               </>
@@ -202,15 +217,16 @@ export function ExecuteTradeButton({ valid, onExecute }: { valid: boolean; onExe
                   ✓
                 </div>
                 <h2 className="font-display text-lg font-bold uppercase tracking-[0.1em] text-[var(--text)]">
-                  Trade Finalized
+                  Proposal Saved
                 </h2>
                 <p className="max-w-xs text-[13px] text-[var(--muted)]">
-                  {shareUrl ? 'Saved. Share the link to get reactions and run it past the league.' : 'Your deal is locked in.'}
+                  Share this snapshot with other fans. The link preserves your inputs and modeled verdict.
                 </p>
                 {shareUrl && (
                   <div className="mt-1 w-full max-w-sm space-y-2">
                     <input
                       readOnly
+                      aria-label="Saved proposal link"
                       value={shareUrl}
                       onFocus={(e) => e.currentTarget.select()}
                       className="num w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-2.5 py-2 text-center text-xs text-[var(--muted)] outline-none"

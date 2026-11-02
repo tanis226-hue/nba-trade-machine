@@ -34,6 +34,25 @@ export interface RosterEntry {
   age: number | null;
   salary: number;
   contract: ContractYear[];
+  isTwoWay?: boolean;
+  maxSalary?: number;
+  headshot?: string|null;
+  height?: string|null;
+  weight?: number|null;
+  jersey?: string|null;
+  dataNotes?: string[];
+  source?: string;
+}
+
+export interface RosterSnapshot {
+  season:string;version:string;checkedAt:string;rosterAsOf:string;pickAsOf:string;source:string;
+  teams:Record<string,{
+    roster:RosterEntry[];preTradeSalary:number;apronSalary:number;capSpace:number;hardCapLine:number|null;
+    rosterCount:number;twoWayCount:number;
+    picks:DbDraftPick[];
+    exceptions:{kind:'tpe';amount:number;expires?:string;sourcePlayer?:string}[];
+    dataNotes:string[];source:string;
+  }>;
 }
 
 export interface DbPlayerValue {
@@ -67,6 +86,8 @@ export interface DbTeamException {
 }
 
 export interface DbDraftPick {
+  needsReview?:boolean;
+  source?:string;
   id: string;
   owning_team_id: string;
   original_team_id: string;

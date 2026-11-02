@@ -1,6 +1,8 @@
 'use client';
 import type { TeamResult } from '@/lib/cba/types';
 import { SEASON_2026_27 as ACTIVE_SEASON } from '@/lib/cba/constants';
+import {SEASON_2025_26} from '@/lib/cba/constants';
+import {useTradeStore} from '@/lib/store/tradeStore';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 
@@ -9,7 +11,7 @@ const TIER: Record<string, { label: string; color: string; hint: string }> = {
   over_cap: { label: 'Over cap', color: 'var(--tier-over)', hint: 'Over the cap but under the tax — trades must match salary within the matching brackets.' },
   over_tax: { label: 'Luxury tax', color: 'var(--tier-tax)', hint: 'Over the luxury-tax line — pays an escalating penalty on every dollar above it.' },
   first_apron: { label: '1st apron', color: 'var(--tier-apron1)', hint: 'Over the first apron — take-back capped at 100% and several tools (S&T, full MLE, BAE) are unavailable.' },
-  second_apron: { label: '2nd apron', color: 'var(--tier-apron2)', hint: 'Over the second apron — cannot aggregate salaries, use trade exceptions, or send/receive cash; a future first is frozen.' },
+  second_apron: { label: '2nd apron', color: 'var(--tier-apron2)', hint: 'Over the second apron — cannot aggregate salaries or send cash; trade exceptions and distant first-round picks face additional restrictions.' },
 };
 
 function Space({ label, value, hint }: { label: string; value: number; hint: string }) {
@@ -26,8 +28,9 @@ function Space({ label, value, hint }: { label: string; value: number; hint: str
 }
 
 export function TeamCapPanel({ result }: { result?: TeamResult }) {
+  const season=useTradeStore(s=>s.season);
   if (!result) return null;
-  const cap = ACTIVE_SEASON;
+  const cap = season==='2025-26'?SEASON_2025_26:ACTIVE_SEASON;
   const apron = result.apronPostSalary ?? result.postSalary;
   const max = cap.secondApron * 1.06;
   const pct = Math.min(100, (result.postSalary / max) * 100);

@@ -1,7 +1,7 @@
 import { getTeams, getRoster, getSeasons, getDraftPicks, getPlayerValues, getFreeAgents, getTeamExceptions, getProjectedRecords } from '@/lib/data/queries';
 import { TradeBoard } from '@/components/TradeBoard';
 import { DataFreshness } from '@/components/DataFreshness';
-import { hasDb } from '@/lib/data/db';
+import { getRosterSnapshot } from '@/lib/data/rosterSnapshot';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,14 +11,16 @@ function priorSeasonOf(season: string): string {
   return `${y - 1}-${String(y % 100).padStart(2, '0')}`;
 }
 
-export default async function Home() {
+export default async function Home({searchParams}:{searchParams:Promise<{season?:string}>}) {
+  const requested=(await searchParams).season;
   const [teams, seasons] = await Promise.all([getTeams(), getSeasons()]);
-  const season = seasons.includes('2026-27') ? '2026-27' : seasons[0];
+  const season = requested&&seasons.includes(requested)?requested:seasons.includes('2026-27')?'2026-27':seasons[0];
+  const snapshot=await getRosterSnapshot(season);
   const rosters = Object.fromEntries(
     await Promise.all(teams.map(async (t) => [t.abbr, await getRoster(t.id, season)] as const)),
   );
   const picks = Object.fromEntries(
-    await Promise.all(teams.map(async (t) => [t.abbr, await getDraftPicks(t.id)] as const)),
+    await Promise.all(teams.map(async (t) => [t.abbr, await getDraftPicks(t.id,season)] as const)),
   );
   const [values, freeAgents, exceptions, projectedRecords] = await Promise.all([
     getPlayerValues(),
@@ -61,9 +63,9 @@ export default async function Home() {
         </div>
       </section>
       <div className="mb-5">
-        <DataFreshness source={hasDb() ? 'database' : 'snapshot'} />
+        <DataFreshness snapshot={snapshot?{rosterAsOf:snapshot.rosterAsOf,pickAsOf:snapshot.pickAsOf,loadedFrom:snapshot.loadedFrom,importedAt:snapshot.importedAt}:undefined} />
       </div>
-      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
+      <TradeBoard teams={teams} rosters={rosters} seasons={seasons} rosterSeason={season} payroll={snapshot?.teams} dataVersion={snapshot?.version} defaultDate={snapshot?.rosterAsOf??'2026-06-01'} picks={picks} values={values} freeAgents={freeAgents} exceptions={exceptions} projectedRecords={projectedRecords} />
     </main>
   );
 }

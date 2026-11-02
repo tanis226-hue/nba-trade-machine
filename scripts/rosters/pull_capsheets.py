@@ -13,6 +13,31 @@ def number(text):
 
 def parse(html,url,team):
     tree=HTMLParser(html); sections=[]
+    picks=[]
+    draft=tree.css_first('#sw_teamProfile__draftTable')
+    if draft is None:raise ValueError('Missing draft rights: '+team['abbr'])
+    years=[c.text(strip=True) for c in draft.css('thead th')]
+    for tr in draft.css('tbody tr'):
+        cells=tr.css('td'); rnd=int(cells[0].text(strip=True).split()[-1])
+        for i,cell in enumerate(cells[1:],1):
+            for node in cell.css('.d_pick'):
+                if 'd_pick_traded' in node.attributes.get('class','').split():continue
+                image=node.css_first('img'); ancestor=node; note=''
+                while ancestor and ancestor!=cell:
+                    note=ancestor.attributes.get('title','') or note
+                    ancestor=ancestor.parent
+                note=re.sub(r'\s*[Cc]lick to view full.*$','',note).strip()
+                picks.append({'year':years[i],'round':rnd,'originalName':image.attributes['alt'].removeprefix('Logo of the '),
+                    'note':note,'isSwap':bool(re.search(r'swap',note,re.I)),
+                    'needsReview':bool(re.search(r'contention|conditional|protected|swap|frozen',note,re.I))})
+    if len(years)!=8 or not picks:raise ValueError('Unexpected draft rights: '+team['abbr'])
+    exceptions=[]
+    for tr in tree.css('#sw_table__tradeExptn_tm tbody tr'):
+        cells=tr.css('td')
+        if len(cells)<6:continue
+        try:expires=datetime.datetime.strptime(cells[5].text(strip=True),'%b %d, %Y').date().isoformat()
+        except ValueError:expires=None
+        exceptions.append({'kind':'tpe','amount':number(cells[3].text()),'expires':expires,'sourcePlayer':cells[0].text(strip=True)})
     for table in tree.css('table.sw_teamProfileRosterSection__table'):
         headers=[t.text(strip=True) for t in table.css('tr')[0].css('th')]
         if not headers: continue
@@ -49,7 +74,7 @@ def parse(html,url,team):
     if not standard or not 12<=len(standard['players'])<=21: raise ValueError('Unexpected standard roster for '+team['abbr'])
     declared=re.search(r'\((\d+)\s*-',standard['section'])
     if not declared or int(declared.group(1))!=len(standard['players']):raise ValueError('Parsed roster count differs from source header: '+team['abbr'])
-    return {'teamId':team['id'],'abbr':team['abbr'],'url':url,'totals':totals,'sections':sections,
+    return {'teamId':team['id'],'abbr':team['abbr'],'url':url,'totals':totals,'sections':sections,'exceptions':exceptions,'picks':picks,
         'needsRosterExceptionReview':len(standard['players'])>15}
 
 def main():
@@ -59,7 +84,7 @@ def main():
     tree=HTMLParser(initial.read_text(encoding='utf8'))
     links={a.text(strip=True):a.attributes['href'] for a in tree.css('a[href^="/teams/"]')}
     teams=json.loads((ROOT/'data/overrides/teams.json').read_text(encoding='utf8'))
-    result=[]
+    result=[];used=[]
     with httpx.Client(timeout=30,follow_redirects=True) as client:
         for team in teams:
             name=team['name']
@@ -73,7 +98,9 @@ def main():
                 time.sleep(1)
                 response=client.get(url);response.raise_for_status();html=response.text;cache.write_text(html,encoding='utf8')
             result.append(parse(html,url,team))
-    data={'checkedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source':BASE,'teams':result}
+            used.append(initial if team['id']=='bos' else cache)
+    checked=datetime.datetime.fromtimestamp(min(p.stat().st_mtime for p in used),datetime.timezone.utc).isoformat()
+    data={'checkedAt':checked,'source':BASE,'teams':result}
     text=json.dumps(data,ensure_ascii=False,indent=2)+'\n';(OUT/'capsheets.json').write_text(text,encoding='utf8')
     print(f'Read {len(result)} public cap sheets; SHA256 {hashlib.sha256(text.encode()).hexdigest()}')
 

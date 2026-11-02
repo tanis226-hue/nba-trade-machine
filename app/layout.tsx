@@ -11,7 +11,7 @@ import { authEnabled } from "@/lib/auth";
 // Apply the saved theme before paint (no flash). Light is the default; dark only when chosen.
 const themeScript = `try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}`;
 
-const display = Big_Shoulders({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--ff-display" });
+const display = Big_Shoulders({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--ff-display",adjustFontFallback:false,fallback:['Arial Narrow','sans-serif'] });
 const body = Bricolage_Grotesque({ subsets: ["latin"], variable: "--ff-body" });
 const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--ff-mono" });
 
