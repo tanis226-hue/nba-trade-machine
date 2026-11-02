@@ -121,6 +121,7 @@ export function TradeMatrix({
     <div className="space-y-4">
       {teams.length >= 1 && (
         <div className="panel flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl px-3.5 py-2.5 text-[12px]">
+          {hasMoves&&<a href="#trade-verdict" className="rounded bg-[var(--accent)] px-3 py-1.5 font-semibold text-[var(--ink)]">View result · {validation.valid?'review & share':`${validation.errors.length} to fix`} ↓</a>}
           <div className="flex items-center gap-1.5">
             <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--faint)]">Sort</span>
             {SORTS.map(([mode, label]) => (
@@ -212,7 +213,7 @@ export function TradeMatrix({
       <CapSheet />
 
       {isTrade && hasMoves ? (
-        <div className="grid gap-3 md:grid-cols-[1fr_280px] md:items-stretch">
+        <div id="trade-verdict" className="grid scroll-mt-24 gap-3 md:grid-cols-[1fr_280px] md:items-stretch">
           <ValidationFeed validation={validation} fixes={fixes} onAutoFix={autoFix.length ? applyAutoFix : undefined} autoFixCount={autoFix.length} />
           <div className="space-y-2">
             <ExecuteTradeButton valid={validation.valid} />

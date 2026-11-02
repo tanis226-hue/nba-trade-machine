@@ -29,6 +29,7 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
   const tradeMethod = useTradeStore((s) => s.tradeMethod);
   const dataVersion=useTradeStore(s=>s.dataVersion);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef=useRef<HTMLElement|null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const summaries = useMemo<TeamSummary[]>(() => {
@@ -54,9 +55,11 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
     setShareUrl(null);
     setError(null);
     setCopied(false);
+    triggerRef.current?.focus();
   }, []);
 
   const start = useCallback(() => {
+    triggerRef.current=document.activeElement as HTMLElement|null;
     setPhase('review');
     setShareUrl(null);
     setOpen(true);
@@ -94,7 +97,6 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
 
   useEffect(() => {
     if (!open) return;
-    const previous=document.activeElement as HTMLElement|null;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && phase !== 'processing') close();
       if(e.key==='Tab') {
@@ -107,7 +109,7 @@ export function ExecuteTradeButton({ valid }: { valid: boolean }) {
     };
     document.addEventListener('keydown', onKey);
     dialogRef.current?.focus();
-    return () => {document.removeEventListener('keydown', onKey);previous?.focus();};
+    return () => document.removeEventListener('keydown', onKey);
   }, [open, phase, close]);
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
