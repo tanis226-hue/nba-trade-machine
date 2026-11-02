@@ -56,6 +56,7 @@ export function ContractsPortal({rows,teams,season,seasons,asOf,sourceVersion}:{
   const team = teams.some(candidate=>candidate.abbr===searchParams.get('team')) ? searchParams.get('team')! : '';
   const position = ['PG','SG','SF','PF','C'].includes(searchParams.get('position')??'') ? searchParams.get('position')! : '';
   const feature = FEATURES.some(([value])=>value===searchParams.get('feature')) ? searchParams.get('feature')! : '';
+  const [advancedOpen,setAdvancedOpen]=useState(!!(position||feature));
   const rawSort = searchParams.get('sort');
   const sort:ContractFilters['sort'] = rawSort==='name'||rawSort==='team'||rawSort==='commitments'?rawSort:'salary';
   const year = years.includes(searchParams.get('year')??'') ? searchParams.get('year')! : season;
@@ -138,8 +139,11 @@ export function ContractsPortal({rows,teams,season,seasons,asOf,sourceVersion}:{
       <div className={styles.filters}>
         <label className={styles.playerSearch}>Find a player<input type="search" name="player-search" autoComplete="off" placeholder="Search a player, e.g. Curry…" maxLength={80} value={query} onChange={event=>update({q:event.target.value,player:null})}/></label>
         <label>Team<select name="team" value={team} onChange={event=>update({team:event.target.value,player:null})}><option value="">All teams</option>{teams.map(item=><option key={item.abbr} value={item.abbr}>{item.name}</option>)}</select></label>
+        <button className={styles.moreFilters} aria-expanded={advancedOpen} aria-controls="contract-advanced-filters" onClick={()=>setAdvancedOpen(v=>!v)}>More filters{position||feature?` (${Number(!!position)+Number(!!feature)} active)`:''}<span aria-hidden="true">{advancedOpen?'−':'+'}</span></button>
+        <div id="contract-advanced-filters" className={styles.advancedControls} data-open={advancedOpen}>
         <label>Position<select name="position" value={position} onChange={event=>update({position:event.target.value,player:null})}><option value="">All positions</option>{['PG','SG','SF','PF','C'].map(item=><option key={item} value={item}>{item}</option>)}</select></label>
         <label>Contract feature<select name="feature" value={feature} onChange={event=>update({feature:event.target.value,player:null})}><option value="">All contracts</option>{FEATURES.map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label>
+        </div>
       </div>
       <div className={styles.filterFootnote}><span>Contract features match any listed year from {season} onward.</span>{filteredOn&&<button className={styles.textButton} onClick={reset}>Clear filters</button>}</div>
       <div className={styles.coverage}>

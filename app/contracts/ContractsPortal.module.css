@@ -148,3 +148,12 @@
   .legendList { grid-template-columns:1fr; }
   .legend p { font-size:12px; }
 }
+
+.advancedControls { display:contents; }
+.moreFilters { display:none; }
+@media(max-width:639px) {
+  .filters { grid-template-columns:1fr; }
+  .moreFilters { display:flex; align-items:center; justify-content:space-between; min-height:44px; color:var(--accent); font-size:13px; font-weight:650; border-top:1px solid var(--border-soft); grid-column:1 / -1; }
+  .advancedControls { display:grid; grid-column:1 / -1; gap:12px; }
+  .advancedControls[data-open='false'] { display:none; }
+}
