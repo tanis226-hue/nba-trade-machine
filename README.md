@@ -4,7 +4,7 @@ A trade playground for NBA fans: build 2–7 team proposals, move players and pi
 
 [Public demo](https://nbatm.zldagroup.com/) · [Release readiness](docs/RELEASE_READINESS.md)
 
-This is a portfolio project in active development. The public deployment may lag this branch. The engine checks the inputs it receives; incomplete roster history and pick conditions limit its conclusions.
+The November 2, 2026 production release is live. Try a [saved Boston–Dallas proposal](https://nbatm.zldagroup.com/trade/pa974oWnxs), then open it in the editor to build your own variation. The engine checks the inputs it receives; incomplete roster history and pick conditions limit its conclusions. See the release record for the deployed commit, validation and data provenance.
 
 ## Run a demo
 
@@ -55,9 +55,11 @@ The active roster season is 2026–27. Changing roster year starts a new board a
 
 The demo baseline is versioned in `data/seed/{players,contracts}.json`, with hashes and cache timestamps in `data/seed/snapshot.json`. It was promoted from the existing June 2026 scraper cache; July overrides apply afterward. To deliberately replace that baseline after a reviewed scrape, run `npm run snapshot:build`, inspect the diff, and run `npm run verify`. This operation does not fetch data, write the database, or advance the freshness date.
 
-The current refresh pipeline fetches ESPN biographies and throttled SalarySwish cap sheets, builds and audits a complete snapshot, then publishes it in one database write. It never replaces trades, comments or votes. A failed fetch/audit leaves the last published snapshot intact. Repository Actions needs the NBA database URL secret. To review fresh data locally:
+The current refresh pipeline fetches ESPN biographies and throttled SalarySwish cap sheets, builds and audits a complete snapshot, then publishes it in one database write. It never replaces trades, comments or votes. A failed fetch/audit leaves the last published snapshot intact. The [production refresh](https://github.com/tanis226-hue/nba-trade-machine/actions/runs/41503480755) succeeded on November 2 with 30 teams, 523 players and 449 reported draft rights. Repository Actions reads the configured NBA database URL secret.
 
 For Actions verification, manual `refresh-data` dispatch defaults to the isolated database (`NBA_LAUNCH_DATABASE_URL`), with no fallback to production credentials. Select `production` explicitly from `main` for a production refresh; schedules on `main` use the production database secret. Each successful audit uploads the exact public snapshot as a short-lived artifact.
+
+To review fresh data locally:
 
 ```bash
 pip install -r scripts/scraper/requirements.txt
