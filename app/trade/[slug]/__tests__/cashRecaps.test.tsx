@@ -27,6 +27,35 @@ beforeEach(() => {
 afterEach(() => {cleanup(); vi.clearAllMocks(); mocks.image=undefined;});
 
 describe('shared cash presentation', () => {
+  it('labels new untouched snapshots as drafts and retains their date and data version', async () => {
+    mocks.getTrade.mockResolvedValue({season:'2026-27',schemaVersion:1,rulesVersion:'rules-test',dataVersion:'rosters-test',simulatedDate:'2026-12-15',validation:savedValidation,
+      teams:[{abbr:'BOS',preTradeSalary:180_000_000},{abbr:'LAL',preTradeSalary:180_000_000}],assets:{}});
+    render(await SharedTrade({params:Promise.resolve({slug:'abcdefghij'})}));
+    expect(screen.getByText('Draft: no assets included')).toBeTruthy();
+    expect(screen.getByText(/Trade date: Dec 15, 2026/)).toBeTruthy();
+    expect(screen.getByText(/Roster data version: rosters-test. Saved rules version: rules-test/)).toBeTruthy();
+    expect(screen.queryByText(/This older link/)).toBeNull();
+    expect(mocks.validationFeed).not.toHaveBeenCalled();
+  });
+  it('discloses recalculation when a legacy matching method invalidates the saved verdict', async () => {
+    mocks.getTrade.mockResolvedValue({season:'2026-27',schemaVersion:1,rulesVersion:'legacy-rules',legacyMethodReview:true,validation:savedValidation,
+      teams:[{abbr:'BOS',preTradeSalary:180_000_000},{abbr:'LAL',preTradeSalary:180_000_000}],
+      assets:{player:{id:'player',kind:'player',salary:50_000_000,fromTeam:'BOS',toTeam:'LAL',label:'Player'}}});
+    render(await SharedTrade({params:Promise.resolve({slug:'abcdefghij'})}));
+    expect(screen.getByText(/The original verdict cannot be reused/)).toBeTruthy();
+    expect(screen.getByText(/Not recorded; current checks use/)).toBeTruthy();
+    expect(screen.queryByText(/The saved verdict is preserved/)).toBeNull();
+    expect(mocks.validationFeed.mock.calls[0][0].validation.valid).toBe(false);
+  });
+  it('keeps structured pick rights accessible in a saved proposal', async () => {
+    mocks.getTrade.mockResolvedValue({season:'2026-27',schemaVersion:1,validation:savedValidation,
+      teams:[{abbr:'BOS',preTradeSalary:180_000_000},{abbr:'LAL',preTradeSalary:180_000_000}],
+      assets:{pick:{id:'pick',kind:'pick',salary:0,fromTeam:'BOS',toTeam:'LAL',label:'2028 first',pickYear:2028,round:1,isSwap:true,protections:{type:'top',through:8,rolloverToSecond:true}}}});
+    render(await SharedTrade({params:Promise.resolve({slug:'abcdefghij'})}));
+    expect(screen.getAllByText('Protected through pick 8.')).toHaveLength(2);
+    expect(screen.getAllByText('Swap rights')).toHaveLength(2);
+    expect(screen.getAllByText(/source reports conversion to second-round/)).toHaveLength(2);
+  });
   it('preserves historical fractional cash in the saved view and social image', async () => {
     mocks.getTrade.mockResolvedValue({
       season:'2026-27', schemaVersion:1, validation:savedValidation,

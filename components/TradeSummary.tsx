@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import { PlayerHeadshot } from './PlayerHeadshot';
 import { formatCash as cash } from '@/lib/cba/cash';
+import { exactMoney, signedExactMoney } from '@/lib/trades/presentation';
 import type { TradeAsset } from '@/lib/cba/types';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
@@ -14,8 +15,8 @@ function Chip({ asset, onRemove }: { asset: TradeAsset; onRemove: () => void }) 
   return (
     <span className="flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--surface-2)] py-0.5 pl-1 pr-1.5 text-xs text-[var(--text)]">
       {asset.kind === 'player' ? <PlayerHeadshot src={asset.headshot} name={asset.label} size={24}/> : <span className="px-0.5 text-[10px]">{icon}</span>}
-      <span className={asset.kind === 'cash' ? 'whitespace-nowrap' : 'max-w-[130px] truncate'}>{label}</span>
-      <button onClick={onRemove} aria-label={`Undo move for ${label}`} className="ml-1 inline-grid h-7 w-7 place-items-center rounded-full text-[var(--muted)] hover:bg-[var(--bg)] hover:text-[var(--illegal)]">
+      <span className="min-w-0 break-words">{label}</span>
+      <button onClick={onRemove} aria-label={`Undo move for ${label}`} className="ml-1 inline-grid h-11 w-11 shrink-0 place-items-center rounded-full text-[var(--muted)] hover:bg-[var(--bg)] hover:text-[var(--illegal)]">
         ✕
       </button>
     </span>
@@ -38,16 +39,17 @@ function Side({
   onRemove: (a: TradeAsset) => void;
 }) {
   const [open, setOpen] = useState(true);
+  const contentId = useId();
   return (
     <div>
-      <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between py-1">
+      <button onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls={contentId} className="flex min-h-11 w-full items-center justify-between py-1">
         <span className="text-xs font-semibold text-[var(--faint)]">
           {label} <span className="num font-semibold" style={{ color }}>({sign} {m(total)} salary)</span>
         </span>
         <span className="text-[var(--faint)]">{open ? '▾' : '▸'}</span>
       </button>
       {open && (
-        <div className="flex flex-wrap gap-1 pb-0.5">
+        <div id={contentId} className="flex flex-wrap gap-1 pb-0.5">
           {assets.length === 0 ? (
             <span className="text-[10px] text-[var(--faint)]">—</span>
           ) : (
@@ -79,14 +81,15 @@ export function TradeSummary({ abbr }: { abbr: string }) {
 
   return (
     <div className="border-t border-[var(--border-soft)] px-3 py-2">
-      <Side label="Outgoing" sign="-" total={outTotal} color="var(--illegal)" assets={outgoing} onRemove={(a) => routeAsset(a.id, abbr)} />
-      <Side label="Incoming" sign="+" total={inTotal} color="var(--legal)" assets={incoming} onRemove={(a) => routeAsset(a.id, a.fromTeam)} />
+      <Side label="Outgoing" sign="-" total={outTotal} color="var(--text)" assets={outgoing} onRemove={(a) => routeAsset(a.id, abbr)} />
+      <Side label="Incoming" sign="+" total={inTotal} color="var(--text)" assets={incoming} onRemove={(a) => routeAsset(a.id, a.fromTeam)} />
       <div className="mt-1 flex items-center justify-between border-t border-[var(--border-soft)] pt-1">
         <span className="text-xs text-[var(--faint)]">Net salary</span>
-        <span className="num text-xs font-semibold" style={{ color: net > 0 ? 'var(--illegal)' : net < 0 ? 'var(--legal)' : 'var(--muted)' }}>
+        <span className="num text-xs font-semibold text-[var(--text)]">
           {net > 0 ? '+' : net < 0 ? '-' : ''}{m(Math.abs(net))}
         </span>
       </div>
+      <details className="text-xs text-[var(--muted)]"><summary className="min-h-11 cursor-pointer py-3">Exact salary amounts</summary><dl className="space-y-1 pb-2"><div className="flex justify-between gap-2"><dt>Outgoing salary</dt><dd className="num">{exactMoney(outTotal)}</dd></div><div className="flex justify-between gap-2"><dt>Incoming salary</dt><dd className="num">{exactMoney(inTotal)}</dd></div><div className="flex justify-between gap-2"><dt>Salary change</dt><dd className="num">{signedExactMoney(net)}</dd></div></dl></details>
       {hasCash && <dl className="mt-2 space-y-1 border-t border-[var(--border-soft)] pt-2 text-xs text-[var(--muted)]">
         <div className="flex items-center justify-between gap-2"><dt>Cash sent</dt><dd className="num">{cash(cashSent)}</dd></div>
         <div className="flex items-center justify-between gap-2"><dt>Cash received</dt><dd className="num">{cash(cashReceived)}</dd></div>

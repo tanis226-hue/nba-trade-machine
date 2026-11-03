@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useTradeStore } from '@/lib/store/tradeStore';
@@ -10,6 +10,8 @@ import { TeamCapPanel } from './TeamCapPanel';
 import { SignFreeAgentPanel } from './SignFreeAgentPanel';
 import { TradeSummary } from './TradeSummary';
 import { CashBudget } from './CashBudget';
+import { PickDetails } from './PickDetails';
+import { matchesPlayerName } from '@/lib/search';
 import type { TeamResult } from '@/lib/cba/types';
 import type { ContractYear, DbTeam, DbDraftPick } from '@/lib/data/types';
 import { parseProtection } from '@/lib/cba/protections';
@@ -25,6 +27,7 @@ export function TeamColumn({
   contracts,
   picks = [],
   freeAgents = [],
+  pickLookup = {},
   projectedRecords = {},
 }: {
   abbr: string;
@@ -34,15 +37,18 @@ export function TeamColumn({
   picks?: DbDraftPick[];
   freeAgents?: FreeAgent[];
   projectedRecords?: Record<string, import('@/lib/data/queries').ProjectedRecord>;
+  pickLookup?: Record<string, DbDraftPick>;
 }) {
   const assetsMap = useTradeStore((s) => s.assets);
   const teams = useTradeStore((s) => s.teams);
   const removeTeam = useTradeStore((s) => s.removeTeam);
   const addAsset = useTradeStore((s) => s.addAsset);
+  const routeAsset = useTradeStore((s) => s.routeAsset);
   const [signing, setSigning] = useState(false);
   const [chOpen, setChOpen] = useState(false);
   const [playerSearch,setPlayerSearch]=useState('');
   const [confirmRemove,setConfirmRemove]=useState(false);
+  const searchRef=useRef<HTMLInputElement>(null);
 
   // The whole column is a droppable so a card dropped anywhere on it routes here.
   const { setNodeRef, isOver } = useDroppable({ id: `col:${abbr}` });
@@ -65,24 +71,26 @@ export function TeamColumn({
   const byOrder = (a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0);
   const here = assets.filter((a) => a.toTeam === abbr);
   const herePlayers = here.filter((a) => a.kind === 'player').sort(byOrder);
-  const visiblePlayers=herePlayers.filter(a=>a.label.toLowerCase().includes(playerSearch.trim().toLowerCase()));
+  const visiblePlayers=herePlayers.filter(a=>matchesPlayerName(a.label, playerSearch));
   const hereExtras = here.filter((a) => a.kind !== 'player').sort(byOrder);
   const sortableIds = [...hereExtras, ...visiblePlayers].map((a) => a.id);
 
   const color = meta?.primary_color ?? '#334155';
 
-  const addedPickIds = new Set(assets.filter((a) => a.fromTeam === abbr && a.kind === 'pick').map((a) => a.id));
   const sortedPicks = [...picks].sort((a, b) => a.season.localeCompare(b.season) || a.round - b.round);
-  const availablePicks = sortedPicks.filter((p) => !addedPickIds.has(p.id));
   const firstCount = picks.filter((p) => p.round === 1).length;
   const secondCount = picks.filter((p) => p.round === 2).length;
-  function addPick(next: DbDraftPick) {
+  function addPick(next: DbDraftPick, destination: string) {
+    if (assetsMap[next.id]) {
+      routeAsset(next.id, destination);
+      return;
+    }
     addAsset({
       id: next.id,
       kind: 'pick',
       salary: 0,
       fromTeam: abbr,
-      toTeam: abbr,
+      toTeam: destination,
       label: `${next.season} ${next.original_team_id.toUpperCase()} ${next.round === 1 ? '1st' : '2nd'}`,
       pickYear: Number(next.season),
       round: next.round as 1 | 2,
@@ -90,6 +98,7 @@ export function TeamColumn({
       isSwap: next.is_swap,
       originalTeam: next.original_team_id.toUpperCase(),
       protections: parseProtection(next.protections),
+      source: next.source,
       dataNotes:next.needsReview?['Conditional draft rights: verify the full protection, swap and rollover chain at '+(next.source??'the source')+'.']:undefined,
     });
   }
@@ -121,71 +130,34 @@ export function TeamColumn({
       <CashBudget abbr={abbr}/>
 
       <details className="team-extras"><summary>Picks &amp; exceptions <span className="text-xs font-normal text-[var(--muted)]">{firstCount} firsts / {secondCount} seconds</span></summary>
-      {/* Reported draft rights retain their protection and swap notes. */}
-      <div className="border-t border-[var(--border-soft)] px-3 py-2.5">
-        <div className="mb-1.5 flex items-center justify-between">
-          <span
-            className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--faint)]"
-            title="Reported future draft rights. Asterisks identify source notes; conditional rights require review of the complete protection and swap chain."
-          >
-            Draft capital
-          </span>
-          <span className="num text-[10px] text-[var(--muted)]">
-            {firstCount} <span className="text-[var(--faint)]">1st</span> · {secondCount}{' '}
-            <span className="text-[var(--faint)]">2nd</span>
-          </span>
-        </div>
-        {availablePicks.length > 0 ? (
-          <div className="flex flex-wrap gap-1">
-            {availablePicks.map((p) => {
-              const note =
-                p.protections && typeof p.protections === 'object' && 'note' in p.protections
-                  ? String((p.protections as { note?: unknown }).note ?? '')
-                  : '';
-              // Resolve conveyance against the ORIGINAL team's projected draft slot (its pick, its record).
-              const rec = projectedRecords[p.original_team_id];
-              const structured = parseProtection(p.protections);
-              const conveyance =
-                rec && p.round === 1 && structured && (structured.type === 'top' || structured.type === 'range')
-                  ? resolveConveyance(structured, rec.projectedSlot)
-                  : null;
-              const title = [
-                `Add ${p.season} ${p.round === 1 ? '1st' : '2nd'} to the deal`,
-                p.is_swap ? 'Swap rights' : '',
-                p.is_frozen ? 'Frozen (2nd-apron 7-yr-out)' : '',
-                note ? `Protected: ${note}` : '',
-                rec ? `Projected #${rec.projectedSlot} (${rec.wins}-${rec.losses})` : '',
-                conveyance ? conveyance.reason : '',
-              ].filter(Boolean).join(' — ');
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => addPick(p)}
-                  title={title}
-                  className="num inline-flex items-center gap-1 rounded border border-[var(--border)] bg-[var(--surface-2)]/50 px-1.5 py-0.5 text-[10px] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--text)]"
-                >
-                  {p.season.slice(2)} {p.round === 1 ? '1st' : '2nd'}
-                  <span>{p.original_team_id.toUpperCase()}</span>
-                  {p.is_swap && <span className="text-[var(--accent-2)]" title="Swap">⇄</span>}
-                  {p.is_frozen && <span className="text-[var(--illegal)]" title="Frozen (2nd-apron)">❄</span>}
-                  {note && <span className="text-[var(--faint)]" title={`Protected: ${note}`}>*</span>}
-                  {conveyance && (
-                    <span
-                      title={conveyance.reason}
-                      style={{ color: conveyance.conveys ? 'var(--legal)' : 'var(--warn)' }}
-                    >
-                      {conveyance.conveys ? '▲' : '▼'}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="text-[11px] text-[var(--faint)]">
-            {picks.length ? 'All picks added to the deal' : 'No tradeable future picks'}
-          </div>
-        )}
+      <div className="border-t border-[var(--border-soft)] px-3 py-3">
+        <p className="mb-3 text-xs leading-relaxed text-[var(--muted)]">Reported draft rights. Open a pick to read its conditions and choose a destination.</p>
+        {sortedPicks.length > 0 ? <div className="space-y-2">
+          {sortedPicks.map(p => {
+            const current=assetsMap[p.id];
+            const included=!!current && current.toTeam!==current.fromTeam;
+            const label=`${p.season} ${p.original_team_id.toUpperCase()} ${p.round===1?'1st':'2nd'}`;
+            const record=projectedRecords[p.original_team_id];
+            const protection=parseProtection(p.protections);
+            const conveyance=record&&p.round===1&&protection&&(protection.type==='top'||protection.type==='range')?resolveConveyance(protection,record.projectedSlot):null;
+            return <details key={p.id} className="rounded-lg border border-[var(--border-soft)] bg-[var(--surface)]">
+              <summary className="min-h-11 cursor-pointer px-3 py-3 text-xs font-semibold">
+                <span className="min-w-0">{label}{p.is_swap?' · Swap':''}{p.is_frozen?' · Frozen':''}
+                <span className="mt-1 block text-[11px] font-normal text-[var(--muted)]">{included?`Included: ${abbr} → ${current.toTeam}`:current?'Not included · choose a destination':p.needsReview?'Conditional rights · review terms':'Details & destination'}</span></span>
+              </summary>
+              <div className="space-y-3 border-t border-[var(--border-soft)] p-3">
+                <PickDetails pick={p} asset={current}/>
+                {record&&<details className="border-t border-[var(--border-soft)] pt-2 text-xs text-[var(--muted)]"><summary className="min-h-11 cursor-pointer py-2">Illustrative conveyance estimate</summary><p>Using {p.original_team_id.toUpperCase()} at pick #{record.projectedSlot} from the supplied {record.wins}–{record.losses} record baseline. This is not a lottery result or a forecast of ownership.</p>{conveyance&&<p className="mt-2">{conveyance.reason} Other source conditions still need verification.</p>}</details>}
+                <div className="border-t border-[var(--border-soft)] pt-3">
+                  <p className="mb-2 text-xs font-semibold">{included?'Change destination':'Include this pick by sending it to'}</p>
+                  <div className="flex flex-wrap gap-2">{teams.filter(t=>t.abbr!==abbr).map(t=><button key={t.abbr} className="route-button min-h-11" aria-label={`Send ${label} to ${t.abbr}`} aria-pressed={current?.toTeam===t.abbr} onClick={()=>addPick(p,t.abbr)}>Send to {t.abbr}</button>)}
+                  {included&&<button className="route-button min-h-11" onClick={()=>addPick(p,abbr)}>Return to {abbr}</button>}</div>
+                  {teams.length<2&&<p className="text-xs text-[var(--muted)]">Add another team to choose a destination.</p>}
+                </div>
+              </div>
+            </details>;
+          })}
+        </div> : <p className="text-xs text-[var(--muted)]">No future draft rights supplied for this team.</p>}
       </div>
 
       {teamExceptions.length > 0 && (
@@ -206,7 +178,7 @@ export function TeamColumn({
 
       {capHolds.length > 0 && (
         <div className="border-t border-[var(--border-soft)] px-3 py-2.5">
-          <button onClick={() => setChOpen((o) => !o)} className="flex w-full items-center justify-between">
+          <button onClick={() => setChOpen((o) => !o)} aria-expanded={chOpen} aria-controls={`cap-holds-${abbr}`} className="flex min-h-11 w-full items-center justify-between">
             <span
               className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--faint)]"
               title="Free-agent cap holds count against this team's cap until renounced. Amounts are approximate (~120% of prior salary)."
@@ -216,7 +188,8 @@ export function TeamColumn({
             <span className="num text-[10px] text-[var(--muted)]">~{mny(capHoldTotal)} {chOpen ? '▾' : '▸'}</span>
           </button>
           {chOpen && (
-            <div className="mt-1.5 space-y-0.5">
+            <div id={`cap-holds-${abbr}`} className="mt-1.5 space-y-0.5">
+              <p className="mb-2 text-xs text-[var(--muted)]">Estimates at 120% of prior salary. These are not verified cap-hold amounts.</p>
               {capHolds.map((c, i) => (
                 <div key={i} className="flex items-center justify-between gap-2 text-[11px]">
                   <span className="flex min-w-0 items-center gap-1 truncate text-[var(--muted)]">
@@ -251,12 +224,15 @@ export function TeamColumn({
           </div>
         </div>
 
-        <label className="roster-search block"><span className="sr-only">Search {abbr} players</span><input className="ui-input" type="search" name={`players-${abbr}`} autoComplete="off" placeholder="Find a player…" value={playerSearch} onChange={e=>setPlayerSearch(e.target.value)}/></label>
+        <div className="roster-search">
+          <label className="block"><span className="mb-1 block text-xs font-medium text-[var(--muted)]">Search {abbr} roster</span><input ref={searchRef} className="ui-input" type="search" name={`players-${abbr}`} autoComplete="off" spellCheck={false} placeholder={`Find a ${abbr} player…`} value={playerSearch} onChange={e=>setPlayerSearch(e.target.value)} aria-describedby={`roster-search-status-${abbr}`}/></label>
+          <div className="mt-1 flex min-h-8 items-center justify-between gap-2 text-xs text-[var(--muted)]"><p id={`roster-search-status-${abbr}`} role="status">{playerSearch.trim()?`${visiblePlayers.length} of ${herePlayers.length} players match`:'Searches this roster, including incoming players.'}</p>{playerSearch&&<button className="route-button min-h-11" aria-label={`Clear ${abbr} roster search`} onClick={()=>{setPlayerSearch('');searchRef.current?.focus();}}>Clear</button>}</div>
+        </div>
         <SortableContext items={sortableIds} strategy={verticalListSortingStrategy}>
           {hereExtras.length > 0 && (
             <div className="mb-3 space-y-2">
               {hereExtras.map((a) => (
-                <AssetRow key={a.id} asset={a} teams={teams} />
+                <AssetRow key={a.id} asset={a} teams={teams} pick={pickLookup[a.id]??picks.find(p=>p.id===a.id)} />
               ))}
             </div>
           )}
@@ -264,7 +240,7 @@ export function TeamColumn({
             {visiblePlayers.map((a) => (
               <PlayerCard key={a.id} asset={a} contract={contracts[a.id]} teams={teams} />
             ))}
-            {visiblePlayers.length===0&&<p role="status" className="p-3 text-sm text-[var(--muted)]">{herePlayers.length?'No players match. Try another name.':'All players have been moved to another team.'}</p>}
+            {visiblePlayers.length===0&&<p role="status" className="p-3 text-sm text-[var(--muted)]">{herePlayers.length?`No ${abbr} roster players match “${playerSearch}”. Try a last name or clear the search.`:'All players have been moved to another team.'}</p>}
           </div>
 
         </SortableContext>

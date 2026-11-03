@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware';
 import type { TradeAsset, TradeTeamInput, TradeMethod } from '@/lib/cba/types';
+import type { FixAction } from '@/lib/cba/autofix';
+import { previewFix, workingStateKey } from './reviewedFix';
 
 const MAX_TEAMS = 7; // up to 7-team trades (beats Fanspo's 5)
 
@@ -51,13 +53,16 @@ interface TradeState {
   tradeMethod: TradeMethod;
   compareIds: string[]; // asset ids selected for the player-comparison tray
   playerSort: PlayerSort; // how each team's roster cards are ordered
+  undoEntry: UndoEntry | null;
+  undoLastChange: () => boolean;
+  applyReviewedFix: (actions: FixAction[], expectedKey: string) => boolean;
   setSeason: (s: string) => void;
   setPlayerSort: (m: PlayerSort) => void;
   addTeam: (t: TradeTeamInput) => void;
   removeTeam: (abbr: string) => void;
   addAsset: (a: TradeAsset) => void;
   removeAsset: (id: string) => void;
-  routeAsset: (id: string, toTeam: string) => void;
+  routeAsset: (id: string, toTeam: string, targetId?: string) => void;
   reorderAsset: (draggedId: string, targetId: string) => void;
   setAssetAmount: (id: string, amount: number) => void;
   setAssetSalary: (id: string, salary: number) => void;
@@ -68,7 +73,7 @@ interface TradeState {
   clearCompare: () => void;
   setSimulatedDate: (d?: string) => void;
   setTradeMethod: (m: TradeMethod) => void;
-  reset: () => void;
+  reset: (context?: { season: string; dataVersion?: string; simulatedDate?: string }) => void;
 }
 
 const MAX_COMPARE = 4;
@@ -106,6 +111,24 @@ export function partializeTradeState(s: TradeState): PersistedTradeState {
   };
 }
 
+interface UndoEntry {
+  label: string;
+  before: PersistedTradeState;
+  afterKey: string;
+}
+
+/** One recoverable action, scoped to the exact state it produced. Never restores over later edits. */
+function rememberChange(state: TradeState, patch: Partial<TradeState>, label: string): Partial<TradeState> {
+  const before = partializeTradeState(state);
+  const afterKey = workingStateKey({ ...state, ...patch });
+  if (workingStateKey(before) === afterKey) return patch;
+  return { ...patch, undoEntry: { label, before, afterKey } };
+}
+
+export function getUndoLabel(state: TradeState): string | null {
+  return state.undoEntry?.afterKey === workingStateKey(state) ? state.undoEntry.label : null;
+}
+
 // On the server there is no localStorage; hand persist a no-op so module load never throws.
 const noopStorage: StateStorage = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
 const boardStorage = createJSONStorage<PersistedTradeState>(() =>
@@ -124,6 +147,28 @@ export const useTradeStore = create<TradeState>()(
   tradeMethod: 'simultaneous',
   compareIds: [],
   playerSort: 'salary_desc',
+  undoEntry: null,
+  undoLastChange: () => {
+    let restored = false;
+    set(state => {
+      const entry = state.undoEntry;
+      if (!entry || entry.afterKey !== workingStateKey(state)) return { undoEntry: null };
+      restored = true;
+      return { ...entry.before, undoEntry: null, compareIds: state.compareIds.filter(id => entry.before.assets[id]) };
+    });
+    return restored;
+  },
+  applyReviewedFix: (actions, expectedKey) => {
+    let applied = false;
+    set(state => {
+      if (workingStateKey(state) !== expectedKey) return state;
+      const preview = previewFix(state, actions);
+      if (!preview || !preview.validation.valid) return state;
+      applied = true;
+      return rememberChange(state, { assets: preview.assets }, `Applied ${preview.changes.length} suggested ${preview.changes.length === 1 ? 'change' : 'changes'}`);
+    });
+    return applied;
+  },
   setSeason: (season) => set(s=>s.season===season?s:{season,teams:[],assets:{},simulatedDate:undefined,dataVersion:undefined,compareIds:[]}),
   // Re-order each roster column's player cards by the chosen mode. Grouped by the column the cards are
   // displayed in (toTeam) so a team's kept + acquired players sort together as one roster.
@@ -160,14 +205,17 @@ export const useTradeStore = create<TradeState>()(
         assets[asset.id] = { ...asset, toTeam: asset.fromTeam, order };
         nextOrder.set(group, order + 1);
       }
-      return {
+      return rememberChange(s, {
         teams: s.teams.filter((t) => t.abbr !== abbr),
         assets,
         compareIds: s.compareIds.filter((id) => assets[id]),
-      };
+      }, `Removed ${abbr} and its moves`);
     }),
   addAsset: (a) =>
-    set((s) => ({ assets: { ...s.assets, [a.id]: { order: Object.keys(s.assets).length, ...a } } })),
+    set((s) => {
+      const patch = { assets: { ...s.assets, [a.id]: { order: Object.keys(s.assets).length, ...a } } };
+      return a.kind === 'player' ? patch : rememberChange(s, patch, `Added ${a.label} to ${a.toTeam}`);
+    }),
   removeAsset: (id) =>
     set((s) => {
       const asset = s.assets[id];
@@ -175,19 +223,27 @@ export const useTradeStore = create<TradeState>()(
       delete assets[id];
       // A signed free agent carries real payroll; removing it must give that cap room back.
       const teams = asset?.signed ? bumpTeamSalary(s.teams, asset.fromTeam, -asset.salary) : s.teams;
-      return { assets, teams, compareIds: s.compareIds.filter((c) => c !== id) };
+      return rememberChange(s, { assets, teams, compareIds: s.compareIds.filter((c) => c !== id) }, `Removed ${asset?.label ?? 'asset'}`);
     }),
   // Move an asset to a team's column. Append it to the bottom of that column's (toTeam, kind) order
   // sequence so display order stays a single consistent list the user can then rearrange.
-  routeAsset: (id, toTeam) =>
+  routeAsset: (id, toTeam, targetId) =>
     set((s) => {
       const asset = s.assets[id];
-      if (!asset || asset.toTeam === toTeam) return s;
+      if (!asset || asset.toTeam === toTeam || !s.teams.some(team => team.abbr === toTeam)) return s;
       const destOrders = Object.values(s.assets)
         .filter((a) => a.id !== id && a.toTeam === toTeam && a.kind === asset.kind)
         .map((a) => a.order ?? 0);
       const order = destOrders.length ? Math.max(...destOrders) + 1 : 0;
-      return { assets: { ...s.assets, [id]: { ...asset, toTeam, order } } };
+      const assets = { ...s.assets, [id]: { ...asset, toTeam, order } };
+      const target = targetId ? assets[targetId] : undefined;
+      if (target && target.id !== id && target.toTeam === toTeam && target.kind === asset.kind) {
+        const group = Object.values(assets).filter(a => a.toTeam === toTeam && a.kind === asset.kind && a.id !== id)
+          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map(a => a.id);
+        group.splice(group.indexOf(target.id), 0, id);
+        group.forEach((assetId, i) => { assets[assetId] = { ...assets[assetId], order: i }; });
+      }
+      return rememberChange(s, { assets }, `${toTeam === asset.fromTeam ? 'Returned' : 'Moved'} ${asset.label} to ${toTeam}`);
     }),
   // Move the dragged asset to the target's slot within the column it is DISPLAYED in (toTeam) + kind
   // group, then renumber the group. Keying on toTeam (not origin) lets cards acquired from other teams
@@ -209,7 +265,7 @@ export const useTradeStore = create<TradeState>()(
       groupIds.splice(newIndex, 0, groupIds.splice(oldIndex, 1)[0]);
       const assets = { ...s.assets };
       groupIds.forEach((id, i) => (assets[id] = { ...assets[id], order: i }));
-      return { assets };
+      return rememberChange(s, { assets }, `Reordered ${dragged.label}`);
     }),
   setAssetAmount: (id, amount) =>
     set((s) => s.assets[id] && Number.isSafeInteger(amount) && amount >= 0 && amount <= 2_000_000_000
@@ -272,8 +328,10 @@ export const useTradeStore = create<TradeState>()(
   clearCompare: () => set({ compareIds: [] }),
   setSimulatedDate: (simulatedDate) => set({ simulatedDate }),
   setTradeMethod: (tradeMethod) => set({ tradeMethod }),
-  reset: () =>
-    set({ season: '2026-27', teams: [], assets: {}, simulatedDate: undefined, dataVersion:undefined, tradeMethod: 'simultaneous', compareIds: [], playerSort: 'salary_desc' }),
+  reset: (context) =>
+    // Initialize the new scenario in the same transition, so Undo can recover the
+    // previous proposal without a follow-up date/version setter invalidating it.
+    set(state => rememberChange(state, { season: context?.season ?? '2026-27', teams: [], assets: {}, simulatedDate: context?.simulatedDate, dataVersion: context?.dataVersion, tradeMethod: 'simultaneous', compareIds: [], playerSort: 'salary_desc' }, 'Started a new trade')),
     }),
     {
       name: PERSIST_KEY,

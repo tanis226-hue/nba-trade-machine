@@ -30,9 +30,9 @@ describe('cash recaps', () => {
   });
 
   it('shows the same exact cash consideration when reviewing a proposal', () => {
-    render(<ExecuteTradeButton valid/>);
+    render(<ExecuteTradeButton/>);
     fireEvent.click(screen.getByRole('button', {name:'Review & Share'}));
-    const card = screen.getByText('BOS').parentElement?.parentElement;
+    const card = screen.getByRole('region', {name:'BOS proposal summary'});
     expect(card).toBeTruthy();
     const summary = within(card!);
     expect(summary.getByText('Net salary −$10.0M')).toBeTruthy();

@@ -46,6 +46,7 @@ export function ContractsPortal({rows,teams,season,seasons,asOf,sourceVersion}:{
   const [isPending,startTransition] = useTransition();
   const tableScroll = useRef<HTMLDivElement>(null);
   const resultHeading = useRef<HTMLDivElement>(null);
+  const searchInput = useRef<HTMLInputElement>(null);
   const years = useMemo(()=>listedSeasons(rows,season),[rows,season]);
   const query = (searchParams.get('q')??'').slice(0,80);
   const team = teams.some(candidate=>candidate.abbr===searchParams.get('team')) ? searchParams.get('team')! : '';
@@ -132,7 +133,7 @@ export function ContractsPortal({rows,teams,season,seasons,asOf,sourceVersion}:{
       </div>
       {isPending&&<p className={styles.pending} role="status">Loading the selected roster snapshot…</p>}
       <div className={styles.filters}>
-        <label className={styles.playerSearch}>Find a player<input type="search" name="player-search" autoComplete="off" placeholder="Search a player, e.g. Curry…" maxLength={80} value={query} onChange={event=>update({q:event.target.value,player:null})}/></label>
+        <div className={styles.playerSearch}><label>Search rostered players across the league<input ref={searchInput} type="search" name="player-search" autoComplete="off" spellCheck={false} placeholder="Name or nickname, e.g. Steph Curry…" maxLength={80} value={query} onChange={event=>update({q:event.target.value,player:null})}/></label>{query&&<button className={styles.textButton} aria-label="Clear player search" onClick={()=>{update({q:null,player:null});searchInput.current?.focus();}}>Clear search</button>}</div>
         <label>Team<select name="team" value={team} onChange={event=>update({team:event.target.value,player:null})}><option value="">All teams</option>{teams.map(item=><option key={item.abbr} value={item.abbr}>{item.name}</option>)}</select></label>
         <button className={styles.moreFilters} aria-expanded={advancedOpen} aria-controls="contract-advanced-filters" onClick={()=>setAdvancedOpen(v=>!v)}>More filters{position||feature?` (${Number(!!position)+Number(!!feature)} active)`:''}<span aria-hidden="true">{advancedOpen?'−':'+'}</span></button>
         <div id="contract-advanced-filters" className={styles.advancedControls} data-open={advancedOpen}>

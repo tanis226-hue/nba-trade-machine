@@ -51,6 +51,9 @@ const asset = z.object({
     const u=new URL(v); return u.protocol==='https:' && ['cdn.nba.com','a.espncdn.com'].includes(u.hostname);
   }).optional(),
   pickYear:z.number().int().min(2020).max(2040).optional(), round:z.union([z.literal(1),z.literal(2)]).optional(),
+  source:z.url().max(2000).refine(v=>{
+    try { return ['https:','http:'].includes(new URL(v).protocol); } catch { return false; }
+  }, 'Source must use HTTP or HTTPS').optional(),
   protections:protection.nullish(), isSwap:z.boolean().optional(), originalTeam:z.string().transform(v=>v.toUpperCase()).pipe(team).optional(), isFrozen:z.boolean().optional(),
   amount:money.optional(), expires:date.optional(),
 });
@@ -62,21 +65,20 @@ const shape = {
   tradeMethod:z.enum(['simultaneous','non_simultaneous']).optional(),
 };
 const payloadObject = z.object(shape);
-function relationships(p:z.infer<typeof payloadObject>,ctx:z.RefinementCtx,requireMove=true) {
+function relationships(p:z.infer<typeof payloadObject>,ctx:z.RefinementCtx,validateNewCash=true) {
   const abbrs=p.teams.map(t=>t.abbr);
   if(new Set(abbrs).size!==abbrs.length) ctx.addIssue({code:'custom',message:'Teams must be unique',path:['teams']});
   const entries=Object.entries(p.assets);
   if(entries.length>300) ctx.addIssue({code:'custom',message:'Too many assets',path:['assets']});
-  if(requireMove&&!entries.some(([,a])=>a.fromTeam!==a.toTeam)) ctx.addIssue({code:'custom',message:'Move an asset before sharing',path:['assets']});
   for(const [key,a] of entries) {
     if(key!==a.id || !abbrs.includes(a.fromTeam) || !abbrs.includes(a.toTeam)) ctx.addIssue({code:'custom',message:'Asset ID or team routing is invalid',path:['assets',key]});
     if(a.kind!=='player' && a.salary!==0) ctx.addIssue({code:'custom',message:'Non-player assets cannot match salary',path:['assets',key,'salary']});
-    if(requireMove && a.kind==='cash' && a.fromTeam!==a.toTeam && (!Number.isSafeInteger(a.amount) || (a.amount??0)<=0)) ctx.addIssue({code:'custom',message:'Moved cash needs a positive whole-dollar amount',path:['assets',key,'amount']});
+    if(validateNewCash && a.kind==='cash' && a.fromTeam!==a.toTeam && (!Number.isSafeInteger(a.amount) || (a.amount??0)<=0)) ctx.addIssue({code:'custom',message:'Moved cash needs a positive whole-dollar amount',path:['assets',key,'amount']});
   }
 }
 export const tradeSchema=payloadObject.strict().superRefine(relationships);
-// Older links could store a single-team inspection or an untouched board. Keep them readable
-// with all field/routing safety checks; current write endpoints still require a real proposal.
+// New links may preserve an unfinished two-team board. Older single-team inspections remain
+// readable, retaining field/routing safety checks and historical fractional cash compatibility.
 export const storedTradeSchema=payloadObject.extend({teams:z.array(teamInput).min(1).max(7),
   tradeMethod:z.enum(['simultaneous','non_simultaneous','sign_and_trade']).optional().transform(v=>v==='sign_and_trade'?undefined:v),
 }).strict().superRefine((p,ctx)=>relationships(p,ctx,false));

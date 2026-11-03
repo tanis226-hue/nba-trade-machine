@@ -4,6 +4,17 @@ import { snapshotTrade } from '../snapshot';
 const proposal=()=>({season:'2026-27',teams:[{abbr:'BOS',preTradeSalary:180_000_000},{abbr:'LAL',preTradeSalary:180_000_000}],
  assets:{player:{id:'player',kind:'player',salary:10_000_000,fromTeam:'BOS',toTeam:'LAL',label:'Player'}}});
 describe('public trade boundary',()=>{
+  it('preserves pick-source links through saving while rejecting executable URLs',()=>{
+    const input=proposal();
+    const pick={id:'pick',kind:'pick',salary:0,fromTeam:'BOS',toTeam:'LAL',label:'2028 first',source:'https://example.com/draft-rights'};
+    const saved=snapshotTrade(tradeSchema.parse({...input,assets:{pick}}));
+    expect(saved.assets.pick.source).toBe(pick.source);
+    expect(storedTradeSchema.parse({...input,assets:{pick}}).assets.pick.source).toBe(pick.source);
+    for(const source of ['javascript:alert(1)','data:text/html,test','file:///tmp/test','not a url','']) {
+      expect(tradeSchema.safeParse({...input,assets:{pick:{...pick,source}}}).success).toBe(false);
+      expect(storedTradeSchema.safeParse({...input,assets:{pick:{...pick,source}}}).success).toBe(false);
+    }
+  });
   it('reads a legacy single-team board while rejecting it as a new share',()=>{
     const board={season:'2026-27',teams:[{abbr:'BOS',preTradeSalary:180_000_000}],assets:{}};
     expect(storedTradeSchema.safeParse(board).success).toBe(true);
@@ -14,10 +25,10 @@ describe('public trade boundary',()=>{
     expect(storedTradeSchema.parse(board).tradeMethod).toBeUndefined();
     expect(tradeSchema.safeParse(board).success).toBe(false);
   });
-  it('reads a legacy untouched two-team board while rejecting a new empty share',()=>{
+  it('allows an unfinished two-team draft without weakening stored-board compatibility',()=>{
     const board=proposal();board.assets.player.toTeam='BOS';
     expect(storedTradeSchema.safeParse(board).success).toBe(true);
-    expect(tradeSchema.safeParse(board).success).toBe(false);
+    expect(tradeSchema.safeParse(board).success).toBe(true);
   });
   it('retains routing and image safety checks when reading legacy boards',()=>{
     const board=proposal();board.assets.player.toTeam='MIA';
@@ -34,9 +45,9 @@ describe('public trade boundary',()=>{
     const duplicate=proposal();duplicate.teams[1].abbr='BOS';
     expect(tradeSchema.safeParse(duplicate).success).toBe(false);
   });
-  it('rejects empty proposals, unsafe image hosts, and client-supplied verdicts',()=>{
+  it('accepts no-move drafts but rejects unsafe image hosts and client-supplied verdicts',()=>{
     const empty=proposal();empty.assets.player.toTeam='BOS';
-    expect(tradeSchema.safeParse(empty).success).toBe(false);
+    expect(tradeSchema.safeParse(empty).success).toBe(true);
     expect(tradeSchema.safeParse({...proposal(),validation:{valid:true}}).success).toBe(false);
     const remote=proposal();
     expect(tradeSchema.safeParse({...remote,assets:{player:{...remote.assets.player,headshot:'http://169.254.169.254/credentials'}}}).success).toBe(false);

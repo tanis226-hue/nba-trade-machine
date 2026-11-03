@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTradeStore, MAX_TRADE_TEAMS } from '@/lib/store/tradeStore';
+import { useTradeStore, MAX_TRADE_TEAMS, getUndoLabel } from '@/lib/store/tradeStore';
 import { TradeMatrix } from './TradeMatrix';
 import { TeamLogo } from './TeamLogo';
 import { ConfirmDialog } from './ConfirmDialog';
@@ -14,6 +14,7 @@ import type { FreeAgent } from '@/lib/store/tradeStore';
 import { normalizePlayerId } from '@/lib/slug';
 import { restrictionFor } from '@/lib/data/tradeRestrictions';
 import { comparePlayers } from '@/lib/store/tradeStore';
+import { normalizeSearch } from '@/lib/search';
 
 export function TradeBoard({
   teams,
@@ -49,6 +50,8 @@ export function TradeBoard({
   const storeTeams = useTradeStore((s) => s.teams);
   const capYear = useTradeStore((s) => s.season);
   const boardVersion=useTradeStore(s=>s.dataVersion);
+  const undoLabel=useTradeStore(getUndoLabel);
+  const teamSearchInput=useRef<HTMLInputElement>(null);
   const stale=storeTeams.length>0&&boardVersion!==dataVersion;
   const addTeam = useTradeStore((s) => s.addTeam);
   const addAsset = useTradeStore((s) => s.addAsset);
@@ -211,12 +214,11 @@ export function TradeBoard({
 
   const withData = teams.filter((t) => (rosters[t.abbr]?.length ?? 0) > 0);
   const available = withData.filter((t) => !storeTeams.some((s) => s.abbr === t.abbr));
-  const query = teamSearch.trim().toLowerCase();
-  const filteredTeams = available.filter((t) => `${t.name} ${t.abbr}`.toLowerCase().includes(query));
+  const query = normalizeSearch(teamSearch);
+  const filteredTeams = available.filter((t) => normalizeSearch(`${t.name} ${t.abbr}`).includes(query));
   const atMax = storeTeams.length >= MAX_TRADE_TEAMS;
   function startNewBoard() {
-    const state=useTradeStore.getState();state.reset();state.setSeason(rosterSeason);
-    state.setDataVersion(dataVersion);state.setSimulatedDate(defaultDate);
+    useTradeStore.getState().reset({season:rosterSeason,dataVersion,simulatedDate:defaultDate});
   }
 
   // Until localStorage rehydrates, render a neutral skeleton (matches the server-rendered output)
@@ -274,7 +276,8 @@ export function TradeBoard({
         </div>}
         {pickerVisible&&<div className="team-picker" id="team-picker">
           <div className="team-search-row">
-            <label><span className="sr-only">Search teams</span><input className="ui-input" name="team-search" autoComplete="off" type="search" placeholder="Search city, team or abbreviation…" value={teamSearch} onChange={e=>setTeamSearch(e.target.value)}/></label>
+            <label><span className="search-scope">Search NBA teams</span><input ref={teamSearchInput} className="ui-input" name="team-search" autoComplete="off" type="search" placeholder="City, team or abbreviation…" value={teamSearch} onChange={e=>setTeamSearch(e.target.value)}/></label>
+            {teamSearch&&<button className="ui-button" onClick={()=>{setTeamSearch('');teamSearchInput.current?.focus({preventScroll:true});}}>Clear team search</button>}
             <span className="text-xs text-[var(--muted)]">{storeTeams.length}/{MAX_TRADE_TEAMS} teams</span>
           </div>
           <div className="team-picker-grid">
@@ -290,6 +293,7 @@ export function TradeBoard({
           </div>
         </div>}
       </section>
+      {!storeTeams.length&&undoLabel&&<div className="board-action-feedback" role="status"><span>{undoLabel}</span><button className="ui-button" onClick={()=>{useTradeStore.getState().undoLastChange();requestAnimationFrame(()=>document.getElementById('teams-heading')?.focus({preventScroll:true}));}}>Undo last change</button></div>}
       {capYear!==rosterSeason?<div role="status" className="panel rounded-xl p-6 text-sm text-[var(--muted)]">Loading the matching rosters and rules…</div>:storeTeams.length>0 ? (
         <TradeMatrix contracts={contracts} teamMeta={teamMeta} picks={picks} freeAgents={enrichedFreeAgents} projectedRecords={projectedRecords} />
       ) : <div className="board-empty">Your trade board will appear here. Start with your favorite team above.</div>}
