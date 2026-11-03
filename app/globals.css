@@ -254,7 +254,7 @@ summary { display: flex; align-items: center; gap: 12px; }
 .team-column-header p { font-size: 12px; color: var(--muted); }
 .team-column-header button { margin-left: auto; width: 32px; height: 32px; border-radius: 6px; color: var(--muted); }
 .team-column-header button:hover { background: var(--surface-2); color: var(--illegal); }
-.team-extras summary { min-height: 44px; padding: 10px 14px; border-top: 1px solid var(--border-soft); font-size: 12px; font-weight: 650; }
+.team-extras > summary { min-height: 44px; padding: 10px 14px; border-top: 1px solid var(--border-soft); font-size: 12px; font-weight: 650; }
 .roster-search { margin: 10px 0 12px; }
 .player-card { border: 1px solid var(--border-soft); border-radius: 9px; background: var(--surface); padding: 12px; transition: border-color .15s, background-color .15s; }
 .player-card:hover { border-color: var(--border); }
@@ -272,7 +272,7 @@ summary { display: flex; align-items: center; gap: 12px; }
 .route-button[aria-pressed='true'] { background: var(--accent); color: var(--ink); border-color: var(--accent); }
 .drag-handle { width: 24px; min-height: 40px; display: flex; align-items: center; justify-content: center; color: var(--faint); cursor: grab; touch-action: none; }
 .drag-handle:active { cursor: grabbing; }
-.player-contract summary { font-size: 11px; color: var(--muted); margin-top: 8px; }
+.player-contract summary { min-height: 44px; font-size: 11px; color: var(--muted); margin-top: 8px; }
 .player-contract summary::after { font-size: 14px; }
 .trade-check { border-radius: 12px; padding: 18px; scroll-margin-top: 92px; }
 .trade-check > h2 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
@@ -326,7 +326,7 @@ summary { display: flex; align-items: center; gap: 12px; }
 .validation-feed li > span:first-child { font-size: 11px; }
 .validation-feed > ul { display: grid; gap: 14px; }
 .trade-check-actions > button, .trade-check-actions > div > button { font-family: var(--ff-body),sans-serif; text-transform: none; letter-spacing: normal; font-size: 14px; box-shadow: none; min-height: 44px; }
-.team-extras button { min-height: 32px; }
+.team-extras button { min-height: 44px; }
 @media (pointer: coarse) { .team-extras button, .team-column-header button, .selected-team button, .team-column button[title], .trade-check button { min-height: 44px; } }
 .mobile-trade-action { display: none; }
 @media (max-width: 639px) {
@@ -349,6 +349,26 @@ summary { display: flex; align-items: center; gap: 12px; }
 }
 
 .desktop-navigation a:hover, .desktop-navigation a[aria-current="page"], .mobile-navigation a[aria-current="page"] { color: var(--accent); }
+.scenario-context { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border-soft); }
+.scenario-context > p:first-child { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.scenario-context strong { color: var(--text); font-weight: 650; }
+.scenario-context summary { min-height: 40px; font-size: 12px; font-weight: 600; }
+.scenario-context form label { display: block; font-size: 12px; margin: 6px 0; }
+.scenario-date-input { display: flex; flex-wrap: wrap; gap: 8px; }
+.scenario-date-input input { min-width: 0; flex: 1 1 145px; min-height: 42px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); padding: 8px; }
+.scenario-context form p, .scenario-context .scenario-warning { margin-top: 8px; font-size: 12px; line-height: 1.55; color: var(--muted); }
+.scenario-context .scenario-warning { color: var(--warn); }
+.board-action-feedback { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; margin-bottom: 12px; background: var(--surface-2); border-radius: 8px; font-size: 13px; }
+.board-action-feedback > span { min-width: 0; overflow-wrap: anywhere; }
+.board-action-feedback > button { flex-shrink: 0; }
+.search-scope { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+@media (max-width: 639px) {
+  .team-search-row { flex-wrap: wrap; }
+  .team-search-row label { flex: 1 1 100%; }
+  .mobile-trade-action > a { flex: 1; min-width: 0; font-weight: 600; }
+  .mobile-trade-action > button { flex-shrink: 0; min-height: 44px; }
+  .scenario-context summary { min-height: 44px; }
+}
 .mobile-navigation a[aria-current="page"] { box-shadow: inset 0 -2px var(--accent); }
 /* Scroll targets account for the sticky navigation without double offset. */
 html { scroll-padding-top: 0; }

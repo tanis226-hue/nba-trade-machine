@@ -6,7 +6,11 @@ import { TradeComments } from '@/components/TradeComments';
 import { EditTradeButton } from '@/components/EditTradeButton';
 import { PlayerHeadshot } from '@/components/PlayerHeadshot';
 import { CashUsageNotes } from '@/components/CashUsageNotes';
+import { PickDetails } from '@/components/PickDetails';
+import { defaultTradeDate } from '@/lib/data/freshness';
 import { formatCash as cash } from '@/lib/cba/cash';
+import { exactMoney, signedExactMoney } from '@/lib/trades/presentation';
+import { formatScenarioDate } from '@/lib/trades/scenario';
 import type { TradeAsset, TradeTeamInput, TradeMethod } from '@/lib/cba/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -27,9 +31,10 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
   const assets = payload.assets as Record<string, TradeAsset>;
   const tradeMethod = payload.tradeMethod as TradeMethod | undefined;
   const hasMoves=teams.length>=2&&Object.values(assets).some(a=>a.fromTeam!==a.toTeam);
-  // Re-validate with the author's date + method so the verdict matches what they saw when sharing.
-  const validation = payload.schemaVersion === 1 && payload.validation && !payload.legacyMethodReview
-    ? payload.validation
+  // Keep versioned verdicts stable; only legacy or incomplete records use current checks.
+  const usesSavedValidation = payload.schemaVersion === 1 && !!payload.validation && !payload.legacyMethodReview;
+  const validation = usesSavedValidation
+    ? payload.validation!
     : selectValidation({ season: payload.season, teams, assets, simulatedDate: payload.simulatedDate, tradeMethod });
   const grade = gradeTrade(teams, Object.values(assets));
   const list = Object.values(assets);
@@ -43,10 +48,11 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
         <h1 className="mt-3 font-display text-5xl font-bold leading-tight text-[var(--text)]">
           {hasMoves?`${teams.map(t=>t.abbr).join(' / ')} proposal`:'Saved board'}
         </h1>
-        {hasMoves&&<p className="mt-2 text-[13px] text-[var(--muted)]">{grade.verdict}</p>}
-        <details className="mt-3 text-xs text-[var(--muted)]"><summary className="min-h-10">Saved inputs &amp; assumptions</summary><p className="mt-2 max-w-prose leading-relaxed">
-          {!hasMoves?'This older link contains a saved board with no assets exchanged. Open it in the editor to build a proposal.':payload.rulesVersion ? `Saved with rules ${payload.rulesVersion} · data ${payload.dataVersion} · trade date ${payload.simulatedDate}. The saved verdict is preserved; opening in the editor runs the current checks.` : 'Legacy proposal: recalculated with current rules. Its original data version was not recorded.'}
-        </p></details>
+        <p className="mt-2 text-sm text-[var(--muted)]">Trade date: {payload.simulatedDate ? formatScenarioDate(payload.simulatedDate) : hasMoves && !usesSavedValidation ? `Not recorded; current checks use ${formatScenarioDate(defaultTradeDate(payload.season))}` : 'Not recorded'} · {tradeMethod === 'non_simultaneous' ? 'Trade exception method' : 'Standard trade'}</p>
+        {!hasMoves&&<p className="mt-2 text-sm font-semibold">Draft: no assets included</p>}
+        <details className="mt-3 text-xs text-[var(--muted)]"><summary className="min-h-11 cursor-pointer py-3">Saved inputs &amp; assumptions</summary><p className="mt-2 max-w-prose leading-relaxed">
+          {payload.rulesVersion ? `Roster data version: ${payload.dataVersion ?? 'not recorded'}. Saved rules version: ${payload.rulesVersion}. This snapshot preserves the supplied inputs and assumptions. ${hasMoves ? usesSavedValidation ? 'The saved verdict is preserved; opening in the editor runs current checks.' : 'The original verdict cannot be reused for this record. Displayed checks are recalculated using current rules and the inputs below.' : 'Open it in the builder to include assets and check a proposal.'}` : 'Legacy board: original data and rules versions were not recorded. Any displayed checks are recalculated using current rules.'}
+        </p><p className="mt-2 max-w-prose leading-relaxed">Changes to the working board or current rosters do not update this saved link.</p>{!hasMoves&&teams.flatMap(t=>(t.dataNotes??[]).map((note,index)=><p key={`${t.abbr}-${index}`} className="mt-2">{t.abbr}: {note}</p>))}</details>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
@@ -59,8 +65,9 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
           const netCash = cashReceived - cashSent;
           const hasCash = [...incoming, ...outgoing].some((a) => a.kind === 'cash');
           const tg = grade.teams.find((g) => g.abbr === t.abbr);
+          const salaryAfter = validation.perTeam.find(result => result.abbr === t.abbr)?.postSalary ?? t.preTradeSalary + net;
           const row = (a: TradeAsset, dir: '+' | '−') => (
-            <div key={a.id} className="flex items-center gap-2 text-sm">
+            <div key={a.id} className="flex flex-wrap items-center gap-2 text-sm">
               {a.kind === 'player' ? (
                 <PlayerHeadshot src={a.headshot} name={a.label} size={24}/>
               ) : (
@@ -68,10 +75,9 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
                   {a.kind === 'pick' ? '◆' : a.kind === 'cash' ? '$' : ''}
                 </span>
               )}
-              <span style={{ color: dir === '+' ? 'var(--legal)' : 'var(--illegal)' }}>
-                {dir} {a.label}
-              </span>
+              <span className="min-w-0 flex-1 break-words text-[var(--text)]">{a.label}<span className="block text-xs text-[var(--muted)]">{dir === '+' ? `From ${a.fromTeam}` : `To ${a.toTeam}`}</span></span>
               {a.kind === 'cash' ? <span className="num ml-auto shrink-0 text-xs text-[var(--muted)]">{cash(a.amount ?? 0)}</span> : a.kind === 'player' && <span className="num ml-auto text-xs text-[var(--muted)]">{m(a.salary)}</span>}
+              {a.kind === 'pick' && <details className="w-full text-xs text-[var(--muted)]"><summary className="min-h-11 cursor-pointer py-3">Pick rights &amp; conditions</summary><PickDetails asset={a}/></details>}
             </div>
           );
           return (
@@ -82,7 +88,7 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
                   <img src={teamLogo(t.abbr)} alt={t.abbr} width={28} height={28} className="h-7 w-7 object-contain" />
                   <div className="font-display text-lg font-semibold uppercase tracking-wide text-[var(--text)]">{t.abbr}</div>
                 </div>
-                <div className={`num text-xs font-semibold ${net >= 0 ? 'text-[var(--legal)]' : 'text-[var(--illegal)]'}`}>
+                <div className="num text-xs font-semibold text-[var(--text)]">
                   Net salary {net > 0 ? '+' : net < 0 ? '−' : ''}
                   {m(Math.abs(net))}
                 </div>
@@ -91,10 +97,13 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
                 <div className="mt-2 text-sm text-[var(--faint)]">No assets exchanged</div>
               ) : (
                 <div className="mt-2.5 space-y-1.5">
-                  {incoming.map((a) => row(a, '+'))}
-                  {outgoing.map((a) => row(a, '−'))}
+                  <h2 className="text-xs font-semibold text-[var(--muted)]">Receives</h2>
+                  {incoming.length?incoming.map((a) => row(a, '+')):<p className="text-xs text-[var(--muted)]">Nothing included</p>}
+                  <h2 className="border-t border-[var(--border-soft)] pt-3 text-xs font-semibold text-[var(--muted)]">Sends</h2>
+                  {outgoing.length?outgoing.map((a) => row(a, '−')):<p className="text-xs text-[var(--muted)]">Nothing included</p>}
                 </div>
               )}
+              <details className="mt-2 text-xs text-[var(--muted)]"><summary className="min-h-11 cursor-pointer py-3">Exact salary amounts</summary><dl className="space-y-1"><div className="flex justify-between gap-2"><dt>Team salary before</dt><dd className="num">{exactMoney(t.preTradeSalary)}</dd></div><div className="flex justify-between gap-2"><dt>Team salary after</dt><dd className="num">{exactMoney(salaryAfter)}</dd></div><div className="flex justify-between gap-2"><dt>Salary change</dt><dd className="num">{signedExactMoney(salaryAfter-t.preTradeSalary)}</dd></div>{[...incoming,...outgoing].filter(a=>a.kind==='player').map(a=><div key={a.id} className="flex justify-between gap-2"><dt>{a.label}</dt><dd className="num">{exactMoney(a.salary)}</dd></div>)}</dl><p className="mt-2">Salary changes are separate from cash exchanged and do not represent a luxury-tax bill.</p></details>
               {hasCash && <dl className="mt-2 space-y-1 border-t border-[var(--border-soft)] pt-2 text-xs text-[var(--muted)]">
                 <div className="flex justify-between gap-2"><dt>Cash sent</dt><dd className="num">{cash(cashSent)}</dd></div>
                 <div className="flex justify-between gap-2"><dt>Cash received</dt><dd className="num">{cash(cashReceived)}</dd></div>
@@ -102,11 +111,11 @@ export default async function SharedTrade({ params }: { params: Promise<{ slug: 
               </dl>}
               {hasCash && <CashUsageNotes team={t} season={payload.season}/>}
               {tg && (incoming.length > 0 || outgoing.length > 0) && (
-                <div className="mt-2 border-t border-[var(--border-soft)] pt-1.5 num text-[11px] text-[var(--faint)]">
-                  Talent net {tg.net > 0 ? '+' : ''}
+                <details className="mt-2 border-t border-[var(--border-soft)] text-xs text-[var(--muted)]"><summary className="min-h-11 cursor-pointer py-3">Statistical value estimate</summary><p className="mb-2">A Game Score and pick-value heuristic. It does not judge team fit, incentives, injuries, or whether a team would accept.</p><p className="num">
+                  On-court value change {tg.net > 0 ? '+' : ''}
                   {tg.net} · cap value {tg.surplusNet > 0 ? '+' : ''}
                   {tg.surplusNet}
-                </div>
+                </p></details>
               )}
             </div>
           );

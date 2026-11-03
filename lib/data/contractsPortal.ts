@@ -1,4 +1,5 @@
 import type { ContractYear, DbTeam, RosterEntry } from './types';
+import { matchesPlayerName } from '@/lib/search';
 
 // Node 22 and newer browser runtimes choose different currency fraction defaults.
 // Set both bounds so the server and client produce identical hydration text.
@@ -71,8 +72,6 @@ export function salaryFor(row: ContractPortalRow, year: string, baseSeason: stri
   return row.contract.find(contract => contract.season === year)?.salary ?? (year === baseSeason ? row.salary : null);
 }
 
-const normalize = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-
 export function guaranteeLabel(status: string | null | undefined): string {
   if (status === 'full' || status === 'fully_guaranteed') return 'Fully guaranteed (reported)';
   if (status === 'partial' || status === 'partially_guaranteed') return 'Partially guaranteed; amount not supplied';
@@ -81,9 +80,8 @@ export function guaranteeLabel(status: string | null | undefined): string {
 }
 
 export function filterContracts(rows: ContractPortalRow[], filters: ContractFilters, baseSeason: string): ContractPortalRow[] {
-  const query = normalize(filters.query);
   return rows.filter(row => {
-    if (query && !normalize(row.name).includes(query)) return false;
+    if (!matchesPlayerName(row.name, filters.query)) return false;
     if (filters.team && row.teamAbbr !== filters.team) return false;
     if (filters.position && !row.position?.split(/[,/\s]+/).includes(filters.position)) return false;
     const years = row.contract.filter(year => year.season >= baseSeason);

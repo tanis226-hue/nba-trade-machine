@@ -78,6 +78,7 @@ export interface TradeAsset {
   toTeam: string;
   label: string;
   dataNotes?: string[];
+  source?: string; // reported asset terms, retained in saved proposals
 
   // --- player detail (all optional; rules degrade gracefully when absent) ---
   apronSalary?: number; // apron-basis hit if it differs from cap hit

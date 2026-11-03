@@ -49,4 +49,9 @@ describe('contracts portal data boundaries',()=>{
     expect(filterContracts([player],{...filters,query:'doncic',team:'LAL',position:'SG',feature:'player_option'},'2026-27')).toHaveLength(1);
     expect(filterContracts([player],{...filters,team:'BOS'},'2026-27')).toHaveLength(0);
   });
+  it('uses the same name variations as the builder without dropping active filters',()=>{
+    const rows=[row('Stephen Curry',[year('2027-28',20)],{teamAbbr:'GSW'}),row('Seth Curry',[year('2027-28',5)],{teamAbbr:'GSW'})];
+    expect(filterContracts(rows,{...filters,query:'Steph Curry',team:'GSW'},'2026-27').map(item=>item.name)).toEqual(['Stephen Curry']);
+    expect(filterContracts(rows,{...filters,query:'Steph Curry',team:'LAL'},'2026-27')).toEqual([]);
+  });
 });

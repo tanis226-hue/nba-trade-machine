@@ -13,7 +13,7 @@ import {
   type DragEndEvent,
 } from '@dnd-kit/core';
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { useTradeStore } from '@/lib/store/tradeStore';
+import { getUndoLabel, useTradeStore } from '@/lib/store/tradeStore';
 import type { FreeAgent } from '@/lib/store/tradeStore';
 import { selectValidation, selectFixes, selectAutoFix } from '@/lib/store/selectValidation';
 import { TeamColumn } from './TeamColumn';
@@ -23,7 +23,9 @@ import { TradeGrade } from './TradeGrade';
 import { PlayerCompare } from './PlayerCompare';
 import { TradeRulesButton } from './TradeRules';
 import { ExecuteTradeButton } from './ExecuteTradeButton';
-import { GenerateLinkButton } from './GenerateLinkButton';
+import { ScenarioControls } from './ScenarioControls';
+import { SuggestedFixReview } from './SuggestedFixReview';
+import { formatScenarioDate, isScenarioDate } from '@/lib/trades/scenario';
 import { SaveTradeButton } from './SaveTradeButton';
 import { authEnabled } from '@/lib/auth';
 import { defaultTradeDate } from '@/lib/data/freshness';
@@ -55,8 +57,12 @@ export function TradeMatrix({
   const reorderAsset = useTradeStore((s) => s.reorderAsset);
   const playerSort = useTradeStore((s) => s.playerSort);
   const setPlayerSort = useTradeStore((s) => s.setPlayerSort);
+  const undoLabel = useTradeStore(getUndoLabel);
+  const undoLastChange = useTradeStore((s) => s.undoLastChange);
 
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [reviewFix, setReviewFix] = useState(false);
+  const [notice, setNotice] = useState('');
   const [viewedTeam,setViewedTeam]=useState<string|null>(null);
   const currentTeam=teams.some(t=>t.abbr===viewedTeam)?viewedTeam:teams[0]?.abbr;
 
@@ -79,11 +85,26 @@ export function TradeMatrix({
     () => (validation.valid ? [] : selectAutoFix({ season, teams, assets, simulatedDate, tradeMethod })),
     [validation.valid, season, teams, assets, simulatedDate, tradeMethod],
   );
-  const applyAutoFix = () => autoFix.forEach((a) => routeAsset(a.assetId, a.toTeam));
   const byTeam = useMemo(() => Object.fromEntries(validation.perTeam.map((t) => [t.abbr, t])), [validation]);
+  const pickLookup = useMemo(() => Object.fromEntries(Object.values(picks).flat().map(p => [p.id, p])), [picks]);
   const isTrade = teams.length >= 2;
   const hasMoves = Object.values(assets).some((asset) => asset.fromTeam !== asset.toTeam);
   const movedCount=Object.values(assets).filter(asset=>asset.fromTeam!==asset.toTeam).length;
+  const checkDate = simulatedDate ?? defaultTradeDate(season);
+
+  function changeDate(date: string) {
+    if (!isScenarioDate(date)) return;
+    setSimulatedDate(date);
+    setNotice(`Trade date changed to ${formatScenarioDate(date)}. All checks rerun with the same ${season} roster and assumptions.`);
+    requestAnimationFrame(() => document.getElementById('trade-check-heading')?.focus({ preventScroll: true }));
+  }
+
+  function undo() {
+    if (undoLastChange()) {
+      setNotice('Last change undone. Trade checks updated.');
+      requestAnimationFrame(() => document.getElementById('trade-check-heading')?.focus({ preventScroll: true }));
+    }
+  }
 
   function onDragStart(e: DragStartEvent) {
     setActiveId(String(e.active.id));
@@ -106,9 +127,7 @@ export function TradeMatrix({
       // same column → reorder within the card's own group (no-op if hovering a different group)
       if (assets[overId] && overId !== activeId) reorderAsset(activeId, overId);
     } else {
-      routeAsset(activeId, targetTeam); // move the card into the target team's roster
-      // dropped onto a specific card → land at that slot, not just appended to the bottom
-      if (assets[overId] && overId !== activeId) reorderAsset(activeId, overId);
+      routeAsset(activeId, targetTeam, assets[overId] && overId !== activeId ? overId : undefined);
     }
   }
 
@@ -121,18 +140,18 @@ export function TradeMatrix({
   ] as const;
 
   return (
-    <div className={hasMoves?'has-trade-moves':''}>
-      <p className="sr-only" role="status">{movedCount} {movedCount===1?'asset':'assets'} moved. {hasMoves?(validation.valid?'No blocking trade issues.':'Trade needs changes.'):''}</p>
-      {hasMoves&&<a href="#trade-verdict" className="mobile-trade-action"><span>{movedCount} {movedCount===1?'asset':'assets'} moved <small>{validation.valid?'Ready to review':'Trade needs changes'}</small></span><strong>View trade check ↑</strong></a>}
+    <div className={hasMoves || undoLabel ? 'has-trade-moves' : ''}>
+      <p className="sr-only" role="status">{undoLabel || notice || `${movedCount} ${movedCount===1?'asset':'assets'} included in the trade.`} {hasMoves?(validation.valid?'No blocking trade issues.':'Trade needs changes.'):''}</p>
+      {(hasMoves || undoLabel)&&<div className="mobile-trade-action"><a href="#trade-verdict"><span>{undoLabel || `${movedCount} ${movedCount===1?'asset':'assets'} included`}<small>{hasMoves?(validation.valid?'Review trade check':'Trade needs changes'):'No assets included yet'}</small></span></a>{undoLabel&&<button className="ui-button" onClick={undo} aria-label="Undo last change on phone">Undo</button>}</div>}
       <div className="workspace-grid">
         <aside id="trade-verdict" className="panel trade-check" aria-labelledby="trade-check-heading">
-          <h2 id="trade-check-heading">Trade check</h2>
+          <h2 id="trade-check-heading" tabIndex={-1}>Trade check</h2>
+          <ScenarioControls key={`${season}:${checkDate}`} season={season} date={checkDate} onDateChange={changeDate}/>
           {isTrade&&hasMoves?<>
-            <ValidationFeed hideRules validation={validation} fixes={fixes} onAutoFix={autoFix.length?applyAutoFix:undefined} autoFixCount={autoFix.length}/>
-            <div className="trade-check-actions"><ExecuteTradeButton valid={validation.valid}/>{!validation.valid&&<GenerateLinkButton/>}{authEnabled&&<SaveTradeButton/>}</div>
+            <ValidationFeed hideRules validation={validation} fixes={fixes} onPreviewFix={autoFix.length?()=>setReviewFix(true):undefined} autoFixCount={autoFix.length} onUseDate={changeDate}/>
           </>:<div className="trade-check-empty"><strong>{isTrade?'Ready when you are.':'One more team, then game on.'}</strong>{isTrade?'Use “Send to” on a player card or add a draft pick. The salary and roster checks update with every move.':'Add another team above to build a trade. You can explore this roster in the meantime.'}</div>}
+          <div className="trade-check-actions"><ExecuteTradeButton/>{authEnabled&&<SaveTradeButton/>}</div>
           <details className="trade-settings"><summary>Trade settings</summary>
-            <label>Trade date<input aria-label="Trade date" type="date" value={simulatedDate??defaultTradeDate(season)} onChange={e=>setSimulatedDate(e.target.value||undefined)}/></label>
             <label>Salary-matching method<select value={tradeMethod} onChange={e=>setTradeMethod(e.target.value as typeof tradeMethod)}><option value="simultaneous">Standard trade (simultaneous)</option><option value="non_simultaneous">Use trade exception (non-simultaneous)</option></select></label>
             <p className="mt-2 text-xs text-[var(--muted)]">Leave the standard method selected unless you are modeling a trade exception.</p>
           </details>
@@ -140,6 +159,7 @@ export function TradeMatrix({
         </aside>
         <section className="workspace-rosters" aria-label="Team rosters">
           <div className="workspace-controls"><h2>Build your deal</h2><label>Sort players<select aria-label="Sort players" value={playerSort} onChange={e=>setPlayerSort(e.target.value as typeof playerSort)}>{SORTS.map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label></div>
+          {(undoLabel || notice)&&<div className="board-action-feedback"><span>{undoLabel || notice}</span>{undoLabel&&<button className="ui-button" onClick={undo} aria-label="Undo last change">Undo</button>}</div>}
           <div className="roster-team-switch" aria-label="Choose a roster">{teams.map(t=><button key={t.abbr} aria-label={`View ${t.abbr} roster`} aria-pressed={currentTeam===t.abbr} onClick={()=>setViewedTeam(t.abbr)}>{t.abbr}</button>)}</div>
           <p className="mb-3 text-xs text-[var(--muted)]">Tap “Send to” to move a player. On desktop, you can also drag using the grip.</p>
       <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={onDragStart} onDragEnd={onDragEnd}>
@@ -152,6 +172,7 @@ export function TradeMatrix({
                 result={byTeam[t.abbr]}
                 contracts={contracts}
                 picks={picks[t.abbr] ?? []}
+                pickLookup={pickLookup}
                 freeAgents={freeAgents}
                 projectedRecords={projectedRecords}
               />
@@ -176,6 +197,7 @@ export function TradeMatrix({
       </div>
       <details className="panel optional-analysis"><summary>Trade value &amp; future salaries</summary><div><TradeGrade/><CapSheet/></div></details>
       <PlayerCompare />
+      {reviewFix&&<SuggestedFixReview actions={autoFix} onClose={()=>setReviewFix(false)}/>}
     </div>
   );
 }

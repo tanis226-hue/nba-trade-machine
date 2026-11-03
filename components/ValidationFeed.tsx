@@ -10,7 +10,7 @@ const STYLE: Record<Severity, { color: string; label: string }> = {
   info: { color: 'var(--muted)', label: 'Note' },
 };
 
-function Finding({ f }: { f: TradeFinding }) {
+function Finding({ f, onUseDate }: { f: TradeFinding; onUseDate?: (date: string) => void }) {
   const s = STYLE[f.severity];
   return (
     <li className="flex gap-2 text-[13px] text-[var(--text)]">
@@ -25,8 +25,9 @@ function Finding({ f }: { f: TradeFinding }) {
       <span className="min-w-0">
         <span>{f.message}</span>
         {f.legalOnDate && (
-          <span className="ml-1 font-semibold" style={{ color: STYLE.conditional.color }}>
-            — legal on {f.legalOnDate}
+          <span className="block mt-1" style={{ color: STYLE.conditional.color }}>
+            This restriction ends {f.legalOnDate}.
+            {onUseDate && <button className="route-button ml-1" onClick={() => onUseDate(f.legalOnDate!)}>Check on {f.legalOnDate}</button>}
           </span>
         )}
         {f.fix && <span className="block text-[11px] text-[var(--muted)]">Fix: {f.fix}</span>}
@@ -39,13 +40,15 @@ function Finding({ f }: { f: TradeFinding }) {
 export function ValidationFeed({
   validation,
   fixes = [],
-  onAutoFix,
+  onPreviewFix,
+  onUseDate,
   autoFixCount = 0,
   hideRules = false,
 }: {
   validation: TradeValidation;
   fixes?: FixSuggestion[];
-  onAutoFix?: () => void;
+  onPreviewFix?: () => void;
+  onUseDate?: (date: string) => void;
   autoFixCount?: number;
   hideRules?: boolean;
 }) {
@@ -81,16 +84,16 @@ export function ValidationFeed({
         {blocks.length > 0 && (
         <ul className="space-y-1.5">
           {blocks.slice(0,2).map((f, i) => (
-            <Finding key={`b${i}`} f={f} />
+            <Finding key={`b${i}`} f={f} onUseDate={onUseDate} />
           ))}
         </ul>
       )}
 
-      {blocks.length>2&&<details className="mt-3"><summary className="min-h-10 text-xs font-semibold">{blocks.length-2} more {blocks.length===3?'issue':'issues'} to resolve</summary><ul className="mt-2 space-y-3">{blocks.slice(2).map((f,i)=><Finding key={i} f={f}/>)}</ul></details>}
+      {blocks.length>2&&<details className="mt-3"><summary className="min-h-11 text-xs font-semibold">{blocks.length-2} more {blocks.length===3?'issue':'issues'} to resolve</summary><ul className="mt-2 space-y-3">{blocks.slice(2).map((f,i)=><Finding key={i} f={f} onUseDate={onUseDate}/>)}</ul></details>}
       {notes.length > 0 && (
-        <details className="mt-3 border-t border-[var(--border)] pt-2"><summary className="min-h-10 text-xs font-semibold">{notes.length} {notes.length===1?'note':'notes'} &amp; assumptions</summary><ul className="mt-2 space-y-3">
+        <details className="mt-3 border-t border-[var(--border)] pt-2"><summary className="min-h-11 text-xs font-semibold">{notes.length} {notes.length===1?'note':'notes'} &amp; assumptions</summary><ul className="mt-2 space-y-3">
           {notes.map((f, i) => (
-            <Finding key={`n${i}`} f={f} />
+            <Finding key={`n${i}`} f={f} onUseDate={onUseDate} />
           ))}
         </ul></details>
       )}
@@ -105,18 +108,17 @@ export function ValidationFeed({
 
       {fixes.length > 0 && (
         <details className="mt-2 border-t border-[var(--border)] pt-2">
-          <summary className="min-h-10 text-xs font-semibold">Suggested adjustments</summary>
+          <summary className="min-h-11 text-xs font-semibold">Suggested adjustments</summary>
           <div className="mb-1 flex items-center justify-between gap-2">
             <span className="font-display text-[11px] font-semibold uppercase tracking-wide text-[var(--accent)]">
               Try a change, then recheck
             </span>
-            {onAutoFix && autoFixCount > 0 && (
+            {onPreviewFix && autoFixCount > 0 && (
               <button
-                onClick={onAutoFix}
-                title="Apply the minimal change to make the trade legal"
-                className="rounded-md bg-[var(--accent)] px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--ink)] transition hover:brightness-110"
+                onClick={onPreviewFix}
+                className="ui-button primary"
               >
-                Apply suggested fix
+                Preview suggested changes
               </button>
             )}
           </div>

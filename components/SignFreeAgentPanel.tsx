@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTradeStore } from '@/lib/store/tradeStore';
 import type { FreeAgent } from '@/lib/store/tradeStore';
 
 import type { ToolUsage } from '@/lib/cba/types';
+import { matchesPlayerName } from '@/lib/search';
 
 const m = (n: number) => `$${(n / 1_000_000).toFixed(1)}M`;
 const MIN_SALARY = 2_300_000; // approx 2026-27 vet minimum, used when no prior salary
@@ -39,18 +40,31 @@ export function SignFreeAgentPanel({
   const [salaryM, setSalaryM] = useState('');
   const [restricted, setRestricted] = useState(false);
   const [using, setUsing] = useState('cap_room');
+  const dialogRef=useRef<HTMLDivElement>(null);
+  const searchRef=useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    const previousFocus=document.activeElement as HTMLElement|null;
+    const previousOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    dialogRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if(e.key==='Escape')onClose();
+      if(e.key!=='Tab')return;
+      const nodes=Array.from(dialogRef.current?.querySelectorAll<HTMLElement>(':is(button:not(:disabled),input:not(:disabled),select:not(:disabled),a[href])')??[]);
+      const first=nodes[0],last=nodes.at(-1);
+      if(!first){e.preventDefault();return;}
+      if(e.shiftKey&&(document.activeElement===first||document.activeElement===dialogRef.current)){e.preventDefault();last?.focus();}
+      else if(!e.shiftKey&&(document.activeElement===last||document.activeElement===dialogRef.current)){e.preventDefault();first.focus();}
+    };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    return () => {document.removeEventListener('keydown', onKey);document.body.style.overflow=previousOverflow;previousFocus?.focus({preventScroll:true});};
   }, [onClose]);
 
-  const list = useMemo(() => {
-    const needle = q.trim().toLowerCase();
-    const base = needle ? freeAgents.filter((f) => f.name.toLowerCase().includes(needle)) : freeAgents;
-    return base.slice(0, 80);
-  }, [q, freeAgents]);
+  const matches = useMemo(() => freeAgents.filter(f=>matchesPlayerName(f.name,q)), [q, freeAgents]);
+  const list=matches.slice(0,80);
+  const proposedSalary=Number(salaryM)*1_000_000;
+  const validSalary=salaryM.trim()!==''&&Number.isFinite(proposedSalary)&&proposedSalary>=1&&proposedSalary<=2_000_000_000;
 
   function pick(fa: FreeAgent) {
     setSelected(fa);
@@ -59,9 +73,9 @@ export function SignFreeAgentPanel({
   }
 
   function sign() {
-    if (!selected) return;
-    const salary = Math.max(0, Math.round((parseFloat(salaryM) || 0) * 1_000_000));
-    signFreeAgent(abbr, { ...selected, restricted }, salary || MIN_SALARY);
+    if (!selected||!validSalary) return;
+    const salary = Math.round(proposedSalary);
+    signFreeAgent(abbr, { ...selected, restricted }, salary);
     // Record a hard-cap-triggering exception so the engine derives the team's hard cap / tool blocks.
     const tool = TOOL_FOR[using];
     if (tool) {
@@ -74,6 +88,8 @@ export function SignFreeAgentPanel({
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm" onClick={onClose}>
       <div
+        ref={dialogRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label={`Sign a free agent to ${abbr}`}
@@ -84,30 +100,38 @@ export function SignFreeAgentPanel({
           <span className="font-display text-base font-bold uppercase tracking-[0.08em] text-[var(--ink)]">
             Sign free agent · {abbr}
           </span>
-          <button onClick={onClose} aria-label="Close" className="text-[var(--ink)]/80 transition hover:text-[var(--ink)]">
+          <button onClick={onClose} aria-label="Close" className="min-h-11 min-w-11 text-[var(--ink)]/80 transition hover:text-[var(--ink)]">
             ✕
           </button>
         </div>
 
         <div className="border-b border-[var(--border-soft)] p-3">
+          <label className="mb-1 block text-xs font-medium text-[var(--muted)]" htmlFor={`free-agent-search-${abbr}`}>Search listed free agents across the league</label>
           <input
-            autoFocus
+            ref={searchRef}
+            id={`free-agent-search-${abbr}`}
+            name="free-agent-search"
+            type="search"
+            autoComplete="off"
+            spellCheck={false}
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={`Search ${freeAgents.length} free agents…`}
             className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-[13px] text-[var(--text)] outline-none focus:border-[var(--accent)]"
           />
+          <div className="mt-1 flex items-center justify-between gap-2 text-xs text-[var(--muted)]"><p role="status">{matches.length} {matches.length===1?'match':'matches'}{matches.length>80?' · Showing the first 80; narrow your search.':''}</p>{q&&<button className="route-button min-h-11" aria-label="Clear free-agent search" onClick={()=>{setQ('');searchRef.current?.focus();}}>Clear</button>}</div>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-2 py-1.5">
-          {list.length === 0 && <div className="px-2 py-6 text-center text-[13px] text-[var(--muted)]">No matches.</div>}
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-1.5">
+          {list.length === 0 && <div className="px-2 py-6 text-center text-[13px] text-[var(--muted)]">No listed free agents match “{q}”. Try a last name or clear the search.</div>}
           {list.map((fa) => {
             const active = selected?.playerId === fa.playerId;
             return (
               <button
                 key={fa.playerId}
                 onClick={() => pick(fa)}
-                className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left transition ${
+                aria-pressed={active}
+                className={`flex min-h-11 w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left transition ${
                   active ? 'bg-[var(--accent)]/15 ring-1 ring-[var(--accent)]' : 'hover:bg-[var(--surface-2)]/60'
                 }`}
               >
@@ -141,19 +165,27 @@ export function SignFreeAgentPanel({
             <div className="flex flex-wrap items-center gap-2">
               <span className="num text-[var(--muted)]">$</span>
               <input
+                aria-label="Annual salary in millions of dollars"
+                aria-invalid={!validSalary}
+                aria-describedby={!validSalary?`salary-error-${abbr}`:undefined}
+                name="free-agent-salary"
+                inputMode="decimal"
                 type="number"
-                step="0.1"
-                min="0"
+                step="0.000001"
+                min="0.000001"
+                max="2000"
                 value={salaryM}
                 onChange={(e) => setSalaryM(e.target.value)}
-                className="num w-24 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1 text-[var(--text)] outline-none focus:border-[var(--accent)]"
+                className="num min-h-11 w-24 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1 text-[var(--text)] outline-none focus:border-[var(--accent)]"
               />
               <span className="num text-[var(--muted)]">M / yr</span>
               <select
+                aria-label="Signing method"
+                name="signing-method"
                 value={using}
                 onChange={(e) => setUsing(e.target.value)}
                 title="Exception used to sign. NTMLE / Taxpayer-MLE / BAE hard-cap the team for the season."
-                className="rounded border border-[var(--border)] bg-[var(--surface)] px-1.5 py-1 text-[11px] text-[var(--text)] outline-none"
+                className="min-h-11 rounded border border-[var(--border)] bg-[var(--surface)] px-1.5 py-1 text-[11px] text-[var(--text)] outline-none"
               >
                 {USING_OPTIONS.map(([v, label]) => (
                   <option key={v} value={v}>{label}</option>
@@ -164,7 +196,8 @@ export function SignFreeAgentPanel({
                   <button
                     key={label}
                     onClick={() => setRestricted(val)}
-                    className={`px-2 py-1 transition ${restricted === val ? 'bg-[var(--accent)] text-[var(--ink)]' : 'bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--text)]'}`}
+                    aria-pressed={restricted===val}
+                    className={`min-h-11 min-w-11 px-2 py-1 transition ${restricted === val ? 'bg-[var(--accent)] text-[var(--ink)]' : 'bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--text)]'}`}
                   >
                     {label}
                   </button>
@@ -172,11 +205,13 @@ export function SignFreeAgentPanel({
               </div>
               <button
                 onClick={sign}
-                className="ml-auto rounded-lg bg-[var(--accent)] px-3.5 py-1.5 text-[12px] font-bold uppercase tracking-[0.08em] text-[var(--ink)] transition hover:brightness-110"
+                disabled={!validSalary}
+                className="ml-auto min-h-11 rounded-lg bg-[var(--accent)] px-3.5 py-1.5 text-[12px] font-bold uppercase tracking-[0.08em] text-[var(--ink)] transition hover:brightness-110 disabled:opacity-50"
               >
                 Sign
               </button>
             </div>
+            {!validSalary&&<p id={`salary-error-${abbr}`} role="alert" className="mt-2 text-xs text-[var(--illegal)]">Enter an annual salary from $1 to $2 billion.</p>}
             <p className="mt-2 text-[11px] text-[var(--faint)]">
               Adds {selected.name} to {abbr}&rsquo;s payroll (cap + apron) and roster, where you can keep or trade the
               new contract. {restricted ? 'RFA: framed as an offer sheet / match.' : 'Signed as an unrestricted free agent.'}
